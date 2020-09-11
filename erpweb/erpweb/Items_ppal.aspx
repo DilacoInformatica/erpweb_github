@@ -26,6 +26,10 @@
         .nuevoEstilo1 {
             font-family: Arial;
         }
+        .auto-style11 {
+            width: 177px;
+            text-align: right;
+        }
         </style>
 </head>
 <body>
@@ -40,7 +44,7 @@
         <div>
             <table>
                 <tr class="BottomTabla">
-                    <td colspan ="3">
+                    <td colspan ="5">
                         <strong>Búsqueda Información:</strong></td>
                     
                 </tr>
@@ -52,8 +56,14 @@
                     <td class="auto-style3">
                         <asp:TextBox ID="txt_codigo" runat="server" BackColor="#FFFFCC"></asp:TextBox>
                     </td>
-                    <td class="auto-style3">
+                    <td class="auto-style11">
                         <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" />
+                    </td>
+                    <td class="auto-style11">
+                        <asp:Button ID="Btn_Transpaso_Masivo" runat="server" Text="Transpaso Masivo" OnClick="Btn_Transpaso_Masivo_Click" />
+                    </td>
+                    <td class="auto-style11">
+                        <asp:Button ID="Btn_Cerrar" runat="server" Text="Cerrar Pantalla" />
                     </td>
                 </tr>
                 
@@ -66,12 +76,7 @@
                 <tr>
                     <td class="auto-style6"></td>
                 </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="Btn_Transpaso_Masivo" runat="server" Text="Transpaso Masivo" OnClick="Btn_Transpaso_Masivo_Click" />
-                    </td>
-                </tr>
-            </table>
+                </table>
 
 
         </div>
@@ -96,7 +101,7 @@
             </asp:GridView>
             <br />
         </div>
-        <asp:GridView ID="Productos" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged">
+        <asp:GridView ID="Productos" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
@@ -124,5 +129,11 @@ function myFunction() {
   } else {
     x.style.display = "none";
   }
+}
+
+function salir()
+{
+    if (confirm('Cerrar página, Seguro desea proceder?'))
+    { window.close();}
 }
 </script>

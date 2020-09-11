@@ -151,6 +151,7 @@
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="ClsFTP.cs" />
+    <Compile Include="Cls_Utilitarios.cs" />
     <Compile Include="Detalle_NV.aspx.cs">
       <DependentUpon>Detalle_NV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

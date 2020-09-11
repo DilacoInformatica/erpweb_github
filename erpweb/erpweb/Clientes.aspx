@@ -11,9 +11,6 @@
         .nuevoEstilo1 {
             font-family: Arial, Helvetica, sans-serif;
         }
-        .auto-style3 {
-            width: 65%;
-        }
         .auto-style5 {
             width: 100%;
             height: 354px;
@@ -87,6 +84,9 @@
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:CheckBox ID="Chck_todos" runat="server" OnCheckedChanged="CheckAll" Text="Todos" AutoPostBack="True" />
+                        </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="Chk_elimina" runat="server" />
                         </ItemTemplate>
@@ -142,6 +142,9 @@
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:CheckBox ID="Chck_todoserp" runat="server" OnCheckedChanged="CheckAll2" Text="Todos" AutoPostBack="True" />
+                        </HeaderTemplate>
                         <ItemTemplate>
                             <asp:CheckBox ID="check_selcli" runat="server" />
                         </ItemTemplate>
