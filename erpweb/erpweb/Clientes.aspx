@@ -53,13 +53,12 @@
 <body style="height: 875px">
     <form id="form1" runat="server">
     <div>
-        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web</span></h1></div>
+        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web</span><asp:Label ID="lbl_server" runat="server"></asp:Label>
+            <span class="nuevoEstilo2">
+            <asp:Label ID="lbl_mysql" runat="server"></asp:Label>
+            </span></h1></div>
         <asp:Label ID="lbl_error" runat="server"></asp:Label>
-        <asp:Label ID="lbl_server" runat="server"></asp:Label>
         <br />
-        <span class="nuevoEstilo2">
-        <asp:Label ID="lbl_mysql" runat="server"></asp:Label>
-        </span>
         <table class="auto-style10">
             <tr class="BottomTabla">
                 <td colspan="9">Búsqueda de Clientes en Sitio Web</td>
