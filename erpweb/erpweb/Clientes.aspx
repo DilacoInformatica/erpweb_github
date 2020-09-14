@@ -29,6 +29,7 @@
         }
         .auto-style8 {
             width: 63px;
+            text-align: center;
         }
         .auto-style9 {
             width: 61%;
@@ -54,7 +55,7 @@
         <br />
         <table class="auto-style9">
             <tr class="BottomTabla">
-                <td colspan="7">Búsqueda de Clientes en Sitio Web</td>
+                <td colspan="9">Búsqueda de Clientes en Sitio Web</td>
             </tr>
             <tr>
                 <td>Id</td>
@@ -69,10 +70,15 @@
                 <td>
                     Razón Social</td>
                 <td>
+                    &nbsp;</td>
+                <td>
                     <asp:TextBox ID="txt_razonw" runat="server" Width="375px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
+                <td>
+                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" OnClick="Btn_buscarw_Click" Width="104px"/>
+                </td>
                 <td class="auto-style8">
-                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" OnClick="Btn_buscarw_Click"/>
+                    <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
                 </td>
             </tr>
             
@@ -80,7 +86,7 @@
         <br />
         <br />
         <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px" AllowSorting="True" OnSorting="lista_clientes_Sorting">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -169,3 +175,10 @@
     </form>
 </body>
 </html>
+<script>
+function salir()
+{
+    if (confirm('Cerrar página, Seguro desea proceder?'))
+    { window.close();}
+}
+</script>
