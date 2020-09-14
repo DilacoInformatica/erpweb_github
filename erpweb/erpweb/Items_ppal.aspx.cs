@@ -15,10 +15,10 @@ namespace erpweb
 {
     public partial class Ppal : System.Web.UI.Page
     {
-        string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-        //string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        //string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
-        string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
+       // string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
+        String Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
+        string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+       // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
 
         // FTP
         string server = @"ftp://dev.dilaco.com/";
@@ -35,7 +35,6 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
-                Btn_Cerrar.Attributes["Onclick"] = "return salir();";
                 carga_productos("");
             }
 
@@ -489,6 +488,8 @@ namespace erpweb
             }
         }
 
+       
+
         public Boolean validamysql(string id_item)
         {
             string query = "";
@@ -535,57 +536,5 @@ namespace erpweb
             HtmlControl control = FindControl("resultado") as HtmlControl;
             control.Attributes["style"] = "none"; 
         }
-
-        protected void Productos_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id"); //0
-            dt.Columns.Add("Código");
-            dt.Columns.Add("Descripción");
-            dt.Columns.Add("Visible");
-            dt.Columns.Add("Prod a Pedido");
-            dt.Columns.Add("Venta"); // 6
-            dt.Columns.Add("Marca");
-            dt.Columns.Add("Manual técnico");
-            dt.Columns.Add("Presentación");
-            dt.Columns.Add("Foto");
-            dt.Columns.Add("Foto Grande");
-            dt.Columns.Add("Video");
-            dt.Columns.Add("Hoja Seguridad"); // 12
-
-            foreach (GridViewRow gvr in Productos.Rows)
-            {
-                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text, gvr.Cells[3].Text, gvr.Cells[4].Text, gvr.Cells[5].Text, gvr.Cells[6].Text, gvr.Cells[7].Text, gvr.Cells[8].Text, gvr.Cells[9].Text, gvr.Cells[10].Text, gvr.Cells[11].Text, gvr.Cells[12].Text, gvr.Cells[13].Text); 
-            }
-
-            if (dt != null)
-            {
-                DataView dataView = new DataView(dt);
-                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
-
-                Productos.DataSource = dataView;
-                Productos.DataBind();
-            }
-        }
-
-        private string ConvertSortDirectionToSql(SortDirection sortDirection)
-        {
-            string newSortDirection = String.Empty;
-
-            switch (sortDirection)
-            {
-                case SortDirection.Ascending:
-                    newSortDirection = "ASC";
-                    break;
-
-                case SortDirection.Descending:
-                    newSortDirection = "DESC";
-                    break;
-            }
-
-            return newSortDirection;
-        }
-
-     
     }
 }

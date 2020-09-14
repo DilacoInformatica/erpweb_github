@@ -15,9 +15,7 @@ namespace erpweb
         //string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
         string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
         string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Local
-        //string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion Server Local
-
-        Cls_Utilitarios utiles = new Cls_Utilitarios();
+       // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion Server Local
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -157,7 +155,7 @@ namespace erpweb
             Page.Validate();
             if (Page.IsValid)
             {
-                queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut 'Dv', Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
+                queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut, Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
                 queryString = queryString + "FROM dbo.tbl_Clientes cl ";
                 queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Sucursales_Clientes sc ON cl.ID_Cliente = sc.Id_Cliente  and sc.Sucursal_Principal = 1 ";
                 queryString = queryString + "left join dbo.tbl_Riesgo ON cl.Id_Riesgo = tbl_Riesgo.Id_Riesgo ";
@@ -212,6 +210,7 @@ namespace erpweb
                 }
             }
         }
+
         protected void Btn_cargarCliERP_Click(object sender, EventArgs e)
         {
             Page.Validate();
@@ -284,19 +283,19 @@ namespace erpweb
             lbl_error.Text = "";
             queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
             queryString = queryString + "tbl_clientes.Rut, ";
-            queryString = queryString + "tbl_clientes.Dv_Rut 'Dv', ";
-            queryString = queryString + "tbl_clientes.Razon_Social 'Razón Social', ";
-            queryString = queryString + "tbl_clientes.Telefonos 'Teléfono', ";
-            queryString = queryString + "tbl_clientes.Telefonos2 'Teléfono', ";
-            queryString = queryString + "tbl_clientes.Direccion 'Dirección', ";
+            queryString = queryString + "tbl_clientes.Dv_Rut, ";
+            queryString = queryString + "tbl_clientes.Razon_Social, ";
+            queryString = queryString + "tbl_clientes.Telefonos, ";
+            queryString = queryString + "tbl_clientes.Telefonos2, ";
+            queryString = queryString + "tbl_clientes.Direccion, ";
             queryString = queryString + "tbl_clientes.Ciudad, ";
             queryString = queryString + "tbl_clientes.Comuna, ";
             queryString = queryString + "tbl_clientes.Id_region 'Región', ";
             queryString = queryString + "tbl_clientes.Giro, ";
             queryString = queryString + "tbl_clientes.URL, ";
-            queryString = queryString + "tbl_clientes.Email ";
-            //queryString = queryString + "tbl_clientes.leido_erp, ";
-            //queryString = queryString + "tbl_clientes.cliente_erp ";
+            queryString = queryString + "tbl_clientes.Email, ";
+            queryString = queryString + "tbl_clientes.leido_erp, ";
+            queryString = queryString + "tbl_clientes.cliente_erp ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
             queryString = queryString + "WHERE 1 = 1 ";
 
@@ -342,38 +341,5 @@ namespace erpweb
                 }
             }
         }
-
-
-        protected void CheckAll(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)lista_clientes.HeaderRow.FindControl("Chck_todos");
-            //selecciona_todos(chckheader, "Chck_todos", lista_clientes, "Chk_elimina");
-        }
-
-        protected void CheckAll2(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)ClientesERP.HeaderRow.FindControl("Chck_todoserp");
-            //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
-        }
-
-       /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
-        {
-           // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);
-            foreach (GridViewRow row in grilla.Rows)
-            {
-                //CheckBox chckrw = (CheckBox)row.FindControl("Chk_elimina");
-                CheckBox check = row.FindControl(buscador) as CheckBox;
-                if (cabecera.Checked)
-                {
-                    check.Checked = true;
-                }
-                else
-                {
-                    check.Checked = false;
-                }
-
-            }
-        }*/
-
     }
 }
