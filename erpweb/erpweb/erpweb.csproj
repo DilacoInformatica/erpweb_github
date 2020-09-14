@@ -105,11 +105,9 @@
   <ItemGroup>
     <Content Include="Clientes.aspx" />
     <Content Include="css\estilos.css" />
-    <Content Include="Detalle_NV.aspx" />
     <Content Include="img\adjuntarTH.gif" />
     <Content Include="img\adjuntarTH_off.gif" />
     <Content Include="img\cancela.gif" />
-    <Content Include="img\cerrar.png" />
     <Content Include="img\mas.jpg" />
     <Content Include="Notas_Venta.aspx" />
     <Content Include="packages.config" />
@@ -152,14 +150,6 @@
       <DependentUpon>Clientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="ClsFTP.cs" />
-    <Compile Include="Cls_Utilitarios.cs" />
-    <Compile Include="Detalle_NV.aspx.cs">
-      <DependentUpon>Detalle_NV.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Detalle_NV.aspx.designer.cs">
-      <DependentUpon>Detalle_NV.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Items_detalle.aspx.cs">
       <DependentUpon>Items_detalle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

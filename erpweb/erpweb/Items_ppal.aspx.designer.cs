@@ -58,15 +58,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_Transpaso_Masivo;
         
         /// <summary>
-        /// Control Btn_Cerrar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_Cerrar;
-        
-        /// <summary>
         /// Control lbl_error.
         /// </summary>
         /// <remarks>
