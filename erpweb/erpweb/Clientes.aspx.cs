@@ -272,7 +272,7 @@ namespace erpweb
                     }
                 }
                 // recargamos los clientes web
-                lista_clientes_web();
+              //  lista_clientes_web();
             }
         }
 
