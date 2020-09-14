@@ -31,6 +31,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
+        /// Control lbl_server.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_server;
+        
+        /// <summary>
+        /// Control lbl_mysql.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_mysql;
+        
+        /// <summary>
         /// Control txt_idw.
         /// </summary>
         /// <remarks>

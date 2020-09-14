@@ -23,6 +23,8 @@ namespace erpweb
                 ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
                 lista_clientes_web();
             }
+           lbl_server.Text =   Sserver;
+          lbl_mensaje.Text = SMysql;
         }
 
 
