@@ -21,6 +21,7 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
+                ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
                 // Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
                 carga_nv();
             }
@@ -104,6 +105,53 @@ namespace erpweb
         {
             GridViewRow row = Lista_notas.SelectedRow;
             Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text);
+        }
+
+        protected void Lista_notas_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Nota Venta"); //0
+            dt.Columns.Add("fecha");
+            dt.Columns.Add("Id");
+            dt.Columns.Add("Rut");
+            dt.Columns.Add("Razón Social");
+            dt.Columns.Add("Neto"); // 6
+            dt.Columns.Add("IVA");
+            dt.Columns.Add("Total");
+            dt.Columns.Add("N° Transac.Webpay");
+                                      
+
+            foreach (GridViewRow gvr in Lista_notas.Rows)
+            {
+                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text, gvr.Cells[3].Text, gvr.Cells[4].Text, gvr.Cells[5].Text, gvr.Cells[6].Text, gvr.Cells[7].Text, gvr.Cells[8].Text, gvr.Cells[9].Text);
+            }
+
+            if (dt != null)
+            {
+                DataView dataView = new DataView(dt);
+                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
+
+                Lista_notas.DataSource = dataView;
+                Lista_notas.DataBind();
+            }
+        }
+
+        private string ConvertSortDirectionToSql(SortDirection sortDirection)
+        {
+            string newSortDirection = String.Empty;
+
+            switch (sortDirection)
+            {
+                case SortDirection.Ascending:
+                    newSortDirection = "ASC";
+                    break;
+
+                case SortDirection.Descending:
+                    newSortDirection = "DESC";
+                    break;
+            }
+
+            return newSortDirection;
         }
     }
 }

@@ -26,6 +26,8 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
+               
+                
                 carga_vendedores();
                 muestra_info_nv(id_nv);
             }

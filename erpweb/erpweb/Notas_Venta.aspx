@@ -13,6 +13,7 @@
         }
         .auto-style8 {
             width: 61px;
+            text-align: center;
         }
         .auto-style34 {
             width: 141px;
@@ -43,7 +44,7 @@
        <br />
                 <table class="auto-style9">
             <tr class="BottomTabla">
-                <td colspan="5"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
+                <td colspan="6"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
             </tr>
             <tr>
                 <td class="auto-style34">Nota de Venta</td>
@@ -52,20 +53,20 @@
                 </td>
                 <td class="auto-style32">
                     Rut Cliente</td>
-                <td>
+                <td class="auto-style32">
                     <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
+                <td>
+                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="107px" OnClick="Btn_buscar_Click"/>
+                </td>
                 <td class="auto-style8">
-                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click"/>
+                    <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" ToolTip="Cerrar Ventana" />
                 </td>
             </tr>
             
         </table>
-         <p>
-             <asp:Label ID="lbl_error" runat="server"></asp:Label>
-        </p>
     <p>
-        <asp:GridView ID="Lista_notas" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged">
+        <asp:GridView ID="Lista_notas" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" AllowSorting="True" OnSorting="Lista_notas_Sorting">
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -79,9 +80,17 @@
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
         <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
+             <asp:Label ID="lbl_error" runat="server"></asp:Label>
         </p>
     </div>
     </form>
    
 </body>
 </html>
+<script>
+function salir()
+{
+    if (confirm('Cerrar página, Seguro desea proceder?'))
+    { window.close();}
+}
+</script>

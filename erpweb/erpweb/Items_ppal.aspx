@@ -63,7 +63,7 @@
                         <asp:Button ID="Btn_Transpaso_Masivo" runat="server" Text="Transpaso Masivo" OnClick="Btn_Transpaso_Masivo_Click" />
                     </td>
                     <td class="auto-style11">
-                        <asp:Button ID="Btn_Cerrar" runat="server" Text="Cerrar Pantalla" />
+                        <asp:Button ID="Btn_Cerrar" runat="server" Text="Cerrar Pantalla" OnClick="Btn_Cerrar_Click1" />
                     </td>
                 </tr>
                 

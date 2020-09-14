@@ -558,8 +558,6 @@ namespace erpweb
                 dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text, gvr.Cells[3].Text, gvr.Cells[4].Text, gvr.Cells[5].Text, gvr.Cells[6].Text, gvr.Cells[7].Text, gvr.Cells[8].Text, gvr.Cells[9].Text, gvr.Cells[10].Text, gvr.Cells[11].Text, gvr.Cells[12].Text, gvr.Cells[13].Text); 
             }
 
-
-
             if (dt != null)
             {
                 DataView dataView = new DataView(dt);
@@ -588,6 +586,6 @@ namespace erpweb
             return newSortDirection;
         }
 
-
+     
     }
 }
