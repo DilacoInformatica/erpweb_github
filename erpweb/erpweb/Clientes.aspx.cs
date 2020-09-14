@@ -46,7 +46,7 @@ namespace erpweb
             queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp  ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
 
-            using (MySqlConnection conn = new MySqlConnection(@"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"))
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
                 {
@@ -69,7 +69,7 @@ namespace erpweb
                 }
                 catch (Exception ex)
                 {
-                    lbl_error.Text = ex.Message;
+                    lbl_error.Text = ex.Message + queryString;
                     conn.Close();
                     conn.Dispose();
                 }
