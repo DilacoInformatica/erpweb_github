@@ -23,8 +23,6 @@ namespace erpweb
                 ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
                 lista_clientes_web();
             }
-           lbl_server.Text =   Sserver;
-          lbl_mensaje.Text = SMysql;
         }
 
 
@@ -48,7 +46,7 @@ namespace erpweb
             queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp  ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
 
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            using (MySqlConnection conn = new MySqlConnection(@"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"))
             {
                 try
                 {
