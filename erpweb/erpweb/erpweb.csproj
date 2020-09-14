@@ -119,7 +119,7 @@
     <None Include="scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Precios_Esp_Adm.aspx" />
     <Content Include="Precios_Esp_Pub.aspx" />
-    <Content Include="Prueba.aspx" />
+    <Content Include="Adm_Clientes.aspx" />
     <Content Include="scripts\jquery-3.5.1.js" />
     <Content Include="scripts\jquery-3.5.1.min.js" />
     <Content Include="scripts\jquery-3.5.1.slim.js" />
@@ -197,12 +197,12 @@
       <DependentUpon>Precios_Esp_Pub.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Prueba.aspx.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
+    <Compile Include="Adm_Clientes.aspx.cs">
+      <DependentUpon>Adm_Clientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Prueba.aspx.designer.cs">
-      <DependentUpon>Prueba.aspx</DependentUpon>
+    <Compile Include="Adm_Clientes.aspx.designer.cs">
+      <DependentUpon>Adm_Clientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Stock.aspx.cs">
       <DependentUpon>Stock.aspx</DependentUpon>
