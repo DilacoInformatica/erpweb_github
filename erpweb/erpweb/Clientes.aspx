@@ -11,9 +11,6 @@
         .nuevoEstilo1 {
             font-family: Arial, Helvetica, sans-serif;
         }
-        .auto-style3 {
-            width: 65%;
-        }
         .auto-style5 {
             width: 100%;
             height: 354px;
@@ -37,6 +34,9 @@
         .auto-style9 {
             width: 61%;
         }
+        .auto-style10 {
+            width: 67%;
+        }
     </style>
     <script>
         function valida()
@@ -56,7 +56,7 @@
         <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web</span></h1></div>
         <asp:Label ID="lbl_error" runat="server"></asp:Label>
         <br />
-        <table class="auto-style9">
+        <table class="auto-style10">
             <tr class="BottomTabla">
                 <td colspan="9">Búsqueda de Clientes en Sitio Web</td>
             </tr>
