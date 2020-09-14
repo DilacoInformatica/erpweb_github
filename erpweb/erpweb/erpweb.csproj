@@ -109,6 +109,7 @@
     <Content Include="img\adjuntarTH.gif" />
     <Content Include="img\adjuntarTH_off.gif" />
     <Content Include="img\cancela.gif" />
+    <Content Include="img\cerrar.png" />
     <Content Include="img\mas.jpg" />
     <Content Include="Notas_Venta.aspx" />
     <Content Include="packages.config" />

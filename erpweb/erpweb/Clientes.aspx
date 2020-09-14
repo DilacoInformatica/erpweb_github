@@ -89,7 +89,7 @@
         <br />
         <br />
         <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px" AllowSorting="True" OnSorting="lista_clientes_Sorting">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -173,9 +173,8 @@
 </body>
 </html>
 <script>
-function salir()
-{
-    if (confirm('Cerrar página, Seguro desea proceder?'))
-    { window.close();}
-}
+    function salir() {
+        if (confirm('Cerrar página, Seguro desea proceder?'))
+        { window.close(); }
+    }
 </script>
