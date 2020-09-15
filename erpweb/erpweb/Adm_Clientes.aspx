@@ -13,7 +13,7 @@
         }
         .auto-style5 {
             width: 100%;
-            height: 354px;
+            height: 321px;
             overflow: scroll;
         }
         .auto-style6 {
@@ -31,13 +31,16 @@
             width: 63px;
             text-align: center;
         }
-        .auto-style9 {
-            width: 61%;
-        }
         .auto-style10 {
-            width: 67%;
+            width: 85%;
         }
-    </style>
+        .auto-style11 {
+            width: 69px;
+        }
+        .auto-style12 {
+            height: 101%;
+        }
+        </style>
     <script>
         function valida()
         {
@@ -51,14 +54,14 @@
     </script>
 </head>
 <body style="height: 875px">
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="auto-style12">
     <div>
         <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web</span></h1></div>
         <asp:Label ID="lbl_error" runat="server"></asp:Label>
         <br />
         <table class="auto-style10">
             <tr class="BottomTabla">
-                <td colspan="9">Búsqueda de Clientes en Sitio Web</td>
+                <td colspan="10">Búsqueda de Clientes en Sitio Web</td>
             </tr>
             <tr>
                 <td>Id</td>
@@ -78,7 +81,10 @@
                     <asp:TextBox ID="txt_razonw" runat="server" Width="375px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" OnClick="Btn_buscarw_Click" Width="104px"/>
+                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="115px"/>
+                </td>
+                <td class="auto-style8">
+        <asp:Button ID="Btn_eliminaCLIWEB" runat="server" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="242px" />
                 </td>
                 <td class="auto-style8">
                     <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
@@ -89,7 +95,7 @@
         <br />
         <br />
         <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -114,13 +120,11 @@
         </div>
         <asp:Label ID="lbl_status" runat="server"></asp:Label>
         <br />
-        <asp:Button ID="Btn_eliminaCLIWEB" runat="server" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" />
         <br />
         <br />
-        <br />
-        <table class="auto-style9">
+        <table class="auto-style10">
             <tr class="BottomTabla">
-                <td colspan="7">Búsqueda de Clientes en ERP</td>
+                <td colspan="8">Búsqueda de Clientes en ERP</td>
             </tr>
             <tr>
                 <td>Id</td>
@@ -138,13 +142,17 @@
                     <asp:TextBox ID="txt_razon" runat="server" Width="375px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
                 <td>
-                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" OnClick="Btn_buscar_Click" />
+                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="115px" />
+                </td>
+                <td class="auto-style11">
+                    <asp:Button ID="Btn_cargarCliERP" runat="server" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Width="242px" />
+     
                 </td>
             </tr>
             </table>
         <br />
         <div class="auto-style6">
-            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="137px" Width="1376px">
+            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>
@@ -166,8 +174,6 @@
             </asp:GridView>
             <asp:Label ID="lbl_resultados" runat="server"></asp:Label>
         </div>
-        <p>
-        </p><asp:Button ID="Btn_cargarCliERP" runat="server" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Visible="False" />
      
     </form>
 </body>

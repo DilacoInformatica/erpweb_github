@@ -67,6 +67,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_buscarw;
         
         /// <summary>
+        /// Control Btn_eliminaCLIWEB.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btn_eliminaCLIWEB;
+        
+        /// <summary>
         /// Control ImgBtn_Cerrar.
         /// </summary>
         /// <remarks>
@@ -101,15 +110,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_status;
-        
-        /// <summary>
-        /// Control Btn_eliminaCLIWEB.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_eliminaCLIWEB;
         
         /// <summary>
         /// Control txt_id.
@@ -148,6 +148,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_buscar;
         
         /// <summary>
+        /// Control Btn_cargarCliERP.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btn_cargarCliERP;
+        
+        /// <summary>
         /// Control ClientesERP.
         /// </summary>
         /// <remarks>
@@ -164,14 +173,5 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_resultados;
-        
-        /// <summary>
-        /// Control Btn_cargarCliERP.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_cargarCliERP;
     }
 }
