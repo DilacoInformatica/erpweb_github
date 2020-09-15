@@ -615,11 +615,38 @@ namespace erpweb
                             query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE id_cliente = " + Convert.ToInt32(row.Cells[1].Text);
                             try
                             {
-                                conn.Open();
+
+                               /* conn.Open();
                                 MySqlCommand command = new MySqlCommand(query, conn);
                                 command.ExecuteNonQuery();
                                 conn.Close();
                                 conn.Dispose();
+                                lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";*/
+                                
+
+                                conn.Open();
+                                query = "elimina_cliente";
+                                MySqlCommand command = new MySqlCommand(query, conn);
+                                command.CommandType = CommandType.StoredProcedure;
+
+                                command.Parameters.AddWithValue("@v_Id_cliente", Convert.ToInt32(row.Cells[1].Text));
+                                command.Parameters["@v_Id_cliente"].Direction = ParameterDirection.Input;
+                                
+                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                                MySqlDataReader dr = command.ExecuteReader();
+
+                                while (dr.Read())
+                                {
+                                    if (!dr.IsDBNull(0))
+                                    {
+                                        lbl_status.Text = dr.GetString(0);
+                                    }
+                                }
+
+                                conn.Close();
+                                conn.Dispose();
+                                lbl_error.Text = "";
+
                                 lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";
                                 lista_clientes.DataSource = null;
                                 lista_clientes.DataBind();
