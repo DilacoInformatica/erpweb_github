@@ -718,6 +718,121 @@ namespace erpweb
             //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
         }
 
+        protected void lista_clientes_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id"); //0
+            dt.Columns.Add("Rut");
+            dt.Columns.Add("Dv_Rut");
+            dt.Columns.Add("Razon_Social");
+            dt.Columns.Add("Telefonos");
+            dt.Columns.Add("Telefonos2");
+            dt.Columns.Add("Direccion"); // 6
+            dt.Columns.Add("Ciudad");
+            dt.Columns.Add("Comuna");
+            dt.Columns.Add("Id_region");
+            dt.Columns.Add("Giro");
+            dt.Columns.Add("URL");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("leido_erp");
+            dt.Columns.Add("cliente_erp");
+            // 12
+
+            foreach (GridViewRow gvr in lista_clientes.Rows)
+            {
+                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text,
+                gvr.Cells[3].Text.Replace("&nbsp;", ""), gvr.Cells[4].Text.Replace("&nbsp;", ""), gvr.Cells[5].Text.Replace("&nbsp;", ""),
+                gvr.Cells[6].Text.Replace("&nbsp;", ""), gvr.Cells[7].Text.Replace("&nbsp;", ""), gvr.Cells[8].Text.Replace("&nbsp;", ""),
+                gvr.Cells[9].Text.Replace("&nbsp;", ""), gvr.Cells[10].Text.Replace("&nbsp;", ""), gvr.Cells[11].Text.Replace("&nbsp;", ""),
+                gvr.Cells[12].Text.Replace("&nbsp;", ""), gvr.Cells[13].Text.Replace("&nbsp;", ""), gvr.Cells[14].Text.Replace("&nbsp;", ""));
+            }
+
+
+
+            if (dt != null)
+            {
+                DataView dataView = new DataView(dt);
+                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
+
+                lista_clientes.DataSource = dataView;
+                lista_clientes.DataBind();
+            }
+        }
+
+      
+
+        protected void ClientesERP_Sorting(object sender, GridViewSortEventArgs e)
+        {
+
+
+            /* queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut 'Dv', Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
+                queryString = queryString + "FROM dbo.tbl_Clientes cl ";
+                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Sucursales_Clientes sc ON cl.ID_Cliente = sc.Id_Cliente  and sc.Sucursal_Principal = 1 ";
+                queryString = queryString + "left join dbo.tbl_Riesgo ON cl.Id_Riesgo = tbl_Riesgo.Id_Riesgo ";
+                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Vendedor_cliente ON cl.ID_Cliente = tbl_Vendedor_cliente.id_Cliente ";
+                queryString = queryString + "LEFT OUTER JOIN dbo.vis_clientes_lv vc on vc.id_cliente = cl.ID_Cliente ";
+                queryString = queryString + "LEFT OUTER JOIN tbl_Regiones rr on rr.ID_Region = sc.Id_Region ";
+                queryString = queryString + "WHERE(cl.Es_Cliente = 1) ";
+                queryString = queryString + "and isnull(cl.Activo, 0) = 1 ";
+                queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
+    ClientesERP */ 
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id"); //0
+            dt.Columns.Add("Rut");
+            dt.Columns.Add("DV");
+            dt.Columns.Add("Razón Social");
+            dt.Columns.Add("Teléfono");
+            dt.Columns.Add("Teléfono2");
+            dt.Columns.Add("Dirección"); // 6
+            dt.Columns.Add("Comuna");
+            dt.Columns.Add("Ciudad");
+            dt.Columns.Add("Region");
+            dt.Columns.Add("Email");
+  
+            // 12
+
+            foreach (GridViewRow gvr in ClientesERP.Rows)
+            {
+                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text,
+                gvr.Cells[3].Text.Replace("&nbsp;", ""), gvr.Cells[4].Text.Replace("&nbsp;", ""), gvr.Cells[5].Text.Replace("&nbsp;", ""),
+                gvr.Cells[6].Text.Replace("&nbsp;", ""), gvr.Cells[7].Text.Replace("&nbsp;", ""), gvr.Cells[8].Text.Replace("&nbsp;", ""),
+                gvr.Cells[9].Text.Replace("&nbsp;", ""), gvr.Cells[10].Text.Replace("&nbsp;", ""));
+            }
+
+
+
+            if (dt != null)
+            {
+                DataView dataView = new DataView(dt);
+                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
+
+                ClientesERP.DataSource = dataView;
+                ClientesERP.DataBind();
+            }
+        }
+
+        private string ConvertSortDirectionToSql(SortDirection sortDirection)
+        {
+            string newSortDirection = String.Empty;
+
+            switch (sortDirection)
+            {
+                case SortDirection.Ascending:
+                    newSortDirection = "ASC";
+                    break;
+
+                case SortDirection.Descending:
+                    newSortDirection = "DESC";
+                    break;
+            }
+
+            return newSortDirection;
+        }
+
+
+       
+
         /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
          {
             // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);

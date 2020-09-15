@@ -95,7 +95,7 @@
         <br />
         <br />
         <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="lista_clientes_Sorting">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -152,7 +152,7 @@
             </table>
         <br />
         <div class="auto-style6">
-            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px">
+            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="ClientesERP_Sorting">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>
