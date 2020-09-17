@@ -536,7 +536,7 @@ namespace erpweb
                                 {
                                     if (!rdr.IsDBNull(0))
                                     {
-                                        lbl_status.Text = rdr.GetInt32(0).ToString();
+                                        v_id_nta_vta = rdr.GetInt32(0);
                                     }
                                 }
                             }
@@ -553,7 +553,7 @@ namespace erpweb
                             connection.Close();
                         }
                     }
-
+                   // v_id_nta_vta = Convert.ToInt32(lbl_status.Text);
                     // Si la inserción de la cabecera resultó correcta (regresa Id de la Nueva NV... insertamos el detalle de la misma
                     if (v_id_nta_vta > 0)
                     {
@@ -566,6 +566,11 @@ namespace erpweb
                                 {
                                     try
                                     {
+                                        int v_id_item = Convert.ToInt32(fila.Cells[0].Tex)t;
+                                        string v_codigo = fila.Cells[1].Text;
+                                        string v_descrip = fila.Cells[2].Text;
+                                        double v_cantidad = Convert.ToInt32(fila.Cells[3].Text);
+                                        double v_precio_unitario = Convert.ToInt32(fila.Cells[4].Text);
                                         connection.Open();
                                         SqlCommand cmd = new SqlCommand("web_carga_nv_det_web", connection);
                                         cmd.CommandType = CommandType.StoredProcedure;
@@ -574,19 +579,19 @@ namespace erpweb
                                         cmd.Parameters.AddWithValue("@v_id_nv", v_id_nta_vta);
                                         cmd.Parameters["@v_id_nv"].Direction = ParameterDirection.Input;
 
-                                        cmd.Parameters.AddWithValue("@v_item", fila.Cells[1].ToString());
+                                        cmd.Parameters.AddWithValue("@v_item", v_id_item);
                                         cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
 
-                                        cmd.Parameters.AddWithValue("@v_codigo", fila.Cells[2].ToString());
+                                        cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
                                         cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
 
-                                        cmd.Parameters.AddWithValue("@v_descripcion", fila.Cells[3].ToString());
+                                        cmd.Parameters.AddWithValue("@v_descripcion", v_descrip);
                                         cmd.Parameters["@v_descripcion"].Direction = ParameterDirection.Input;
 
-                                        cmd.Parameters.AddWithValue("@v_cantidad", Convert.ToDouble(fila.Cells[4].ToString())); 
+                                        cmd.Parameters.AddWithValue("@v_cantidad", v_cantidad); 
                                         cmd.Parameters["@v_cantidad"].Direction = ParameterDirection.Input;
 
-                                        cmd.Parameters.AddWithValue("@v_precio_unitario", Convert.ToDouble(fila.Cells[5].ToString())); 
+                                        cmd.Parameters.AddWithValue("@v_precio_unitario", v_precio_unitario); 
                                         cmd.Parameters["@v_precio_unitario"].Direction = ParameterDirection.Input;
 
 
@@ -616,7 +621,7 @@ namespace erpweb
                             }
                         }
                     }
-                    if (v_id_nta_vta > 0)
+                    if (v_id_nta_vta > 0 || lbl_error.Text == "")
                     {
                         actualiza_NV(Convert.ToInt32(lbl_numero.Text));
                         entrega_num_nv_erp(v_id_nta_vta);
