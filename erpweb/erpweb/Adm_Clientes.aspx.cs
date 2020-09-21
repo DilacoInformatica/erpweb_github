@@ -28,11 +28,12 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER", validador);
             SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            Btn_buscar.Attributes["Onclick"] = "return valida()";
+            Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
+            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+
             if (!this.IsPostBack)
             {
-                Btn_buscar.Attributes["Onclick"] = "return valida()";
-                Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
-                ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
                 lista_clientes_web();
             }
         }
