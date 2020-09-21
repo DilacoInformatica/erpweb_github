@@ -30,9 +30,6 @@
             width: 35px;
             text-align: center;
         }
-        .auto-style12 {
-            width: 35px;
-        }
         </style>
 </head>
 <body>
@@ -47,14 +44,8 @@
         <div>
             <table>
                 <tr class="BottomTabla">
-                    <td colspan ="3">
+                    <td colspan ="6">
                         <strong>Búsqueda Información:</strong></td>
-                    
-                    <td>
-                        &nbsp;</td>
-                    
-                    <td class="auto-style12">
-                        &nbsp;</td>
                     
                 </tr>
                 
@@ -72,7 +63,10 @@
                         <asp:Button ID="Btn_Transpaso_Masivo" runat="server" Text="Transpaso Masivo" OnClick="Btn_Transpaso_Masivo_Click" />
                     </td>
                     <td class="auto-style11">
-                        <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" />
+            <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" />
+                    </td>
+                    <td class="auto-style11">
+                        <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png"/>
                     </td>
                 </tr>
                 
@@ -83,23 +77,20 @@
 
             <table class="auto-style5">
                 <tr>
-                    <td class="auto-style6"></td>
+                    <td class="auto-style6">
+                        <asp:Label ID="lbl_cantidad" runat="server"></asp:Label>
+                    </td>
                 </tr>
-                <tr>
-                    <td>
-                        &nbsp;</td>
-                </tr>
-            </table>
+                </table>
 
 
         </div>
         <p>
             <asp:Label ID="lbl_error" runat="server"></asp:Label>
-            <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" />
         </p>
 
         <div id="resultado" style="display:block">
-            <asp:GridView ID="GridResultados" runat="server" Caption="Resultados" CellPadding="4" ForeColor="#333333" GridLines="None" Visible="False">
+            <asp:GridView ID="GridResultados" runat="server" Caption="Resultados" CellPadding="4" ForeColor="#333333" GridLines="None" Visible="False" ShowFooter="True" ShowHeaderWhenEmpty="True">
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -114,7 +105,7 @@
             </asp:GridView>
             <br />
         </div>
-        <asp:GridView ID="Productos" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting">
+        <asp:GridView ID="Productos" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True">
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:CommandField SelectText="Ver" ShowSelectButton="True" />

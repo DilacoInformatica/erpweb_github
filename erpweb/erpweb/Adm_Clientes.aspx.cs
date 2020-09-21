@@ -845,7 +845,6 @@ namespace erpweb
         }
 
 
-       
 
         /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
          {

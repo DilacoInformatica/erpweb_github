@@ -16,8 +16,6 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
 
-        
-
         int id_nv = 0;
         int v_id_nta_vta = 0;
         int v_id_cliente = 0;
@@ -622,7 +620,7 @@ namespace erpweb
                             }
                         }
                     }
-                    if (v_id_nta_vta > 0 || v_id_item_nta_vta > 0 || lbl_error.Text == "")
+                    if (v_id_nta_vta > 0 && v_id_item_nta_vta > 0 && lbl_error.Text == "")
                     {
                         actualiza_NV(Convert.ToInt32(lbl_numero.Text));
                         entrega_num_nv_erp(v_id_nta_vta);
@@ -638,7 +636,7 @@ namespace erpweb
         void entrega_num_nv_erp(int v_id_nta_vta)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
-            sql = "select Nta_Vta_Num from tbl_Nota_Venta where ID_Nta_Vta = " + v_id_nta_vta;
+            sql = "select distinct Nta_Vta_Num from tbl_Nota_Venta where ID_Nta_Vta = " + v_id_nta_vta;
             
             using (SqlConnection connection = new SqlConnection(Sserver))
             {

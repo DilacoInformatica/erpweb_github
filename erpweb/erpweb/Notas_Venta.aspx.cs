@@ -15,7 +15,7 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
+        int validador = 2; // Indica el ambiente dónde debe conectarse el sistema
 
         protected void Page_Load(object sender, EventArgs e)
         {

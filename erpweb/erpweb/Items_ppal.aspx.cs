@@ -15,10 +15,10 @@ namespace erpweb
 {
     public partial class Ppal : System.Web.UI.Page
     {
-        //string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-        string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
-       // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
+        string Sserver = "";
+        string SMysql = "";
+        Cls_Utilitarios utiles = new Cls_Utilitarios();
+        int validador =2 ; // Indica el ambiente dónde debe conectarse el sistema
 
         // FTP
         string server = @"ftp://dev.dilaco.com/";
@@ -27,16 +27,14 @@ namespace erpweb
 
         DataTable lista_errores = new DataTable();
        
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Sserver = utiles.verifica_ambiente("SSERVER", validador);
+            SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
             if (!this.IsPostBack)
             {
-                
-                Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
-                ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
                 carga_productos("");
             }
 
@@ -79,6 +77,10 @@ namespace erpweb
                 Productos.DataSource = ds;
                 Productos.DataBind();
                 Productos.DataMember = "tbl_items_web_table";
+                
+   
+
+                lbl_cantidad.Text ="Cantidad de Registros: " + Convert.ToString(Productos.Rows.Count);
             }
         }
 
@@ -594,5 +596,6 @@ namespace erpweb
 
             return newSortDirection;
         }
+
     }
 }

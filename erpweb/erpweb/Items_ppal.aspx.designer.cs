@@ -58,6 +58,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_Transpaso_Masivo;
         
         /// <summary>
+        /// Control Excel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton Excel;
+        
+        /// <summary>
         /// Control ImgBtn_Cerrar.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton ImgBtn_Cerrar;
         
         /// <summary>
+        /// Control lbl_cantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_cantidad;
+        
+        /// <summary>
         /// Control lbl_error.
         /// </summary>
         /// <remarks>
@@ -74,15 +92,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_error;
-        
-        /// <summary>
-        /// Control Excel.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Excel;
         
         /// <summary>
         /// Control GridResultados.

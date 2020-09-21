@@ -95,7 +95,7 @@
         <br />
         <br />
         <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="lista_clientes_Sorting">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="lista_clientes_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="No hay resultados">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -104,6 +104,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+               
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -114,6 +115,9 @@
                 <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                  <EmptyDataTemplate>
+                      <asp:Label ID="lbl_registros" runat="server"></asp:Label>
+            </EmptyDataTemplate>
             </asp:GridView>
             <br />
             <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
@@ -152,7 +156,7 @@
             </table>
         <br />
         <div class="auto-style6">
-            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="ClientesERP_Sorting">
+            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="ClientesERP_Sorting" ShowFooter="True">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>

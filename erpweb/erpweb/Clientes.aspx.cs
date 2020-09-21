@@ -12,10 +12,14 @@ namespace erpweb
 {
     public partial class Clientes : System.Web.UI.Page
     {
-        string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Local
+        string Sserver = "";
+        string SMysql = "";
+        Cls_Utilitarios utiles = new Cls_Utilitarios();
+        int validador = 2; // Indica el ambiente dónde debe conectarse el sistema
         protected void Page_Load(object sender, EventArgs e)
         {
+            Sserver = utiles.verifica_ambiente("SSERVER", validador);
+            SMysql = utiles.verifica_ambiente("MYSQL", validador);
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
