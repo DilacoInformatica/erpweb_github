@@ -99,7 +99,8 @@
           <table  class="titNoticia">
             <tr>
                 <td><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
-                    &nbsp;</span></h1>
+                    &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
+                    </span></h1>
                  </td>
             </tr>
         </table>

@@ -451,6 +451,7 @@ namespace erpweb
         protected void Btn_crearNV_Click(object sender, EventArgs e)
         {
             int v_id_nta_vta = 0;
+            int v_id_item_nta_vta = 0;
             Page.Validate();
             if (Page.IsValid)
             {
@@ -566,7 +567,7 @@ namespace erpweb
                                 {
                                     try
                                     {
-                                        int v_id_item = Convert.ToInt32(fila.Cells[0].Tex)t;
+                                        int v_id_item = Convert.ToInt32(fila.Cells[0].Text);
                                         string v_codigo = fila.Cells[1].Text;
                                         string v_descrip = fila.Cells[2].Text;
                                         double v_cantidad = Convert.ToInt32(fila.Cells[3].Text);
@@ -601,7 +602,7 @@ namespace erpweb
                                             {
                                                 if (!rdr.IsDBNull(0))
                                                 {
-                                                    lbl_status.Text = rdr.GetString(0);
+                                                    v_id_item_nta_vta = rdr.GetInt32(0);
                                                 }
                                             }
                                         }
@@ -621,7 +622,7 @@ namespace erpweb
                             }
                         }
                     }
-                    if (v_id_nta_vta > 0 || lbl_error.Text == "")
+                    if (v_id_nta_vta > 0 || v_id_item_nta_vta > 0 || lbl_error.Text == "")
                     {
                         actualiza_NV(Convert.ToInt32(lbl_numero.Text));
                         entrega_num_nv_erp(v_id_nta_vta);
@@ -637,7 +638,7 @@ namespace erpweb
         void entrega_num_nv_erp(int v_id_nta_vta)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
-            sql = "select select Nta_Vta_Num from tbl_Nota_Venta where ID_Nta_Vta = " + v_id_nta_vta;
+            sql = "select Nta_Vta_Num from tbl_Nota_Venta where ID_Nta_Vta = " + v_id_nta_vta;
             
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -651,7 +652,7 @@ namespace erpweb
                         {
                             if (!rdr.IsDBNull(0))
                             {
-                                lbl_numero_erp.Text = rdr.GetString(0);
+                                lbl_numero_erp.Text = Convert.ToString(rdr.GetInt32(0));
                             }
                         }
                     }
@@ -691,6 +692,11 @@ namespace erpweb
                     conn.Dispose();
                 }
             }
+        }
+
+        protected void Btn_volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Notas_Venta.aspx");
         }
     }
 }
