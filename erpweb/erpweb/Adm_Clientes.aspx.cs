@@ -20,7 +20,7 @@ namespace erpweb
 
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
-        int validador = 1;
+        int validador = 2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
