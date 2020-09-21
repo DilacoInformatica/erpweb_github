@@ -732,7 +732,6 @@ namespace erpweb
             }
         }
 
-
         protected void CheckAll(object sender, EventArgs e)
         {
             CheckBox chckheader = (CheckBox)lista_clientes.HeaderRow.FindControl("Chck_todos");

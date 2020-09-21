@@ -49,14 +49,6 @@
             width: 177px;
             height: 15px;
         }
-        .auto-style19 {
-            height: 16px;
-            text-align: right;
-        }
-        .auto-style20 {
-            width: 243px;
-            height: 16px;
-        }
         .auto-style21 {
             height: 484px;
         }
@@ -92,6 +84,13 @@
         .auto-style33 {
             text-align: right;
         }
+        .auto-style34 {
+            height: 15px;
+            text-align: right;
+        }
+        .auto-style35 {
+            height: 21px;
+        }
     </style>
 </head>
 <body>
@@ -99,12 +98,15 @@
     <div>
           <table  class="titNoticia">
             <tr>
-                <td><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Nota de Venta </span></h1>
+                <td><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
+                    &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
+                    </span></h1>
                  </td>
             </tr>
         </table>
           <asp:Label ID="lbl_status" runat="server"></asp:Label>
           <asp:Label ID="lbl_error" runat="server"></asp:Label>
+                    <asp:Label ID="lbl_id_nv" runat="server" Visible="False"></asp:Label>
        <br />
     </div>
         <table class="auto-style1">
@@ -112,24 +114,26 @@
                 <td class="auto-style8" colspan="9"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
             </tr>
             <tr>
-                <td class="auto-style14">Numero</td>
-                <td class="auto-style20">
-                    <asp:Label ID="lbl_numero" runat="server"></asp:Label>
+                <td class="auto-style5">Numero</td>
+                <td class="auto-style6">
+                    <span class="Estilo_titulo"><strong>
+                    <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
+                    </strong> </span>
                 </td>
-                <td  colspan="2" class="auto-style15">Fecha</td>
-                <td class="auto-style15" colspan="2">
+                <td  colspan="2" class="auto-style8">Fecha</td>
+                <td class="auto-style8" colspan="2">
                     <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style19" colspan="2">
+                <td class="auto-style34" colspan="2">
                     N° Transaccion WebPay</td>
-                <td class="auto-style19">
+                <td class="auto-style34">
                     <strong>
                     <asp:Label ID="lbl_transac_pago" runat="server"></asp:Label>
                     </strong>
                 </td>
             </tr>
             <tr class="BottomTabla">
-                <td class="auto-style8" colspan="9"><h4><strong>Información Cliente:</strong></h4></td>
+                <td class="auto-style35" colspan="9"><h4><strong>Información Cliente:</strong></h4></td>
             </tr>
             <tr>
                 <td class="auto-style5">Cliente</td>
@@ -141,6 +145,7 @@
                 <td class="auto-style5">Rut</td>
                 <td class="auto-style6" colspan ="3">
                     <asp:Label ID="lbl_rut" runat="server"></asp:Label>
+                    <asp:Label ID="lbl_rut_exit" runat="server" Visible="False"></asp:Label>
                 </td>
               <td  class="auto-style8" colspan="3">Existe en ERP</td>
                 <td colspan="3" class="auto-style8">
