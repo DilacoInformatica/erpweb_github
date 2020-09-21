@@ -20,11 +20,14 @@ namespace erpweb
 
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
-        int validador = 2;
+
+        Cls_Utilitarios utiles = new Cls_Utilitarios();
+        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            verifica_ambiente(validador);
+            Sserver = utiles.verifica_ambiente("SSERVER", validador);
+            SMysql = utiles.verifica_ambiente("MYSQL", validador);
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
@@ -33,21 +36,6 @@ namespace erpweb
                 lista_clientes_web();
             }
         }
-
-        void verifica_ambiente (int ambiente)
-        {
-            if (ambiente == 1) // Desarrollo
-            {
-                Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; //Conexion Local
-                SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
-            }
-            else
-            {
-                Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-                SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
-            }
-        }
-
 
         void lista_clientes_web()
         {
