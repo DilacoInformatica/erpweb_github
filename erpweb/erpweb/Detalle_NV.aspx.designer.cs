@@ -94,6 +94,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_transac_pago;
         
         /// <summary>
+        /// Control lbl_n_oc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_n_oc;
+        
+        /// <summary>
         /// Control lbl_cliente.
         /// </summary>
         /// <remarks>

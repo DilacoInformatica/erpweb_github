@@ -16,13 +16,14 @@ namespace erpweb
         //string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
         //string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
         // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
-        
 
+        int v_id_cliente = 0;
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
+        string usuario = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,6 +32,18 @@ namespace erpweb
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
+
+
+            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            {
+                usuario = "141"; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                usuario = Request.QueryString["usuario"].ToString();
+            }
+            
 
             if (!this.IsPostBack)
             {
@@ -53,9 +66,9 @@ namespace erpweb
             queryString = queryString + "tbl_clientes.Id_region, ";
             queryString = queryString + "tbl_clientes.Giro, ";
             queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
-            queryString = queryString + "tbl_clientes.Email, ";
+            queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
             queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp,  ";
+            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp, ";
             queryString = queryString + "(select count(1) from tbl_contactos_clientes where id_cliente = tbl_clientes.id_cliente) contactos ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
 
@@ -88,7 +101,6 @@ namespace erpweb
                 }
             }
         }
-
 
         void insert_cliente(int id, int rut, string dv, string razon, string fono, string fono2, string direccion, string comuna, string ciudad, int region, string email)
         {
@@ -495,8 +507,6 @@ namespace erpweb
             }
         }
 
-
-
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
             string queryString = "";
@@ -664,16 +674,16 @@ namespace erpweb
             queryString = queryString + "tbl_clientes.Dv_Rut, ";
             queryString = queryString + "tbl_clientes.Razon_Social, ";
             queryString = queryString + "tbl_clientes.Telefonos, ";
-            queryString = queryString + "tbl_clientes.Telefonos2, ";
+            queryString = queryString + "IFNULL(tbl_clientes.Telefonos2,'') Telefonos2, ";
             queryString = queryString + "tbl_clientes.Direccion, ";
             queryString = queryString + "tbl_clientes.Ciudad, ";
             queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region 'Región', ";
+            queryString = queryString + "tbl_clientes.Id_region, ";
             queryString = queryString + "tbl_clientes.Giro, ";
-            queryString = queryString + "tbl_clientes.URL, ";
-            queryString = queryString + "tbl_clientes.Email, ";
+            queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
+            queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
             queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "tbl_clientes.cliente_erp, ";
+            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp,  ";
             queryString = queryString + "(select count(1) from tbl_contactos_clientes where id_cliente = tbl_clientes.id_cliente) contactos ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
             queryString = queryString + "WHERE 1 = 1 ";
@@ -751,18 +761,29 @@ namespace erpweb
             dt.Columns.Add("Email");
             dt.Columns.Add("leido_erp");
             dt.Columns.Add("cliente_erp");
+            dt.Columns.Add("contactos");
             // 12
 
             foreach (GridViewRow gvr in lista_clientes.Rows)
             {
-                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text,
-                gvr.Cells[3].Text.Replace("&nbsp;", ""), gvr.Cells[4].Text.Replace("&nbsp;", ""), gvr.Cells[5].Text.Replace("&nbsp;", ""),
-                gvr.Cells[6].Text.Replace("&nbsp;", ""), gvr.Cells[7].Text.Replace("&nbsp;", ""), gvr.Cells[8].Text.Replace("&nbsp;", ""),
-                gvr.Cells[9].Text.Replace("&nbsp;", ""), gvr.Cells[10].Text.Replace("&nbsp;", ""), gvr.Cells[11].Text.Replace("&nbsp;", ""),
-                gvr.Cells[12].Text.Replace("&nbsp;", ""), gvr.Cells[13].Text.Replace("&nbsp;", ""), gvr.Cells[14].Text.Replace("&nbsp;", ""));
+                dt.Rows.Add(
+                Context.Server.HtmlDecode(gvr.Cells[1].Text),
+                Context.Server.HtmlDecode(gvr.Cells[2].Text),
+                Context.Server.HtmlDecode(gvr.Cells[3].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[4].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[5].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[6].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[7].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[8].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[9].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[10].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[11].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[12].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[13].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[14].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[15].Text.Replace("&nbsp;", "")),
+                Context.Server.HtmlDecode(gvr.Cells[16].Text.Replace("&nbsp;", "")));
             }
-
-
 
             if (dt != null)
             {
@@ -845,26 +866,193 @@ namespace erpweb
             return newSortDirection;
         }
 
+        protected void Btn_autorizar_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                foreach (GridViewRow row in lista_clientes.Rows)
+                {
+                    CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
 
+                    if (check.Checked)
+                    {
+                        inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[2].Text));
+                    }
+                }
+            }
+        }
 
-        /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
-         {
-            // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);
-             foreach (GridViewRow row in grilla.Rows)
-             {
-                 //CheckBox chckrw = (CheckBox)row.FindControl("Chk_elimina");
-                 CheckBox check = row.FindControl(buscador) as CheckBox;
-                 if (cabecera.Checked)
-                 {
-                     check.Checked = true;
-                 }
-                 else
-                 {
-                     check.Checked = false;
-                 }
+        protected void inserta_cliente_en_ERP(int rut)
+        {
+            // creamos el cliente en el ERP para analisis de información
+            String queryString = "";
 
-             }
-         }*/
+            queryString = "SELECT Rut, "; // 0
+            queryString = queryString + "Dv_Rut, "; //1
+            queryString = queryString + "Razon_Social, "; // 2
+            queryString = queryString + "IFNULL(Telefonos,''), "; //3
+            queryString = queryString + "IFNULL(Telefonos2,''), "; //4
+            queryString = queryString + "Direccion, "; // 5
+            queryString = queryString + "Ciudad, "; //6
+            queryString = queryString + "Comuna, ";//7
+            queryString = queryString + "Id_region, "; //8
+            queryString = queryString + "IFNULL(Giro,''), "; //9
+            queryString = queryString + "IFNULL(URL,''), "; //10
+            queryString = queryString + "Email, "; //11
+            queryString = queryString + "IFNULL(leido_erp,0), ";// 12
+            queryString = queryString + "IFNULL(cliente_erp,0) "; //13
+            queryString = queryString + "FROM tbl_clientes where Rut = " + rut;
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+
+                            insert_cliente_en_ERP(Convert.ToInt32(dr.GetString(0)), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7), Convert.ToInt32(dr.GetString(8)), dr.GetString(9), dr.GetString(10), dr.GetString(11));
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
+
+        void insert_cliente_en_ERP(int rut, string dv, string razon_social, string telefonos, string telefonos2, string direccion, string ciudad, string comuna, int Id_region, string giro, string url, string email)
+        {
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_inserta_cliente_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rut", rut);
+                    cmd.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_dv", dv);
+                    cmd.Parameters["@v_dv"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_razon_social", razon_social);
+                    cmd.Parameters["@v_razon_social"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_telefonos", telefonos);
+                    cmd.Parameters["@v_telefonos"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_telefonos2", telefonos2); // Pendiente creacion Cliente
+                    cmd.Parameters["@v_telefonos2"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_direccion", direccion); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_direccion"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_comuna", comuna); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_comuna"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_ciudad", ciudad); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_ciudad"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_region", Id_region); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_id_region"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_giro", giro); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_giro"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_url", url); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_url"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_email", email); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_email"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                lbl_error.Text = rdr.GetInt32(0).ToString();
+                                v_id_cliente = Convert.ToInt32(rdr.GetInt32(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    actualiza_cliente_sitio_a_erp(rut, Convert.ToInt32(usuario));
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        void actualiza_cliente_sitio_a_erp(int v_rut, int v_usuario)
+        {
+            string query = "";
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    query = "Actualiza_cliente_web_to_erp";
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_rut", v_rut);
+                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_usuario", v_usuario);
+                    command.Parameters["@v_Id_contacto"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            lbl_status.Text = dr.GetString(0);
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+                    lbl_error.Text = "";
+
+                    lbl_status.Text = "Clientes insertados correctamente";
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
 
     }
 }

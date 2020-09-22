@@ -11,16 +11,6 @@
         .nuevoEstilo1 {
             font-family: Arial, Helvetica, sans-serif;
         }
-        .auto-style5 {
-            width: 100%;
-            height: 321px;
-            overflow: scroll;
-        }
-        .auto-style6 {
-            width: 100%;
-            height: 267px;
-            overflow: scroll;
-        }
         .nuevoEstilo2 {
             font-family: Arial;
         }
@@ -39,6 +29,23 @@
         }
         .auto-style12 {
             height: 101%;
+        }
+        .auto-style13 {
+            margin-bottom: 0px;
+        }
+        .auto-style14 {
+            width: 121px;
+        }
+        .auto-style15 {
+            width: 6px;
+        }
+        .auto-style16 {
+            height: 24px;
+        }
+        .auto-style17 {
+            width: 100%;
+            height: 321px;
+            overflow: scroll;
         }
         </style>
     <script>
@@ -61,12 +68,12 @@
         <br />
         <table class="auto-style10">
             <tr class="BottomTabla">
-                <td colspan="10">Búsqueda de Clientes en Sitio Web</td>
+                <td colspan="10" class="auto-style16">Búsqueda de Clientes en Sitio Web</td>
             </tr>
             <tr>
                 <td>Id</td>
                 <td class="auto-style7">
-                    <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
+                    <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="68px"></asp:TextBox>
                 </td>
                 <td>
                     Rut</td>
@@ -76,12 +83,13 @@
                 <td>
                     Razón Social</td>
                 <td>
-                    &nbsp;</td>
-                <td>
-                    <asp:TextBox ID="txt_razonw" runat="server" Width="375px" BackColor="#FFFFCC"></asp:TextBox>
+                    <asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="auto-style13"></asp:TextBox>
                 </td>
-                <td>
+                <td class="auto-style14">
                     <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="115px"/>
+                </td>
+                <td class="auto-style15">
+                    <asp:Button ID="Btn_autorizar" runat="server" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s) en ERP" />
                 </td>
                 <td class="auto-style8">
         <asp:Button ID="Btn_eliminaCLIWEB" runat="server" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="242px" />
@@ -94,8 +102,8 @@
         </table>
         <br />
         <br />
-        <div class="auto-style5">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="lista_clientes_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="No hay resultados">
+        <div class="auto-style17">
+            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1453px" AllowSorting="True" OnSorting="lista_clientes_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="No hay resultados">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>
                     <asp:TemplateField>
@@ -104,7 +112,6 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-               
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -115,9 +122,6 @@
                 <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                  <EmptyDataTemplate>
-                      <asp:Label ID="lbl_registros" runat="server"></asp:Label>
-            </EmptyDataTemplate>
             </asp:GridView>
             <br />
             <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
@@ -155,8 +159,8 @@
             </tr>
             </table>
         <br />
-        <div class="auto-style6">
-            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1458px" AllowSorting="True" OnSorting="ClientesERP_Sorting" ShowFooter="True">
+        <div class="auto-style17">
+            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1453px" AllowSorting="True" OnSorting="ClientesERP_Sorting" ShowFooter="True">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>

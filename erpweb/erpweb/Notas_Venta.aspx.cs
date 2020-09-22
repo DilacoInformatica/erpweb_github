@@ -15,7 +15,7 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador = 2; // Indica el ambiente dónde debe conectarse el sistema
+        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -93,6 +93,22 @@ namespace erpweb
             }
         }
 
+        protected void Lista_notas_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Center;
+            }
+        }
+
 
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
@@ -108,5 +124,7 @@ namespace erpweb
             GridViewRow row = Lista_notas.SelectedRow;
             Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text);
         }
+
+      
     }
 }

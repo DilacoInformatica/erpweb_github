@@ -43,7 +43,7 @@ namespace erpweb
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
             sql = "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all ";
-            sql = sql + "SELECT     TOP 100 PERCENT dbo.tbl_Usuarios.ID_usuario, CONCAT(dbo.tbl_Usuarios.Nombre_Usu, ' ', dbo.tbl_Usuarios.Apellido_Usu) ";
+            sql = sql + "SELECT TOP 100 PERCENT dbo.tbl_Usuarios.ID_usuario, CONCAT(dbo.tbl_Usuarios.Nombre_Usu, ' ', dbo.tbl_Usuarios.Apellido_Usu) ";
             sql = sql + "FROM dbo.tbl_Areas_Empresa RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Cargo ON ";
             sql = sql + "dbo.tbl_Areas_Empresa.ID_Area = dbo.tbl_Cargo.Id_Area RIGHT OUTER JOIN ";
@@ -157,7 +157,8 @@ namespace erpweb
             queryString = queryString + "a.Leido_ERP, "; //27
             queryString = queryString + "1 status_nv ,"; //28
             queryString = queryString + " ifnull(a.contacto_despacho,'') contacto_despacho, "; //29
-            queryString = queryString + " (select sigla from tbl_Monedas where ID_Moneda = a.Id_Moneda) Moneda "; //30
+            queryString = queryString + " (select sigla from tbl_Monedas where ID_Moneda = a.Id_Moneda) Moneda, "; //30
+            queryString = queryString + " ifnull(numero_oc,0) numero_oc ";
             queryString = queryString + "FROM tbl_nota_vta a ";
             queryString = queryString + "inner join tbl_clientes c on c.id_cliente = a.Id_cliente ";
             queryString = queryString + "left outer join tbl_contactos_clientes d on d.id_cliente = c.Id_cliente ";
@@ -213,7 +214,7 @@ namespace erpweb
                             lbl_neto.Text = lbl_moneda.Text + ' ' + v_neto.ToString("N2");
                             lbl_tax.Text = lbl_moneda.Text + ' ' + v_tax.ToString("N");
                             lbl_total.Text = lbl_moneda.Text + ' ' + v_total.ToString("N");
-
+                            lbl_n_oc.Text = dr.GetString(31);
                         }
                     }
 
@@ -463,172 +464,176 @@ namespace erpweb
                     // revisamos la creación del cliente
                     if (lbl_existe.Text == "NO")
                     {
-                        inserta_cliente_en_ERP(Convert.ToInt32(lbl_rut_exit.Text));
-                        // creamos el cliente
+                        //inserta_cliente_en_ERP(Convert.ToInt32(lbl_rut_exit.Text));
+                        lbl_error.Text = "Cliente no existe en el ERP, para generar NV primero el Cliente debe ser autorizado y creado";
+                        lbl_error.ForeColor = Color.Red;
+                        // creamos el cliente 
                     }
-
-                    v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text),"C");
-                    v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text),"I");
-                    // Insertamos la Nv en el ERP
-                    using (SqlConnection connection = new SqlConnection(Sserver))
+                    else
                     {
-                        try
+
+                        v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
+                        v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
+                        // Insertamos la Nv en el ERP
+                        using (SqlConnection connection = new SqlConnection(Sserver))
                         {
-                            connection.Open();
-                            SqlCommand cmd = new SqlCommand("web_carga_nv_cab_web", connection);
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            SqlParameter param = new SqlParameter();
-                            // Parámetros
-                            cmd.Parameters.AddWithValue("@v_id_nv", lbl_id_nv.Text);
-                            cmd.Parameters["@v_id_nv"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_nv", lbl_numero.Text);
-                            cmd.Parameters["@v_nv"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_fecha", lbl_fecha.Text);
-                            cmd.Parameters["@v_fecha"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_obs", lbl_obs_despacho.Text);
-                            cmd.Parameters["@v_obs"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Id_cliente", v_id_cliente); // Pendiente creacion Cliente
-                            cmd.Parameters["@v_Id_cliente"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_id_contacto", v_id_contacto); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_id_contacto"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Suma_total", Convert.ToDouble(lbl_total.Text.Replace(lbl_moneda.Text,""))); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_Suma_total"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Neto_venta", Convert.ToDouble(lbl_neto.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_Neto_venta"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Tax_venta", Convert.ToDouble(lbl_tax.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_Tax_venta"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_total", Convert.ToDouble(lbl_total.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_total"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_sigla_moneda", lbl_moneda.Text); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_sigla_moneda"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Direcciondespacho", lbl_direccion_despacho.Text); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_Direcciondespacho"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_ciudaddespacho", lbl_ciudad_despacho.Text); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_ciudaddespacho"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_comunadespacho", lbl_comuna_despacho.Text); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_comunadespacho"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_Folio_transac_web", lbl_fono_despacho.Text); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_Folio_transac_web"].Direction = ParameterDirection.Input;
-
-                            cmd.Parameters.AddWithValue("@v_id_vendedor", Lista_Vendedores.SelectedItem.Value.ToString()); // Pendiente creacion contacto Cliente
-                            cmd.Parameters["@v_id_vendedor"].Direction = ParameterDirection.Input;
-                            
-
-
-                            using (SqlDataReader rdr = cmd.ExecuteReader())
+                            try
                             {
-                                while (rdr.Read())
+                                connection.Open();
+                                SqlCommand cmd = new SqlCommand("web_carga_nv_cab_web", connection);
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                SqlParameter param = new SqlParameter();
+                                // Parámetros
+                                cmd.Parameters.AddWithValue("@v_id_nv", lbl_id_nv.Text);
+                                cmd.Parameters["@v_id_nv"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_nv", lbl_numero.Text);
+                                cmd.Parameters["@v_nv"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_fecha", lbl_fecha.Text);
+                                cmd.Parameters["@v_fecha"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_obs", lbl_obs_despacho.Text);
+                                cmd.Parameters["@v_obs"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Id_cliente", v_id_cliente); // Pendiente creacion Cliente
+                                cmd.Parameters["@v_Id_cliente"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_id_contacto", v_id_contacto); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_id_contacto"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Suma_total", Convert.ToDouble(lbl_total.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_Suma_total"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Neto_venta", Convert.ToDouble(lbl_neto.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_Neto_venta"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Tax_venta", Convert.ToDouble(lbl_tax.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_Tax_venta"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_total", Convert.ToDouble(lbl_total.Text.Replace(lbl_moneda.Text, ""))); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_total"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_sigla_moneda", lbl_moneda.Text); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_sigla_moneda"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Direcciondespacho", lbl_direccion_despacho.Text); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_Direcciondespacho"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_ciudaddespacho", lbl_ciudad_despacho.Text); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_ciudaddespacho"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_comunadespacho", lbl_comuna_despacho.Text); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_comunadespacho"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_Folio_transac_web", lbl_fono_despacho.Text); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_Folio_transac_web"].Direction = ParameterDirection.Input;
+
+                                cmd.Parameters.AddWithValue("@v_id_vendedor", Lista_Vendedores.SelectedItem.Value.ToString()); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_id_vendedor"].Direction = ParameterDirection.Input;
+
+
+
+                                using (SqlDataReader rdr = cmd.ExecuteReader())
                                 {
-                                    if (!rdr.IsDBNull(0))
+                                    while (rdr.Read())
                                     {
-                                        v_id_nta_vta = rdr.GetInt32(0);
+                                        if (!rdr.IsDBNull(0))
+                                        {
+                                            v_id_nta_vta = rdr.GetInt32(0);
+                                        }
                                     }
                                 }
+
+                                connection.Close();
+                                connection.Dispose();
                             }
-
-                            connection.Close();
-                            connection.Dispose();
-                        }
-                        catch (Exception ex)
-                        {
-                            lbl_error.Text = ex.Message;
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-                   // v_id_nta_vta = Convert.ToInt32(lbl_status.Text);
-                    // Si la inserción de la cabecera resultó correcta (regresa Id de la Nueva NV... insertamos el detalle de la misma
-                    if (v_id_nta_vta > 0)
-                    {
-                        // recoremmos la grilla
-                        if (lista_detalles.Rows.Count > 0)
-                        {
-                            foreach (GridViewRow fila in lista_detalles.Rows)
+                            catch (Exception ex)
                             {
-                                using (SqlConnection connection = new SqlConnection(Sserver))
+                                lbl_error.Text = ex.Message;
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+                        }
+                        // v_id_nta_vta = Convert.ToInt32(lbl_status.Text);
+                        // Si la inserción de la cabecera resultó correcta (regresa Id de la Nueva NV... insertamos el detalle de la misma
+                        if (v_id_nta_vta > 0)
+                        {
+                            // recoremmos la grilla
+                            if (lista_detalles.Rows.Count > 0)
+                            {
+                                foreach (GridViewRow fila in lista_detalles.Rows)
                                 {
-                                    try
+                                    using (SqlConnection connection = new SqlConnection(Sserver))
                                     {
-                                        int v_id_item = Convert.ToInt32(fila.Cells[0].Text);
-                                        string v_codigo = fila.Cells[1].Text;
-                                        string v_descrip = fila.Cells[2].Text;
-                                        double v_cantidad = Convert.ToInt32(fila.Cells[3].Text);
-                                        double v_precio_unitario = Convert.ToInt32(fila.Cells[4].Text);
-                                        connection.Open();
-                                        SqlCommand cmd = new SqlCommand("web_carga_nv_det_web", connection);
-                                        cmd.CommandType = CommandType.StoredProcedure;
-                                        SqlParameter param = new SqlParameter();
-                                        // Parámetros
-                                        cmd.Parameters.AddWithValue("@v_id_nv", v_id_nta_vta);
-                                        cmd.Parameters["@v_id_nv"].Direction = ParameterDirection.Input;
-
-                                        cmd.Parameters.AddWithValue("@v_item", v_id_item);
-                                        cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
-
-                                        cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
-                                        cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
-
-                                        cmd.Parameters.AddWithValue("@v_descripcion", v_descrip);
-                                        cmd.Parameters["@v_descripcion"].Direction = ParameterDirection.Input;
-
-                                        cmd.Parameters.AddWithValue("@v_cantidad", v_cantidad); 
-                                        cmd.Parameters["@v_cantidad"].Direction = ParameterDirection.Input;
-
-                                        cmd.Parameters.AddWithValue("@v_precio_unitario", v_precio_unitario); 
-                                        cmd.Parameters["@v_precio_unitario"].Direction = ParameterDirection.Input;
-
-
-                                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                                        try
                                         {
-                                            while (rdr.Read())
+                                            int v_id_item = Convert.ToInt32(fila.Cells[0].Text);
+                                            string v_codigo = fila.Cells[1].Text;
+                                            string v_descrip = fila.Cells[2].Text;
+                                            double v_cantidad = Convert.ToInt32(fila.Cells[3].Text);
+                                            double v_precio_unitario = Convert.ToInt32(fila.Cells[4].Text);
+                                            connection.Open();
+                                            SqlCommand cmd = new SqlCommand("web_carga_nv_det_web", connection);
+                                            cmd.CommandType = CommandType.StoredProcedure;
+                                            SqlParameter param = new SqlParameter();
+                                            // Parámetros
+                                            cmd.Parameters.AddWithValue("@v_id_nv", v_id_nta_vta);
+                                            cmd.Parameters["@v_id_nv"].Direction = ParameterDirection.Input;
+
+                                            cmd.Parameters.AddWithValue("@v_item", v_id_item);
+                                            cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
+
+                                            cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
+                                            cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                                            cmd.Parameters.AddWithValue("@v_descripcion", v_descrip);
+                                            cmd.Parameters["@v_descripcion"].Direction = ParameterDirection.Input;
+
+                                            cmd.Parameters.AddWithValue("@v_cantidad", v_cantidad);
+                                            cmd.Parameters["@v_cantidad"].Direction = ParameterDirection.Input;
+
+                                            cmd.Parameters.AddWithValue("@v_precio_unitario", v_precio_unitario);
+                                            cmd.Parameters["@v_precio_unitario"].Direction = ParameterDirection.Input;
+
+
+                                            using (SqlDataReader rdr = cmd.ExecuteReader())
                                             {
-                                                if (!rdr.IsDBNull(0))
+                                                while (rdr.Read())
                                                 {
-                                                    v_id_item_nta_vta = rdr.GetInt32(0);
+                                                    if (!rdr.IsDBNull(0))
+                                                    {
+                                                        v_id_item_nta_vta = rdr.GetInt32(0);
+                                                    }
                                                 }
                                             }
-                                        }
 
-                                        connection.Close();
-                                        connection.Dispose();
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        lbl_error.Text = ex.Message;
-                                    }
-                                    finally
-                                    {
-                                        connection.Close();
+                                            connection.Close();
+                                            connection.Dispose();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            lbl_error.Text = ex.Message;
+                                        }
+                                        finally
+                                        {
+                                            connection.Close();
+                                        }
                                     }
                                 }
                             }
                         }
+                        if (v_id_nta_vta > 0 && v_id_item_nta_vta > 0 && lbl_error.Text == "")
+                        {
+                            actualiza_NV(Convert.ToInt32(lbl_numero.Text));
+                            entrega_num_nv_erp(v_id_nta_vta);
+                            lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
+                            lbl_status.ForeColor = Color.Red;
+                        }
+                        // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
                     }
-                    if (v_id_nta_vta > 0 && v_id_item_nta_vta > 0 && lbl_error.Text == "")
-                    {
-                        actualiza_NV(Convert.ToInt32(lbl_numero.Text));
-                        entrega_num_nv_erp(v_id_nta_vta);
-                        lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
-                        lbl_status.ForeColor = Color.Red;
-                    }
-                    // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
-                        
                   }
                 }
             }
