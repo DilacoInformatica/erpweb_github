@@ -18,7 +18,6 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador =2 ; // Indica el ambiente dónde debe conectarse el sistema
 
         // FTP
         string server = @"ftp://dev.dilaco.com/";
@@ -29,8 +28,8 @@ namespace erpweb
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER", validador);
-            SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
             if (!this.IsPostBack)
@@ -78,8 +77,6 @@ namespace erpweb
                 Productos.DataBind();
                 Productos.DataMember = "tbl_items_web_table";
                 
-   
-
                 lbl_cantidad.Text ="Cantidad de Registros: " + Convert.ToString(Productos.Rows.Count);
             }
         }

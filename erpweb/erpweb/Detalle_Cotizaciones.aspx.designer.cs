@@ -10,7 +10,7 @@
 namespace erpweb {
     
     
-    public partial class Detalle_NV {
+    public partial class Detalle_Cotizaciones {
         
         /// <summary>
         /// Control form1.
@@ -58,15 +58,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control lbl_id_nv.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_id_nv;
-        
-        /// <summary>
         /// Control lbl_numero_erp.
         /// </summary>
         /// <remarks>
@@ -85,15 +76,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_fecha;
         
         /// <summary>
-        /// Control lbl_transac_pago.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_transac_pago;
-        
-        /// <summary>
         /// Control lbl_n_oc.
         /// </summary>
         /// <remarks>
@@ -101,15 +83,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_n_oc;
-        
-        /// <summary>
-        /// Control lbl_tipo_facturacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_tipo_facturacion;
         
         /// <summary>
         /// Control lbl_cliente.
@@ -202,24 +175,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_region;
         
         /// <summary>
-        /// Control lbl_contacto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_contacto;
-        
-        /// <summary>
-        /// Control lbl_fono_despacho.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_fono_despacho;
-        
-        /// <summary>
         /// Control lbl_email_contacto.
         /// </summary>
         /// <remarks>
@@ -229,24 +184,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_email_contacto;
         
         /// <summary>
-        /// Control lbl_direccion_despacho.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_direccion_despacho;
-        
-        /// <summary>
-        /// Control lbl_comuna_despacho.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_comuna_despacho;
-        
-        /// <summary>
         /// Control lbl_ciudad_despacho.
         /// </summary>
         /// <remarks>
@@ -254,77 +191,5 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_ciudad_despacho;
-        
-        /// <summary>
-        /// Control lbl_obs_despacho.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_obs_despacho;
-        
-        /// <summary>
-        /// Control lista_detalles.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView lista_detalles;
-        
-        /// <summary>
-        /// Control Lista_Vendedores.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Lista_Vendedores;
-        
-        /// <summary>
-        /// Control Btn_crearNV.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_crearNV;
-        
-        /// <summary>
-        /// Control lbl_moneda.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_moneda;
-        
-        /// <summary>
-        /// Control lbl_neto.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_neto;
-        
-        /// <summary>
-        /// Control lbl_tax.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_tax;
-        
-        /// <summary>
-        /// Control lbl_total.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_total;
     }
 }

@@ -20,16 +20,16 @@ namespace erpweb
         int v_id_nta_vta = 0;
         int v_id_cliente = 0;
         int v_id_contacto = 0;
+        int id_tipo_fac = 0;
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             id_nv = Convert.ToInt32(Request.QueryString["nv"].ToString());
-            Sserver = utiles.verifica_ambiente("SSERVER", validador);
-            SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             if (!this.IsPostBack)
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
@@ -158,7 +158,8 @@ namespace erpweb
             queryString = queryString + "1 status_nv ,"; //28
             queryString = queryString + " ifnull(a.contacto_despacho,'') contacto_despacho, "; //29
             queryString = queryString + " (select sigla from tbl_Monedas where ID_Moneda = a.Id_Moneda) Moneda, "; //30
-            queryString = queryString + " ifnull(numero_oc,0) numero_oc ";
+            queryString = queryString + " ifnull(numero_oc,0) numero_oc, ";
+            queryString = queryString + " ifnull(id_tipo_fact,1) id_tipo_fact ";
             queryString = queryString + "FROM tbl_nota_vta a ";
             queryString = queryString + "inner join tbl_clientes c on c.id_cliente = a.Id_cliente ";
             queryString = queryString + "left outer join tbl_contactos_clientes d on d.id_cliente = c.Id_cliente ";
@@ -215,6 +216,17 @@ namespace erpweb
                             lbl_tax.Text = lbl_moneda.Text + ' ' + v_tax.ToString("N");
                             lbl_total.Text = lbl_moneda.Text + ' ' + v_total.ToString("N");
                             lbl_n_oc.Text = dr.GetString(31);
+
+                            if (dr.GetInt32(32) == 1)
+                            {
+                                id_tipo_fac = 1;
+                                lbl_tipo_facturacion.Text = "Factura Electrónica";
+                            }
+                            else
+                            {
+                                id_tipo_fac = 2;
+                                lbl_tipo_facturacion.Text = "Boleta Electrónica";
+                            }
                         }
                     }
 
@@ -532,7 +544,8 @@ namespace erpweb
                                 cmd.Parameters.AddWithValue("@v_id_vendedor", Lista_Vendedores.SelectedItem.Value.ToString()); // Pendiente creacion contacto Cliente
                                 cmd.Parameters["@v_id_vendedor"].Direction = ParameterDirection.Input;
 
-
+                                cmd.Parameters.AddWithValue("@v_id_tipo_fact", id_tipo_fac); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_id_tipo_fact"].Direction = ParameterDirection.Input;
 
                                 using (SqlDataReader rdr = cmd.ExecuteReader())
                                 {

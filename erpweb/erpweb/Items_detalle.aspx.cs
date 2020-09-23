@@ -12,13 +12,11 @@ namespace erpweb
 {
     public partial class Item : System.Web.UI.Page
     {
-        //string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-        String Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Servcer
-       // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
+        string Sserver = "";
+        string SMysql = "";
         int id_item = 0;
         ClsFTP ftp = new ClsFTP();
-
+        Cls_Utilitarios utiles = new Cls_Utilitarios();
         // FTP
         string server = @"ftp://dev.dilaco.com/";
         string user = "dev@dilaco.com";
@@ -26,8 +24,9 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";

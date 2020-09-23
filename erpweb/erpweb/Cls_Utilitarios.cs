@@ -8,6 +8,8 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
+        int ambiente = 1; // Indica el ambiente dónde debe conectarse el sistema
+
         public string selecciona_todos(CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
         {
             // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);
@@ -28,7 +30,7 @@ namespace erpweb
             return "OK";
         }
 
-        public string verifica_ambiente(string servidor, int ambiente)
+        public string verifica_ambiente(string servidor)
         {
             string salida = "";
             if (servidor == "SSERVER" && ambiente == 1)

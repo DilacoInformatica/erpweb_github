@@ -10,7 +10,7 @@
 namespace erpweb {
     
     
-    public partial class Notas_Venta {
+    public partial class Cotizaciones {
         
         /// <summary>
         /// Control form1.
@@ -22,13 +22,13 @@ namespace erpweb {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control txt_nv.
+        /// Control txt_cotizacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_nv;
+        protected global::System.Web.UI.WebControls.TextBox txt_cotizacion;
         
         /// <summary>
         /// Control txt_rut.
@@ -76,13 +76,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control Lista_notas.
+        /// Control Lista_cotizacion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Lista_notas;
+        protected global::System.Web.UI.WebControls.GridView Lista_cotizacion;
         
         /// <summary>
         /// Control lbl_mensaje.

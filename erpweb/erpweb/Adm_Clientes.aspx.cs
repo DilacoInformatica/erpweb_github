@@ -12,23 +12,17 @@ namespace erpweb
 {
     public partial class Adm_Clientes : System.Web.UI.Page
     {
-        //string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-        //string Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        //string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
-        // string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
-
         int v_id_cliente = 0;
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
         string usuario = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER", validador);
-            SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
@@ -88,7 +82,7 @@ namespace erpweb
                     lista_clientes.DataBind();
                     //Productos.DataMember = "tbl_items";
 
-
+                    lbl_cantidad.Text = "Cantidad de Registros: " + Convert.ToString(lista_clientes.Rows.Count);
                     conn.Close();
                     conn.Dispose();
 

@@ -13,9 +13,13 @@
         }
         .auto-style8 {
             width: 61px;
+            text-align: center;
         }
         .auto-style34 {
             width: 141px;
+        }
+        .auto-style35 {
+            height: 39px;
         }
         </style>
     <script>
@@ -36,14 +40,13 @@
     <div>
       <table  class="titNoticia">
             <tr>
-                <td><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Notas de Venta generadas en Sitio Web</span></h1>
+                <td class="auto-style35"><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Notas de Venta generadas en Sitio Web</span></h1>
                  </td>
             </tr>
         </table>
-       <br />
                 <table class="auto-style9">
             <tr class="BottomTabla">
-                <td colspan="5"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
+                <td colspan="6"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
             </tr>
             <tr>
                 <td class="auto-style34">Nota de Venta</td>
@@ -52,18 +55,20 @@
                 </td>
                 <td class="auto-style32">
                     Rut Cliente</td>
-                <td>
+                <td class="auto-style32">
                     <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
-                <td class="auto-style8">
+                <td>
                     <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click"/>
+                </td>
+                <td class="auto-style8">
+                    <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
                 </td>
             </tr>
             
         </table>
-         <p>
+             <asp:Label ID="lbl_cantidad" runat="server"></asp:Label>
              <asp:Label ID="lbl_error" runat="server"></asp:Label>
-        </p>
     <p>
         <asp:GridView ID="Lista_notas" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
@@ -85,3 +90,9 @@
    
 </body>
 </html>
+<script>
+    function salir() {
+        if (confirm('Cerrar página, Seguro desea proceder?'))
+        { window.close(); }
+    }
+</script>

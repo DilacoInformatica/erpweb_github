@@ -15,12 +15,12 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        int validador = 1; // Indica el ambiente dónde debe conectarse el sistema
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER", validador);
-            SMysql = utiles.verifica_ambiente("MYSQL", validador);
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
+            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
@@ -31,7 +31,7 @@ namespace erpweb
 
         void carga_nv()
         {
-            String queryString = "";
+            string queryString = "";
             lbl_mensaje.Text = "";
             queryString = "lista_nv_web ";
 
@@ -76,6 +76,8 @@ namespace erpweb
                     {
                         Lista_notas.DataSource = dr;
                         Lista_notas.DataBind();
+
+                        lbl_cantidad.Text = "Cantidad de Registros: " + Convert.ToString(Lista_notas.Rows.Count);
                     }
 
                     //Productos.DataMember = "tbl_items";

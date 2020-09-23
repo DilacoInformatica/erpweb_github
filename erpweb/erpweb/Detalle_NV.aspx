@@ -98,7 +98,7 @@
         .auto-style37 {
             margin-bottom: 0px;
         }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server" class="auto-style21">
@@ -121,7 +121,7 @@
                 <td class="auto-style8" colspan="7"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
             </tr>
             <tr>
-                <td class="auto-style5">Numero</td>
+                <td class="auto-style5">Numero NV ERP</td>
                 <td class="auto-style6">
                     <span class="Estilo_titulo"><strong>
                     <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
@@ -131,7 +131,7 @@
                 <td class="auto-style8">
                     <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style34" colspan="2">
+                <td class="auto-style18" colspan="2">
                     N° Transaccion WebPay</td>
                 <td class="auto-style34">
                     <strong>
@@ -141,9 +141,19 @@
             </tr>
             <tr>
                 <td class="auto-style5">N° OC</td>
-                <td class="auto-style8" colspan="6">
+                <td class="auto-style8">
                     <asp:Label ID="lbl_n_oc" runat="server"></asp:Label>
                 </td>
+                <td class="auto-style8">
+                    </td>
+                <td class="auto-style8">
+                    </td>
+                <td class="auto-style18" colspan="2">
+                    Tipo Facturación</td>
+                 <td class="auto-style34">
+                     <strong>
+                     <asp:Label ID="lbl_tipo_facturacion" runat="server"></asp:Label>
+                     </strong></td>
             </tr>
             <tr class="BottomTabla">
                 <td class="auto-style35" colspan="7"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
