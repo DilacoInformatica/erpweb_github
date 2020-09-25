@@ -47,7 +47,7 @@ namespace erpweb
 
         void lista_clientes_web()
         {
-            String queryString = "";
+            string queryString = "";
             queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
             queryString = queryString + "tbl_clientes.Rut, ";
             queryString = queryString + "tbl_clientes.Dv_Rut, ";
@@ -57,12 +57,12 @@ namespace erpweb
             queryString = queryString + "tbl_clientes.Direccion, ";
             queryString = queryString + "tbl_clientes.Ciudad, ";
             queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region, ";
-            queryString = queryString + "tbl_clientes.Giro, ";
+            queryString = queryString + "tbl_clientes.Id_region 'Región', ";
+            queryString = queryString + "IFNULL(tbl_clientes.Giro,'') Giro, ";
             queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
             queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
-            queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp, ";
+            queryString = queryString + "if(ifnull(tbl_clientes.leido_erp,0) = 0,'N','S') leido_erp, ";
+            queryString = queryString + "if(ifnull(tbl_clientes.cliente_erp,0) = 0,'N','S') cliente_erp, ";
             queryString = queryString + "(select count(1) from tbl_contactos_clientes where id_cliente = tbl_clientes.id_cliente) contactos ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
 
@@ -185,7 +185,7 @@ namespace erpweb
             queryString = queryString + ",Contacto_Principal "; //12
             queryString = queryString + ",Es_Contacto_Cobranza "; //13
             queryString = queryString + ",Id_Departamento"; //14
-            queryString = queryString + ",CAST(EnviarDTE AS INT)  "; // 16
+            queryString = queryString + ",CAST(isnull(EnviarDTE,0) AS INT)  "; // 15
             queryString = queryString + "FROM tbl_Contactos_Cliente Where id_cliente = " + id_cliente;
 
 

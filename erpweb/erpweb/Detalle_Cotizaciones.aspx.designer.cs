@@ -58,6 +58,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
+        /// Control lbl_id_cot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_id_cot;
+        
+        /// <summary>
         /// Control lbl_numero_erp.
         /// </summary>
         /// <remarks>
@@ -191,5 +200,14 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_ciudad_despacho;
+        
+        /// <summary>
+        /// Control lista_cotizacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView lista_cotizacion;
     }
 }

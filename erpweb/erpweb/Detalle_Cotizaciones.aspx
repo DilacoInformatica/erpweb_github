@@ -62,14 +62,15 @@
                 <tr>
                     <td>
                         <h1>
-                            <img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Cotización de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
-                            &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
+                            <img alt="" src="img/vineta.gif" /><span class="nuevoEstilo2">Detalle Cotización de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
+                            &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" style="height: 26px" />
                             </span></h1>
                     </td>
                 </tr>
             </table>
             <asp:Label ID="lbl_status" runat="server"></asp:Label>
             <asp:Label ID="lbl_error" runat="server"></asp:Label>
+            <asp:Label ID="lbl_id_cot" runat="server" Visible="False"></asp:Label>
             <br />
         </div>
     
@@ -162,6 +163,19 @@
                 </td>
             </tr>
             </table>
+        <asp:GridView ID="lista_cotizacion" runat="server" Caption="Detalle de la Cotización" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1265px" ShowFooter="True">
+            <AlternatingRowStyle BackColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#EFF3FB" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+        </asp:GridView>
     </form>
 </body>
 </html>

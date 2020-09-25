@@ -100,7 +100,7 @@ namespace erpweb
         protected void Lista_cotizacion_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Lista_cotizacion.SelectedRow;
-            Response.Redirect("Detalle_Cotizaciones.aspx?nv=" + row.Cells[1].Text);
+            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text);
         }
     }
 }
