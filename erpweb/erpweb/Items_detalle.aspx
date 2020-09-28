@@ -124,7 +124,7 @@
         <asp:Label ID="lbl_error" runat="server" BackColor="Red"></asp:Label>
                  </td>
       <td class="auto-style11" >&nbsp;</td>
-      <td colspan="3" class="auto-style5" >
+      <td colspan="3" >
                       &nbsp;</td>
     </tr>
     <tr>
@@ -133,7 +133,7 @@
                     <asp:Label ID="lbl_web" runat="server"></asp:Label>
                  </td>
       <td class="auto-style11" >Visible</td>
-      <td colspan="3" class="auto-style5" >
+      <td colspan="3" >
                       <asp:CheckBox ID="chck_visible" runat="server" TextAlign="Left" />
                 </td>
     </tr>
@@ -152,20 +152,20 @@
       <td colspan="3">
                       <asp:CheckBox ID="chck_prodped" runat="server" TextAlign="Left" />
                 </td>
-      <td colspan="3" class="auto-style5">Cotizaciones</td>
-      <td colspan="2" class="auto-style5">
+      <td colspan="3">Cotizaciones</td>
+      <td colspan="2">
                     <asp:CheckBox ID="chck_cot" runat="server" TextAlign="Left" />
                 </td>
     </tr>
     <tr>
       <td class="auto-style6" >Moneda</td>
-      <td colspan="3" class="auto-style5">
+      <td colspan="3">
           <asp:DropDownList ID="LstMonedas" runat="server">
               <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
-      <td colspan="3" class="auto-style5">Precio</td>
-      <td colspan="2" class="auto-style5">
+      <td colspan="3">Precio</td>
+      <td colspan="2">
           <asp:TextBox ID="txt_precio" runat="server" AutoPostBack="True" OnTextChanged="txt_precio_TextChanged"></asp:TextBox>
         </td>
     </tr>
@@ -237,12 +237,12 @@
                     <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_manual_tecnico" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_manual_tecnico_Click" Width="16px" />
                  </td>
-      <td class="auto-style5">
+      <td>
 
                     <asp:FileUpload ID="File_FT" runat="server" />
 
                  </td>
-      <td class="auto-style5">
+      <td>
 
                     <asp:ImageButton ID="ImgBtnFT" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFT_Click" style="width: 14px; height: 13px;" />
 
@@ -327,16 +327,16 @@
     </tr>
     <tr>
       <td class="auto-style6">Hoja de Seguridad</td>
-      <td class="auto-style5">
+      <td>
                     <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_hoja_seg" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_hoja_seg_Click" Width="16px" />
                  </td>
-      <td class="auto-style5">
+      <td>
 
                     <asp:FileUpload ID="File_HS" runat="server" />
 
                  </td>
-      <td class="auto-style5">
+      <td>
 
                     <asp:ImageButton ID="ImgBtnHS" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnHS_Click" Width="14px" />
 

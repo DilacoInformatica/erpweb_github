@@ -88,7 +88,7 @@
         </table>
         <br />
         <br />
-        <div class="auto-style5">
+        <div>
             <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1376px">
                 <AlternatingRowStyle BackColor="White" BorderStyle="None" />
                 <Columns>

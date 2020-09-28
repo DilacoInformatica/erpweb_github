@@ -43,7 +43,7 @@
             </tr>
             <tr>
                 <td class="auto-style6">Stock</td>
-                <td class="auto-style5">
+                <td>
                     <asp:Label ID="lbl_stock" runat="server"></asp:Label>
                 </td>
                 <td class="auto-style4">
@@ -52,7 +52,7 @@
             </tr>
             <tr>
                 <td class="auto-style6">Stock a Ingresar</td>
-                <td class="auto-style5">
+                <td>
                     <asp:TextBox ID="txt_stock" runat="server" OnTextChanged="txt_stock_TextChanged"></asp:TextBox>
                 </td>
                 <td class="auto-style4">

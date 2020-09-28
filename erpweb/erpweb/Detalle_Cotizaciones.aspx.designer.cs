@@ -184,30 +184,66 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_region;
         
         /// <summary>
-        /// Control lbl_email_contacto.
+        /// Control lista_detalles.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_email_contacto;
+        protected global::System.Web.UI.WebControls.GridView lista_detalles;
         
         /// <summary>
-        /// Control lbl_ciudad_despacho.
+        /// Control Lista_Vendedores.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ciudad_despacho;
+        protected global::System.Web.UI.WebControls.DropDownList Lista_Vendedores;
         
         /// <summary>
-        /// Control lista_cotizacion.
+        /// Control Btn_crearCot.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView lista_cotizacion;
+        protected global::System.Web.UI.WebControls.Button Btn_crearCot;
+        
+        /// <summary>
+        /// Control lbl_moneda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_moneda;
+        
+        /// <summary>
+        /// Control lbl_neto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_neto;
+        
+        /// <summary>
+        /// Control lbl_tax.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_tax;
+        
+        /// <summary>
+        /// Control lbl_total.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_total;
     }
 }

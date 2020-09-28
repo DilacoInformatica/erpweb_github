@@ -85,15 +85,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_fecha;
         
         /// <summary>
-        /// Control lbl_transac_pago.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_transac_pago;
-        
-        /// <summary>
         /// Control lbl_n_oc.
         /// </summary>
         /// <remarks>
@@ -101,6 +92,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_n_oc;
+        
+        /// <summary>
+        /// Control lbl_transac_pago.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_transac_pago;
         
         /// <summary>
         /// Control lbl_tipo_facturacion.
@@ -121,6 +121,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_cliente;
         
         /// <summary>
+        /// Control lbl_existe.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_existe;
+        
+        /// <summary>
         /// Control lbl_rut.
         /// </summary>
         /// <remarks>
@@ -137,15 +146,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_rut_exit;
-        
-        /// <summary>
-        /// Control lbl_existe.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_existe;
         
         /// <summary>
         /// Control lbl_fono.
@@ -254,6 +254,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_ciudad_despacho;
+        
+        /// <summary>
+        /// Control lbl_region_despacho.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_region_despacho;
         
         /// <summary>
         /// Control lbl_obs_despacho.

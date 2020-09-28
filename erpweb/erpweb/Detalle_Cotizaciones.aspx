@@ -8,7 +8,9 @@
     <link href="css/estilos.css" rel="stylesheet" />
     <title>Detalle Cotización</title>
     <style type="text/css">
-
+        .auto-style1 {
+            width: 66%;
+        }
         .auto-style8 {
             height: 15px;
         }
@@ -27,6 +29,7 @@
         .auto-style18 {
             width: 177px;
             height: 15px;
+            text-align: right;
         }
         .auto-style34 {
             height: 15px;
@@ -45,11 +48,40 @@
         .auto-style12 {
             height: 14px;
         }
-        .auto-style15 {
-            height: 16px;
+        .auto-style31 {
+            width: 115px;
         }
-        .auto-style16 {
-            width: 64px;
+        .auto-style32 {
+            width: 608px;
+        }
+        .auto-style33 {
+            text-align: right;
+        }
+        .auto-style23 {
+            height: 15px;
+            width: 2246px;
+        }
+        .auto-style27 {
+            width: 588px;
+            height: 15px;
+        }
+        .auto-style29 {
+            width: 588px;
+            height: 15px;
+            text-align: right;
+        }
+        .auto-style24 {
+            width: 2246px;
+        }
+        .auto-style26 {
+            width: 588px;
+        }
+        .auto-style28 {
+            width: 588px;
+            text-align: right;
+        }
+        .auto-style38 {
+            width: 889px;
         }
         </style>
 </head>
@@ -80,7 +112,7 @@
                 <td class="auto-style8" colspan="7"><h4><strong>Cabecera Cotización</strong></h4></td>
             </tr>
             <tr>
-                <td class="auto-style5">Numero Cotización ERP</td>
+                <td>Numero Cotización ERP</td>
                 <td class="auto-style6">
                     <span class="Estilo_titulo"><strong>
                     <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
@@ -90,7 +122,7 @@
                 <td class="auto-style8">
                     <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style18" colspan="2">
+                <td colspan="2">
                     N° OC</td>
                 <td class="auto-style34">
                     <asp:Label ID="lbl_n_oc" runat="server"></asp:Label>
@@ -100,13 +132,13 @@
                 <td class="auto-style35" colspan="7"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
             </tr>
             <tr>
-                <td class="auto-style5">Cliente</td>
+                <td>Cliente</td>
                 <td class="auto-style8" colspan="6">
                     <asp:Label ID="lbl_cliente" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5">Rut</td>
+                <td>Rut</td>
                 <td class="auto-style6" colspan ="2">
                     <asp:Label ID="lbl_rut" runat="server"></asp:Label>
                     <asp:Label ID="lbl_rut_exit" runat="server" Visible="False"></asp:Label>
@@ -127,13 +159,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5">Dirección</td>
+                <td>Dirección</td>
                 <td class="auto-style8" colspan="6">
                     <asp:Label ID="lbl_direccion" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5">Comuna</td>
+                <td>Comuna</td>
                 <td class="auto-style6" colspan="2">
                     <asp:Label ID="lbl_comuna" runat="server"></asp:Label>
                 </td>
@@ -143,27 +175,13 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5">Región</td>
+                <td>Región</td>
                 <td class="auto-style8" colspan="6">
                     <asp:Label ID="lbl_region" runat="server"></asp:Label>
                 </td>
             </tr>
-            <tr>
-                <td colspan="2" class="auto-style8">
-                    Email</td>
-                <td class="auto-style8" colspan="2">
-                    <asp:Label ID="lbl_email_contacto" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style16" colspan="2">
-                    Ciudad</td>
-                <td class="auto-style15" colspan="2">
-                    <asp:Label ID="lbl_ciudad_despacho" runat="server"></asp:Label>
-                </td>
-            </tr>
             </table>
-        <asp:GridView ID="lista_cotizacion" runat="server" Caption="Detalle de la Cotización" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1265px" ShowFooter="True">
+        <asp:GridView ID="lista_detalles" runat="server" Caption="Detalle de la Cotización" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1265px" ShowFooter="True">
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -176,6 +194,54 @@
             <SortedDescendingCellStyle BackColor="#E9EBEF" />
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
+        <br />
+<table class="auto-style1">
+            <tr>
+                <td class="auto-style31">Vendedor/Emisor</td>
+                <td class="auto-style32">
+                    <asp:DropDownList ID="Lista_Vendedores" runat="server">
+                    </asp:DropDownList>
+                </td>
+                <td class="auto-style33">
+                    <asp:Button ID="Btn_crearCot" runat="server" OnClick="Btn_crearCot_Click" Text="Crear Cotización en ERP" />
+                </td>
+            </tr>
+        </table>
+        <br />
+&nbsp;<table class="auto-style38">
+            <tr>
+                <td class="auto-style23">
+                    &nbsp;</td>
+                <td class="auto-style27"><strong>Moneda</strong></td>
+                <td class="auto-style29">
+                    <asp:Label ID="lbl_moneda" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style23">
+                    &nbsp;</td>
+                <td class="auto-style27"><strong>Neto</strong></td>
+                <td class="auto-style29">
+                    <asp:Label ID="lbl_neto" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style24">
+                    &nbsp;</td>
+                <td class="auto-style26"><strong>Iva</strong></td>
+                <td class="auto-style28">
+                    <asp:Label ID="lbl_tax" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td class="auto-style24">
+                    &nbsp;</td>
+                <td class="auto-style26"><strong>Total</strong></td>
+                <td class="auto-style28">
+                    <asp:Label ID="lbl_total" runat="server"></asp:Label>
+                </td>
+            </tr>
+        </table>
     </form>
 </body>
 </html>

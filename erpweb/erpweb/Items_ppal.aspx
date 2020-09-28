@@ -75,7 +75,7 @@
         <div>
 
 
-            <table class="auto-style5">
+            <table>
                 <tr>
                     <td class="auto-style6">
                         <asp:Label ID="lbl_cantidad" runat="server"></asp:Label>

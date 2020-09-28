@@ -149,7 +149,7 @@ namespace erpweb
             queryString = queryString + "a.Obs_despacho, "; //19
             queryString = queryString + "a.Direccion_despacho, "; //20
             queryString = queryString + "(select nombre_region from tbl_regiones where id_region = a.id_region_despacho) region_despacho , "; //21
-            queryString = queryString + "a.id_ciudad_despacho, "; //22
+            queryString = queryString + "(select nombre from tbl_ciudad where id_ciudad = a.id_ciudad_despacho) ciudad, "; //22
             queryString = queryString + "ifnull((select descripcion from tbl_comunas where id_comuna = a.id_comuna_despacho),'') comuna_despacho, "; //23
             queryString = queryString + "a.fono_despacho, "; // 24
             queryString = queryString + "a.email_despacho, "; //25
@@ -204,6 +204,7 @@ namespace erpweb
                             lbl_ciudad_despacho.Text = dr.GetString(22);
                             lbl_obs_despacho.Text = dr.GetString(19);
                             lbl_fono_despacho.Text = dr.GetString(24);
+                            lbl_region_despacho.Text = dr.GetString(21);
 
                             double v_neto = Convert.ToDouble(dr.GetString(12));
                             double v_tax = Convert.ToDouble(dr.GetString(13));
@@ -245,7 +246,7 @@ namespace erpweb
 
         void detalle_nv(int id_nv)
         {
-            String queryString = "";
+            string queryString = "";
 
             queryString = "select dn.item Item, it.codigo 'Código', it.descripcion 'Descripción' , dn.cantidad 'Cantidad', dn.Valor_Unitario 'Precio Unitario' ";
             queryString = queryString + "from tbl_items_nv dn inner join tbl_items it on it.id_item = dn.id_item ";
