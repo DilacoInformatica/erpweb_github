@@ -216,7 +216,7 @@
                     &nbsp;</td>
             </tr>
             <tr>
-                <td class="auto-style14">Comuna</td>
+                <td >Comuna</td>
                 <td class="auto-style15">
                     <asp:Label ID="lbl_comuna_despacho" runat="server"></asp:Label>
                 </td>

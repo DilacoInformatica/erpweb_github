@@ -1,102 +1,13 @@
 ﻿USE [dilaco]
 GO
-/****** Object:  StoredProcedure [dbo].[web_carga_nv_det_web]    Script Date: 28/09/2020 18:17:47 ******/
+/****** Object:  StoredProcedure [dbo].[web_carga_nv_cab_web]    Script Date: 29/09/2020 16:20:51 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE [dbo].[web_carga_cot_det_web]
-	@v_id_cot int,
-	@v_item int,
-	@v_codigo nvarchar(30),
-	@v_descripcion nvarchar(500),
-	@v_cantidad float, 
-	@v_precio_unitario float
-AS
-BEGIN TRY
-   BEGIN TRAN
-   declare @cmd nvarchar(500)
-   declare @id_cliente int
-   declare @id_contacto int
-   declare @ctrl int
-   declare @id_cot int
-   declare @id_nta_vta int
-   declare @_id_cotizacion int
-   declare @nta_vta_num int
-   declare @rut int
-   declare @dv nvarchar(1)
-   declare @v_id_item int
-   declare @v_precio_lista float
-   declare @v_ID_Item_Nta_Vta int
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-	select @v_id_item = id_item from tbl_Items where Codigo = @v_codigo
-
-	select @v_precio_lista = precio from tbl_Items where ID_Item = @v_id_item;
-
-	select @_id_cotizacion= Id_Cotizacion from tbl_Items_Cotizacion where Id_Cotizacion = @v_id_cot
-
-	if isnull(@_id_cotizacion,0) = 0
-	begin
-	INSERT INTO [dbo].[tbl_Items_Cotizacion]
-			   ([Id_Cotizacion]
-			   ,[Item]
-			   ,[Id_Item]
-			   ,[Codigo]
-			   ,[Descripcion]
-			   ,[Precio_Lista]
-			   ,[Descuento]
-			   ,[Valor_Unitario]
-			   ,[Cantidad]
-			   ,[Suma]
-			   ,[Entrega]
-			   ,[Id_Estado]
-			   ,[Mostrar_Argum_Vta]
-			   ,[Salto_Pagina]
-			   ,[Sw_Precio_Especial])
-		 VALUES
-			   (@v_id_cot
-			   ,@v_item
-			   ,@v_id_item
-			   ,@v_codigo
-			   ,@v_descripcion
-			   ,@v_precio_lista
-			   ,0
-			   ,@v_precio_unitario
-			   ,@v_cantidad
-			   ,(@v_precio_unitario * @v_cantidad)
-			   ,NULL
-			   ,NULL
-			   ,1
-			   ,0
-			   ,0)
-
-		select distinct  @v_ID_Item_Nta_Vta = ID_Item_Cotizacion  from tbl_Items_Cotizacion where Id_Cotizacion = @v_id_cot
-
-	end
-	select isnull(@v_ID_Item_Nta_Vta,0)
-	COMMIT TRAN
-END TRY
-
-BEGIN CATCH
-    ROLLBACK TRAN
-	delete tbl_Cotizaciones where ID_Cotizacion = @v_id_cot
-    select cast(ERROR_LINE() as nvarchar)+ ' '+ cast(ERROR_NUMBER() as nvarchar) + ' ' + ERROR_MESSAGE()
-END CATCH;
-
-
-USE [dilaco]
-GO
-/****** Object:  StoredProcedure [dbo].[web_carga_cot_cab_web]    Script Date: 28/09/2020 19:16:43 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[web_carga_cot_cab_web]
-	@v_id_cot int,
-	@v_ncot int,
+ALTER PROCEDURE [dbo].[web_carga_nv_cab_web]
+	@v_id_nv int,
+	@v_nv int,
 	@v_fecha datetime,
 	@v_obs nvarchar(500),
 	@v_Id_cliente int, 
@@ -106,6 +17,10 @@ ALTER PROCEDURE [dbo].[web_carga_cot_cab_web]
 	@v_Tax_venta float, 
 	@v_total float,
 	@v_sigla_moneda nvarchar(3),
+	@v_Direcciondespacho nvarchar(500), 
+	@v_ciudaddespacho nvarchar(100), 
+	@v_comunadespacho nvarchar(100), 
+	@v_Folio_transac_web nvarchar(100),
 	@v_id_vendedor int,
 	@v_id_tipo_fact int
 AS
@@ -117,129 +32,97 @@ BEGIN TRY
    declare @ctrl int
    declare @id_cot int
    declare @id_nta_vta int
-   declare @_id_cotizacion int
-   declare @num_cotizacion int
+   declare @_id_nta_vta int
+   declare @nta_vta_num int
    declare @rut int
    declare @dv nvarchar(1)
    declare @v_id_moneda int
+   declare @_v_tipo_fact int
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	select @v_id_moneda = ID_Moneda from tbl_monedas where sigla = trim(@v_sigla_moneda)
 
-	select @_id_cotizacion = ID_Cotizacion from tbl_Cotizaciones where ID_Cotizacion_Web = @v_id_cot
+	select @_id_nta_vta = ID_Nta_Vta from tbl_Nota_Venta where id_nta_vta_web = @v_id_nv
 
-	if isnull(@_id_cotizacion,0) = 0
+	if (@v_id_tipo_fact = 1)
+	begin
+		set @_v_tipo_fact = 11	
+	end
+	else
+	begin
+	  set @_v_tipo_fact = 16	
+	end
+
+	if isnull(@_id_nta_vta,0) = 0
 	begin
 
-		select @num_cotizacion = Correlativo_COT + 1 from tbl_Correlativos
+		   select @nta_vta_num = Correlativo_NV + 1 from tbl_Correlativos
 
-		INSERT INTO [dbo].[tbl_Cotizaciones]
-           ([Cotizac_Num]
-           ,[Fecha_Cotizac]
-           ,[Nombre_Cotizacion]
-           ,[Observaciones]
-           ,[Id_Tipo_Cotizacion]
-           ,[Id_Estado]
-           ,[Referencia]
-           ,[Id_Cliente]
-           ,[Id_Contacto]
-           ,[Id_Vendedor]
-           ,[Id_Autor]
-           ,[Id_Filial]
-           ,[Revisa_Cot_Num]
-           ,[Condiciones_Vta]
-           ,[Suma_Total]
-           ,[Descuento_General]
-           ,[Val_Descuento_General]
-           ,[Descuento_Adicional]
-           ,[Val_Descuento_Adicional]
-           ,[Id_Moneda]
-           ,[Neto_En_Moneda]
-           ,[Cambio]
-           ,[Mostrar_Cambio]
-           ,[Neto_Venta]
-           ,[Tax_venta]
-           ,[Mostrar_Tax]
-           ,[TOTAL]
-           ,[Fecha_Reactivacion]
-           ,[Verificada]
-           ,[Fecha_Verificada]
-           ,[Usr_Verifica]
-           ,[Creado]
-           ,[Usr_Crea]
-           ,[Fecha_Impresa]
-           ,[Usr_Imprime]
-           ,[Solicita_Anular]
-           ,[Motivo_Solicita_Anular]
-           ,[Fecha_Solicita_Anular]
-           ,[Usr_Solicita_Anular]
-           ,[Documento_Cotizacion]
-           ,[Solicita_Reabrir]
-           ,[Cot_Enviada_Mail]
-           ,[Cot_Enviada_Mano]
-           ,[Fecha_Envio]
-           ,[Usr_Envia_Cot]
-           ,[Con_Servicio]
-		   ,ID_Cotizacion_Web
-		   ,Cotizac_Num_Web)
-		VALUES
-           (@num_cotizacion
-           ,@v_fecha
-           ,concat('Cotización Web N°', @v_ncot)
-           ,@v_obs
-           ,6 -- Web
-           ,1 -- Preparándose
-           ,''
-           ,@v_Id_cliente
-           ,@v_id_contacto
-           ,@v_id_vendedor
-           ,2
-           ,1 -- Filia
-           ,@num_cotizacion
-           ,''
-           ,@v_Suma_total
-           ,0
-           ,0
-           ,0
-           ,0
-           ,@v_id_moneda
-           ,@v_Neto_venta
-           ,0
-           ,0
-           ,@v_Neto_venta
-           ,@v_Tax_venta
-           ,1
-           ,@v_Suma_total
-           ,NULL
-           ,0
-           ,NULL
-           ,NULL
-           ,GETDATE()
-           ,2
-           ,NULL
-           ,NULL
-           ,0
-           ,NULL
-           ,NULL
-           ,NULL
-           ,NULL
-           ,0
-           ,0
-           ,0
-           ,0
-           ,NULL
-           ,0
-		   ,@v_id_cot
-		   ,@v_ncot)
+		   insert into tbl_Nota_Venta(Id_Nta_Vta_Web,
+									 Nta_Vta_Num_Web, 
+									 Fecha_Not_Vta,
+									 Observaciones, 
+									 Id_cliente, 
+									 id_contacto,
+									 id_vendedor,
+									 Suma_total, 
+									 Neto_venta, 
+									 Tax_venta, 
+									 total, 
+									 Id_Moneda,
+									 Direcciondespacho, 
+									 ciudaddespacho, 
+									 comunadespacho, 
+									 Folio_Transaccion_Web,
+									 nta_vta_num,
+									 Id_Estado,
+									 Id_Tipo_NV,
+									 Nombre_Not_Vta,
+									 Salida_con_Factura,
+									 Salida_con_Guia,
+									 Id_Bodega,
+									 Forma_Pago,
+									 Diascred,
+									 Id_Filial,
+									 Id_Tipo_Fact
+									 )
+		  Values (@v_id_nv,
+		          @v_nv,
+				  @v_fecha,
+				  @v_obs,
+				  @v_Id_cliente,
+				  @v_id_contacto,
+				  @v_id_vendedor,
+				  @v_Suma_total, 
+				  @v_Neto_venta, 
+				  @v_Tax_venta, 
+				  @v_total,
+				  @v_id_moneda,
+				  @v_Direcciondespacho, 
+				  @v_ciudaddespacho, 
+				  @v_comunadespacho, 
+				  @v_Folio_transac_web,
+				  @nta_vta_num,
+				  1, -- Preparándose
+			      6,
+			      'Nv Web',
+			      1,
+			      0,
+			      1, -- id de la Bodega Renca
+			      'EF', -- forma pago
+			      0, ---dias credito
+			      1,
+				  @v_id_tipo_fact
+				  )
 
 		-- cabecera cotización
 		-- detalle cotización
-		update tbl_Correlativos set Correlativo_COT = Correlativo_COT + 1
-		select @_id_cotizacion = ID_Cotizacion from tbl_Cotizaciones where ID_Cotizacion_Web = @v_id_cot
+		update tbl_Correlativos set Correlativo_NV = Correlativo_NV + 1
+		select @_id_nta_vta = id_nta_vta from tbl_Nota_Venta where Id_Nta_Vta_Web = @v_id_nv
 	end
-	select @_id_cotizacion
+	select @_id_nta_vta
 	COMMIT TRAN
 END TRY
 
