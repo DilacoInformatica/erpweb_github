@@ -19,9 +19,6 @@
         .auto-style3 {
             width: 331px;
         }
-        .auto-style5 {
-            height: 28px;
-        }
         .auto-style6 {
             width: 331px;
             height: 28px;
@@ -29,6 +26,27 @@
         .auto-style8 {
             width: 1254px;
             height: 28px;
+        }
+        .auto-style9 {
+            width: 479px;
+        }
+        .auto-style10 {
+            width: 981px;
+        }
+        .auto-style11 {
+            width: 5230px;
+        }
+        .auto-style12 {
+            background-color: #FFFFCC;
+        }
+        .auto-style13 {
+            width: 981px;
+            background-color: #FFFFCC;
+        }
+        .auto-style14 {
+            width: 981px;
+            text-align: right;
+            background-color: #FFFFCC;
         }
     </style>
     
@@ -261,34 +279,33 @@
         <br />
 &nbsp;<table class="auto-style1">
             <tr>
-                <td class="auto-style23">
+                <td class="auto-style11">
                     &nbsp;</td>
-                <td class="auto-style27"><strong>Moneda</strong></td>
-                <td class="auto-style29">
+                <td class="auto-style10"><strong>Moneda</strong></td>
+                <td class="auto-style14">
                     <asp:Label ID="lbl_moneda" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style23">
+                <td class="auto-style11">
                     &nbsp;</td>
-                <td class="auto-style27"><strong>Neto</strong></td>
-                <td class="auto-style29">
+                <td class="auto-style10"><strong>Neto</strong></td>
+                <td class="auto-style14">
                     <asp:Label ID="lbl_neto" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style24">
+                <td class="auto-style11">
                     &nbsp;</td>
-                <td class="auto-style26"><strong>Iva</strong></td>
-                <td class="auto-style28">
-                    <asp:Label ID="lbl_tax" runat="server"></asp:Label>
+                <td class="auto-style10"><strong>Iva</strong></td>
+                <td class="auto-style14"><asp:Label ID="lbl_tax" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td class="auto-style24">
+                <td>
                     &nbsp;</td>
-                <td class="auto-style26"><strong>Total</strong></td>
-                <td class="auto-style28">
+                <td class="auto-style10"><strong>Total</strong></td>
+                <td class="auto-style14">
                     <asp:Label ID="lbl_total" runat="server"></asp:Label>
                 </td>
             </tr>

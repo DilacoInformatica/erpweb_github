@@ -31,7 +31,58 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 carga_vendedores();
+                if (VerificaexistenciaCotERP(num_cotizacion) == "SI")
+                {
+                    Btn_crearCot.Enabled = false;
+                    lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
+                    lbl_error.ForeColor = Color.Red;
+                }
                 muestra_info_cotizacion(num_cotizacion);
+            }
+        }
+
+        public string VerificaexistenciaCotERP(int num_cotizacion)
+        {
+            string sql = "select COUNT(1) from tbl_Cotizaciones where Cotizac_Num_Web = " + num_cotizacion;
+            string result = "N";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                if (rdr.GetInt32(0).ToString() == "0")
+                                {
+                                    result = "NO";
+                                }
+                                else
+                                {
+                                    result = "SI";
+                                }
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
             }
         }
 
@@ -91,7 +142,7 @@ namespace erpweb
             queryString = queryString + " cl.Ciudad, "; //9
             queryString = queryString + " cl.Telefonos, "; //10
             queryString = queryString + " cl.Email, "; //11
-            queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%d-%m-%Y') fecha, "; // 12
+            queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%Y-%m-%d') fecha, "; // 12
             queryString = queryString + " cl.id_region, "; //13
             queryString = queryString + " (select replace(nombre_region,'Región','') from tbl_regiones where id_region = cl.Id_region) region, "; //14
             queryString = queryString + " ct.Neto_Venta,  ct.Tax_venta, ct.TOTAL,  "; // 15, 16, 17, 18
@@ -323,6 +374,8 @@ namespace erpweb
                                 cmd.Parameters.AddWithValue("@v_sigla_moneda", lbl_moneda.Text); // Pendiente creacion contacto Cliente
                                 cmd.Parameters["@v_sigla_moneda"].Direction = ParameterDirection.Input;
 
+                                cmd.Parameters.AddWithValue("@v_id_vendedor", Lista_Vendedores.SelectedItem.Value.ToString()); // Pendiente creacion contacto Cliente
+                                cmd.Parameters["@v_id_vendedor"].Direction = ParameterDirection.Input;
 
                                 using (SqlDataReader rdr = cmd.ExecuteReader())
                                 {
@@ -370,8 +423,8 @@ namespace erpweb
                                             cmd.CommandType = CommandType.StoredProcedure;
                                             SqlParameter param = new SqlParameter();
                                             // Parámetros
-                                            cmd.Parameters.AddWithValue("@v_id_cotizacion", v_id_cotizacion);
-                                            cmd.Parameters["@v_id_cotizacion"].Direction = ParameterDirection.Input;
+                                            cmd.Parameters.AddWithValue("@v_id_cot", v_id_cotizacion);
+                                            cmd.Parameters["@v_id_cot"].Direction = ParameterDirection.Input;
 
                                             cmd.Parameters.AddWithValue("@v_item", v_id_item);
                                             cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
@@ -457,7 +510,7 @@ namespace erpweb
         void entrega_num_cot_erp(int v_id_cotizacion)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
-            sql = " select Cotizac_Num from tbl_Cotizaciones where ID_Cotizacion =  = " + v_id_cotizacion;
+            sql = " select Cotizac_Num from tbl_Cotizaciones where ID_Cotizacion = " + v_id_cotizacion;
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {

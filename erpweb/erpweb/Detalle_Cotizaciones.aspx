@@ -14,10 +14,6 @@
         .auto-style8 {
             height: 15px;
         }
-        .auto-style5 {
-            width: 162px;
-            height: 15px;
-        }
         .auto-style6 {
             width: 243px;
             height: 15px;
@@ -25,11 +21,6 @@
         .auto-style36 {
             height: 15px;
             width: 38px;
-        }
-        .auto-style18 {
-            width: 177px;
-            height: 15px;
-            text-align: right;
         }
         .auto-style34 {
             height: 15px;
@@ -69,6 +60,7 @@
             width: 588px;
             height: 15px;
             text-align: right;
+            background-color: #FFFFCC;
         }
         .auto-style24 {
             width: 2246px;
@@ -79,9 +71,7 @@
         .auto-style28 {
             width: 588px;
             text-align: right;
-        }
-        .auto-style38 {
-            width: 889px;
+            background-color: #FFFFCC;
         }
         </style>
 </head>
@@ -208,7 +198,7 @@
             </tr>
         </table>
         <br />
-&nbsp;<table class="auto-style38">
+&nbsp;<table class="auto-style1">
             <tr>
                 <td class="auto-style23">
                     &nbsp;</td>

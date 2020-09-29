@@ -34,10 +34,60 @@ namespace erpweb
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
                 carga_vendedores();
+                if (VerificaexistenciaNVERP(id_nv) == "SI")
+                {
+                    Btn_crearNV.Enabled = false;
+                    lbl_error.Text = "NV N°"+ id_nv  + " ya fue creado en el ERP, consulte con su Administrador";
+                    lbl_error.ForeColor = Color.Red;
+                }
                 muestra_info_nv(id_nv);
             }
         }
 
+        public string VerificaexistenciaNVERP(int id_nv)
+        {
+            string sql = "select * from tbl_Nota_Venta where Nta_Vta_Num_Web = " + id_nv;
+            string result = "N";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                if (rdr.GetInt32(0).ToString() == "0")
+                                {
+                                    result = "NO";
+                                }
+                                else
+                                {
+                                    result = "SI";
+                                }
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+        }
 
         void carga_vendedores()
         {
@@ -129,7 +179,7 @@ namespace erpweb
             
             queryString = "SELECT a.Id_Nota_Vta, "; // 0
             queryString = queryString + "a.Nta_vta_num, "; // 1
-            queryString = queryString + "DATE_FORMAT(a.fecha, '%d-%m-%Y') fecha, "; // 2
+            queryString = queryString + "DATE_FORMAT(a.fecha, '%Y-%m-%d') fecha, "; // 2
             queryString = queryString + "a.Observaciones, "; //3 
             queryString = queryString + "a.Id_cliente, "; //4
             queryString = queryString + "d.Id_contacto, "; //5
