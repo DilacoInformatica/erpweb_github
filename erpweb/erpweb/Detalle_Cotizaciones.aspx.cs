@@ -142,7 +142,7 @@ namespace erpweb
             queryString = queryString + " cl.Ciudad, "; //9
             queryString = queryString + " cl.Telefonos, "; //10
             queryString = queryString + " cl.Email, "; //11
-            queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%Y-%m-%d') fecha, "; // 12
+            queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%d-%m-%Y') fecha, "; // 12
             queryString = queryString + " cl.id_region, "; //13
             queryString = queryString + " (select replace(nombre_region,'Región','') from tbl_regiones where id_region = cl.Id_region) region, "; //14
             queryString = queryString + " ct.Neto_Venta,  ct.Tax_venta, ct.TOTAL,  "; // 15, 16, 17, 18

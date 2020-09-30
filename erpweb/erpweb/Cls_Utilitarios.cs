@@ -8,7 +8,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente = 1; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente = 2; // Indica el ambiente dónde debe conectarse el sistema
 
         public string selecciona_todos(CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
         {
@@ -40,7 +40,8 @@ namespace erpweb
             }
             if (servidor == "SSERVER" && ambiente == 2)
             {
-                salida =   @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
+                //salida =   @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
+                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {

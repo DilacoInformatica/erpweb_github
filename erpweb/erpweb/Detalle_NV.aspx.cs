@@ -179,7 +179,7 @@ namespace erpweb
             
             queryString = "SELECT a.Id_Nota_Vta, "; // 0
             queryString = queryString + "a.Nta_vta_num, "; // 1
-            queryString = queryString + "DATE_FORMAT(a.fecha, '%Y-%m-%d') fecha, "; // 2
+            queryString = queryString + "DATE_FORMAT(a.fecha, '%d-%m-%Y') fecha, "; // 2
             queryString = queryString + "a.Observaciones, "; //3 
             queryString = queryString + "a.Id_cliente, "; //4
             queryString = queryString + "d.Id_contacto, "; //5
