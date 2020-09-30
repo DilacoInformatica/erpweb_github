@@ -1,6 +1,6 @@
 ﻿USE [dilaco]
 GO
-/****** Object:  StoredProcedure [dbo].[web_carga_nv_cab_web]    Script Date: 29/09/2020 16:20:51 ******/
+/****** Object:  StoredProcedure [dbo].[web_carga_nv_cab_web]    Script Date: 30-09-2020 10:05:37 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,11 +38,12 @@ BEGIN TRY
    declare @dv nvarchar(1)
    declare @v_id_moneda int
    declare @_v_tipo_fact int
+   declare @v_id_despachar int
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	select @v_id_moneda = ID_Moneda from tbl_monedas where sigla = trim(@v_sigla_moneda)
+	select @v_id_moneda = ID_Moneda from tbl_monedas where sigla = replace(@v_sigla_moneda,' ','')
 
 	select @_id_nta_vta = ID_Nta_Vta from tbl_Nota_Venta where id_nta_vta_web = @v_id_nv
 
@@ -52,8 +53,11 @@ BEGIN TRY
 	end
 	else
 	begin
-	  set @_v_tipo_fact = 16	
+	  set @_v_tipo_fact = 17	
 	end
+
+	-- sucursal de despacho
+	SELECT TOP 1  @v_id_despachar=ID_Sucursal FROM  dbo.tbl_Sucursales_Clientes WHERE  (Id_Cliente = @v_Id_cliente) AND (Activo = 1) ORDER BY Nombre_Sucursal
 
 	if isnull(@_id_nta_vta,0) = 0
 	begin
@@ -75,7 +79,7 @@ BEGIN TRY
 									 Direcciondespacho, 
 									 ciudaddespacho, 
 									 comunadespacho, 
-									 Folio_Transaccion_Web,
+									 Folio_transac_web,
 									 nta_vta_num,
 									 Id_Estado,
 									 Id_Tipo_NV,
@@ -86,7 +90,10 @@ BEGIN TRY
 									 Forma_Pago,
 									 Diascred,
 									 Id_Filial,
-									 Id_Tipo_Fact
+									 Id_Tipo_Fact,
+									 Id_despachar,
+									 Id_Salida_Factura,
+									 Id_Autor
 									 )
 		  Values (@v_id_nv,
 		          @v_nv,
@@ -114,7 +121,10 @@ BEGIN TRY
 			      'EF', -- forma pago
 			      0, ---dias credito
 			      1,
-				  @v_id_tipo_fact
+				  @v_id_tipo_fact,
+				  @v_id_despachar,
+				  9, --Correo Electrónico
+				  @v_id_vendedor
 				  )
 
 		-- cabecera cotización
