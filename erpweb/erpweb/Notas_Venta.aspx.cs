@@ -126,7 +126,5 @@ namespace erpweb
             GridViewRow row = Lista_notas.SelectedRow;
             Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text);
         }
-
-      
     }
 }

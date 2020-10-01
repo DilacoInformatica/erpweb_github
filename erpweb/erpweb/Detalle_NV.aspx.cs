@@ -514,6 +514,7 @@ namespace erpweb
         {
             int v_id_nta_vta = 0;
             int v_id_item_nta_vta = 0;
+            string v_email = "";
             Page.Validate();
             if (Page.IsValid)
             {
@@ -605,6 +606,9 @@ namespace erpweb
 
                                     cmd.Parameters.AddWithValue("@v_id_tipo_fact", id_tipo_fac); // Pendiente creacion contacto Cliente
                                     cmd.Parameters["@v_id_tipo_fact"].Direction = ParameterDirection.Input;
+
+                                    cmd.Parameters.AddWithValue("@v_oc", lbl_n_oc.Text); // Pendiente creacion contacto Cliente
+                                    cmd.Parameters["@v_oc"].Direction = ParameterDirection.Input;
 
                                     using (SqlDataReader rdr = cmd.ExecuteReader())
                                     {
@@ -703,7 +707,8 @@ namespace erpweb
                                 entrega_num_nv_erp(v_id_nta_vta);
                                 lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
                                 lbl_status.ForeColor = Color.Red;
-                                utiles.enviar_correo("Nv Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home");
+                                v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()),Sserver);
+                                utiles.enviar_correo("Nv Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                             }
                             // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
                         }
@@ -712,6 +717,7 @@ namespace erpweb
             }
           }
 
+      
         void entrega_num_nv_erp(int v_id_nta_vta)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";

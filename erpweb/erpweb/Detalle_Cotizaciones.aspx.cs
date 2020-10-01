@@ -307,6 +307,7 @@ namespace erpweb
             int v_id_cliente = 0;
             int v_id_cotizacion = 0;
             int v_id_item_cotizacion = 0;
+            string v_email = "";
             Page.Validate();
 
             if (Page.IsValid)
@@ -383,7 +384,8 @@ namespace erpweb
                                     {
                                         if (!rdr.IsDBNull(0))
                                         {
-                                            v_id_cotizacion = rdr.GetInt32(0);
+                                            lbl_error.Text = rdr.GetInt32(0).ToString();
+                                            v_id_cotizacion = Convert.ToInt32(rdr.GetInt32(0));
                                         }
                                     }
                                 }
@@ -472,8 +474,10 @@ namespace erpweb
                         {
                             actualiza_Cotizacion(Convert.ToInt32(lbl_numero.Text));
                             entrega_num_cot_erp(v_id_cotizacion);
-                            lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
+                            lbl_status.Text = "Cotización creada correctamente en el ERP, revise el Home";
                             lbl_status.ForeColor = Color.Red;
+                            v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
+                            utiles.enviar_correo("Cotización Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                         }
                         // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
                     }

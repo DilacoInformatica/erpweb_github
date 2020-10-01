@@ -18,6 +18,7 @@ namespace erpweb
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         string usuario = "";
+        string iniciales_user = "";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,13 +32,17 @@ namespace erpweb
 
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
-                usuario = "141"; // mi usuarios por default mientras no nos conectemos al servidor
+                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
             }
             else
             {
                 usuario = Request.QueryString["usuario"].ToString();
             }
-            
+
+            iniciales_user = utiles.obtiene_nombre_usuario(Convert.ToInt32(usuario), Sserver);
+
+            lbl_usuario.Text = iniciales_user;
+
 
             if (!this.IsPostBack)
             {

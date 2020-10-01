@@ -47,6 +47,9 @@
             height: 321px;
             overflow: scroll;
         }
+        .auto-style18 {
+            font-size: smaller;
+        }
         </style>
     <script>
         function valida()
@@ -63,13 +66,15 @@
 <body style="height: 875px">
     <form id="form1" runat="server" class="auto-style12">
     <div>
-        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web</span></h1></div>
+        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web <span class="auto-style18">(usuario conectado:</span><asp:Label ID="lbl_usuario" runat="server" CssClass="auto-style18"></asp:Label>
+            )</span></h1>
+        </div>
         <table class="auto-style10">
             <tr class="BottomTabla">
-                <td colspan="10" class="auto-style16">Búsqueda de Clientes en Sitio Web</td>
-            </tr>
+                <td colspan="11" class="auto-style16">Búsqueda de Clientes en Sitio Web         </tr>
             <tr>
                 <td>Id</td>
+                <td>&nbsp;</td>
                 <td class="auto-style7">
                     <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="68px"></asp:TextBox>
                 </td>
