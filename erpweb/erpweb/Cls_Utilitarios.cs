@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
 
 namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente = 2; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente = 1; // Indica el ambiente dónde debe conectarse el sistema
+
+        string correo_envia = "informatica@dilaco.com";
+        string correo_recibe = "sebastian.aranda.o@gmail.com";
 
         public string selecciona_todos(CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
         {
@@ -54,6 +58,61 @@ namespace erpweb
             }
 
             return salida;
+
+        }
+
+        public string enviar_correo(string cabecera, string cuerpo)
+        {
+
+
+            SmtpClient SMTPClientService = new System.Net.Mail.SmtpClient();
+
+
+            SMTPClientService.Host = "mail.dilaco.com";
+            SMTPClientService.Port = Convert.ToInt32("110");
+            SMTPClientService.Credentials = new System.Net.NetworkCredential(correo_envia,"informatica#2019");
+
+            System.Net.Mail.MailMessage EmailMsgObj = new System.Net.Mail.MailMessage();
+            EmailMsgObj.IsBodyHtml = true;
+            EmailMsgObj.To.Add(correo_recibe);
+            EmailMsgObj.From = new System.Net.Mail.MailAddress(correo_envia);
+
+           EmailMsgObj.ReplyToList.Add("saranda@dilaco.com");
+
+
+            EmailMsgObj.Subject = cabecera;
+
+            EmailMsgObj.Body = cuerpo.ToString();
+
+            try
+            {
+                SMTPClientService.Send(EmailMsgObj);
+
+                return "OK";
+            }
+            catch (Exception ex)
+            {
+                return ex.Message.ToString();
+            }
+            finally
+            {
+                SMTPClientService.Dispose();
+            }
+
+            //MailMessage mail = new System.Net.Mail.MailMessage();
+            //mail.From = new MailAddress(correo_envia);
+            //mail.To.Add(correo_recibe);
+
+            //mail.Subject = cabecera;
+            //mail.Body = cuerpo;
+            //SmtpClient smtp = new SmtpClient();
+            //smtp.Host = "mail.dilaco.com";
+
+            //try
+            //{
+            //    smtp.Send(mail);
+            //    return "OK";
+            //}
 
         }
     }
