@@ -82,8 +82,7 @@ namespace erpweb
             EmailMsgObj.To.Add("saranda@dilaco.com");
             EmailMsgObj.From = new System.Net.Mail.MailAddress(correo_envia);
 
-            EmailMsgObj.ReplyToList.Add("saranda@dilaco.com");
-
+           // EmailMsgObj.ReplyToList.Add("saranda@dilaco.com");
 
             EmailMsgObj.Subject = cabecera;
 
