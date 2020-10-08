@@ -20,6 +20,7 @@
         }
         .auto-style35 {
             height: 39px;
+            width: 621px;
         }
         </style>
     <script>

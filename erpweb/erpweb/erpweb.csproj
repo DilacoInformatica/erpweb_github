@@ -104,8 +104,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Clientes.aspx" />
+    <Content Include="Contacto_Sitio.aspx" />
     <Content Include="Cotizaciones.aspx" />
     <Content Include="css\estilos.css" />
+    <Content Include="Detalle_Contacto.aspx" />
     <Content Include="Detalle_Cotizaciones.aspx" />
     <Content Include="Detalle_NV.aspx" />
     <Content Include="img\adjuntarTH.gif" />
@@ -157,12 +159,26 @@
     </Compile>
     <Compile Include="ClsFTP.cs" />
     <Compile Include="Cls_Utilitarios.cs" />
+    <Compile Include="Contacto_Sitio.aspx.cs">
+      <DependentUpon>Contacto_Sitio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacto_Sitio.aspx.designer.cs">
+      <DependentUpon>Contacto_Sitio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Cotizaciones.aspx.cs">
       <DependentUpon>Cotizaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Cotizaciones.aspx.designer.cs">
       <DependentUpon>Cotizaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Detalle_Contacto.aspx.cs">
+      <DependentUpon>Detalle_Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Detalle_Contacto.aspx.designer.cs">
+      <DependentUpon>Detalle_Contacto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Detalle_Cotizaciones.aspx.cs">
       <DependentUpon>Detalle_Cotizaciones.aspx</DependentUpon>
