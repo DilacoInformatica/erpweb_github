@@ -357,6 +357,8 @@ namespace erpweb
 
         protected void Btn_buscarw_Click(object sender, EventArgs e)
         {
+            lbl_status.Text = "";
+            lbl_error.Text = "";
             carga_clientes();
         }
 

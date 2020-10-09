@@ -29,7 +29,6 @@ namespace erpweb
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
 
-
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor

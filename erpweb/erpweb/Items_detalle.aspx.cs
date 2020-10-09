@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace erpweb
 {
@@ -15,6 +18,10 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         int id_item = 0;
+        int usuario = 0;
+        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string archivo2 = "";
+
         ClsFTP ftp = new ClsFTP();
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         // FTP
@@ -25,8 +32,10 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
+            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            txt_precio_lista.Enabled = false;
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";
@@ -71,6 +80,9 @@ namespace erpweb
         void muestra_info(int id_item)
         {
             string query = "";
+            string ruta_local = "";
+            string extension = "";
+            string nuevo_nom = "";
             query = "SELECT iw.Id_Item "; // 0
             query = query + ",iw.Codigo "; // 1
             query = query + " ,iw.habilitado_venta "; // 2
@@ -118,6 +130,7 @@ namespace erpweb
             query = query + ",iw.Tabla_Tecnica "; //44
             query = query + ",iw.Hoja_de_Seguridad "; //45
             query = query + ",pr.Nombre_Fantasia "; //46
+            query = query + ",iw.Precio_lista "; //47
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
@@ -137,21 +150,21 @@ namespace erpweb
                         txt_codigo.Text = reader[1].ToString();
                         txt_descripcion.Text = reader[11].ToString();
                         if (reader[4].ToString() == "1")
-                            { chck_visible.Checked = true; }
+                        { chck_visible.Checked = true; }
                         else
-                            { chck_visible.Checked = false; }
+                        { chck_visible.Checked = false; }
                         if (reader[3].ToString() == "1")
-                            { chck_prodped.Checked = true; }
+                        { chck_prodped.Checked = true; }
                         else
-                            { chck_prodped.Checked = false; }
+                        { chck_prodped.Checked = false; }
                         if (reader[6].ToString() == "1")
-                            { chck_venta.Checked = true; }
+                        { chck_venta.Checked = true; }
                         else
-                            { chck_venta.Checked = false; }
+                        { chck_venta.Checked = false; }
                         if (reader[5].ToString() == "1")
-                            { chck_cot.Checked = true; }
+                        { chck_cot.Checked = true; }
                         else
-                            { chck_cot.Checked = false; }
+                        { chck_cot.Checked = false; }
 
                         foreach (ListItem item in LstCategorias.Items)
                         {
@@ -252,17 +265,18 @@ namespace erpweb
                         txt_proveedor.Text = reader[46].ToString();
                         txt_marca.Text = reader[16].ToString();
                         txt_precio.Text = reader[17].ToString();
+                        txt_precio_lista.Text = reader[47].ToString();
                         //lbl_moneda.Text = reader[11].ToString();
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
-                        txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString())  ;
+                        txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
                         lbl_manual_tecnico.Text = reader[22].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         lbl_fotoc.Text = reader[24].ToString();
                         lbl_fotog.Text = reader[25].ToString();
                         lbl_video.Text = reader[26].ToString();
                         lbl_hoja_seguridad.Text = reader[45].ToString();
-                        txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString()); 
+                        txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString());
                         txt_acc1.Text = reader[29].ToString();
                         txt_acc2.Text = reader[30].ToString();
                         txt_acc3.Text = reader[31].ToString();
@@ -272,6 +286,89 @@ namespace erpweb
                         txt_alt1.Text = reader[35].ToString();
                         txt_alt2.Text = reader[36].ToString();
                         txt_alt3.Text = reader[37].ToString();
+
+                        if (lbl_fotog.Text != "")
+                        {
+                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            extension = Path.GetExtension(archivo2);
+                            if (File.Exists(archivo2))
+                            {
+                                nuevo_nom = "FG_" + txt_codigo.Text.Replace(" ", "") + extension;
+                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Imagenes/");
+                                if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                {
+                                    File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
+                            }
+                        }
+
+                        if (lbl_fotoc.Text != "")
+                        {
+                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            extension = Path.GetExtension(archivo2);
+                            if (File.Exists(archivo2))
+                            {
+                                nuevo_nom = "FC_" + txt_codigo.Text.Replace(" ", "") + extension;
+                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Imagenes/");
+                                if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                {
+                                    File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
+                            }
+                        }
+
+                        if (lbl_video.Text != "")
+                        {
+                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            extension = Path.GetExtension(archivo2);
+                            if (File.Exists(archivo2))
+                            {
+                                nuevo_nom = "VD_" + txt_codigo.Text.Replace(" ", "") + extension;
+                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Videos/");
+                                if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                {
+                                    File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
+                            }
+                        }
+
+                        if (lbl_manual_tecnico.Text != "")
+                        {
+                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            extension = Path.GetExtension(archivo2);
+                            if (File.Exists(archivo2))
+                            {
+                                nuevo_nom = "MT_" + txt_codigo.Text.Replace(" ", "") + extension;
+                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/");
+                                if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                {
+                                    File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
+                                
+                            }
+
+                        }
+
+                        if (lbl_hoja_seguridad.Text != "")
+                        {
+                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            extension = Path.GetExtension(archivo2);
+                            if (File.Exists(archivo2))
+                            {
+                                nuevo_nom = "HS_" + txt_codigo.Text.Replace(" ","") + extension;
+                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
+                                if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                {
+                                    File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
+                            }
+
+                        }
                     }
                     reader.Close();
                     connection.Close();
@@ -437,6 +534,7 @@ namespace erpweb
                 query = query + ",proveedor = '" + txt_proveedor.Text + "'";
                 query = query + ",Marca = '" + txt_marca.Text +"'";
                 query = query + ",precio = " + txt_precio.Text;
+                query = query + ",precio_lista = " + txt_precio_lista.Text;
                 query = query + ",id_moneda = " + LstMonedas.SelectedItem.Value.ToString();// LstMonedas.SelectedValue.ToString();
                 query = query + ",Unidad_vta = '" + txt_marca.Text + "'";
                 query = query + ",Codigo_prov = '" + txt_codigoprov + "'";
@@ -484,6 +582,7 @@ namespace erpweb
                 query = query + "proveedor, ";
                 query = query + "Marca, ";
                 query = query + "precio, ";
+                query = query + "precio_lista, ";
                 query = query + "id_moneda, ";
                 query = query + "Unidad_vta, ";
                 query = query + "codigo_prov,";
@@ -537,6 +636,7 @@ namespace erpweb
                 query = query + "'" + txt_proveedor.Text.Replace(",", ".").Trim() + "',";
                 query = query + "'" + txt_marca.Text.Replace(",", ".").Trim() + "',";
                 query = query + txt_precio.Text.Replace(",",".") + ",";
+                query = query + txt_precio_lista.Text.Replace(",", ".") + ",";
                 query = query + LstMonedas.SelectedValue.ToString() + ",";
                 query = query + "'" + txt_unidad.Text + "',";
                 query = query + "'" + txt_codigoprov.Text + "',";
@@ -595,6 +695,8 @@ namespace erpweb
                     // Ficha Técnica
                     if (lbl_hoja_seguridad.Text.Trim() != "")
                     {
+                        // debemos verificar que el archivo esta en una ruta antigua y con un nombre distinto... debemos moverlo para copiarlo
+
                         ruta_server = @"/dinamicos/productos/HojaS/";
                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
                         string result = ftp.Ftp(server, user, password, lbl_hoja_seguridad.Text, ruta_local, ruta_server);

@@ -70,7 +70,6 @@ namespace erpweb
 
             SmtpClient SMTPClientService = new System.Net.Mail.SmtpClient();
 
-
             SMTPClientService.Host = "mail.dilaco.com";
             SMTPClientService.Port = 25;
             SMTPClientService.EnableSsl = false;

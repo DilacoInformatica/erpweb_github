@@ -18,11 +18,15 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-
+        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string archivo2 = "";
+        string extension = "";
+        string nuevo_nom = "";
         // FTP
         string server = @"ftp://dev.dilaco.com/";
         string user = "dev@dilaco.com";
         string password = "4ydlrvyKUX8}";
+        string usuario = "";
 
         DataTable lista_errores = new DataTable();
        
@@ -32,6 +36,14 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
+            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            {
+                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                usuario = Request.QueryString["usuario"].ToString();
+            }
             if (!this.IsPostBack)
             {
                 carga_productos("");
@@ -63,7 +75,7 @@ namespace erpweb
 
                 if (codigo != "")
                 {
-                    queryString = queryString + "where codigo =  '" + codigo + "'";
+                    queryString = queryString + "where codigo like  '" + codigo + "%'";
                 }
 
                 SqlDataAdapter data = new SqlDataAdapter(queryString, connection);
@@ -84,20 +96,21 @@ namespace erpweb
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
             GridResultados.Visible = false;
-            if (txt_codigo.Text == "")
-            {
-                lbl_error.Text = "Debe indicar código a buscar";
-            }
-            else
-            {
-                carga_productos(txt_codigo.Text);
-            }
+            carga_productos(txt_codigo.Text);
+            //if (txt_codigo.Text == "")
+            //{
+            //    lbl_error.Text = "Debe indicar código a buscar";
+            //}
+            //else
+            //{
+            //    carga_productos(txt_codigo.Text);
+            //}
         }
 
         protected void Productos_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Productos.SelectedRow;
-            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text);
+            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text + "&usuario="+ usuario);
         }
 
         protected void Excel_Click(object sender, ImageClickEventArgs e)
@@ -194,6 +207,12 @@ namespace erpweb
                 query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
                 query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = iw.Id_proveedor ";
                 query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = iw.Id_moneda ";
+
+                if (txt_codigo.Text != "")
+                {
+                    query = query + "where codigo like  '" + txt_codigo.Text + "%'";
+                }
+
                 using (SqlConnection connection = new SqlConnection(Sserver))
                 {
                     try
@@ -365,96 +384,229 @@ namespace erpweb
                                     conn.Dispose();
 
                                     //// Si el producto fue grabado correctamente, cargamos los archivos en el servidor
-                                    //// Ficha Técnica
+                                    //// Manual Técnico
                                     if (reader[22].ToString().Trim() != "")
                                     {
                                         ruta_server = @"/dinamicos/productos/manual_tecnico/";
                                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/manual_tecnico/");
-                                        string result = ftp.Ftp(server, user, password, reader[22].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "Ok")
+                                        archivo2 = Path.Combine(ruta_alterna, reader[22].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "MT_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
+                                            string result = ftp.Ftp(server, user, password, reader[22].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
                                         }
                                     }
                                     // Presentación
                                     if (reader[23].ToString().Trim() != "")
                                     {
-                                        ruta_server = @"/dinamicos/productos/presentacion/";
+                                        ruta_server = @"/dinamicos/productos/Presentacion/";
                                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/Presentacion/");
-                                        string result = ftp.Ftp(server, user, password, reader[23].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "OK")
+                                        archivo2 = Path.Combine(ruta_alterna, reader[23].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "PR_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
+                                            string result = ftp.Ftp(server, user, password, reader[23].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
                                         }
                                     }
+
                                     // Hoja Seguridad
                                     if (reader[45].ToString().Trim() != "")
                                     {
                                         ruta_server = @"/dinamicos/productos/hds/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
-                                        string result = ftp.Ftp(server, user, password, reader[45].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "OK")
+                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/hds/");
+                                        archivo2 = Path.Combine(ruta_alterna, reader[45].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "HS_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
+                                            string result = ftp.Ftp(server, user, password, reader[45].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
                                         }
                                     }
                                     // Foto C
                                     if (reader[24].ToString().Trim() != "")
                                     {
                                         ruta_server = @"/dinamicos/productos/img/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/Imagenes/");
-                                        string result = ftp.Ftp(server, user, password, reader[24].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "Ok")
+                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
+                                        archivo2 = Path.Combine(ruta_alterna, reader[24].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "FC_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
+                                            string result = ftp.Ftp(server, user, password, reader[24].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
                                         }
                                     }
                                     // Foto G
                                     if (reader[25].ToString().Trim() != "")
                                     {
                                         ruta_server = @"/dinamicos/productos/img/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/Imagenes/");
-                                        string result = ftp.Ftp(server, user, password, reader[25].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "Ok")
+                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
+                                        archivo2 = Path.Combine(ruta_alterna, reader[25].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "FG_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
+                                            string result = ftp.Ftp(server, user, password, reader[25].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
                                         }
                                     }
 
                                     // Video
                                     if (reader[26].ToString().Trim() != "")
                                     {
-                                        ruta_server = @"/dinamicos/productos/videos/";
+                                        ruta_server = @"/dinamicos/productos/Videos/";
                                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/Videos/");
-                                        string result = ftp.Ftp(server, user, password, reader[26].ToString().Trim(), ruta_local, ruta_server);
-                                        if (result == "Ok")
+                                        archivo2 = Path.Combine(ruta_alterna, reader[26].ToString().Trim());
+                                        extension = Path.GetExtension(archivo2);
+                                        if (File.Exists(archivo2))
                                         {
-                                            arc++;
+                                            nuevo_nom = "VD_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                            {
+                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+                                                if (result == "Ok")
+                                                {
+                                                    arc++;
+                                                }
+                                                else
+                                                {
+                                                    are++;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            are++;
-                                        }
+                                            string result = ftp.Ftp(server, user, password, reader[26].ToString().Trim(), ruta_local, ruta_server);
+                                            if (result == "Ok")
+                                            {
+                                                arc++;
+                                            }
+                                            else
+                                            {
+                                                are++;
+                                            }
+                                        }  
                                     }
                                 }
                                 catch (Exception ex)
