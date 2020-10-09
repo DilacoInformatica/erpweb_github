@@ -304,7 +304,7 @@ namespace erpweb
             queryString = queryString + "'S' prodpedido, ";
             queryString = queryString + "'N' visible, ";
             queryString = queryString + "'N' cotizaciones, ";
-            queryString = queryString + "'V' ventas, ";
+            queryString = queryString + "'S' ventas, ";
             queryString = queryString + "tbl_Descuentos_Unitarios.Id_Moneda, ";
             queryString = queryString + "tbl_items.Precio precio_lista, ";
             queryString = queryString + "tbl_Descuentos_Unitarios.Valor Precio ";
@@ -332,7 +332,6 @@ namespace erpweb
             queryString = queryString + "inner join tbl_Items_Facturas df on df.Id_Factura = fc.ID_Factura ";
             queryString = queryString + "where year(fc.fecha) >= 2017 and fc.Id_tipo_factura = 12 and fc.Nula = 0)) x ";
             queryString = queryString + "where x.id_cliente = " + id_cliente;
-
 
             try
             {

@@ -753,7 +753,7 @@ namespace erpweb
 
         void actualiza_NV(int numero)
         {
-            String queryString = "";
+            string queryString = "";
 
             queryString = "UPDATE tbl_nota_vta SET Leido_ERP = 1 WHERE Nta_vta_num =  " + numero;
             using (MySqlConnection conn = new MySqlConnection(SMysql))

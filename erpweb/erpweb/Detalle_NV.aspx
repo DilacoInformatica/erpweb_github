@@ -48,6 +48,9 @@
             text-align: right;
             background-color: #FFFFCC;
         }
+        .auto-style15 {
+            height: 24px;
+        }
     </style>
     
 
@@ -70,7 +73,7 @@
     </div>
         <table class="auto-style1">
             <tr class="BottomTabla">
-                <td class="auto-style8" colspan="5"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
+                <td class="auto-style8" colspan="4"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
             </tr>
             <tr>
                 <td>Numero NV ERP</td>
@@ -111,7 +114,7 @@
                     &nbsp;</td>
             </tr>
             <tr class="BottomTabla">
-                <td class="auto-style35" colspan="5"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
+                <td class="auto-style15" colspan="4"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
             </tr>
             <tr>
                 <td>Cliente</td>
@@ -178,7 +181,7 @@
                     &nbsp;</td>
             </tr>
             <tr class="BottomTabla">
-                <td class="auto-style13" colspan="5"><h4><strong>Información de Despacho:</strong></h4></td>
+                <td class="auto-style13" colspan="4"><h4><strong>Información de Despacho:</strong></h4></td>
             </tr>
             <tr>
                 <td class="auto-style2">Contacto</td>
@@ -189,8 +192,7 @@
                     &nbsp;</td>
                 <td>
                     &nbsp;</td>
-                <td>
-                    &nbsp;</td>
+                
             </tr>
             <tr>
                 <td class="auto-style8">Teléfono</td>
@@ -202,8 +204,7 @@
                 <td class="auto-style18">
                     <asp:Label ID="lbl_email_contacto" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style18">
-                    &nbsp;</td>
+               
             </tr>
             <tr>
                 <td>Dirección</td>
@@ -225,8 +226,7 @@
                 <td class="auto-style15">
                     <asp:Label ID="lbl_ciudad_despacho" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style15">
-                    &nbsp;</td>
+             
             </tr>
             <tr>
                 <td>Región</td>
