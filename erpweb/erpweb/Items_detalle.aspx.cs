@@ -697,7 +697,7 @@ namespace erpweb
                     {
                         // debemos verificar que el archivo esta en una ruta antigua y con un nombre distinto... debemos moverlo para copiarlo
 
-                        ruta_server = @"/dinamicos/productos/HojaS/";
+                        ruta_server = @"/dinamicos/productos/hds/";
                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
                         string result = ftp.Ftp(server, user, password, lbl_hoja_seguridad.Text, ruta_local, ruta_server);
                     }

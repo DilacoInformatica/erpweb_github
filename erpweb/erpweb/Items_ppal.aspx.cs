@@ -210,7 +210,7 @@ namespace erpweb
 
                 if (txt_codigo.Text != "")
                 {
-                    query = query + "where codigo like  '" + txt_codigo.Text + "%'";
+                    query = query + "where iw.codigo like  '" + txt_codigo.Text + "%'";
                 }
 
                 using (SqlConnection connection = new SqlConnection(Sserver))
@@ -398,9 +398,13 @@ namespace erpweb
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    // copiamos de vuelta el archivo generado a la ficha
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
                                                 {
@@ -411,7 +415,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[22].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -435,9 +439,12 @@ namespace erpweb
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set Presentacion_Producto = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set Presentacion_Producto = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
                                                 {
@@ -448,7 +455,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[23].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -463,7 +470,7 @@ namespace erpweb
                                     if (reader[45].ToString().Trim() != "")
                                     {
                                         ruta_server = @"/dinamicos/productos/hds/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/hds/");
+                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
                                         archivo2 = Path.Combine(ruta_alterna, reader[45].ToString().Trim());
                                         extension = Path.GetExtension(archivo2);
                                         if (File.Exists(archivo2))
@@ -472,10 +479,14 @@ namespace erpweb
                                             if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+  
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set Hoja_de_Seguridad = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set Hoja_de_Seguridad = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
                                                 {
@@ -486,7 +497,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[45].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -510,9 +521,12 @@ namespace erpweb
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set foto_chica = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set foto_chica = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
                                                 {
@@ -523,7 +537,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[24].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -547,9 +561,12 @@ namespace erpweb
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set foto_grande = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set foto_grande = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
                                                 {
@@ -560,7 +577,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[25].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -585,9 +602,12 @@ namespace erpweb
                                             {
                                                 File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                                 string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "Ok")
+                                                if (result == "OK")
                                                 {
                                                     arc++;
+                                                    act_nom_archivosserver("update tbl_items_web set video = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivomysql("update tbl_items set video = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom)); 
                                                 }
                                                 else
                                                 {
@@ -598,7 +618,7 @@ namespace erpweb
                                         else
                                         {
                                             string result = ftp.Ftp(server, user, password, reader[26].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "Ok")
+                                            if (result == "OK")
                                             {
                                                 arc++;
                                             }
@@ -641,7 +661,54 @@ namespace erpweb
             }
         }
 
-       
+
+        void act_nom_archivosserver (string sentencia)
+        {
+            string query = sentencia;
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+        }
+
+
+
+        void act_nom_archivomysql(string sentencia)
+        {
+            string query = sentencia;
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+
+                    conn.Close();
+                    conn.Dispose();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+               
+            }
+        }
 
         public Boolean validamysql(string id_item)
         {
@@ -680,7 +747,7 @@ namespace erpweb
             {
                 Console.WriteLine(ex.Message.ToString());
                 return false;
-               
+
             }
         }
 
