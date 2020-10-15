@@ -17,9 +17,10 @@ namespace erpweb
     {
         string Sserver = "";
         string SMysql = "";
+        string modo = "";
         int id_item = 0;
         int usuario = 0;
-        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string ruta_alterna = @"C:\intranet\documentos\Biblioteca";
         string archivo2 = "";
 
         ClsFTP ftp = new ClsFTP();
@@ -33,9 +34,24 @@ namespace erpweb
         {
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+            modo = Request.QueryString["modo"].ToString();
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
+
+            if (modo == "R")
+            {
+                Btn_volver.Visible = false;
+                ImgBtn_Cerrar.Visible = true;
+            }
+            else
+            {
+                Btn_volver.Visible = false;
+                ImgBtn_Cerrar.Visible = true;
+            }
+
+            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";

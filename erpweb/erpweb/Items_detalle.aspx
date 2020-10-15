@@ -109,6 +109,7 @@
                 </td>
                       <td class="auto-style45" >
                     <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
+                        <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
                 </td>
         </tr>
       </table></td>
@@ -567,3 +568,9 @@
   </form>
     </body>
 </html>
+<script>
+    function salir() {
+        if (confirm('Cerrar página, Seguro desea proceder?'))
+        { window.close(); }
+    }
+</script>

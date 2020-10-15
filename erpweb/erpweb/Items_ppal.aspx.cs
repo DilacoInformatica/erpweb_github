@@ -18,7 +18,7 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string ruta_alterna = @"C:\intranet\documentos\Biblioteca";
         string archivo2 = "";
         string extension = "";
         string nuevo_nom = "";
@@ -322,7 +322,7 @@ namespace erpweb
         protected void Productos_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Productos.SelectedRow;
-            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text + "&usuario="+ usuario);
+            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text + "&usuario="+ usuario +"&modo='W'");
         }
 
         protected void Excel_Click(object sender, ImageClickEventArgs e)
@@ -419,7 +419,7 @@ namespace erpweb
                 query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = tbl_items_web.Id_SubCategoria ";
                 query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = tbl_items_web.Id_proveedor ";
                 query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = tbl_items_web.Id_moneda ";
-                query = query + "inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1where 1 = 1 ";
+                query = query + "inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1 ";
 
                 if (txt_codigo.Text != "")
                 {
@@ -1060,6 +1060,7 @@ namespace erpweb
             dt.Columns.Add("Foto Grande");
             dt.Columns.Add("Video");
             dt.Columns.Add("Hoja Seguridad"); // 12
+            dt.Columns.Add("Publicado");
 
             foreach (GridViewRow gvr in Productos.Rows)
             {
@@ -1067,7 +1068,7 @@ namespace erpweb
                 gvr.Cells[3].Text, gvr.Cells[4].Text, gvr.Cells[5].Text,
                 gvr.Cells[6].Text, gvr.Cells[7].Text, gvr.Cells[8].Text,
                 gvr.Cells[9].Text, gvr.Cells[10].Text, gvr.Cells[11].Text,
-                gvr.Cells[12].Text, gvr.Cells[13].Text);
+                gvr.Cells[12].Text, gvr.Cells[13].Text, gvr.Cells[14].Text);
             }
 
 
