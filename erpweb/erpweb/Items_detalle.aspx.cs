@@ -39,15 +39,15 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
 
-            if (modo == "R")
+            if (modo == "E")
             {
                 Btn_volver.Visible = false;
                 ImgBtn_Cerrar.Visible = true;
             }
             else
             {
-                Btn_volver.Visible = false;
-                ImgBtn_Cerrar.Visible = true;
+                Btn_volver.Visible = true;
+                ImgBtn_Cerrar.Visible = false;
             }
 
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
@@ -932,6 +932,17 @@ namespace erpweb
         protected void BtnGrabar_Click(object sender, EventArgs e)
         {
             string query = "";
+            float v_precio = busca_precio_lista(id_item);
+
+            if (txt_precio.Text == "0")
+            {
+                lbl_error.Text = "Precio del producto debe ser mayor a Cero";
+            }
+            if (txt_precio.Text == "")
+            {
+                lbl_error.Text = "Precio del producto debe no puede estar en blanco";
+            }
+
             query = "UPDATE dbo.tbl_items_web ";
             query = query + "SET ";
             query = query + " descripcion = '" + txt_descripcion.Text.Replace(",", ".").Trim()  + "'";
@@ -1067,6 +1078,12 @@ namespace erpweb
                     }
 
                     lbl_status.Text = "Actualización realizada correctamente";
+
+                    if (v_precio != Convert.ToDouble(txt_precio.Text))
+                    {
+                        // ejecutamos la función que creará el historial de modificaciones
+                        actualiza_historial_producto(id_item, v_precio, Convert.ToDouble(txt_precio.Text));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -1075,6 +1092,62 @@ namespace erpweb
                     connection.Dispose();
                 }
             }
+        }
+
+        void actualiza_historial_producto(int id_item, float precio_nuevo, double precio_ant)
+        {
+            string sql = "";
+
+            sql = "INSERT INTO tbl_Seguimiento (COD_DOC, Fecha_Seg, Id_Tipo_Accion, Fecha_Vencimiento, Id_Usuario_Resp, "
+            sql = sql + "Observaciones_Seg,Id_Documento, Creado, Usr_Id, Tarea_Hecha,Documento_Adjunto) ";
+            sql = sql + "VALUES ('ITEN',getdate(),";
+            sql = sql + "5,null,null,";
+            sql = sql + "'Precio Item Web cambia de " + Convert.ToString(precio_ant) + " a " + Convert.ToString(precio_nuevo) + "'," ;
+            sql = sql + id_item + ",getdate()," + usuario + ",null,null)";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    command.ExecuteNonQuery();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = "Error Funcion actualiza_historial_producto : " + ex.Message.ToString();
+                }
+            }
+        }
+
+        public float busca_precio_lista(int id_item)
+        {
+            float valor = 0;
+            string sql = "select precio from tbl_items where id_item = " + id_item;
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sql, connection);
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        valor = Convert.ToInt32(reader[0].ToString());
+                    }
+                    reader.Close();
+                    connection.Close();
+                    connection.Dispose();
+                    return valor;
+                }
+                catch(Exception ex)
+                {
+                    lbl_error.Text = "Funcion busca_precio_lista : " + ex.Message.ToString();
+                    return 0;
+                }
+              }
         }
 
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)

@@ -53,7 +53,7 @@
             height: 21px;
         }
         .auto-style47 {
-            width: 729px;
+            width: 852px;
             height: 21px;
         }
         .auto-style48 {
