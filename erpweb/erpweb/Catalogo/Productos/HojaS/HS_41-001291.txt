@@ -1,0 +1,288 @@
+ Sub Enviar_boleta()
+        Dim swc As Boolean
+        Dim cn As New SqlConnection
+        cn.ConnectionString = StringCon
+
+        Dim cmd As New SqlCommand()
+        swc = False
+        Dim linea As Integer = 1
+
+        cmd.CommandText = "Select TOP(100) PERCENT dbo.tbl_Facturas.ID_Factura, dbo.tbl_Facturas.Id_tipo_factura, dbo.tbl_Facturas.Folio_Factura, dbo.tbl_Facturas.IdDespacho, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Fecha, dbo.tbl_Facturas.Fecha_Despacho, dbo.tbl_Facturas.Rut, dbo.tbl_Facturas.Dv_Rut, dbo.tbl_Facturas.Id_Cliente, dbo.tbl_Facturas.Razon_Soc, isnull(dbo.tbl_Facturas.enviada_sii, 0) As  enviada_SII, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Direccion, dbo.tbl_Facturas.Comuna, dbo.tbl_Facturas.Ciudad, dbo.tbl_Facturas.Telefono, dbo.tbl_Facturas.Vendedor, dbo.tbl_Facturas.Ref_OC, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Nota_Venta, dbo.tbl_Facturas.Nombre_Not_Vta, dbo.tbl_Facturas.em_folio As faem_folio, dbo.tbl_Facturas.em_fecha As faem_fecha, dbo.tbl_Facturas.Entregar_En, dbo.tbl_Facturas.Giro, dbo.tbl_Facturas.Suma_Total, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Descuento_General, dbo.tbl_Facturas.Val_Descuento_General, dbo.tbl_Facturas.Descuento_Adicional, dbo.tbl_Facturas.Val_Descuento_Adicional, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Neto_En_Moneda, dbo.tbl_Facturas.Id_Moneda, (select Sigla from tbl_monedas where id_moneda=dbo.tbl_Facturas.id_Moneda) as Nomon,  dbo.tbl_Facturas.Valor_Tipo_Cambio, dbo.tbl_Facturas.Mostrar_Cambio, dbo.tbl_Facturas.Glosa_Des, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.neto_venta, dbo.tbl_Facturas.Tax_Venta, dbo.tbl_Facturas.Mostrar_Tax, dbo.tbl_Facturas.IVA, dbo.tbl_Facturas.TOTAL, dbo.tbl_Facturas.Enviada, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.cod_tipo_nc, dbo.tbl_Facturas.Fecha_Enviada, dbo.tbl_Facturas.Usr_Enviada, dbo.tbl_Facturas.Confirmada_Recep, dbo.tbl_Facturas.Fecha_Conf_Recep, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Observaciones, dbo.tbl_Facturas.Pagada, dbo.tbl_Facturas.Monto_Pagado, dbo.tbl_usuarios.iniciales, dbo.tbl_Facturas.Fecha_pago, dbo.tbl_Facturas.Nula, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Fecha_Anula, dbo.tbl_Facturas.Usr_Id_Anula, dbo.tbl_Facturas.Usr_Conf_Recep, dbo.tbl_Facturas.Id_Fact_Nota_Credito, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Folio_Fact_Nta_Credito, dbo.tbl_Facturas.Fecha_Vencimiento, dbo.tbl_Facturas.Id_Factoring, dbo.tbl_Facturas.Fecha_Envio_Factoring, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.Usr_Envia_Factoring, dbo.tbl_Facturas.Enviado_Factoring, dbo.tbl_Facturas.Id_Nta_Vta_Proyecto, dbo.tbl_Facturas.Num_Operacion_Factoring, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Facturas.fecha_Venc_Operacion, dbo.tbl_Facturas.Id_Filial, dbo.tbl_Facturas.Id_Autor, dbo.tbl_Items_Facturas.Id_Item, dbo.tbl_Items_Facturas.Cantidad, dbo.tbl_Items_Facturas.lotes, dbo.tbl_Items_Facturas.texto_cadena_frio, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Items_Facturas.Medida, dbo.tbl_Items_Facturas.Codigo, dbo.tbl_Items_Facturas.Descripcion, dbo.tbl_Items_Facturas.Costo_Contable, (SELECT top 1 codigo_prodcli FROM tbl_prodcli WHERE rutcli=dbo.tbl_Facturas.Rut  And id_item=dbo.tbl_Items_Facturas.Id_Item) as prodcli,  "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Items_Facturas.Precio_Unitario, dbo.tbl_Items_Facturas.Id_Guia_Despacho, dbo.tbl_Items_Facturas.Clave, dbo.tbl_Items_Facturas.Id_Item_Nta_Vta, "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Items_Facturas.Items_Devueltos, dbo.tbl_Facturas.impresa, dbo.tbl_Facturas.Fecha_Tipo_Cambio, dbo.tbl_Tipo_Fact.CodigoSII, dbo.tbl_clientes.email_facturacion, dbo.tbl_clientes.contacto_facturacion, vis_ntventa_ref.nta_vta_numREF, vis_ntventa_ref.TipoNotaRef, vis_ntventa_ref.salfacturef, dbo.vis_gdes_ref.folio_gdref, dbo.vis_gdes_ref.fecharef, dbo.vis_gdes_ref.codigosiiref, contactoGD, dbo.vis_gdes_ref.em_fecha, dbo.vis_gdes_ref.em_folio, dbo.vis_ntventa_ref.numocref As oc_folio, dbo.vis_ntventa_ref.fechaocref As oc_fecha, dbo.vis_texto_despa.texto_despa  "
+        cmd.CommandText = cmd.CommandText + ", (select it.qbli from tbl_Items_Nota_Venta it where it.Id_Nta_Vta = dbo.tbl_Facturas.Id_Nta_Vta And it.Id_Item =tbl_Items_Facturas.Id_Item and it.ID_Item_Nta_Vta = tbl_Items_Facturas.Id_Item_Nta_Vta ) orden_qbli, dbo.tbl_Facturas.id_nta_vta "
+        cmd.CommandText = cmd.CommandText + "From dbo.tbl_Facturas LEFT OUTER Join "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Items_Facturas ON dbo.tbl_Facturas.ID_Factura = dbo.tbl_Items_Facturas.Id_Factura "
+        cmd.CommandText = cmd.CommandText + "LEFT OUTER JOIN  "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_usuarios ON dbo.tbl_Facturas.ID_autor = dbo.tbl_usuarios.Id_usuario "
+        cmd.CommandText = cmd.CommandText + "inner join "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_Tipo_Fact ON dbo.tbl_Facturas.id_Tipo_Factura = dbo.tbl_Tipo_Fact.id_Tipo_Fact "
+        cmd.CommandText = cmd.CommandText + "inner join "
+        cmd.CommandText = cmd.CommandText + "dbo.tbl_clientes ON dbo.tbl_Facturas.id_cliente = dbo.tbl_clientes.id_cliente "
+        cmd.CommandText = cmd.CommandText + "left join "
+        cmd.CommandText = cmd.CommandText + "dbo.vis_gdes_ref ON dbo.vis_gdes_ref.id_guia_despREF = dbo.tbl_Items_Facturas.Id_Guia_Despacho "
+        cmd.CommandText = cmd.CommandText + "left join "
+        cmd.CommandText = cmd.CommandText + "dbo.vis_ntventa_ref ON dbo.vis_ntventa_ref.id_nta_vtaREF = dbo.tbl_facturas.id_nta_vta "
+        cmd.CommandText = cmd.CommandText + "left join "
+        cmd.CommandText = cmd.CommandText + "dbo.vis_texto_despa ON dbo.vis_texto_despa.id_nta_vta = dbo.tbl_facturas.id_nta_vta "
+        cmd.CommandText = cmd.CommandText + "WHERE(dbo.tbl_Facturas.ID_Factura = " + Convert.ToString(IdDoc) + ") ORDER BY orden_qbli,ID_Item_Factura ASC"
+
+        cmd.Connection = cn
+
+        Try
+            cn.Open()
+
+            Dim dr As SqlDataReader
+            Dim descrip As String
+            Dim id_fact As String = ""
+            Dim neto As Long = 0
+            Dim total As Long = 0
+            Dim totiva As Long = 0
+            dr = cmd.ExecuteReader()
+            Dim totaldeta As Long = 0
+            If dr.HasRows Then
+
+                Dim boleta As DocumentoBoleta.SiiDte.BOLETADefType
+                boleta = New DocumentoBoleta.SiiDte.BOLETADefType()
+
+                boleta.Documento = New DocumentoBoleta.SiiDte.Documento()
+
+                Dim doc As DocumentoBoleta.SiiDte.Documento
+                doc = boleta.Documento
+
+                While dr.Read()
+                    If dr("enviada_sii") Then
+                        TextBox1.Visible = True
+                        TextBox1.Text = "Documento ya enviado"
+                        cn.Close()
+                        cn.Dispose()
+                        dr.Close()
+                        Return
+                    End If
+                    If linea = 1 Then
+                        'Boleta/Documento/Encabezado
+                        doc.Encabezado = New DocumentoBoleta.SiiDte.Encabezado()
+                        doc.Encabezado.IdDoc = New DocumentoBoleta.SiiDte.IdDoc()
+
+                        'Boleta/Documento/EncabezadoIdDoc
+                        doc.Encabezado.IdDoc.TipoDTE = DocumentoBoleta.SiiDte.Enumerations.DTEType.n39
+                        doc.Encabezado.IdDoc.Folio = 1
+                        doc.Encabezado.IdDoc.FchEmis = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(2012, 1, 1))
+                        doc.Encabezado.IdDoc.IndServicio = DocumentoBoleta.SiiDte.Enumerations.IdDoc_IndServicio.n1
+
+                        'Boleta/Documento/Encabezado/Emisor
+                        doc.Encabezado.Emisor = New DocumentoBoleta.SiiDte.Emisor()
+                        doc.Encabezado.Emisor.RUTEmisor = "83083700-0"
+                        doc.Encabezado.Emisor.RznSocEmisor = "IMPORTADORA DILACO S.A."
+                        doc.Encabezado.Emisor.GiroEmisor = "Equipos y Productos para Industrias, Laboratorios y Hospitales"
+                        doc.Encabezado.Emisor.DirOrigen = "Pérez Valenzuela 1138"
+                        doc.Encabezado.Emisor.CmnaOrigen = "Providencia"
+                        doc.Encabezado.Emisor.CiudadOrigen = "Santiago"
+
+                        'Boleta/Documento/Encabezado/Receptor
+                        doc.Encabezado.Receptor = New DocumentoBoleta.SiiDte.Receptor()
+                        doc.Encabezado.Receptor.RUTRecep = dr("rut").ToString + "-" + dr("dv_rut")
+                        doc.Encabezado.Receptor.RznSocRecep = dr("razon_soc")
+
+                        If Not dr("contacto_facturacion").Equals(DBNull.Value) Then
+                            doc.Encabezado.Receptor.Contacto = dr("contacto_facturacion")
+                            ' doc.Encabezado.Receptor.Contacto = " "
+                        End If
+
+                        doc.Encabezado.Receptor.DirRecep = dr("direccion")
+                        doc.Encabezado.Receptor.CmnaRecep = dr("Comuna")
+                        doc.Encabezado.Receptor.CiudadRecep = dr("Ciudad")
+                        doc.Encabezado.Receptor.CmnaPostal = dr("Comuna")
+
+                        'Boleta/Documento/Encabezado/Totales
+                        doc.Encabezado.Totales = New DocumentoBoleta.SiiDte.Totales()
+                        total = dr("total")
+                        neto = dr("neto_venta")
+                        totiva = dr("tax_venta")
+                        doc.Encabezado.Totales.MntTotal = total
+                        doc.Encabezado.Totales.MntNeto = neto
+                        doc.Encabezado.Totales.IVA = totiva
+                    End If
+
+                    'Boleta/Documento/Detalle
+                    Dim det As DocumentoBoleta.SiiDte.Detalle
+                    det = New DocumentoBoleta.SiiDte.Detalle()
+                    det.NroLinDet = CLng(linea)
+                    Dim uni As String
+                    uni = dr("medida")
+                    If uni.Length > 4 Then
+                        det.UnmdItem = uni.Substring(0, 4)
+                    Else
+                        det.UnmdItem = uni
+                    End If
+
+                    Dim descrip2 As String
+                    descrip = ""
+                    descrip2 = ""
+                    descrip = dr("descripcion").ToString.Trim
+                    descrip = descrip.Replace(Chr(13), ", ")
+                    descrip = descrip.Replace(Chr(10), "")
+                    descrip = descrip.Replace(Chr(9), "")
+                    Dim i As Integer
+                    If descrip.Length > 80 Then
+                        For i = 80 To 1 Step -1
+                            If descrip.Substring(i, 1) = " " Then
+                                det.NmbItem = descrip.Substring(0, i)
+                                descrip2 = descrip.Substring(i + 1)
+                                Exit For
+                            End If
+                        Next i
+                    Else
+                        det.NmbItem = descrip
+                    End If
+                    If Not dr("lotes").Equals(DBNull.Value) Then
+                        'descrip2 = descrip2 + " - [Lotes: " + dr("lotes").ToString.Trim + " ]"
+                        descrip2 = descrip2 + " - [Lotes\N° Serie: " + dr("lotes").ToString.Trim + " ]"
+                    End If
+                    If Not dr("prodcli").Equals(DBNull.Value) Then
+                        descrip2 = descrip2 + " - [CODIGO CLIENTE: " + dr("prodcli").ToString.Trim + " ]"
+                    End If
+                    If Not dr("texto_cadena_frio").Equals(DBNull.Value) Then
+                        descrip2 = descrip2 + " - " + dr("texto_cadena_frio").ToString.Trim
+                    End If
+                    If descrip2 <> "" Then
+                        descrip2 = descrip2.Replace(Chr(13), ", ")
+                        descrip2 = descrip2.Replace(Chr(10), "")
+                        descrip2 = descrip2.Replace(Chr(9), "")
+                        det.DscItem = descrip2
+                    End If
+                    Dim precio_u As Long
+                    precio_u = CLng(Math.Round(dr("precio_unitario"), 0))
+                    totaldeta = totaldeta + CLng(Math.Round(dr("cantidad") * precio_u, 0))
+                    det.MontoItem = CLng(dr("cantidad") * precio_u)
+                    det.QtyItem = Math.Round(dr("cantidad"), 3)
+                    det.PrcItem = precio_u
+                    doc.Detalle.Add(det)
+
+                    linea = linea + 1
+                End While
+                'Llamada al servicio
+
+                If totaldeta <> neto Then
+                    'If IdUsuario <> 2 Then
+                    TextBox1.Visible = True
+                    TextBox1.Text = "Total Detalle no coincide con total Neto"
+                    Return
+                    'End If
+                End If
+
+                ''*******desactivar activar servicio
+                Dim cn5 As New SqlConnection
+                cn5.ConnectionString = StringCon
+                cn5.Open()
+                Dim cmd5 As New SqlCommand()
+                cmd5.Connection = cn5
+                cmd5.CommandText = "SELECT isnull(Activa_Factu_Elec,0) as Activa_Factu_Elec FROM TBL_PARAMETROS WHERE ID_PARAMETRO=1 "
+                Dim dr5 As SqlDataReader
+                dr5 = cmd5.ExecuteReader()
+                Dim swfactu As Boolean
+                swfactu = False
+                If dr5.HasRows Then
+                    While dr5.Read()
+                        swfactu = dr5("Activa_Factu_Elec")
+                    End While
+                End If
+                cn5.Close()
+                cn5.Dispose()
+                If swfactu Then
+                    Dim ambiente As DTEBoxCliente.Ambiente
+                    If SwAmbiente Then
+                        ambiente = DTEBoxCliente.Ambiente.Produccion
+                    Else
+                        ambiente = DTEBoxCliente.Ambiente.Homologacion
+                    End If
+
+                    Dim numeroResolucion As Integer
+                    numeroResolucion = 0
+                    Dim tipoPdf417 As DTEBoxCliente.TipoPdf417
+                    tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente
+
+                    Dim generarFolio As Boolean
+                    generarFolio = True
+
+                    apiURL = apiURL
+                    apiAuth = apiAuth
+
+                    Dim servicio As DTEBoxCliente.Servicio
+                    servicio = New DTEBoxCliente.Servicio(apiURL, apiAuth)
+
+                    Dim resultado As DTEBoxCliente.ResultadoEnvioBoleta
+                    resultado = servicio.EnviarDocumento(boleta, ambiente, fechaResolucion, numeroResolucion, tipoPdf417, generarFolio)
+                    'resultado = servicio.EnviarDocumento(
+                    'boleta,
+                    'ambiente,
+                    'fechaResolucion,
+                    ' numeroResolucion,
+                    ' tipoPdf417,
+                    '  generarFolio)
+
+                    'Si la respuesta es correcta
+                    If (resultado.ResultadoServicio.Estado = DTEBoxCliente.EstadoResultado.Ok) Then
+                        'Usar el data que viene en el resultado de la llamada
+                        Dim ted As String
+                        ted = resultado.TED 'Xml que representa el elemento TED generado
+                        'Si tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente viene el código, 
+                        ' si es DTEBoxCliente.TipoPdf417.Grafico ,Entonces arreglo de bytes codigificado en base64, 
+                        ' usar método result.Pdf417ComoArregloBytes()
+                        Dim pdf417 As String
+                        pdf417 = resultado.Pdf417
+
+                        TextBox2.Text = "DTE Procesado..."
+                        Dim cn6 As New SqlConnection
+                        cn6.ConnectionString = StringCon
+                        Dim sSQL As String = "update tbl_Facturas set Enviada_SII=1 where id_factura=" + IdDoc.ToString
+                        cn6.Open()
+                        Dim objCmd As New SqlCommand(sSQL, cn6)
+
+                        objCmd.ExecuteNonQuery()
+                        cn6.Close()
+                        cn6.Dispose()
+
+                        'Código de usuario a partir de aquí
+                    Else 'Si la llamada no fue satisfactoria
+                        'Descripción del error, actuar acorde
+                        Dim description As String
+                        description = resultado.ResultadoServicio.Descripcion
+                        TextBox1.Visible = True
+                        TextBox1.Text = description
+                    End If
+                Else
+                    TextBox1.Visible = True
+                    TextBox1.Text = "Servicio Factu. Elect. Desactivado por Admin"
+                End If
+            Else
+                TextBox1.Visible = True
+                TextBox1.Text = "Documento no se encuentra en base de datos ERP"
+            End If
+
+
+            cn.Close()
+            cn.Dispose()
+        Catch ex As Exception
+            cn.Close()
+            cn.Dispose()
+            TextBox1.Visible = True
+            TextBox1.Text = ex.Message
+        End Try
+        'Fin Procesar resultado
+
+        ' Fin
+    End Sub

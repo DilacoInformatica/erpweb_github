@@ -85,11 +85,11 @@ namespace erpweb
             string nuevo_nom = "";
             query = "SELECT iw.Id_Item "; // 0
             query = query + ",iw.Codigo "; // 1
-            query = query + " ,iw.habilitado_venta "; // 2
-            query = query + " ,iw.prodpedido "; //3
-            query = query + ",iw.visible "; //4
-            query = query + ",iw.cotizaciones "; //5
-            query = query + ",iw.ventas "; //6
+            query = query + " ,isnull(iw.habilitado_venta,0) "; // 2
+            query = query + " ,isnull(iw.prodpedido,0) "; //3
+            query = query + ",isnull(iw.visible,0) "; //4
+            query = query + ",isnull(iw.cotizaciones,0) "; //5
+            query = query + ",isnull(iw.ventas,0) "; //6
             query = query + ",iw.Texto_Destacado "; //7 
             query = query + ",iw.codigo_maestro "; //8
             query = query + ",iw.Texto_maestro "; //9
@@ -131,6 +131,7 @@ namespace erpweb
             query = query + ",iw.Hoja_de_Seguridad "; //45
             query = query + ",pr.Nombre_Fantasia "; //46
             query = query + ",iw.Precio_lista "; //47
+            query = query + ",(select Unidad from tbl_items where tbl_items.ID_Item = iw.Id_Item) unidad "; //48
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
@@ -149,19 +150,21 @@ namespace erpweb
                     {
                         txt_codigo.Text = reader[1].ToString();
                         txt_descripcion.Text = reader[11].ToString();
-                        if (reader[4].ToString() == "1")
+                       // txt_descripcion.Text = reader.GetString(11) ;
+
+                        if (reader.GetBoolean(4))
                         { chck_visible.Checked = true; }
                         else
                         { chck_visible.Checked = false; }
-                        if (reader[3].ToString() == "1")
+                        if (reader.GetBoolean(3))
                         { chck_prodped.Checked = true; }
                         else
                         { chck_prodped.Checked = false; }
-                        if (reader[6].ToString() == "1")
+                        if (reader.GetBoolean(6))
                         { chck_venta.Checked = true; }
                         else
                         { chck_venta.Checked = false; }
-                        if (reader[5].ToString() == "1")
+                        if (reader.GetBoolean(5))
                         { chck_cot.Checked = true; }
                         else
                         { chck_cot.Checked = false; }
@@ -262,6 +265,7 @@ namespace erpweb
                             }
                         }
 
+                        lbl_unidad.Text = reader[48].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         txt_marca.Text = reader[16].ToString();
                         txt_precio.Text = reader[17].ToString();
@@ -269,11 +273,16 @@ namespace erpweb
                         //lbl_moneda.Text = reader[11].ToString();
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
+                        txt_codigoprov.Enabled = false;
                         txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
                         lbl_manual_tecnico.Text = reader[22].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         lbl_fotoc.Text = reader[24].ToString();
                         lbl_fotog.Text = reader[25].ToString();
+                        if (lbl_fotog.Text != "")
+                        {
+                           img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(lbl_fotog.Text);
+                        }
                         lbl_video.Text = reader[26].ToString();
                         lbl_hoja_seguridad.Text = reader[45].ToString();
                         txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString());
@@ -485,7 +494,8 @@ namespace erpweb
                             conn.Close();
                             conn.Dispose();
                             lbl_error.Text = "";
-                            
+
+                            marca_producto_publicado(id_item, "E");
                             lbl_status.Text = "Producto eliminado correctamente de la Web";
                         }
                         catch (Exception ex)
@@ -536,7 +546,8 @@ namespace erpweb
                 query = query + ",precio = " + txt_precio.Text;
                 query = query + ",precio_lista = " + txt_precio_lista.Text;
                 query = query + ",id_moneda = " + LstMonedas.SelectedItem.Value.ToString();// LstMonedas.SelectedValue.ToString();
-                query = query + ",Unidad_vta = '" + txt_marca.Text + "'";
+                query = query + ",Unidad_vta = '" + txt_unidad.Text + "'";
+                query = query + ",Unidad = '" + lbl_unidad.Text + "'";
                 query = query + ",Codigo_prov = '" + txt_codigoprov + "'";
                 query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
                 query = query + ",Manual_tecnico = '"+ lbl_manual_tecnico.Text +"'";
@@ -570,8 +581,8 @@ namespace erpweb
                 query = query + "(Id_Item, ";
                 query = query + "codigo, ";
                 query = query + "descripcion, ";
-                query = query + "proppedido, ";
-                query = query + "codigo_maestro, ";
+                query = query + "prodpedido, ";
+               // query = query + "codigo_maestro, ";
                 query = query + "visible, ";
                 query = query + "cotizaciones, ";
                 query = query + "ventas, ";
@@ -585,6 +596,7 @@ namespace erpweb
                 query = query + "precio_lista, ";
                 query = query + "id_moneda, ";
                 query = query + "Unidad_vta, ";
+                query = query + "Unidad, ";
                 query = query + "codigo_prov,";
                 query = query + "Caracteristicas, ";
                 query = query + "Manual_tecnico, ";
@@ -639,6 +651,7 @@ namespace erpweb
                 query = query + txt_precio_lista.Text.Replace(",", ".") + ",";
                 query = query + LstMonedas.SelectedValue.ToString() + ",";
                 query = query + "'" + txt_unidad.Text + "',";
+                query = query + "'" + lbl_unidad.Text + "',";
                 query = query + "'" + txt_codigoprov.Text + "',";
                 query = query + "'" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "',";
                 query = query + "'" + lbl_manual_tecnico.Text + "',";
@@ -653,7 +666,7 @@ namespace erpweb
                 query = query + retorna_id_item(txt_rep1.Text) + ",";
                 query = query + retorna_id_item(txt_rep2.Text) + ",";
                 query = query + retorna_id_item(txt_rep3.Text) + ",";
-                query = query + retorna_id_item(txt_alt1.Text) + "',";
+                query = query + retorna_id_item(txt_alt1.Text) + ",";
                 query = query + retorna_id_item(txt_alt2.Text) + ",";
                 query = query + retorna_id_item(txt_alt3.Text) + ",";
                 query = query + LstCategorias1.SelectedItem.Value.ToString() + ",";
@@ -676,6 +689,8 @@ namespace erpweb
                     conn.Close();
                     conn.Dispose();
                     lbl_status.Text = "Producto grabado correctamente en la Web";
+
+                    marca_producto_publicado(id_item,"I");
 
                     // Si el producto fue grabado correctamente, cargamos los archivos en el servidor
                     // Ficha Técnica
@@ -734,6 +749,38 @@ namespace erpweb
             }
         }
 
+        void marca_producto_publicado(int id_item, string orden)
+        {
+            string query = "";
+            if (orden == "I")
+            {
+                query = "update tbl_items_web set publicado_sitio = 1 where Id_Item = " + id_item;
+            }
+            else
+            {
+                query = "update tbl_items_web set publicado_sitio = 0 where Id_Item = " + id_item;
+            }
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+        }
+
+
         void subir_archivo(FileUpload file, string achivo, string ruta, Label etiqueta)
         {
             String savePath =ruta;
@@ -786,13 +833,15 @@ namespace erpweb
             if (tamano <= 5000000)
             {
                 string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
-                administra_archivos(File_FG, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FG_" + codigo, lbl_fotog, allowedExtensions);
+                administra_archivos(File_FG, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FG_" + codigo.Trim(), lbl_fotog, allowedExtensions);
                 //subir_archivo(File_FG, "FG_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog);
             }
             else
             {
                 lbl_error.Text = "Tamaño de archivo Foto Grande no puede exceder los 5 MB";
             }
+        //    img_prod.ImageUrl = Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text);
+            img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(File_FG.FileName);
         }
 
         protected void ImgBtnFC_Click(object sender, ImageClickEventArgs e)
@@ -803,7 +852,7 @@ namespace erpweb
             if (tamano <= 5000000)
             {
                 string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
-                administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo, lbl_fotog, allowedExtensions);
+                administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo.Trim(), lbl_fotog, allowedExtensions);
                 //subir_archivo(File_FC, "FC_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc);
             }
             else
@@ -820,7 +869,7 @@ namespace erpweb
             if (tamano <= 5000000)
             {
                 string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
-                administra_archivos(File_PRE, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), "PR_" + codigo, lbl_presentacion, allowedExtensions);
+                administra_archivos(File_PRE, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), "PR_" + codigo.Trim(), lbl_presentacion, allowedExtensions);
                 //subir_archivo(File_PRE, "PR_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion);
             }
             else
@@ -837,7 +886,7 @@ namespace erpweb
             if (tamano <= 5000000)
             {
                 string[] allowedExtensions = { ".mp4", ".avi", ".m4v", ".mov", ".mpg", ".mpeg", ".wmv" };
-                administra_archivos(File_VID, Server.MapPath(@"~/Catalogo/Productos/Videos/"), "VD_" + codigo, lbl_video, allowedExtensions);
+                administra_archivos(File_VID, Server.MapPath(@"~/Catalogo/Productos/Videos/"), "VD_" + codigo.Trim(), lbl_video, allowedExtensions);
                 //subir_archivo(File_VID, "VD_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Videos/"), lbl_video);
             }
             else
@@ -855,7 +904,7 @@ namespace erpweb
             if (tamano <= 5000000)
             {
                 string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
-                administra_archivos(File_HS, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), "HS_" + codigo, lbl_hoja_seguridad, allowedExtensions);
+                administra_archivos(File_HS, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), "HS_" + codigo.Trim(), lbl_hoja_seguridad, allowedExtensions);
                 //subir_archivo(File_HS, "HS_" + codigo, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_presentacion);
             }
             else
@@ -891,9 +940,10 @@ namespace erpweb
             query = query + ",Id_Subcategoria = " + LstSubCategorias.SelectedValue.ToString();
             query = query + ",Id_Linea_Venta = " + LstLineaVtas.SelectedValue.ToString();
             query = query + ",Marca = '" + txt_marca.Text + "'";
+            query = query + ",Codigo_prov = '" + txt_codigoprov.Text + "'";
             query = query + ",precio = " + txt_precio.Text;
             query = query + ",id_moneda = " + LstMonedas.SelectedItem.Value.ToString();// LstMonedas.SelectedValue.ToString();
-            query = query + ",Unidad_vta = '" + txt_marca.Text + "'";
+            query = query + ",Unidad_vta = '" + txt_unidad.Text + "'";
             query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
             query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
             query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
@@ -930,6 +980,76 @@ namespace erpweb
                     command.ExecuteNonQuery();
                     connection.Close();
                     connection.Dispose();
+
+
+                    if (lbl_manual_tecnico.Text.Trim() != "")
+                    {
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text)) )
+                        {
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
+                        }
+                        else
+                        {
+                            File.Delete(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
+                        }
+                        
+                    }
+
+                    if (lbl_presentacion.Text.Trim() != "")
+                    {
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_presentacion.Text)))
+                        {
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text));
+                        }
+                        else
+                        {
+                            File.Delete(Path.Combine(ruta_alterna, lbl_presentacion.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text));
+                        }
+                    }
+
+                    if (lbl_hoja_seguridad.Text.Trim() != "")
+                    {
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text)))
+                        {
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
+                        }
+                        else
+                        {
+                            File.Delete(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
+                        }
+
+                    }
+
+                    if (lbl_fotoc.Text.Trim() != "")
+                    {
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotoc.Text)))
+                        {
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text), Path.Combine(ruta_alterna, lbl_fotoc.Text));
+                        }
+                        else
+                        {
+                            File.Delete(Path.Combine(ruta_alterna, lbl_fotoc.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text), Path.Combine(ruta_alterna, lbl_fotoc.Text));
+                        }
+                    }
+
+                    if (lbl_fotog.Text.Trim() != "")
+                    {
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotog.Text)))
+                        {
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text), Path.Combine(ruta_alterna, lbl_fotog.Text));
+                        }
+                        else
+                        {
+                            File.Delete(Path.Combine(ruta_alterna, lbl_fotog.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text), Path.Combine(ruta_alterna, lbl_fotog.Text));
+                        }
+
+                    }
+
                     lbl_status.Text = "Actualización realizada correctamente";
                 }
                 catch (Exception ex)
@@ -1021,63 +1141,63 @@ namespace erpweb
         {
             LstProdDispAc1.Visible = true;
             ImgBtnAddAC1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '"+ txt_codigo.Text +"' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAc1, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text +"' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc1, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAc2_Click(object sender, ImageClickEventArgs e)
         {
             LstProdDispAc2.Visible = true;
             ImgBtnAddAC2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAc2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAc3_Click(object sender, ImageClickEventArgs e)
         {
             LstProdDispAc3.Visible = true;
             ImgBtnAddAC3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAc3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe1_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE1.Visible = true;
             LstProdDispRe1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispRe1, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe1, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe2_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE2.Visible = true;
             LstProdDispRe2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispRe2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe3_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE3.Visible = true;
             LstProdDispRe3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispRe3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl1_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL1.Visible = true;
             LstProdDispAl1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAl1  , "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl1  , "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl2_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL2.Visible = true;
             LstProdDispAl2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAl2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl3_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL3.Visible = true;
             LstProdDispAl3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue, LstProdDispAl3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where publicado_sitio = 1 and Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAddAC1_Click(object sender, ImageClickEventArgs e)
@@ -1199,10 +1319,10 @@ namespace erpweb
             // si archivo ya existe... lo renombro pra guardar la versión anterior en caso de error
             if (archivo.HasFile)
             {
-                if (System.IO.File.Exists(@ruta + nombre_file.Trim() + extension))
-                {
-                    System.IO.File.Move(@ruta + nombre_file.Trim() + extension, @ruta + nombre_file.Trim() + ".bkp");
-                }
+                //if (System.IO.File.Exists(@ruta + nombre_file.Trim() + extension))
+                //{
+                //    System.IO.File.Move(@ruta + nombre_file.Trim() + extension, @ruta + nombre_file.Trim() + ".bkp");
+                //}
 
                 for (int i = 0; i < tipofiles.Length; i++)
                 {

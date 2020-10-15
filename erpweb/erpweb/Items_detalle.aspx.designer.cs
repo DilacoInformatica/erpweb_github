@@ -121,6 +121,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstMonedas;
         
         /// <summary>
+        /// Control lbl_unidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_unidad;
+        
+        /// <summary>
         /// Control txt_precio_lista.
         /// </summary>
         /// <remarks>
@@ -328,13 +337,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton borra_fotog;
         
         /// <summary>
-        /// Control File_FC.
+        /// Control File_FG.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload File_FC;
+        protected global::System.Web.UI.WebControls.FileUpload File_FG;
         
         /// <summary>
         /// Control ImgBtnFG.
@@ -364,13 +373,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton borra_fotoc;
         
         /// <summary>
-        /// Control File_FG.
+        /// Control File_FC.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload File_FG;
+        protected global::System.Web.UI.WebControls.FileUpload File_FC;
         
         /// <summary>
         /// Control ImgBtnFC.

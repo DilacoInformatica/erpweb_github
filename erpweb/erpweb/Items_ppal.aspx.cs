@@ -22,11 +22,13 @@ namespace erpweb
         string archivo2 = "";
         string extension = "";
         string nuevo_nom = "";
+        string master_queryString = "";
         // FTP
         string server = @"ftp://dev.dilaco.com/";
         string user = "dev@dilaco.com";
         string password = "4ydlrvyKUX8}";
         string usuario = "";
+        HttpContext context = HttpContext.Current;
 
         DataTable lista_errores = new DataTable();
        
@@ -46,50 +48,259 @@ namespace erpweb
             }
             if (!this.IsPostBack)
             {
+                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select 0 ID_Proveedor, 'Seleccione Proveedor' Razon_Social union all  select ID_Proveedor, Razon_Social from tbl_Proveedores where Activo = 1", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
+                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                carga_contrl_lista("select ' ' id_lista, 'Selecione Letra' letra union all select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", LstLetras, "tbl_letras", "id_lista", "letra");
+
+                if (!String.IsNullOrEmpty((string)(context.Session["SQL"])))
+                {
+                    master_queryString = (string)(context.Session["SQL"].ToString());
+                }
+
                 carga_productos("");
+                productos_publicados();
             }
 
            // carga_productos("");
         }
 
-        void carga_productos(String codigo)
+
+        void carga_contrl_lista(string sql, DropDownList lista, string tabla, string llave, string Campo)
         {
-            String queryString = "";
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
-                queryString = " Select id_item 'Id', ";
-                queryString = queryString + "codigo 'Código', ";
-                queryString = queryString + " substring(descripcion, 0, 30) 'Descripción', ";
-                queryString = queryString + "IIF(isnull(visible, 0) = 0, 'N', 'S') 'Visible', ";
-                queryString = queryString + "IIF(isnull(prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";
-                queryString = queryString + "IIF(isnull(ventas, 0) = 0, 'N', 'S') 'Venta', ";
-                queryString = queryString + "IIF(isnull(cotizaciones, 0) = 0, 'N', 'S') 'Cotizacion', ";
-                queryString = queryString + "Marca , ";
-                queryString = queryString + "IIF(isnull(Manual_Tecnico,'') = '','NO',Manual_Tecnico) 'Manual técnico' , ";
-                queryString = queryString + "IIF(isnull(Presentacion_Producto,'') = '','NO', Presentacion_Producto)'Presentación', ";
-                queryString = queryString + "IIF(isnull(Foto,'') = '','NO', Foto) 'Foto', ";
-                queryString = queryString + "IIF(isnull(Foto_Grande,'') = '','NO',Foto_Grande) 'Foto Grande', ";
-                queryString = queryString + "IIF(isnull(video,'') = '','NO',video) 'Video', ";
-                queryString = queryString + "IIF(isnull(Hoja_de_Seguridad,'') = '','NO',Hoja_de_Seguridad) 'Hoja Seguridad' ";
-                queryString = queryString + "from tbl_items_web  ";
-
-                if (codigo != "")
-                {
-                    queryString = queryString + "where codigo like  '" + codigo + "%'";
-                }
-
-                SqlDataAdapter data = new SqlDataAdapter(queryString, connection);
-                DataSet ds = new DataSet();
-
                 connection.Open();
+                //SqlCommand command = new SqlCommand(sql, connection);
+                SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                DataSet dr = new DataSet();
+                reader.Fill(dr, tabla);
+                lista.DataSource = dr;
+                lista.DataValueField = llave;
+                lista.DataTextField = Campo;
+                lista.DataBind();
 
-                data.Fill(ds, "tbl_items_web_table");
+                connection.Close();
+                connection.Dispose();
+            }
+        }
+
+        void carga_productos(String codigo)
+        {
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                if (!String.IsNullOrEmpty(master_queryString))
+                {
+                    master_queryString = (string)(context.Session["SQL"].ToString());
+                }
+                else
+                {
+                    //master_queryString = " Select tbl_items_web.id_item 'Id', ";
+                    //master_queryString = master_queryString + "tbl_items_web.codigo 'Código', ";
+                    //master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 30) 'Descripción', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.visible, 0) = 0, 'N', 'S') 'Visible', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.ventas, 0) = 0, 'N', 'S') 'Venta', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.cotizaciones, 0) = 0, 'N', 'S') 'Cotizacion', ";
+                    //master_queryString = master_queryString + "tbl_items_web.Marca , ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Manual_Tecnico,'') = '','N',tbl_items_web.Manual_Tecnico) 'Manual técnico' , ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Presentacion_Producto,'') = '','N', tbl_items_web.Presentacion_Producto)'Presentación', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto,'') = '','N', tbl_items_web.Foto) 'Foto', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto_Grande,'') = '','N',tbl_items_web.Foto_Grande) 'Foto Grande', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.video,'') = '','N',video) 'Video', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N',tbl_items_web.Hoja_de_Seguridad) 'Hoja Seguridad', ";
+                    //master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado' ";
+                    // master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1  ";
+
+                    master_queryString = " Select tbl_items_web.id_item 'Id', ";
+                    master_queryString = master_queryString + "tbl_items_web.codigo 'Código', ";
+                    master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 30) 'Descripción', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.visible, 0) = 0, 'N', 'S') 'Visible', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.ventas, 0) = 0, 'N', 'S') 'Venta', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.cotizaciones, 0) = 0, 'N', 'S') 'Cotizacion', ";
+                    master_queryString = master_queryString + "tbl_items_web.Marca , ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Manual_Tecnico,'') = '','N','S') 'Manual técnico' , ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Presentacion_Producto,'') = '','N', 'S')'Presentación', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto,'') = '','N', 'S') 'Foto', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto_Grande,'') = '','N','S') 'Foto Grande', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.video,'') = '','N','S') 'Video', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N','S') 'Hoja Seguridad', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado' ";
+                    master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1  ";
+
+                    if (codigo != "")
+                    {
+                        master_queryString = master_queryString + "and tbl_items_web.codigo like  '" + codigo + "%'";
+                    }
+
+                    if (txt_codprov.Text != "")
+                    {
+                        master_queryString = master_queryString + "and tbl_items_web.Codigo_prov like  '" + txt_codprov.Text + "%'";
+                    }
+
+                    if (LstCategorias.SelectedItem.Value.ToString() != "0")
+                    {
+                        master_queryString = master_queryString + "and tbl_items.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
+                    }
+
+                    if (LstSubCategorias.SelectedItem.Value.ToString() != "0")
+                    {
+                        master_queryString = master_queryString + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
+                    }
+
+                    if (LstLetras.SelectedItem.Value.ToString() != " ")
+                    {
+                        master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
+                    }
+
+
+                    if (LstProveedores.SelectedItem.Value.ToString() != "0")
+                    {
+                        master_queryString = master_queryString + "and tbl_items.Id_proveedor = " + LstProveedores.SelectedItem.Value.ToString();
+                    }
+
+                    if (chk_sin_cat.Checked)
+                    {
+                        master_queryString = master_queryString + "and isnull(tbl_items.Id_Categoria,0) = 0 ";
+                    }
+
+                    if (chk_no_publicados.Checked)
+                    {
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.publicado_sitio,0) = 0 ";
+                    }
+
+                    if (chk_publicados.Checked)
+                    {
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.publicado_sitio,0) = 1 ";
+                    }
+                }
+                connection.Open();
+                
+                SqlDataAdapter reader = new SqlDataAdapter(master_queryString, connection);
+                DataSet ds = new DataSet();
+                reader.Fill(ds, "tbl_items_web");
 
                 Productos.DataSource = ds;
                 Productos.DataBind();
-                Productos.DataMember = "tbl_items_web_table";
-                
+                Productos.DataMember = "tbl_items_web";
+
+                //SqlCommand command = new SqlCommand(queryString, connection);
+                //SqlDataReader reader = command.ExecuteReader();
+
+                //DataSet ds = new DataSet();
+
+
+
+                //DataTable table = new DataTable("items");
+                //table.Columns.Add(new DataColumn("Id", typeof(int)));
+                //table.Columns.Add(new DataColumn("Código", typeof(string)));
+                //table.Columns.Add(new DataColumn("Descripción", typeof(string)));
+                //table.Columns.Add(new DataColumn("Visible", typeof(string)));
+                //table.Columns.Add(new DataColumn("Prod a Pedido", typeof(string)));
+                //table.Columns.Add(new DataColumn("Venta", typeof(string)));
+                //table.Columns.Add(new DataColumn("Cotizacion", typeof(string)));
+                //table.Columns.Add(new DataColumn("Publicado", typeof(string)));
+
+
+                //int v_id = 0;
+                //string v_codigo = "";
+                //string v_descripcion = "";
+                //string v_visible = "";
+                //string v_pedido = "";
+                //string v_ventas = "";
+                //string v_cotiza = "";
+                //string v_publi = "";
+                //string v_swc = "";
+
+                //Transpaso a Mysql
+                //while (reader.Read())
+                //{
+                //    publica = validamysql(reader.GetInt32(0));
+                //    cont++;
+
+                //    if (publica == 0)
+                //    {
+                //        v_swc = "N";
+                //    }
+                //    else
+                //    {
+                //        v_swc = "S";
+                //    }
+
+                //    v_id = reader.GetInt32(0);
+                //    v_codigo = reader.GetString(1);
+                //    v_descripcion = reader.GetString(1);
+                //    v_visible = reader.GetString(3);
+                //    v_pedido = reader.GetString(4);
+                //    v_ventas = reader.GetString(5);
+                //    v_cotiza = reader.GetString(6);
+                //    v_publi = v_swc;
+
+
+                //    table.Rows.Add(v_id,
+                //                   v_codigo,
+                //                   v_descripcion,
+                //                   v_visible,
+                //                   v_pedido,
+                //                   v_ventas,
+                //                   v_cotiza,
+                //                   v_publi);
+                //}
+
+                //LstProductos.DataSource = table;
+                //LstProductos.DataBind();
+
+
+
                 lbl_cantidad.Text ="Cantidad de Registros: " + Convert.ToString(Productos.Rows.Count);
+            }
+        }
+
+        public int validamysql(int id_item)
+        {
+            string query = "";
+            query = "select count(1) existe from tbl_items where Id_Item = " + id_item;
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            if (dr.GetString(0) == "0")
+                            {
+                                return 0;
+
+                            }
+                            else
+                            {
+                                return 1;
+                            }
+                        }
+
+                    }
+                    conn.Close();
+                    conn.Dispose();
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message.ToString();
+                    conn.Close();
+                    conn.Dispose();
+                    return 0;
+                }
             }
         }
 
@@ -97,6 +308,7 @@ namespace erpweb
         {
             GridResultados.Visible = false;
             carga_productos(txt_codigo.Text);
+            context.Session["SQL"] = master_queryString;
             //if (txt_codigo.Text == "")
             //{
             //    lbl_error.Text = "Debe indicar código a buscar";
@@ -155,62 +367,104 @@ namespace erpweb
             if (Page.IsValid)
             {
                 // Comenzamos con el transpaso masivo de información al Servidor Web
-                query = "SELECT iw.Id_Item "; // 0
-                query = query + ",iw.Codigo "; // 1
-                query = query + ",isnull(iw.habilitado_venta,0) habilitado_venta  "; // 2
-                query = query + ",isnull(iw.prodpedido,0) prodpedido "; //3
-                query = query + ",isnull(iw.visible,0) visible "; //4
-                query = query + ",isnull(iw.cotizaciones,0) cotizaciones "; //5
-                query = query + ",isnull(iw.ventas,0) ventas "; //6
-                query = query + ",iw.Texto_Destacado "; //7 
-                query = query + ",iw.codigo_maestro "; //8
-                query = query + ",iw.Texto_maestro "; //9
-                query = query + ",iw.Descripcion_maestro "; //10
-                query = query + ",iw.Descripcion "; // 11
-                query = query + ",isnull(iw.Id_Categoria,0) Id_Categoria "; // 12
-                query = query + ",isnull(iw.Id_SubCategoria,0) Id_SubCategoria "; //13
-                query = query + ",isnull(iw.Id_Linea_Venta,0) Id_Linea_Venta "; //14
-                query = query + ",isnull(iw.Id_proveedor,0) id_proveedor "; //15
-                query = query + ",iw.Marca "; //16
-                query = query + ",isnull(iw.Precio, 0) Precio "; // 17
-                query = query + ",isnull(iw.Id_moneda,0) id_moneda "; // 18
-                query = query + ",iw.unidad_vta ";  // 19
-                query = query + ",iw.Codigo_prov "; //20
-                query = query + ",iw.Caracteristicas "; //21
-                query = query + ",iw.Manual_Tecnico "; //22
-                query = query + ",iw.Presentacion_Producto  "; //23
-                query = query + ",iw.Foto "; //24
-                query = query + ",iw.Foto_Grande "; //25
-                query = query + ",iw.Video "; //26
-                query = query + ",iw.Producto_Nuevo "; //27
-                query = query + ",iw.Producto_Oferta "; //28
-                query = query + ",isnull(iw.Id_Accesorio1,0) Id_Accesorio1 "; //29
-                query = query + ",isnull(iw.Id_Accesorio2,0) Id_Accesorio2 "; //30
-                query = query + ",isnull(iw.Id_Accesorio3,0) Id_Accesorio3 "; //31
-                query = query + ",isnull(iw.Id_Repuesto1,0) Id_Repuesto1 "; //32
-                query = query + ",isnull(iw.Id_Repuesto2,0) Id_Repuesto2 "; //33
-                query = query + ",isnull(iw.Id_Repuesto3,0) Id_Repuesto3 "; //34
-                query = query + ",isnull(iw.Id_Alternativa1,0) Id_Alternativa "; //35
-                query = query + ",isnull(iw.Id_Alternativa2,0) Id_Alternativa2 "; //36
-                query = query + ",isnull(iw.Id_Alternativa3,0) Id_Alternativa3 "; //37
-                query = query + ",isnull(iw.Id_Categoria1,0) Id_Categoria "; //38
-                query = query + ",isnull(iw.Id_Categoria2,0) Id_Categoria2 "; //39
-                query = query + ",isnull(iw.Id_Categoria3,0) Id_Categoria3 "; //40
-                query = query + ",isnull(iw.Id_SubCategoria1,0) Id_SubCategoria1 "; //41
-                query = query + ",isnull(iw.Id_SubCategoria2,0) Id_SubCategoria2 "; //42
-                query = query + ",isnull(iw.Id_SubCategoria3,0) Id_SubCategoria3 "; //43
-                query = query + ",iw.Tabla_Tecnica "; //44
-                query = query + ",iw.Hoja_de_Seguridad "; //45
+                query = "SELECT tbl_items_web.Id_Item "; // 0
+                query = query + ",tbl_items_web.Codigo "; // 1
+                query = query + ",isnull(tbl_items_web.habilitado_venta,0) habilitado_venta  "; // 2
+                query = query + ",isnull(tbl_items_web.prodpedido,0) prodpedido "; //3
+                query = query + ",isnull(tbl_items_web.visible,0) visible "; //4
+                query = query + ",isnull(tbl_items_web.cotizaciones,0) cotizaciones "; //5
+                query = query + ",isnull(tbl_items_web.ventas,0) ventas "; //6
+                query = query + ",tbl_items_web.Texto_Destacado "; //7 
+                query = query + ",tbl_items_web.codigo_maestro "; //8
+                query = query + ",tbl_items_web.Texto_maestro "; //9
+                query = query + ",tbl_items_web.Descripcion_maestro "; //10
+                query = query + ",tbl_items_web.Descripcion "; // 11
+                query = query + ",isnull(tbl_items_web.Id_Categoria,0) Id_Categoria "; // 12
+                query = query + ",isnull(tbl_items_web.Id_SubCategoria,0) Id_SubCategoria "; //13
+                query = query + ",isnull(tbl_items_web.Id_Linea_Venta,0) Id_Linea_Venta "; //14
+                query = query + ",isnull(tbl_items_web.Id_proveedor,0) id_proveedor "; //15
+                query = query + ",tbl_items_web.Marca "; //16
+                query = query + ",isnull(tbl_items_web.Precio, 0) Precio "; // 17
+                query = query + ",isnull(tbl_items_web.Id_moneda,0) id_moneda "; // 18
+                query = query + ",tbl_items_web.unidad_vta ";  // 19
+                query = query + ",tbl_items_web.Codigo_prov "; //20
+                query = query + ",tbl_items_web.Caracteristicas "; //21
+                query = query + ",tbl_items_web.Manual_Tecnico "; //22
+                query = query + ",tbl_items_web.Presentacion_Producto  "; //23
+                query = query + ",tbl_items_web.Foto "; //24
+                query = query + ",tbl_items_web.Foto_Grande "; //25
+                query = query + ",tbl_items_web.Video "; //26
+                query = query + ",tbl_items_web.Producto_Nuevo "; //27
+                query = query + ",tbl_items_web.Producto_Oferta "; //28
+                query = query + ",isnull(tbl_items_web.Id_Accesorio1,0) Id_Accesorio1 "; //29
+                query = query + ",isnull(tbl_items_web.Id_Accesorio2,0) Id_Accesorio2 "; //30
+                query = query + ",isnull(tbl_items_web.Id_Accesorio3,0) Id_Accesorio3 "; //31
+                query = query + ",isnull(tbl_items_web.Id_Repuesto1,0) Id_Repuesto1 "; //32
+                query = query + ",isnull(tbl_items_web.Id_Repuesto2,0) Id_Repuesto2 "; //33
+                query = query + ",isnull(tbl_items_web.Id_Repuesto3,0) Id_Repuesto3 "; //34
+                query = query + ",isnull(tbl_items_web.Id_Alternativa1,0) Id_Alternativa "; //35
+                query = query + ",isnull(tbl_items_web.Id_Alternativa2,0) Id_Alternativa2 "; //36
+                query = query + ",isnull(tbl_items_web.Id_Alternativa3,0) Id_Alternativa3 "; //37
+                query = query + ",isnull(tbl_items_web.Id_Categoria1,0) Id_Categoria "; //38
+                query = query + ",isnull(tbl_items_web.Id_Categoria2,0) Id_Categoria2 "; //39
+                query = query + ",isnull(tbl_items_web.Id_Categoria3,0) Id_Categoria3 "; //40
+                query = query + ",isnull(tbl_items_web.Id_SubCategoria1,0) Id_SubCategoria1 "; //41
+                query = query + ",isnull(tbl_items_web.Id_SubCategoria2,0) Id_SubCategoria2 "; //42
+                query = query + ",isnull(tbl_items_web.Id_SubCategoria3,0) Id_SubCategoria3 "; //43
+                query = query + ",tbl_items_web.Tabla_Tecnica "; //44
+                query = query + ",tbl_items_web.Hoja_de_Seguridad "; //45
                 query = query + ",pr.Nombre_Fantasia "; //46
-                query = query + "FROM tbl_Items_web iw ";
-                query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
-                query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
-                query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = iw.Id_proveedor ";
-                query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = iw.Id_moneda ";
+                query = query + "FROM tbl_Items_web with(nolock) ";
+                query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = tbl_items_web.Id_Categoria ";
+                query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = tbl_items_web.Id_SubCategoria ";
+                query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = tbl_items_web.Id_proveedor ";
+                query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = tbl_items_web.Id_moneda ";
+                query = query + "inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1where 1 = 1 ";
 
                 if (txt_codigo.Text != "")
                 {
-                    query = query + "where iw.codigo like  '" + txt_codigo.Text + "%'";
+                    query = query + "and  tbl_items_web.codigo like  '" + txt_codigo.Text + "%'";
+                }
+
+                if (txt_codprov.Text != "")
+                {
+                    query = query + "and tbl_items.Codigo_prov like  '" + txt_codprov.Text + "%'";
+                }
+
+                if (LstCategorias.SelectedItem.Value.ToString() != "0")
+                {
+                    query = query + "and tbl_items.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
+                }
+
+                if (LstSubCategorias.SelectedItem.Value.ToString() != "0")
+                {
+                    query = query + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
+                }
+
+               // if (LstLetras.SelectedItem.Value.ToString() != " ")
+               // {
+               //     master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
+              //  }
+
+
+                if (LstProveedores.SelectedItem.Value.ToString() != "0")
+                {
+                    query = query + "and tbl_items.Id_proveedor = " + LstProveedores.SelectedItem.Value.ToString();
+                }
+
+                if (chk_sin_cat.Checked)
+                {
+                    query = query + "and isnull(tbl_items.Id_Categoria,0) = 0 ";
+                }
+
+                if (chk_no_publicados.Checked)
+                {
+                    query = query + "and isnull(tbl_items.publicado_sitio,0) = 0 ";
+                }
+
+                if (chk_publicados.Checked)
+                {
+                    query = query + "and isnull(tbl_items.publicado_sitio,0) = 1 ";
                 }
 
                 using (SqlConnection connection = new SqlConnection(Sserver))
@@ -401,8 +655,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     // copiamos de vuelta el archivo generado a la ficha
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
@@ -442,8 +696,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Presentacion_Producto = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set Presentacion_Producto = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
@@ -484,8 +738,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Hoja_de_Seguridad = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set Hoja_de_Seguridad = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
@@ -524,8 +778,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set foto_chica = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set foto_chica = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
@@ -564,8 +818,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set foto_grande = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set foto_grande = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
                                                 }
                                                 else
@@ -605,8 +859,8 @@ namespace erpweb
                                                 if (result == "OK")
                                                 {
                                                     arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set video = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
-                                                    act_nom_archivomysql("update tbl_items set video = '" + nuevo_nom + "' where codigo = '" + reader[1].ToString().Replace(",", ".").Trim() + "'");
+                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
                                                     File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom)); 
                                                 }
                                                 else
@@ -707,6 +961,39 @@ namespace erpweb
             {
                 Console.WriteLine(ex.Message.ToString());
                
+            }
+        }
+
+        void productos_publicados()
+        {
+            string query = "";
+            query = "SELECT COUNT(1) FROM tbl_items ";
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            lbl_prod_publicados.Text = dr.GetString(0);
+                        }
+                    }
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message.ToString());
+                lbl_prod_publicados.Text = ex.Message.ToString();
+
             }
         }
 

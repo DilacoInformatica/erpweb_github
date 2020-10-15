@@ -160,9 +160,10 @@
               <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3">Unidad Venta</td>
       <td colspan="2">
-          &nbsp;</td>
+                    <asp:Label ID="lbl_unidad" runat="server"></asp:Label>
+                 </td>
     </tr>
     <tr>
       <td class="auto-style6" >Precio Lista</td>
@@ -188,7 +189,7 @@
     <tr>
       <td class="auto-style54">Proveedor</td>
       <td colspan="8">
-          <asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="483px"></asp:TextBox>
+          <asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="927px"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -210,19 +211,19 @@
           <asp:DropDownList ID="LstLineaVtas" runat="server">
           </asp:DropDownList>
         </td>
-      <td >Unidad de Vta: </td>
+      <td >Presentación: </td>
       <td colspan="3">
-          <asp:TextBox ID="txt_unidad" runat="server" Enabled="False" Width="207px"></asp:TextBox>
+          <asp:TextBox ID="txt_unidad" runat="server" Width="207px"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style54">Marca</td>
       <td colspan="4">
-          <asp:TextBox ID="txt_marca" runat="server" Enabled="False" Width="477px"></asp:TextBox>
+          <asp:TextBox ID="txt_marca" runat="server" Width="477px"></asp:TextBox>
         </td>
       <td class="auto-style12" >C&oacute;digo Prov.</td>
       <td colspan="3">
-          <asp:TextBox ID="txt_codigoprov" runat="server" Enabled="False" Width="207px"></asp:TextBox>
+          <asp:TextBox ID="txt_codigoprov" runat="server" Width="207px"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -285,12 +286,12 @@
                  </td>
       <td>
 
-                    <asp:FileUpload ID="File_FC" runat="server" />
+                    <asp:FileUpload ID="File_FG" runat="server" />
 
                  </td>
       <td>
 
-                    <asp:ImageButton ID="ImgBtnFG" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFG_Click" Width="14px" />
+                    <asp:ImageButton ID="ImgBtnFG" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFG_Click" Width="14px" style="height: 13px" />
 
                  </td>
     </tr>
@@ -304,7 +305,7 @@
                  </td>
       <td>
 
-                    <asp:FileUpload ID="File_FG" runat="server" />
+                    <asp:FileUpload ID="File_FC" runat="server" />
 
                  </td>
       <td>

@@ -138,6 +138,8 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	padding: 0px;
+    height: 178px;
+    width: 84%;
 }
 .tablaCurva {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
@@ -847,7 +849,6 @@ th:only-child{
 } 
 
 input[type=text], input[type=password] {
-	height: 17px;
 }
 select {
 	height: 21px;
