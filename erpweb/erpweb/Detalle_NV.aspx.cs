@@ -21,6 +21,7 @@ namespace erpweb
         int v_id_cliente = 0;
         int v_id_contacto = 0;
         int id_tipo_fac = 0;
+        int usuario = 0;
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
 
@@ -28,6 +29,7 @@ namespace erpweb
         {
 
             id_nv = Convert.ToInt32(Request.QueryString["nv"].ToString());
+            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             if (!this.IsPostBack)
@@ -706,6 +708,7 @@ namespace erpweb
                                 actualiza_NV(Convert.ToInt32(lbl_numero.Text));
                                 entrega_num_nv_erp(v_id_nta_vta);
                                 lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
+                                utiles.actualiza_historial_nv(v_id_nta_vta, usuario, "Se crea NV desde Sitio Web",Sserver,"NV");
                                 lbl_status.ForeColor = Color.Red;
                                 v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()),Sserver);
                                 utiles.enviar_correo("Nv Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
@@ -717,7 +720,6 @@ namespace erpweb
             }
           }
 
-      
         void entrega_num_nv_erp(int v_id_nta_vta)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";

@@ -14,11 +14,20 @@ namespace erpweb
     {
         string Sserver = "";
         string SMysql = "";
+        string usuario = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            {
+                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                usuario = Request.QueryString["usuario"].ToString();
+            }
             //Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
             if (!this.IsPostBack)
             {

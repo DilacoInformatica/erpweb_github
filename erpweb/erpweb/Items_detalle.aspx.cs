@@ -148,6 +148,7 @@ namespace erpweb
             query = query + ",pr.Nombre_Fantasia "; //46
             query = query + ",iw.Precio_lista "; //47
             query = query + ",(select Unidad from tbl_items where tbl_items.ID_Item = iw.Id_Item) unidad "; //48
+            query = query + ",iw.Activo "; //49
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
@@ -164,6 +165,14 @@ namespace erpweb
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+
+                        if (!reader.GetBoolean(49))
+                        {
+                            BtnGrabar.Enabled = false;
+                            Btn_emigrar.Enabled = false;
+                            lbl_status.Text = "Producto fue desactivado desde el ERP... no se puede realizar ninguna acción sobre él hasta que se active nuevamente";
+                            lbl_status.ForeColor = Color.Red;
+                        }
                         txt_codigo.Text = reader[1].ToString();
                         txt_descripcion.Text = reader[11].ToString();
                        // txt_descripcion.Text = reader.GetString(11) ;
@@ -974,7 +983,7 @@ namespace erpweb
             query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
             query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
             query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
-            query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text + "'";
+            query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text.Trim() + "'";
             query = query + ",Foto = '" + lbl_fotoc.Text + "'";
             query = query + ",Foto_grande = '" + lbl_fotog.Text + "'";
             //query = query + ",Foto_Maestra = NULL";
@@ -1082,7 +1091,7 @@ namespace erpweb
                     if (v_precio != Convert.ToDouble(txt_precio.Text))
                     {
                         // ejecutamos la función que creará el historial de modificaciones
-                        actualiza_historial_producto(id_item, v_precio, Convert.ToDouble(txt_precio.Text));
+                        utiles.actualiza_historial_nv(id_item, usuario, "Precio Item Web cambia de " + Convert.ToString(v_precio) + " a " + Convert.ToString(txt_precio.Text), Sserver, "ITEM");
                     }
                 }
                 catch (Exception ex)
@@ -1094,43 +1103,18 @@ namespace erpweb
             }
         }
 
-        void actualiza_historial_producto(int id_item, float precio_nuevo, double precio_ant)
-        {
-            string sql = "";
-
-            sql = "INSERT INTO tbl_Seguimiento (COD_DOC, Fecha_Seg, Id_Tipo_Accion, Fecha_Vencimiento, Id_Usuario_Resp, "
-            sql = sql + "Observaciones_Seg,Id_Documento, Creado, Usr_Id, Tarea_Hecha,Documento_Adjunto) ";
-            sql = sql + "VALUES ('ITEN',getdate(),";
-            sql = sql + "5,null,null,";
-            sql = sql + "'Precio Item Web cambia de " + Convert.ToString(precio_ant) + " a " + Convert.ToString(precio_nuevo) + "'," ;
-            sql = sql + id_item + ",getdate()," + usuario + ",null,null)";
-
-            using (SqlConnection connection = new SqlConnection(Sserver))
-            {
-                try
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(sql, connection);
-                    command.ExecuteNonQuery();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = "Error Funcion actualiza_historial_producto : " + ex.Message.ToString();
-                }
-            }
-        }
-
         public float busca_precio_lista(int id_item)
         {
+            string query = "";
             float valor = 0;
-            string sql = "select precio from tbl_items where id_item = " + id_item;
+            query = "select precio from tbl_items where id_item = " + id_item;
+
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(sql, connection);
+                    SqlCommand command = new SqlCommand(query, connection);
 
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
@@ -1142,12 +1126,17 @@ namespace erpweb
                     connection.Dispose();
                     return valor;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    lbl_error.Text = "Funcion busca_precio_lista : " + ex.Message.ToString();
+                    Console.WriteLine(ex.Message);
+                    lbl_error.Text = ex.Message;
+                    connection.Close();
+                    connection.Dispose();
                     return 0;
                 }
-              }
+
+            }
+           
         }
 
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)

@@ -15,12 +15,20 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-
+        string usuario = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            {
+                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                usuario = Request.QueryString["usuario"].ToString();
+            }
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
@@ -124,7 +132,7 @@ namespace erpweb
         protected void Lista_notas_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Lista_notas.SelectedRow;
-            Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text);
+            Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text + "&usuario=" + usuario);
         }
     }
 }

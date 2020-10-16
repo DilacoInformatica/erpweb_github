@@ -21,9 +21,11 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
+        int usuario = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             num_cotizacion = Convert.ToInt32(Request.QueryString["cot"].ToString());
+            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
 
@@ -477,6 +479,7 @@ namespace erpweb
                             lbl_status.Text = "Cotización creada correctamente en el ERP, revise el Home";
                             lbl_status.ForeColor = Color.Red;
                             v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
+                            utiles.actualiza_historial_nv(v_id_cotizacion, usuario, "Se crea Cotización Web", Sserver, "COT");
                             utiles.enviar_correo("Cotización Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                         }
                         // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes

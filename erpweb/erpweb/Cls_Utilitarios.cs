@@ -42,8 +42,8 @@ namespace erpweb
             string salida = "";
             if (servidor == "SSERVER" && ambiente == 1)
             {
-                salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                //salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                //salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
+                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
             }
             if (servidor == "SSERVER" && ambiente == 2)
             {
@@ -52,8 +52,8 @@ namespace erpweb
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {
-                salida = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion  Local
-                // salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+                //salida = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion  Local
+                 salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
             }
             if (servidor == "MYSQL" && ambiente == 2)
             {
@@ -63,6 +63,37 @@ namespace erpweb
             return salida;
 
         }
+
+       public string actualiza_historial_nv(int valor, int usuario, string comentario,string servidor, string codigo )
+        {
+            string sql = "";
+            sql = "INSERT INTO tbl_Seguimiento (COD_DOC, Fecha_Seg, Id_Tipo_Accion, Fecha_Vencimiento, Id_Usuario_Resp, ";
+            sql = sql + "Observaciones_Seg,Id_Documento, Creado, Usr_Id, Tarea_Hecha,Documento_Adjunto) ";
+            sql = sql + "VALUES ('"+ codigo +  "',getdate(),";
+            sql = sql + "5,null,null,";
+            sql = sql + "'"+ comentario + "',";
+            sql = sql + valor + ",getdate()," + usuario + ",null,null)";
+
+            using (SqlConnection connection = new SqlConnection(servidor))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    return "OK";
+
+                }
+                catch (Exception ex)
+                {
+                    return "ERROR";
+                }
+            }
+        }
+
+
+
 
         public string enviar_correo(string cabecera, string cuerpo, string receptor)
         {
