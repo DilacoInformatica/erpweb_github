@@ -20,7 +20,7 @@ namespace erpweb
         string modo = "";
         int id_item = 0;
         int usuario = 0;
-        string ruta_alterna = @"C:\intranet\documentos\Biblioteca";
+        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
         string archivo2 = "";
 
         ClsFTP ftp = new ClsFTP();
@@ -34,12 +34,19 @@ namespace erpweb
         {
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
-            modo = Request.QueryString["modo"].ToString();
+            if (String.IsNullOrEmpty(Request.QueryString["modo"]))
+            {
+                modo = "W"; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                modo = "E";
+            }
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
 
-            if (modo == "E")
+            if (modo == "W")
             {
                 Btn_volver.Visible = false;
                 ImgBtn_Cerrar.Visible = true;
@@ -298,7 +305,7 @@ namespace erpweb
                         //lbl_moneda.Text = reader[11].ToString();
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
-                        txt_codigoprov.Enabled = false;
+                        //txt_codigoprov.Enabled = false;
                         txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
                         lbl_manual_tecnico.Text = reader[22].ToString();
                         txt_proveedor.Text = reader[46].ToString();
@@ -943,7 +950,7 @@ namespace erpweb
             string query = "";
             float v_precio = busca_precio_lista(id_item);
 
-            if (txt_precio.Text == "0")
+            if (txt_precio.Text == "0" && chck_venta.Checked)
             {
                 lbl_error.Text = "Precio del producto debe ser mayor a Cero";
             }

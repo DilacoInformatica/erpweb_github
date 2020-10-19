@@ -85,6 +85,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_codigo;
         
         /// <summary>
+        /// Control txt_codprov.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_codprov;
+        
+        /// <summary>
         /// Control LstProveedores.
         /// </summary>
         /// <remarks>
@@ -94,13 +103,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstProveedores;
         
         /// <summary>
-        /// Control txt_codprov.
+        /// Control chk_sin_cat.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_codprov;
+        protected global::System.Web.UI.WebControls.CheckBox chk_sin_cat;
         
         /// <summary>
         /// Control chk_publicados.
@@ -112,13 +121,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.CheckBox chk_publicados;
         
         /// <summary>
-        /// Control chk_sin_cat.
+        /// Control chk_sin_imagenes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_sin_cat;
+        protected global::System.Web.UI.WebControls.CheckBox chk_sin_imagenes;
         
         /// <summary>
         /// Control chk_no_publicados.

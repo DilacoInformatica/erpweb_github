@@ -18,7 +18,7 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        string ruta_alterna = @"C:\intranet\documentos\Biblioteca";
+        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
         string archivo2 = "";
         string extension = "";
         string nuevo_nom = "";
@@ -50,7 +50,7 @@ namespace erpweb
             {
                 carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
                 carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
-                carga_contrl_lista("select 0 ID_Proveedor, 'Seleccione Proveedor' Razon_Social union all  select ID_Proveedor, Razon_Social from tbl_Proveedores where Activo = 1", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
+                carga_contrl_lista("select 0 ID_Proveedor, 'Seleccione Proveedor' Razon_Social union all  select ID_Proveedor, substring(Razon_Social,1,50) Razon_Social from tbl_Proveedores where Activo = 1", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
                 carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
                 carga_contrl_lista("select ' ' id_lista, 'Selecione Letra' letra union all select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", LstLetras, "tbl_letras", "id_lista", "letra");
 
@@ -116,11 +116,11 @@ namespace erpweb
                     master_queryString = " Select tbl_items_web.id_item 'Id', ";
                     master_queryString = master_queryString + "tbl_items_web.codigo 'Código', ";
                     master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 30) 'Descripción', ";
+                    master_queryString = master_queryString + "tbl_items_web.Marca , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.visible, 0) = 0, 'N', 'S') 'Visible', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.ventas, 0) = 0, 'N', 'S') 'Venta', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.cotizaciones, 0) = 0, 'N', 'S') 'Cotizacion', ";
-                    master_queryString = master_queryString + "tbl_items_web.Marca , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Manual_Tecnico,'') = '','N','S') 'Manual técnico' , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Presentacion_Producto,'') = '','N', 'S')'Presentación', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto,'') = '','N', 'S') 'Foto', ";
@@ -175,6 +175,11 @@ namespace erpweb
                     if (chk_publicados.Checked)
                     {
                         master_queryString = master_queryString + "and isnull(tbl_items_web.publicado_sitio,0) = 1 ";
+                    }
+
+                    if (chk_sin_imagenes.Checked)
+                    {
+                        master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
                     }
                 }
                 connection.Open();

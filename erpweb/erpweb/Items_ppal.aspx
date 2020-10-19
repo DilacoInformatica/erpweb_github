@@ -32,51 +32,58 @@
         }
         .auto-style14 {
             height: 21px;
-            width: 574px;
+            width: 254px;
         }
         .auto-style15 {
             height: 17px;
-            width: 574px;
+            width: 254px;
         }
         .auto-style16 {
-            width: 574px;
-        }
-        .auto-style17 {
-            text-align: left;
-        }
-        .auto-style18 {
-            height: 17px;
-            text-align: left;
-        }
-        .auto-style19 {
-            height: 21px;
-            text-align: left;
+            width: 254px;
         }
         .auto-style20 {
             height: 28px;
         }
         .auto-style21 {
-            width: 574px;
+            width: 254px;
             height: 28px;
         }
         .auto-style22 {
             text-align: left;
             height: 28px;
+            width: 1914px;
         }
         .auto-style23 {
             height: 21px;
-            width: 363px;
+            width: 475px;
         }
         .auto-style24 {
             height: 17px;
-            width: 363px;
+            width: 475px;
         }
         .auto-style26 {
             height: 28px;
-            width: 363px;
+            width: 475px;
         }
         .auto-style27 {
-            width: 363px;
+            width: 475px;
+        }
+        .auto-style28 {
+            height: 24px;
+        }
+        .auto-style29 {
+            width: 254px;
+            height: 24px;
+        }
+        .auto-style30 {
+            width: 475px;
+            height: 24px;
+        }
+        .auto-style31 {
+            height: 19px;
+        }
+        .auto-style32 {
+            width: 1914px;
         }
         </style>
 </head>
@@ -92,9 +99,9 @@
 
            <table border="0" cellpadding="2" cellspacing="0" class="tabla">
                 <tr class="HeadTabla"> 
-                  <td  colspan="3"><strong><img alt="" src="img/vineta.gif" />B&uacute;squeda 
+                  <td  colspan="3" class="auto-style31"><strong><img alt="" src="img/vineta.gif" />B&uacute;squeda 
                     Art&iacute;culos </strong></td>
-                  <td  colspan="2" style="text-align: right">
+                  <td  colspan="2" style="text-align: right" class="auto-style31">
                         <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
                     </td>
                 </tr>
@@ -109,7 +116,7 @@
           <asp:DropDownList ID="LstLineaVtas" runat="server">
           </asp:DropDownList>
                     </td>
-                  <td  class="auto-style19" colspan="2">Por Categor&iacute;a</td>
+                  <td colspan="2" class="auto-style32">Por Categor&iacute;a</td>
                   <td  class="auto-style23">
           <asp:DropDownList ID="LstCategorias" runat="server">
           </asp:DropDownList>
@@ -121,7 +128,7 @@
           <asp:DropDownList ID="LstLetras" runat="server">
           </asp:DropDownList>
 		            </td>
-                  <td  class="auto-style18" colspan="2">Por SubCategor&iacute;a </td>
+                  <td colspan="2" class="auto-style32">Por SubCategor&iacute;a </td>
                   <td  class="auto-style24">
           <asp:DropDownList ID="LstSubCategorias" runat="server">
           </asp:DropDownList>
@@ -131,28 +138,39 @@
                   <td width="127" >Por C&oacute;digo Dilaco </td>
                   <td class="auto-style16" >&nbsp;<asp:TextBox ID="txt_codigo" runat="server" BackColor="#FFFFCC"></asp:TextBox>
                     </td>
-                  <td class="auto-style17" colspan="2" >Por Proveedor</td>
+                  <td colspan="2" class="auto-style32" >Por C&oacute;digo Prov. </td>
                   <td class="auto-style27" >
-          <asp:DropDownList ID="LstProveedores" runat="server">
-          </asp:DropDownList>
+                      <asp:TextBox ID="txt_codprov" runat="server" BackColor="#FFFFCC" Width="119px"></asp:TextBox>
 		        </td>
                 </tr>
                 <tr>
-                  <td class="auto-style20" >Por C&oacute;digo Prov. </td>
-                  <td class="auto-style21" >&nbsp;<asp:TextBox ID="txt_codprov" runat="server" BackColor="#FFFFCC" Width="119px"></asp:TextBox>
+                  <td class="auto-style20" >Por Proveedor</td>
+                  <td class="auto-style21" >
+          <asp:DropDownList ID="LstProveedores" runat="server">
+          </asp:DropDownList>
                     </td>
-                  <td class="auto-style22" colspan="2" >Art&iacute;culos Publicados </td>
-                  <td class="auto-style26" >
+                  <td colspan="2" >&nbsp;</td>
+                  <td >
+                      &nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="auto-style28" >Art&iacute;culos SIN Categor&iacute;as </td>
+                  <td class="auto-style29" >
+                      <asp:CheckBox ID="chk_sin_cat" runat="server" />
+                    </td>
+                  <td colspan="2" class="auto-style32" >Art&iacute;culos Publicados</td>
+                  <td class="auto-style30" >
                       <asp:CheckBox ID="chk_publicados" runat="server" />
                     </td>
                 </tr>
+                
                 <tr>
-                  <td >Art&iacute;culos SIN Categor&iacute;as </td>
-                  <td class="auto-style16" >
-                      <asp:CheckBox ID="chk_sin_cat" runat="server" />
+                  <td class="auto-style28" >Artículos sin Imágenes</td>
+                  <td class="auto-style29" >
+                      <asp:CheckBox ID="chk_sin_imagenes" runat="server" />
                     </td>
-                  <td colspan="2" >Art&iacute;culos NO Publicados</td>
-                  <td class="auto-style27" ><asp:CheckBox ID="chk_no_publicados" runat="server" />
+                  <td colspan="2" class="auto-style32" >Art&iacute;culos NO Publicados</td>
+                  <td class="auto-style30" ><asp:CheckBox ID="chk_no_publicados" runat="server" />
                     </td>
                 </tr>
                 
