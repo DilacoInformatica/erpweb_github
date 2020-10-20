@@ -64,8 +64,7 @@ namespace erpweb
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";
 
                 carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
-                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria","Nombre");
-                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
                 carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
 
                 // Categorias parte inferior
@@ -78,6 +77,11 @@ namespace erpweb
                 carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias3, "tbl_categorias", "ID_SubCategoria", "Nombre");
 
                 muestra_info(id_item);
+                HS_Warning.Visible = false;
+                VD_Warning.Visible = false;
+                HS_Warning.Visible = false;
+                FG_Warning.Visible = false;
+                FC_Warning.Visible = false;
             }
         }
 
@@ -156,9 +160,12 @@ namespace erpweb
             query = query + ",iw.Precio_lista "; //47
             query = query + ",(select Unidad from tbl_items where tbl_items.ID_Item = iw.Id_Item) unidad "; //48
             query = query + ",iw.Activo "; //49
+            query = query + ",fp.nombre division "; //50
+            query = query + ",fp.ID_Familia "; //51
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
+            query = query + "left outer join tbl_Familias_Productos fp on fp.ID_Familia = ct.ID_Familia ";
             query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = iw.Id_proveedor ";
             query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = iw.Id_moneda ";
             query = query + "where Id_Item = " + id_item;
@@ -201,6 +208,17 @@ namespace erpweb
                         else
                         { chck_cot.Checked = false; }
 
+
+                        if (reader[51].ToString() != "")
+                        {
+                            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_Categorias where Activo = 1 and ID_Familia =" + reader[51].ToString(), LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                        }
+                        else
+                        {
+                            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_Categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                        }
+
+
                         foreach (ListItem item in LstCategorias.Items)
                         {
                             if (item.Value == reader[12].ToString())
@@ -209,6 +227,8 @@ namespace erpweb
                                 break;
                             }
                         }
+
+                        carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[12].ToString(), LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
 
                         foreach (ListItem item in LstSubCategorias.Items)
                         {
@@ -297,6 +317,7 @@ namespace erpweb
                             }
                         }
 
+                        txt_division.Text = reader[50].ToString();
                         lbl_unidad.Text = reader[48].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         txt_marca.Text = reader[16].ToString();
@@ -342,6 +363,10 @@ namespace erpweb
                                     lbl_hoja_seguridad.Text = nuevo_nom;
                                 }
                             }
+                            else
+                            {
+                                FG_Warning.Visible = true;
+                            }
                         }
 
                         if (lbl_fotoc.Text != "")
@@ -358,6 +383,10 @@ namespace erpweb
                                     lbl_hoja_seguridad.Text = nuevo_nom;
                                 }
                             }
+                            else
+                            {
+                                FC_Warning.Visible = true;
+                            }
                         }
 
                         if (lbl_video.Text != "")
@@ -373,6 +402,10 @@ namespace erpweb
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                     lbl_hoja_seguridad.Text = nuevo_nom;
                                 }
+                            }
+                            else
+                            {
+                                VD_Warning.Visible = true;
                             }
                         }
 
@@ -391,6 +424,10 @@ namespace erpweb
                                 }
                                 
                             }
+                            else
+                            {
+                                MT_Warning.Visible = true;
+                            }
 
                         }
 
@@ -407,6 +444,10 @@ namespace erpweb
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                     lbl_hoja_seguridad.Text = nuevo_nom;
                                 }
+                            }
+                            else
+                            {
+                                HS_Warning.Visible = true;
                             }
 
                         }

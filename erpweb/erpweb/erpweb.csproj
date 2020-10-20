@@ -138,6 +138,7 @@
     <Content Include="img\cancela.gif" />
     <Content Include="img\cerrar.png" />
     <Content Include="img\mas.jpg" />
+    <Content Include="img\warning.png" />
     <Content Include="Notas_Venta.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
