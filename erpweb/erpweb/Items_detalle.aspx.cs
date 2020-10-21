@@ -592,7 +592,24 @@ namespace erpweb
             string ruta_local = "";
             string ruta_server = "";
             string query = "";
-            if  (lbl_web.Text == "SI")
+            bool v_swc = true;
+            if (LstCategorias.SelectedValue.ToString() == "0" && LstSubCategorias.Items.Count == 1)
+            {
+                lbl_error.Text = "Debe indicar Categoria para el producto, No es posible publicar";
+                v_swc = false;
+            }
+
+            if (LstCategorias.SelectedValue.ToString() == "0" && LstSubCategorias.Items.Count > 1)
+            {
+                lbl_error.Text = "Debe indicar Categoria y Subcategoria para el producto, No es posible publicar";
+                v_swc = false;
+            }
+
+
+            if (v_swc)
+            { 
+
+            if  (lbl_web.Text == "SI" )
             {
                 query = "UPDATE dilacocl_dilacoweb.tbl_items ";
                 query = query + "SET ";
@@ -767,7 +784,8 @@ namespace erpweb
                     lbl_status.Text = "Producto grabado correctamente en la Web";
                     
                     marca_producto_publicado(id_item,"I");
-                    lbl_web.Text = "SI";
+
+                    validamysql(id_item);
 
                     // Si el producto fue grabado correctamente, cargamos los archivos en el servidor
                     // Ficha Técnica
@@ -824,6 +842,7 @@ namespace erpweb
                     conn.Dispose();
                 }
             }
+         }
         }
 
         void marca_producto_publicado(int id_item, string orden)
