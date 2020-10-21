@@ -94,27 +94,7 @@
         .auto-style58 {
             width: 149px;
         }
-        .auto-style59 {
-            width: 1224px;
-            height: 1468px;
-        }
-      
-        }
-        .auto-style63 {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            background-color: #FFFFF9;
-            border: 1px solid #C0C0C0;
-            margin: 0px;
-            border-collapse: collapse;
-            border-spacing: 0;
-            padding: 0px;
-            height: 264px;
-            width: 100%;
-        }
-        .auto-style64 {
-            width: 1215px;
-            height: 86%;
+              
         }
         </style>
     </head>
@@ -219,6 +199,12 @@
         </td>
     </tr>
     <tr>
+      <td class="auto-style55">División</td>
+      <td colspan="8" class="auto-style61">
+          <asp:TextBox ID="txt_division" runat="server" Enabled="False" Width="500px"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
       <td class="auto-style55">Categor&iacute;a</td>
       <td colspan="4" class="auto-style51">
           <asp:DropDownList ID="LstCategorias" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
@@ -268,6 +254,7 @@
       <td class="auto-style36">
                     <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_manual_tecnico" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_manual_tecnico_Click" Width="16px" />
+                    <asp:Image ID="MT_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
                  </td>
       <td>
 
@@ -290,6 +277,8 @@
 
 <asp:ImageButton ID="borra_presentacion" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_presentacion_Click" Width="16px" />
 
+                    <asp:Image ID="PR_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
+
                  </td>
       <td>
 
@@ -308,6 +297,8 @@
                     <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 
 <asp:ImageButton ID="borra_fotog" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotog_Click" Width="16px" />
+
+                    <asp:Image ID="FG_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
 
                  </td>
       <td>
@@ -328,6 +319,8 @@
 
 <asp:ImageButton ID="borra_fotoc" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotoc_Click" Width="16px" />
 
+                 <asp:Image ID="FC_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
+
                  </td>
       <td>
 
@@ -345,6 +338,7 @@
       <td>
                     <asp:Label ID="lbl_video" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_video" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_video_Click" Width="16px" />
+                    <asp:Image ID="VD_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
                  </td>
       <td>
 
@@ -362,6 +356,7 @@
       <td>
                     <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="234px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_hoja_seg" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_hoja_seg_Click" Width="16px" />
+                    <asp:Image ID="HS_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" />
                  </td>
       <td>
 
