@@ -8,11 +8,24 @@
     <title>Administración División Ventas</title>
     <link href="css/estilos.css" rel="stylesheet" />
     <style type="text/css">
-        .auto-style1 {
-            width: 57%;
-        }
         .auto-style2 {
-            width: 237px;
+            width: 414px;
+            vertical-align:top;
+        }
+        .nuevoEstilo1 {
+            vertical-align:top;
+        }
+        .auto-style6 {
+            vertical-align: top;
+            width: 1322px;
+        }
+        .auto-style7 {
+            width: 479px;
+            vertical-align: top;
+        }
+        .auto-style17 {
+            width: 479px;
+            vertical-align: top;
         }
     </style>
 </head>
@@ -26,10 +39,25 @@
             </tr>
         </table>
     </div>
-        <table class="auto-style1">
+        <table class="auto-style6">
             <tr>
                 <td class="auto-style2">
-                    <asp:GridView ID="Lst_division" runat="server" Caption="División" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True">
+                    <asp:GridView ID="Lst_division" runat="server" AutoGenerateSelectButton="True" Caption="División" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Lst_division_SelectedIndexChanged" ShowFooter="True" Width="462px">
+                        <AlternatingRowStyle BackColor="White" />
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                    </asp:GridView>
+                </td>
+                <td class="auto-style7">
+                    <asp:GridView ID="LstCategorias" runat="server" Caption="Categorías" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="547px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:TemplateField>
@@ -37,7 +65,7 @@
                                     <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:CheckBox ID="Chk_seleccion" runat="server" />
+                                    <asp:CheckBox ID="Chk_SelCat" runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -53,24 +81,16 @@
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
                 </td>
-                <td>
-                    <asp:GridView ID="LstCategorias" runat="server" Caption="Categorías" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True">
+                <td class="auto-style17">
+                    <asp:GridView ID="LstSubCategorias" runat="server" Caption="Sub Categorias" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="566px">
                         <AlternatingRowStyle BackColor="White" />
-                        <EditRowStyle BackColor="#2461BF" />
-                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#EFF3FB" />
-                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-                </td>
-                <td>
-                    <asp:GridView ID="LstSubCategorias" runat="server" Caption="Sub Categorias" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True">
-                        <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="Chk_selSubCot" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -86,6 +106,7 @@
             </tr>
         </table>
         <asp:Label ID="lbl_error" runat="server"></asp:Label>
+        <asp:Label ID="lbl_status" runat="server"></asp:Label>
     </form>
 </body>
 </html>
