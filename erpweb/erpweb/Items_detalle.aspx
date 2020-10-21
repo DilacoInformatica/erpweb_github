@@ -121,13 +121,9 @@
     </tr>
     <tr>
       <td class="auto-style55">División</td>
-      <td colspan="4" class="auto-style61">
-          <asp:TextBox ID="txt_division" runat="server" Enabled="False" Width="500px"></asp:TextBox>
+      <td colspan="8" class="auto-style61">
+          <asp:TextBox ID="txt_division" runat="server" Enabled="False" Width="684px"></asp:TextBox>
         </td>
-      <td class="auto-style51">
-          &nbsp;</td>
-      <td colspan="3">
-          &nbsp;</td>
     </tr>
     <tr>
       <td class="auto-style55">Categor&iacute;a</td>
