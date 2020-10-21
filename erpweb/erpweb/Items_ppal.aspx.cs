@@ -18,7 +18,7 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string ruta_alterna = "";
         string archivo2 = "";
         string extension = "";
         string nuevo_nom = "";
@@ -46,6 +46,8 @@ namespace erpweb
             {
                 usuario = Request.QueryString["usuario"].ToString();
             }
+            ruta_alterna = utiles.retorna_ruta();
+
             if (!this.IsPostBack)
             {
                 carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");

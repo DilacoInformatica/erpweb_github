@@ -20,7 +20,7 @@ namespace erpweb
         string modo = "";
         int id_item = 0;
         int usuario = 0;
-        string ruta_alterna = @"E:\intranet\documentos\Biblioteca";
+        string ruta_alterna = "";
         string archivo2 = "";
 
         ClsFTP ftp = new ClsFTP();
@@ -45,6 +45,9 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
+
+
+            ruta_alterna = utiles.retorna_ruta();
 
             if (modo == "W")
             {

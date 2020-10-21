@@ -12,7 +12,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente = 2; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente = 1; // Indica el ambiente dónde debe conectarse el sistema
 
         string correo_envia = "informatica@dilaco.com";
         string correo_recibe = "sebastian.aranda.o@gmail.com";
@@ -42,8 +42,8 @@ namespace erpweb
             string salida = "";
             if (servidor == "SSERVER" && ambiente == 1)
             {
-                //salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
+               // salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
             }
             if (servidor == "SSERVER" && ambiente == 2)
             {
@@ -64,6 +64,18 @@ namespace erpweb
 
         }
 
+        public string retorna_ruta ()
+        {
+            if(ambiente == 1 ) // Local
+            {
+                return @"C:\intranet\documentos\Biblioteca";
+            }
+            else // Servidor
+            {
+                return @"E:\intranet\documentos\Biblioteca";
+            }
+        }
+      
        public string actualiza_historial_nv(int valor, int usuario, string comentario,string servidor, string codigo )
         {
             string sql = "";
