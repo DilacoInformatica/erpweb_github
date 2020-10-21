@@ -158,6 +158,11 @@ namespace erpweb
                         master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
                     }
 
+                    if (LstLineaVtas.SelectedItem.Value.ToString() != "0")
+                    {
+                        master_queryString = master_queryString + "and tbl_items.Id_Linea_Venta = '" + LstLineaVtas.SelectedItem.Value.ToString() + "'";
+                    }
+
 
                     if (LstProveedores.SelectedItem.Value.ToString() != "0")
                     {

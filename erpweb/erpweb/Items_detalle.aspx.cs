@@ -352,7 +352,7 @@ namespace erpweb
                         txt_alt2.Text = reader[36].ToString();
                         txt_alt3.Text = reader[37].ToString();
 
-                        if (lbl_fotog.Text != "")
+                        if (lbl_fotog.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
                             extension = Path.GetExtension(archivo2);
@@ -372,7 +372,7 @@ namespace erpweb
                             }
                         }
 
-                        if (lbl_fotoc.Text != "")
+                        if (lbl_fotoc.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
                             extension = Path.GetExtension(archivo2);
@@ -392,7 +392,7 @@ namespace erpweb
                             }
                         }
 
-                        if (lbl_video.Text != "")
+                        if (lbl_video.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
                             extension = Path.GetExtension(archivo2);
@@ -412,7 +412,7 @@ namespace erpweb
                             }
                         }
 
-                        if (lbl_manual_tecnico.Text != "")
+                        if (lbl_manual_tecnico.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
                             extension = Path.GetExtension(archivo2);
@@ -434,7 +434,7 @@ namespace erpweb
 
                         }
 
-                        if (lbl_hoja_seguridad.Text != "")
+                        if (lbl_hoja_seguridad.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
                             extension = Path.GetExtension(archivo2);
@@ -765,8 +765,9 @@ namespace erpweb
                     conn.Close();
                     conn.Dispose();
                     lbl_status.Text = "Producto grabado correctamente en la Web";
-
+                    
                     marca_producto_publicado(id_item,"I");
+                    lbl_web.Text = "SI";
 
                     // Si el producto fue grabado correctamente, cargamos los archivos en el servidor
                     // Ficha Técnica
