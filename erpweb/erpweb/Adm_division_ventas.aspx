@@ -8,24 +8,34 @@
     <title>Administración División Ventas</title>
     <link href="css/estilos.css" rel="stylesheet" />
     <style type="text/css">
-        .auto-style2 {
-            width: 414px;
-            vertical-align:top;
-        }
         .nuevoEstilo1 {
             vertical-align:top;
         }
-        .auto-style6 {
-            vertical-align: top;
-            width: 1322px;
+        .scroll {
+            width: 1600px; 
+            height: 298px; 
+            overflow-y: scroll;
         }
-        .auto-style7 {
-            width: 479px;
-            vertical-align: top;
+         .scrolltddiv {
+            width: 473px; 
+            height: 281px; 
+            overflow-y: scroll;
         }
-        .auto-style17 {
-            width: 479px;
-            vertical-align: top;
+        .auto-style18 {
+            width: 461px;
+        }
+        .scrolltdcat {
+            width: 557px;
+            height: 281px;
+            overflow-y: scroll;
+        }
+        .scrolltdsubcat {
+            width: 574px;
+            height: 281px;
+            overflow-y: scroll;
+        }
+        .auto-style21 {
+            width: 559px;
         }
     </style>
 </head>
@@ -39,9 +49,14 @@
             </tr>
         </table>
     </div>
-        <table class="auto-style6">
+    <div>
+
+        sdfsfsdfsdf
+
+        <table>
             <tr>
-                <td class="auto-style2">
+                <td class="auto-style18">
+                    <div class="scrolltddiv"> 
                     <asp:GridView ID="Lst_division" runat="server" AutoGenerateSelectButton="True" Caption="División" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Lst_division_SelectedIndexChanged" ShowFooter="True" Width="462px">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
@@ -55,8 +70,10 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
+                    </div>
                 </td>
-                <td class="auto-style7">
+                <td class="auto-style21">
+                    <div class="scrolltdcat">
                     <asp:GridView ID="LstCategorias" runat="server" Caption="Categorías" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="547px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
@@ -80,8 +97,11 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
+
+                    </div>
                 </td>
-                <td class="auto-style17">
+                <td>
+                    <div class="scrolltdsubcat">
                     <asp:GridView ID="LstSubCategorias" runat="server" Caption="Sub Categorias" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="566px">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
@@ -102,9 +122,12 @@
                         <SortedDescendingCellStyle BackColor="#E9EBEF" />
                         <SortedDescendingHeaderStyle BackColor="#4870BE" />
                     </asp:GridView>
+                    </div>
                 </td>
             </tr>
         </table>
+    </div>
+        
         <asp:Label ID="lbl_error" runat="server"></asp:Label>
         <asp:Label ID="lbl_status" runat="server"></asp:Label>
     </form>

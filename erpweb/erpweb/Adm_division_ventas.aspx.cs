@@ -125,7 +125,6 @@ namespace erpweb
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = LstCategorias.SelectedRow;
-            lbl_status.Text = row.Cells[2].Text;
             carga_subcategorias(Convert.ToInt32(row.Cells[2].Text));
         }
 
