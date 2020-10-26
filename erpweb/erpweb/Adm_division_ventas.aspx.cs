@@ -17,6 +17,9 @@ namespace erpweb
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         string usuario = "";
+        int id_familia = 0;
+        int id_categoria = 0;
+        int id_subcategoria = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
@@ -74,7 +77,9 @@ namespace erpweb
         {
             GridViewRow row = Lst_division.SelectedRow;
             //lbl_status.Text = row.Cells[1].Text;
-            
+            lbl_familia.Text = row.Cells[2].Text;
+            id_familia = Convert.ToInt32(row.Cells[1].Text);
+
             LstCategorias.DataSource = null;
             LstCategorias.DataBind();
 
@@ -125,7 +130,9 @@ namespace erpweb
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = LstCategorias.SelectedRow;
-            carga_subcategorias(Convert.ToInt32(row.Cells[2].Text));
+            lbl_categoria.Text = row.Cells[2].Text;
+            id_categoria = Convert.ToInt32(row.Cells[1].Text);
+            carga_subcategorias(Convert.ToInt32(row.Cells[1].Text));
         }
 
         void carga_subcategorias(int id_categoria)
@@ -160,5 +167,70 @@ namespace erpweb
                 }
             }
         }
+
+        protected void LstSubCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow row = LstSubCategorias.SelectedRow;
+            id_subcategoria = Convert.ToInt32(row.Cells[1].Text);
+            lbl_subcategoria.Text = row.Cells[2].Text;
+
+            carga_productos(id_familia, id_categoria, id_subcategoria);
+        }
+
+        void carga_productos(int d_familia, int id_categoria, int id_subcategoria)
+        {
+            string sql = "";
+            sql = "SELECT dbo.tbl_Items.Id_Linea_Venta, dbo.tbl_Familias_Productos.ID_Familia,  dbo.tbl_Items.Id_Categoria, dbo.tbl_Items.Id_SubCategoria, Publicar_Web,  ";
+            sql = sql + "Ultimo_Factor, Ultimo_Precio , Fecha_precio, dbo.tbl_Items.Sigla,  dbo.tbl_Items.Precio,  dbo.tbl_Items.ID_Item, dbo.tbl_Items.Codigo, dbo.tbl_Items.Descripcion, ";
+            sql = sql + "dbo.tbl_Categorias.Nombre AS Categoria, ";
+            sql = sql + "dbo.tbl_Subcategorias.Nombre AS SubCategoria, dbo.tbl_Proveedores.Nombre_Fantasia AS Proveedor, dbo.tbl_Items.Unidad, dbo.tbl_Items.Activo, ";
+            sql = sql + "dbo.tbl_Items.Cod_Barra ";
+            sql = sql + "FROM  dbo.tbl_Items with(nolock) LEFT OUTER JOIN ";
+            sql = sql + "dbo.tbl_Categorias ON dbo.tbl_Items.Id_Categoria = dbo.tbl_Categorias.ID_Categoria LEFT OUTER JOIN ";
+            sql = sql + "dbo.tbl_Subcategorias ON dbo.tbl_Items.Id_SubCategoria = dbo.tbl_Subcategorias.ID_SubCategoria LEFT OUTER JOIN ";
+            sql = sql + "dbo.tbl_Proveedores ON dbo.tbl_Items.Id_proveedor = dbo.tbl_Proveedores.ID_Proveedor LEFT OUTER JOIN ";
+            sql = sql + "dbo.tbl_Familias_Productos ON dbo.tbl_Familias_Productos.ID_Familia = dbo.tbl_categorias.Id_Familia ";
+            sql = sql + "WHERE dbo.tbl_Familias_Productos.ID_Familia =  " + id_familia;
+            sql = sql + "AND dbo.tbl_Items.Id_Categoria = " + id_categoria ;
+            sql = sql + "AND dbo.tbl_Items.Id_SubCategoria =  "  + id_subcategoria;
+            
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                    DataSet dr = new DataSet();
+                    reader.Fill(dr, "tbl_Items");
+                    LstItems.DataSource = dr;
+                    LstItems.DataBind();
+
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+        }
+
+        //protected void Lst_division_RowDataBound(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        cat_familia++;
+        //    }
+        //    else if (e.Row.RowType == DataControlRowType.Footer)
+        //    {
+
+        //        string totalAmtFinanced = ((Label)Lst_division.FooterRow.FindControl("lbl_total_familias")).Text;
+        //        Dim lbl As Label = DirectCast(e.Row.FindControl("lblTotal"), Label)
+        //        totalAmtFinanced = Convert.ToString(cat_familia);
+        //    }
+        //}
     }
 }
