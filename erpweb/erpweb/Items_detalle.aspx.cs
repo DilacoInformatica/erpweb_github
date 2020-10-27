@@ -150,7 +150,7 @@ namespace erpweb
             query = query + ",(select codigo from tbl_items where id_item = iw.Id_Repuesto3) Id_Repuesto3 "; //34
             query = query + ",(select codigo from tbl_items where id_item = iw.Id_Alternativa1) Id_Alternativa1 "; //35
             query = query + ",(select codigo from tbl_items where id_item = iw.Id_Alternativa2) Id_Alternativa2 "; //36
-            query = query + ",(select codigo from tbl_items where id_item = iw.Id_Alternativa1) Id_Alternativa3 "; //37
+            query = query + ",(select codigo from tbl_items where id_item = iw.Id_Alternativa3) Id_Alternativa3 "; //37
             query = query + ",iw.Id_Categoria1 "; //38
             query = query + ",iw.Id_Categoria2 "; //39
             query = query + ",iw.Id_Categoria3 "; //40
