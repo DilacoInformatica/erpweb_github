@@ -66,18 +66,30 @@ namespace erpweb
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";
 
-                carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
+                //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
+                carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
                 // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
-                carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
-                carga_contrl_lista("select 0 id_familia, 'Seleccione Familia Productos' Nombre union all select id_familia, nombre from tbl_Familias_Productos where Activo = 1", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
-                // Categorias parte inferior
-                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
-                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
-                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias3, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre" , LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                // carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
 
-                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias1, "tbl_categorias", "ID_SubCategoria", "Nombre");
-                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias2, "tbl_categorias", "ID_SubCategoria", "Nombre");
-                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias3, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                //carga_contrl_lista("select 0 id_familia, 'Seleccione Familia Productos' Nombre union all select id_familia, nombre from tbl_Familias_Productos where Activo = 1", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
+                carga_contrl_lista("select id_familia, nombre from tbl_Familias_Productos where Activo = 1 order by nombre", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
+                // Categorias parte inferior
+                //carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
+                //carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
+                //carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias3, "tbl_categorias", "ID_Categoria", "Nombre");
+
+                //carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias1, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                //carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias2, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                //carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione SubCategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias3, "tbl_categorias", "ID_SubCategoria", "Nombre");
+
+                carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 order by nombre", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 order by nombre", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 order by nombre", LstCategorias3, "tbl_categorias", "ID_Categoria", "Nombre");
+
+                carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias1, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias2, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias3, "tbl_categorias", "ID_SubCategoria", "Nombre");
 
                 muestra_info(id_item);
                 HS_Warning.Visible = false;
@@ -97,6 +109,8 @@ namespace erpweb
                 SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
                 DataSet dr = new DataSet();
                 reader.Fill(dr, tabla);
+                //lista.AppendDataBoundItems = true;
+               // lista.Items.Add("Seleccione...");
                 lista.DataSource = dr;
                 lista.DataValueField = llave;
                 lista.DataTextField = Campo;
@@ -104,7 +118,7 @@ namespace erpweb
 
                 connection.Close();
                 connection.Dispose();
-            }   
+            }
         }
 
         void muestra_info(int id_item)
@@ -223,12 +237,23 @@ namespace erpweb
 
                         if (reader[51].ToString() != "")
                         {
-                            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_Categorias where Activo = 1 and ID_Familia =" + reader[51].ToString(), LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                            
+                           carga_contrl_lista("select ID_Categoria, Nombre from tbl_Categorias where Activo = 1 and ID_Familia =" + reader[51].ToString() + "order by nombre" , LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                          // LstCategorias.Items.Add(new ListItem("Seelccione Categoría", "0"));
+                          // carga_contrl_lista("select ID_Categoria, Nombre from tbl_Categorias where Activo = 1 order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                           //if (LstCategorias.Items.FindByValue("0") != null) // or IndVal.ToString()
+                          // {
+                         //           LstCategorias.SelectedValue = "0";
+                         //  }
                         }
-                        else
-                        {
-                            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_Categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
-                        }
+                        //else
+                        //{
+                        //    carga_contrl_lista("select ID_Categoria, Nombre from tbl_Categorias where Activo = 1 order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                        //    if (LstCategorias.Items.FindByValue("0") != null) // or IndVal.ToString()
+                        //    {
+                        //        LstCategorias.SelectedValue = "0";
+                        //    }
+                        //}
 
 
                         foreach (ListItem item in LstCategorias.Items)
@@ -240,9 +265,9 @@ namespace erpweb
                             }
                         }
 
-                        if (reader[12].ToString() != "")
+                        if (reader[12].ToString() != "" || reader[12].ToString() != "0")
                         {
-                            carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[12].ToString(), LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[12].ToString() + " order by Nombre", LstSubCategorias , "tbl_categorias", "ID_SubCategoria", "Nombre");
                         }
 
                         foreach (ListItem item in LstSubCategorias.Items)
@@ -1225,7 +1250,9 @@ namespace erpweb
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
           string valor =  LstCategorias.SelectedValue.ToString();
-          carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria =" + valor, LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+
+            LstSubCategorias.Items.Add(new ListItem("Seleccione", "0", true));
+            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria =" + valor, LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
         }
 
         protected void LstCategorias1_SelectedIndexChanged(object sender, EventArgs e)
@@ -1573,10 +1600,15 @@ namespace erpweb
         protected void LstDivision_SelectedIndexChanged(object sender, EventArgs e)
         {
             string valor = LstDivision.SelectedValue.ToString();
-            LstSubCategorias.DataSource = null;
+            LstSubCategorias.Items.Clear();
             LstSubCategorias.DataBind();
             LstSubCategorias.Items.Clear();
-            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and id_familia =" + valor, LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+
+            LstCategorias.Items.Clear();
+            LstCategorias.DataBind();
+
+            LstCategorias.Items.Add(new ListItem("Seleccione", "0",true));
+            carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and id_familia =" + valor + " order by Nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
 
         }
     }

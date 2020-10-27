@@ -163,8 +163,8 @@
     <tr>
       <td class="auto-style6" >Moneda</td>
       <td colspan="3">
-          <asp:DropDownList ID="LstMonedas" runat="server">
-              <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+          <asp:DropDownList ID="LstMonedas" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
       <td colspan="3">Unidad Venta</td>
@@ -202,27 +202,30 @@
     <tr>
       <td class="auto-style55">División</td>
       <td colspan="8" class="auto-style61">
-          <asp:DropDownList ID="LstDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged">
+          <asp:DropDownList ID="LstDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
     </tr>
     <tr>
       <td class="auto-style55">Categor&iacute;a</td>
       <td colspan="4" class="auto-style51">
-          <asp:DropDownList ID="LstCategorias" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
+          <asp:DropDownList ID="LstCategorias" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
       <td class="auto-style51">
           SubCategor&iacute;a</td>
       <td colspan="3">
-          <asp:DropDownList ID="LstSubCategorias" runat="server">
+          <asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
     </tr>
     <tr>
       <td class="auto-style58">L&iacute;nea de Venta</td>
       <td colspan="4">
-          <asp:DropDownList ID="LstLineaVtas" runat="server">
+          <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True">
           </asp:DropDownList>
         </td>
       <td >Presentación: </td>
@@ -515,36 +518,42 @@
     <tr>
       <td class="auto-style58">Categoria1 </td>
       <td colspan="2" >
-          <asp:DropDownList ID="LstCategorias1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias1_SelectedIndexChanged">
+          <asp:DropDownList ID="LstCategorias1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias1_SelectedIndexChanged" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
       <td  colspan="5" >SubCategoria1</td>
       <td  >
-          <asp:DropDownList ID="LstSubCategorias1" runat="server">
+          <asp:DropDownList ID="LstSubCategorias1" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
     </tr>
     <tr>
       <td class="auto-style41">Categoria 2</td>
       <td colspan="2" class="auto-style42" >
-          <asp:DropDownList ID="LstCategorias2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias2_SelectedIndexChanged">
+          <asp:DropDownList ID="LstCategorias2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias2_SelectedIndexChanged" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
       <td  colspan="5" class="auto-style42" >SubCategoria2</td>
       <td class="auto-style42"  >
-          <asp:DropDownList ID="LstSubCategorias2" runat="server">
+          <asp:DropDownList ID="LstSubCategorias2" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
     </tr>
     <tr>
       <td class="auto-style58">Categoria 3</td>
       <td colspan="2" >
-          <asp:DropDownList ID="LstCategorias3" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias3_SelectedIndexChanged">
+          <asp:DropDownList ID="LstCategorias3" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias3_SelectedIndexChanged" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
       <td colspan="5" >SubCategoria3</td>
       <td >
-          <asp:DropDownList ID="LstSubCategorias3" runat="server">
+          <asp:DropDownList ID="LstSubCategorias3" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
         </td>
     </tr>
