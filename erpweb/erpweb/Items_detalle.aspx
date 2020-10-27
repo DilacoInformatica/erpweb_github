@@ -143,6 +143,7 @@
       <td class="auto-style53">C&oacute;digo</td>
       <td colspan="4" class="auto-style49" >
           <asp:TextBox ID="txt_codigo" runat="server" Enabled="False" Width="95px"></asp:TextBox>
+          <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
         </td>
       <td colspan="3">Venta</td>
         <td>
@@ -193,15 +194,16 @@
         </td>
     </tr>
     <tr>
-      <td class="auto-style58">Proveedor</td>
-      <td colspan="8">
+      <td class="auto-style55">Proveedor</td>
+      <td colspan="8" class="auto-style51">
           <asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="927px"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style55">División</td>
       <td colspan="8" class="auto-style61">
-          <asp:TextBox ID="txt_division" runat="server" Enabled="False" Width="500px"></asp:TextBox>
+          <asp:DropDownList ID="LstDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged">
+          </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -473,7 +475,7 @@
           <asp:DropDownList ID="LstProdDispAl1" runat="server" Visible="False">
           </asp:DropDownList>
 
-                    <asp:ImageButton ID="ImgBtnAddAL1" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnAddAL1_Click" Width="14px" Visible="False" />
+                    <asp:ImageButton ID="ImgBtnAddAL1" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnAddAL1_Click" Width="14px" Visible="False" style="height: 13px" />
 
                  </td>
     </tr>
@@ -593,5 +595,10 @@
     function salir() {
         if (confirm('Cerrar página, Seguro desea proceder?'))
         { window.close(); }
+    }
+
+    function abrirficha(id_item) {
+        //window.open('C:\Intranet\edita_Item.asp?which=' & id_item, id_item, 900, 900, yes, yes);
+        window.open("\\edita_Item.asp?which=" + id_item, "MsgWindow", "width=900,height=900");
     }
 </script>

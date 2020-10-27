@@ -61,7 +61,7 @@ namespace erpweb
             }
 
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
-
+            ImgBtnLink.Attributes["Onclick"] = "return abrirficha("+ id_item + ");";
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas')";
@@ -69,7 +69,7 @@ namespace erpweb
                 carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
                 carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
-
+                carga_contrl_lista("select 0 id_familia, 'Seleccione Familia Productos' Nombre union all select id_familia, nombre from tbl_Familias_Productos where Activo = 1", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
                 // Categorias parte inferior
                 carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
                 carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
@@ -211,6 +211,15 @@ namespace erpweb
                         else
                         { chck_cot.Checked = false; }
 
+                        foreach (ListItem item in LstDivision.Items)
+                        {
+                            if (item.Value == reader[51].ToString())
+                            {
+                                item.Selected = true;
+                                break;
+                            }
+                        }
+
 
                         if (reader[51].ToString() != "")
                         {
@@ -231,7 +240,10 @@ namespace erpweb
                             }
                         }
 
-                        carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[12].ToString(), LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                        if (reader[12].ToString() != "")
+                        {
+                            carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[12].ToString(), LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                        }
 
                         foreach (ListItem item in LstSubCategorias.Items)
                         {
@@ -320,7 +332,7 @@ namespace erpweb
                             }
                         }
 
-                        txt_division.Text = reader[50].ToString();
+                       // txt_division.Text = reader[50].ToString();
                         lbl_unidad.Text = reader[48].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         txt_marca.Text = reader[16].ToString();
@@ -1556,6 +1568,16 @@ namespace erpweb
                 txt_precio.ForeColor = Color.Red;
                 txt_precio.Text = "";
             }
+        }
+
+        protected void LstDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string valor = LstDivision.SelectedValue.ToString();
+            LstSubCategorias.DataSource = null;
+            LstSubCategorias.DataBind();
+            LstSubCategorias.Items.Clear();
+            carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and id_familia =" + valor, LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+
         }
     }
 }
