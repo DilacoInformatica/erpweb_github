@@ -113,24 +113,28 @@
                 <tr>
                   <td  class="auto-style12">Por L&iacute;nea de Venta </td>
                   <td  class="auto-style14">
-          <asp:DropDownList ID="LstLineaVtas" runat="server">
+          <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
                     </td>
                   <td colspan="2" class="auto-style32">Por Categor&iacute;a</td>
                   <td  class="auto-style23">
-          <asp:DropDownList ID="LstCategorias" runat="server">
+          <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
 		</td>
                 </tr>
                 <tr>
                   <td  class="auto-style13">Letra</td>
                   <td  class="auto-style15">
-          <asp:DropDownList ID="LstLetras" runat="server">
+          <asp:DropDownList ID="LstLetras" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
 		            </td>
                   <td colspan="2" class="auto-style32">Por SubCategor&iacute;a </td>
                   <td  class="auto-style24">
-          <asp:DropDownList ID="LstSubCategorias" runat="server">
+          <asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
           </asp:DropDownList>
                     </td>
                 </tr>
@@ -146,7 +150,8 @@
                 <tr>
                   <td class="auto-style20" >Por Proveedor</td>
                   <td class="auto-style21" >
-          <asp:DropDownList ID="LstProveedores" runat="server">
+          <asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True">
+              <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
           </asp:DropDownList>
                     </td>
                   <td colspan="2" >&nbsp;</td>

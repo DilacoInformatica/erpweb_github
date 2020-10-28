@@ -50,11 +50,12 @@ namespace erpweb
 
             if (!this.IsPostBack)
             {
-                carga_contrl_lista("select 0 ID_Categoria, 'Seleccione Categoría' Nombre union all select ID_Categoria, Nombre from tbl_categorias where Activo = 1", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
-                carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
-                carga_contrl_lista("select 0 ID_Proveedor, 'Seleccione Proveedor' Razon_Social union all  select ID_Proveedor, substring(Razon_Social,1,50) Razon_Social from tbl_Proveedores where Activo = 1", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
-                carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
-                carga_contrl_lista("select ' ' id_lista, 'Selecione Letra' letra union all select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", LstLetras, "tbl_letras", "id_lista", "letra");
+                carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                //carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select ID_Linea_Venta, CONCAT(nombre, ' - ', replace(Cod_Linea_Venta, 'GRUPO ', '') ) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select ID_Proveedor, substring(Razon_Social,1,50) Razon_Social from tbl_Proveedores where Activo = 1 order by razon_social", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
+                carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre ", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+                carga_contrl_lista("select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", LstLetras, "tbl_letras", "id_lista", "letra");
 
                 if (!String.IsNullOrEmpty((string)(context.Session["SQL"])))
                 {
@@ -153,7 +154,7 @@ namespace erpweb
                         master_queryString = master_queryString + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
                     }
 
-                    if (LstLetras.SelectedItem.Value.ToString() != " ")
+                    if (LstLetras.SelectedItem.Value.ToString() != "0")
                     {
                         master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
                     }
@@ -186,7 +187,8 @@ namespace erpweb
 
                     if (chk_sin_imagenes.Checked)
                     {
-                        master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
+                       // master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.Foto, 0) = 0 and isnull(tbl_items_web.Foto_Grande, 0) = 0";
                     }
                 }
                 connection.Open();
