@@ -188,7 +188,7 @@ namespace erpweb
                     if (chk_sin_imagenes.Checked)
                     {
                        // master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
-                        master_queryString = master_queryString + "and isnull(tbl_items_web.Foto, 0) = 0 and isnull(tbl_items_web.Foto_Grande, 0) = 0";
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.Foto, '') = '' and isnull(tbl_items_web.Foto_Grande,'') = ''";
                     }
                 }
                 connection.Open();
