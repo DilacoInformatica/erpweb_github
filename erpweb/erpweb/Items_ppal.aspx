@@ -119,7 +119,7 @@
                     </td>
                   <td colspan="2" class="auto-style32">Por Categor&iacute;a</td>
                   <td  class="auto-style23">
-          <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True">
+          <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
               <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
 		</td>

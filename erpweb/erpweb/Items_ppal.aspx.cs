@@ -1116,5 +1116,9 @@ namespace erpweb
             return newSortDirection;
         }
 
+        protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
