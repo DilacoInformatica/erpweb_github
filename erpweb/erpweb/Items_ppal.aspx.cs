@@ -50,11 +50,10 @@ namespace erpweb
 
             if (!this.IsPostBack)
             {
-                carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select id_familia, nombre from tbl_Familias_Productos where Activo = 1 order by nombre", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
                 //carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
-                carga_contrl_lista("select ID_Linea_Venta, CONCAT(nombre, ' - ', replace(Cod_Linea_Venta, 'GRUPO ', '') ) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta ,' ', nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by replace(Cod_Linea_Venta, 'GRUPO ', '')", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
                 carga_contrl_lista("select ID_Proveedor, substring(Razon_Social,1,50) Razon_Social from tbl_Proveedores where Activo = 1 order by razon_social", LstProveedores, "tbl_Proveedores", "ID_Proveedor", "Razon_Social");
-                carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre ", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
                 carga_contrl_lista("select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", LstLetras, "tbl_letras", "id_lista", "letra");
 
                 if (!String.IsNullOrEmpty((string)(context.Session["SQL"])))
@@ -132,8 +131,9 @@ namespace erpweb
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N','S') 'Hoja Seguridad', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.activo,0) = 0,'N','S') 'Activo' ";
-                    master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1  ";
-
+                    master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item  ";
+                    master_queryString = master_queryString + "left outer join tbl_categorias on tbl_categorias.Id_categoria = tbl_items_web.Id_categoria  ";
+                    master_queryString = master_queryString + "left outer join tbl_Familias_Productos on tbl_Familias_Productos.Id_Familia = tbl_categorias.Id_Familia where 1 = 1  ";
                     if (codigo != "")
                     {
                         master_queryString = master_queryString + "and tbl_items_web.codigo like  '" + codigo + "%'";
@@ -164,6 +164,10 @@ namespace erpweb
                         master_queryString = master_queryString + "and tbl_items.Id_Linea_Venta = '" + LstLineaVtas.SelectedItem.Value.ToString() + "'";
                     }
 
+                    if (LstDivision.SelectedItem.Value.ToString() != "0")
+                    {
+                        master_queryString = master_queryString + "and tbl_Familias_Productos.Id_Familia = '" + LstDivision.SelectedItem.Value.ToString() + "'";
+                    }
 
                     if (LstProveedores.SelectedItem.Value.ToString() != "0")
                     {
@@ -1118,7 +1122,22 @@ namespace erpweb
 
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string valor = LstCategorias.SelectedValue.ToString();
+            LstSubCategorias.Items.Clear();
+            LstSubCategorias.Items.Add(new ListItem("Seleccione", "0", true));
+            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = "+ valor  + " order by nombre ", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
+        }
 
+        protected void LstDivision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string valor = LstDivision.SelectedValue.ToString();
+            LstCategorias.Items.Clear();
+            LstCategorias.Items.Add(new ListItem("Seleccione", "0", true));
+
+
+            LstSubCategorias.Items.Clear();
+            LstSubCategorias.Items.Add(new ListItem("Seleccione", "0", true));
+            carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and Id_Familia = " + valor + " order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
         }
     }
 }

@@ -96,14 +96,26 @@
         }
               
         }
+        .auto-style59 {
+            width: 268435456px;
+        }
+        .auto-style60 {
+            height: 28px;
+            width: 268435456px;
+        }
+        .auto-style61 {
+            width: 1132px;
+        }
         </style>
     </head>
-<body>
+<body style="width: 1151px; height: 1517px">
     <form id="form1" runat="server" enctype="multipart/form-data">
-
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
 <table  border="0">
 <tr>
-  <td colspan="2"><table>
+  <td colspan="2" class="auto-style61"><table>
     <tr>
       <td colspan="9"><table width="100%" border="0"   class="titNoticia">
         <tr class="BottomTabla">
@@ -146,7 +158,7 @@
           <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
         </td>
       <td colspan="3">Venta</td>
-        <td>
+        <td class="auto-style59">
                      <asp:CheckBox ID="chck_venta" runat="server" TextAlign="Left" />
                 </td>
     </tr>
@@ -257,7 +269,7 @@
     <tr>
       <td class="auto-style6">Manual Técnico</td>
       <td class="auto-style36">
-                    <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                    <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_manual_tecnico" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_manual_tecnico_Click" Width="16px" />
                     <asp:Image ID="MT_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
@@ -278,7 +290,7 @@
     <tr>
       <td class="auto-style58">Presentación Producto</td>
       <td class="auto-style37">
-                    <asp:Label ID="lbl_presentacion" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                    <asp:Label ID="lbl_presentacion" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
 <asp:ImageButton ID="borra_presentacion" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_presentacion_Click" Width="16px" />
 
@@ -299,7 +311,7 @@
     <tr>
       <td class="auto-style58">Foto Grande</td>
       <td class="auto-style37">
-                    <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                    <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
 <asp:ImageButton ID="borra_fotog" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotog_Click" Width="16px" />
 
@@ -320,7 +332,7 @@
     <tr>
       <td class="auto-style58">Foto Chica</td>
       <td class="auto-style37">
-                 <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                 <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
 <asp:ImageButton ID="borra_fotoc" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotoc_Click" Width="16px" />
 
@@ -341,7 +353,7 @@
     <tr>
       <td class="auto-style58">Vídeo</td>
       <td>
-                    <asp:Label ID="lbl_video" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                    <asp:Label ID="lbl_video" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_video" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_video_Click" Width="16px" />
                     <asp:Image ID="VD_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
@@ -359,7 +371,7 @@
     <tr>
       <td class="auto-style6">Hoja de Seguridad</td>
       <td>
-                    <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="207px" Height="20px"></asp:Label>
+                    <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 <asp:ImageButton ID="borra_hoja_seg" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_hoja_seg_Click" Width="16px" />
                     <asp:Image ID="HS_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
@@ -438,8 +450,8 @@
                  </td>
     </tr>
     <tr>
-      <td class="auto-style58">Repuesto 2:</td>
-      <td colspan="1" >
+      <td class="auto-style57">Repuesto 2:</td>
+      <td colspan="1" class="auto-style40" >
           <asp:TextBox ID="txt_rep2" runat="server" Enabled="False"></asp:TextBox>
           <asp:ImageButton ID="borra_rep2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep2_Click" style="height: 16px" />&nbsp;
           <asp:ImageButton ID="ImgBtnRe2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe2_Click" />
@@ -523,7 +535,7 @@
           </asp:DropDownList>
         </td>
       <td  colspan="5" >SubCategoria1</td>
-      <td  >
+      <td class="auto-style59"  >
           <asp:DropDownList ID="LstSubCategorias1" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -537,7 +549,7 @@
           </asp:DropDownList>
         </td>
       <td  colspan="5" class="auto-style42" >SubCategoria2</td>
-      <td class="auto-style42"  >
+      <td class="auto-style60"  >
           <asp:DropDownList ID="LstSubCategorias2" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -551,7 +563,7 @@
           </asp:DropDownList>
         </td>
       <td colspan="5" >SubCategoria3</td>
-      <td >
+      <td class="auto-style59" >
           <asp:DropDownList ID="LstSubCategorias3" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -596,8 +608,9 @@
   </table></td>
 </tr>
 </table>
+        </ContentTemplate>
+    </asp:UpdatePanel>
   </form>
- 
     </body>
 </html>
 <script>

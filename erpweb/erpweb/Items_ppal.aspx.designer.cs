@@ -22,6 +22,24 @@ namespace erpweb {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Control UpdatePanel1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
+        /// Control ScriptManager1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// Control ImgBtn_Cerrar.
         /// </summary>
         /// <remarks>
@@ -40,13 +58,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_palabra_clave;
         
         /// <summary>
-        /// Control LstLineaVtas.
+        /// Control LstDivision.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
+        protected global::System.Web.UI.WebControls.DropDownList LstDivision;
         
         /// <summary>
         /// Control LstCategorias.
@@ -58,15 +76,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstCategorias;
         
         /// <summary>
-        /// Control LstLetras.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LstLetras;
-        
-        /// <summary>
         /// Control LstSubCategorias.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,24 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategorias;
+        
+        /// <summary>
+        /// Control LstLineaVtas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
+        
+        /// <summary>
+        /// Control LstLetras.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LstLetras;
         
         /// <summary>
         /// Control txt_codigo.

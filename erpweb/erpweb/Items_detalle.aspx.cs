@@ -69,7 +69,7 @@ namespace erpweb
                 //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
                 // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
-                carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by nombre" , LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta ,' ', nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by replace(Cod_Linea_Venta, 'GRUPO ', '')", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
                 // carga_contrl_lista("select 0 ID_Linea_Venta, 'Seleccione Línea Venta' Nombre union all select ID_Linea_Venta, CONCAT(Cod_Linea_Venta, ' ', Nombre) Nombre from tbl_Lineas_Venta where Activo = 1", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
 
                 //carga_contrl_lista("select 0 id_familia, 'Seleccione Familia Productos' Nombre union all select id_familia, nombre from tbl_Familias_Productos where Activo = 1", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
@@ -944,87 +944,104 @@ namespace erpweb
         protected void ImgBtnFT_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_FT.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if  (File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
-                administra_archivos(File_FT, Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), "MT_" + codigo, lbl_manual_tecnico, allowedExtensions);
+                int tamano = File_FT.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
+                    administra_archivos(File_FT, Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), "MT_" + codigo, lbl_manual_tecnico, allowedExtensions);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Manual Técnico no puede exceder los 5 MB";
+                }
             }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Manual Técnico no puede exceder los 5 MB";
-            }
+            
             //subir_archivo(File_FT, "FT_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Manual/"), lbl_manual_tecnico);
         }
 
         protected void ImgBtnFG_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_FG.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if(File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
-                administra_archivos(File_FG, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FG_" + codigo.Trim(), lbl_fotog, allowedExtensions);
-                //subir_archivo(File_FG, "FG_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog);
-            }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Foto Grande no puede exceder los 5 MB";
+                int tamano = File_FG.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
+                    administra_archivos(File_FG, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FG_" + codigo.Trim(), lbl_fotog, allowedExtensions);
+                    //subir_archivo(File_FG, "FG_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Foto Grande no puede exceder los 5 MB";
+                }
+                img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(File_FG.FileName);
             }
         //    img_prod.ImageUrl = Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text);
-            img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(File_FG.FileName);
+           
         }
 
         protected void ImgBtnFC_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_FC.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if (File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
-                administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo.Trim(), lbl_fotog, allowedExtensions);
-                //subir_archivo(File_FC, "FC_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc);
-            }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Foto Pequeña no puede exceder los 5 MB";
+                int tamano = File_FC.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
+                    administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo.Trim(), lbl_fotog, allowedExtensions);
+                    //subir_archivo(File_FC, "FC_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Foto Pequeña no puede exceder los 5 MB";
+                }
             }
         }
 
         protected void ImgBtnPRE_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_PRE.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if (File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
-                administra_archivos(File_PRE, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), "PR_" + codigo.Trim(), lbl_presentacion, allowedExtensions);
-                //subir_archivo(File_PRE, "PR_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion);
-            }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Presentación no puede exceder los 5 MB";
-            }
+                int tamano = File_PRE.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
+                    administra_archivos(File_PRE, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), "PR_" + codigo.Trim(), lbl_presentacion, allowedExtensions);
+                    //subir_archivo(File_PRE, "PR_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Presentación no puede exceder los 5 MB";
+                }
+            }  
         }
 
         protected void ImgBtnVID_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_VID.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if (File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".mp4", ".avi", ".m4v", ".mov", ".mpg", ".mpeg", ".wmv" };
-                administra_archivos(File_VID, Server.MapPath(@"~/Catalogo/Productos/Videos/"), "VD_" + codigo.Trim(), lbl_video, allowedExtensions);
-                //subir_archivo(File_VID, "VD_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Videos/"), lbl_video);
-            }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Video no puede exceder los 5 MB";
+                int tamano = File_VID.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".mp4", ".avi", ".m4v", ".mov", ".mpg", ".mpeg", ".wmv" };
+                    administra_archivos(File_VID, Server.MapPath(@"~/Catalogo/Productos/Videos/"), "VD_" + codigo.Trim(), lbl_video, allowedExtensions);
+                    //subir_archivo(File_VID, "VD_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Videos/"), lbl_video);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Video no puede exceder los 5 MB";
+                }
             }
         }
 
@@ -1032,23 +1049,27 @@ namespace erpweb
         protected void ImgBtnHS_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            int tamano = File_HS.PostedFile.ContentLength;
-            // verficamos que el archivo no pese mas de 5 MB
-            if (tamano <= 5000000)
+            if (File_FT.HasFile)
             {
-                string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
-                administra_archivos(File_HS, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), "HS_" + codigo.Trim(), lbl_hoja_seguridad, allowedExtensions);
-                //subir_archivo(File_HS, "HS_" + codigo, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_presentacion);
-            }
-            else
-            {
-                lbl_error.Text = "Tamaño de archivo Hoja de Seguridad no puede exceder los 5 MB";
+                int tamano = File_HS.PostedFile.ContentLength;
+                // verficamos que el archivo no pese mas de 5 MB
+                if (tamano <= 5000000)
+                {
+                    string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
+                    administra_archivos(File_HS, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), "HS_" + codigo.Trim(), lbl_hoja_seguridad, allowedExtensions);
+                    //subir_archivo(File_HS, "HS_" + codigo, Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_presentacion);
+                }
+                else
+                {
+                    lbl_error.Text = "Tamaño de archivo Hoja de Seguridad no puede exceder los 5 MB";
+                }
             }
         }
 
         protected void BtnGrabar_Click(object sender, EventArgs e)
         {
             string query = "";
+            lbl_error.Text = "";
             float v_precio = busca_precio_lista(id_item);
 
             if (txt_precio.Text == "0" && chck_venta.Checked)
