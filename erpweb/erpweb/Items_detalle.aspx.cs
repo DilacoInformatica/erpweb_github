@@ -32,6 +32,9 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            Page.Form.Attributes.Add("enctype", "multipart/form-data");
+
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             if (String.IsNullOrEmpty(Request.QueryString["modo"]))
@@ -372,6 +375,7 @@ namespace erpweb
                         txt_proveedor.Text = reader[46].ToString();
                         lbl_fotoc.Text = reader[24].ToString();
                         lbl_fotog.Text = reader[25].ToString();
+                        lbl_presentacion.Text = reader[23].ToString();
                         if (lbl_fotog.Text != "")
                         {
                            img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(lbl_fotog.Text);
@@ -1351,63 +1355,63 @@ namespace erpweb
         {
             LstProdDispAc1.Visible = true;
             ImgBtnAddAC1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where  Codigo <> '" + txt_codigo.Text +"' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc1, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where  Codigo <> '" + txt_codigo.Text +"' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAc1, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAc2_Click(object sender, ImageClickEventArgs e)
         {
             LstProdDispAc2.Visible = true;
             ImgBtnAddAC2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAc2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAc3_Click(object sender, ImageClickEventArgs e)
         {
             LstProdDispAc3.Visible = true;
             ImgBtnAddAC3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAc3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAc3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe1_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE1.Visible = true;
             LstProdDispRe1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe1, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispRe1, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe2_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE2.Visible = true;
             LstProdDispRe2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispRe2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnRe3_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddRE3.Visible = true;
             LstProdDispRe3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispRe3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispRe3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl1_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL1.Visible = true;
             LstProdDispAl1.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl1  , "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAl1  , "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl2_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL2.Visible = true;
             LstProdDispAl2.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl2, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAl2, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAl3_Click(object sender, ImageClickEventArgs e)
         {
             ImgBtnAddAL3.Visible = true;
             LstProdDispAl3.Visible = true;
-            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by id_item ", LstProdDispAl3, "tbl_monedas", "id_item", "Codigo");
+            carga_contrl_lista("select id_item, CONCAT(Codigo,' ', SUBSTRING(descripcion,1,40)) Codigo from tbl_items_web where Codigo <> '" + txt_codigo.Text + "' and id_linea_venta = " + LstLineaVtas.SelectedValue + " order by codigo ", LstProdDispAl3, "tbl_monedas", "id_item", "Codigo");
         }
 
         protected void ImgBtnAddAC1_Click(object sender, ImageClickEventArgs e)

@@ -109,7 +109,7 @@
         </style>
     </head>
 <body style="width: 1151px; height: 1517px">
-    <form id="form1" runat="server" enctype="multipart/form-data">
+<form id="form1" runat="server" enctype="multipart/form-data">
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -325,7 +325,7 @@
                  </td>
       <td>
 
-                    <asp:ImageButton ID="ImgBtnFG" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFG_Click" Width="14px" style="height: 13px" />
+                    <asp:ImageButton ID="ImgBtnFG" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFG_Click" Width="14px" Height="16px" />
 
                  </td>
     </tr>
@@ -609,6 +609,14 @@
 </tr>
 </table>
         </ContentTemplate>
+    <Triggers>
+       <asp:PostBackTrigger ControlID="ImgBtnFT" />
+        <asp:PostBackTrigger ControlID="ImgBtnPRE" />
+        <asp:PostBackTrigger ControlID="ImgBtnFG" />
+        <asp:PostBackTrigger ControlID="ImgBtnFC" />
+        <asp:PostBackTrigger ControlID="ImgBtnVID" />
+        <asp:PostBackTrigger ControlID="ImgBtnHS" />
+       </Triggers>
     </asp:UpdatePanel>
   </form>
     </body>
