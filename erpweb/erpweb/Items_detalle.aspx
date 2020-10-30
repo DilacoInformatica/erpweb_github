@@ -25,16 +25,6 @@
         .auto-style12 {
             width: 16%;
         }
-        .auto-style36 {
-            height: 19px;
-            width: 273px;
-        }
-        .auto-style37 {
-            width: 273px;
-        }
-        .auto-style40 {
-            height: 18px;
-        }
         .auto-style41 {
             width: 149px;
             height: 28px;
@@ -70,9 +60,6 @@
         .auto-style51 {
             height: 24px;
         }
-        .auto-style52 {
-            height: 17px;
-        }
         .auto-style53 {
             height: 25px;
             width: 149px;
@@ -106,6 +93,47 @@
         .auto-style61 {
             width: 1132px;
         }
+        .auto-style62 {
+            height: 18px;
+            text-align: right;
+        }
+        .auto-style63 {
+            height: 17px;
+            text-align: right;
+        }
+        .auto-style64 {
+            text-align: right;
+        }
+        .auto-style65 {
+            height: 25px;
+            text-align: right;
+        }
+        .auto-style66 {
+            text-align: right;
+            height: 19px;
+        }
+        .auto-style67 {
+            height: 19px;
+        }
+        .auto-style68 {
+            text-align: left;
+        }
+        .auto-style69 {
+            text-align: left;
+            height: 19px;
+        }
+        .auto-style70 {
+            height: 18px;
+            text-align: left;
+        }
+        .auto-style71 {
+            height: 25px;
+            text-align: left;
+        }
+        .auto-style72 {
+            height: 17px;
+            text-align: left;
+        }
         </style>
     </head>
 <body style="width: 1151px; height: 1517px">
@@ -117,7 +145,7 @@
 <tr>
   <td colspan="2" class="auto-style61"><table>
     <tr>
-      <td colspan="9"><table width="100%" border="0"   class="titNoticia">
+      <td colspan="11"><table width="100%" border="0"   class="titNoticia">
         <tr class="BottomTabla">
           <td class="auto-style47">
         <img alt=""src="img/vineta.gif" />Edici&oacute;n de Art&iacute;culo (Web)</td>
@@ -133,7 +161,7 @@
     </tr>
     <tr>
       <td class="auto-style6">&nbsp;</td>
-      <td colspan="4" class="auto-style48" >
+      <td colspan="6" class="auto-style48" >
         <asp:Label ID="lbl_status" runat="server" BackColor="White"></asp:Label>
         <asp:Label ID="lbl_error" runat="server" BackColor="Red"></asp:Label>
                  </td>
@@ -143,7 +171,7 @@
     </tr>
     <tr>
       <td class="auto-style6">Registrado en Sitio</td>
-      <td colspan="4" class="auto-style48" >
+      <td colspan="6" class="auto-style48" >
                     <asp:Label ID="lbl_web" runat="server"></asp:Label>
                  </td>
       <td class="auto-style11" >Visible</td>
@@ -153,7 +181,7 @@
     </tr>
     <tr>
       <td class="auto-style53">C&oacute;digo</td>
-      <td colspan="4" class="auto-style49" >
+      <td colspan="6" class="auto-style49" >
           <asp:TextBox ID="txt_codigo" runat="server" Enabled="False" Width="95px"></asp:TextBox>
           <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
         </td>
@@ -164,7 +192,7 @@
     </tr>
     <tr>
       <td class="auto-style58">Prod. a Pedido</td>
-      <td colspan="3">
+      <td colspan="5">
                       <asp:CheckBox ID="chck_prodped" runat="server" TextAlign="Left" />
                 </td>
       <td colspan="3">Cotizaciones</td>
@@ -174,7 +202,7 @@
     </tr>
     <tr>
       <td class="auto-style6" >Moneda</td>
-      <td colspan="3">
+      <td colspan="5">
           <asp:DropDownList ID="LstMonedas" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -186,7 +214,7 @@
     </tr>
     <tr>
       <td class="auto-style6" >Precio Lista</td>
-      <td colspan="3">
+      <td colspan="5">
           <asp:TextBox ID="txt_precio_lista" runat="server"></asp:TextBox>
         </td>
       <td colspan="3">Precio</td>
@@ -196,24 +224,24 @@
     </tr>
     <tr>
       <td class="auto-style58">Texto Destacado</td>
-      <td colspan="8"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="939px" TextMode="MultiLine"></asp:TextBox>
+      <td colspan="10"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="939px" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style53">Descripci&oacute;n<span class="asteriscoObligatorio">*</span></td>
-      <td colspan="8" class="auto-style1">
+      <td colspan="10" class="auto-style1">
           <asp:TextBox ID="txt_descripcion" runat="server" Height="52px" Width="940px" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style55">Proveedor</td>
-      <td colspan="8" class="auto-style51">
+      <td colspan="10" class="auto-style51">
           <asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="927px"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style55">División</td>
-      <td colspan="8" class="auto-style61">
+      <td colspan="10" class="auto-style61">
           <asp:DropDownList ID="LstDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -221,7 +249,7 @@
     </tr>
     <tr>
       <td class="auto-style55">Categor&iacute;a</td>
-      <td colspan="4" class="auto-style51">
+      <td colspan="6" class="auto-style51">
           <asp:DropDownList ID="LstCategorias" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -236,7 +264,7 @@
     </tr>
     <tr>
       <td class="auto-style58">L&iacute;nea de Venta</td>
-      <td colspan="4">
+      <td colspan="6">
           <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True">
           </asp:DropDownList>
         </td>
@@ -247,7 +275,7 @@
     </tr>
     <tr>
       <td class="auto-style58">Marca</td>
-      <td colspan="4">
+      <td colspan="6">
           <asp:TextBox ID="txt_marca" runat="server" Width="477px"></asp:TextBox>
         </td>
       <td class="auto-style12" >C&oacute;digo Prov.</td>
@@ -257,46 +285,52 @@
     </tr>
     <tr>
       <td class="auto-style58">Caracter&iacute;sticas</td>
-      <td colspan="8">
+      <td colspan="10">
                     <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="945px" TextMode="MultiLine"></asp:TextBox>
                  </td>
     </tr>
     <tr>
 
-      <td colspan="9" class="BottomTabla">
+      <td colspan="11" class="BottomTabla">
                  <strong>Archivos Adjuntos</strong></td>
     </tr>
     <tr>
       <td class="auto-style6">Manual Técnico</td>
-      <td class="auto-style36">
+      <td class="auto-style69">
                     <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-<asp:ImageButton ID="borra_manual_tecnico" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_manual_tecnico_Click" Width="16px" />
-                    <asp:Image ID="MT_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
-      <td>
+        <td class="auto-style66">
+            <asp:Image ID="MT_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style66">
+            <asp:ImageButton ID="borra_manual_tecnico" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_manual_tecnico_Click" Width="16px" />
+        </td>
+      <td class="auto-style67">
 
                     <asp:FileUpload ID="File_FT" runat="server" />
 
                  </td>
-      <td>
+      <td class="auto-style67">
 
                     <asp:ImageButton ID="ImgBtnFT" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFT_Click" Height="16px" />
 
                  </td>
-      <td colspan="5" rowspan="6">
+      <td colspan="5" rowspan="6" style="text-align: right">
                  <asp:Image ID="img_prod" runat="server" Height ="217px" Width="300px" />
                  </td>
     </tr>
     <tr>
       <td class="auto-style58">Presentación Producto</td>
-      <td class="auto-style37">
+      <td class="auto-style68">
                     <asp:Label ID="lbl_presentacion" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-<asp:ImageButton ID="borra_presentacion" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_presentacion_Click" Width="16px" />
-
-                    <asp:Image ID="PR_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
-
                  </td>
+        <td class="auto-style64">
+            <asp:Image ID="PR_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style64">
+            <asp:ImageButton ID="borra_presentacion" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_presentacion_Click" Width="16px" />
+        </td>
       <td>
 
                     <asp:FileUpload ID="File_PRE" runat="server" />
@@ -310,14 +344,16 @@
     </tr>
     <tr>
       <td class="auto-style58">Foto Grande</td>
-      <td class="auto-style37">
+      <td class="auto-style68">
                     <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-<asp:ImageButton ID="borra_fotog" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotog_Click" Width="16px" />
-
-                    <asp:Image ID="FG_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
-
                  </td>
+        <td class="auto-style64">
+            <asp:Image ID="FG_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style64">
+            <asp:ImageButton ID="borra_fotog" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotog_Click" Width="16px" />
+        </td>
       <td>
 
                     <asp:FileUpload ID="File_FG" runat="server" />
@@ -331,14 +367,16 @@
     </tr>
     <tr>
       <td class="auto-style58">Foto Chica</td>
-      <td class="auto-style37">
+      <td class="auto-style68">
                  <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-<asp:ImageButton ID="borra_fotoc" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotoc_Click" Width="16px" />
-
-                 <asp:Image ID="FC_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
-
                  </td>
+        <td class="auto-style64">
+            <asp:Image ID="FC_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style64">
+            <asp:ImageButton ID="borra_fotoc" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotoc_Click" Width="16px" />
+        </td>
       <td>
 
                     <asp:FileUpload ID="File_FC" runat="server" />
@@ -352,11 +390,15 @@
     </tr>
     <tr>
       <td class="auto-style58">Vídeo</td>
-      <td>
+      <td class="auto-style68">
                     <asp:Label ID="lbl_video" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-<asp:ImageButton ID="borra_video" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_video_Click" Width="16px" />
-                    <asp:Image ID="VD_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
+        <td class="auto-style64">
+            <asp:Image ID="VD_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style64">
+            <asp:ImageButton ID="borra_video" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_video_Click" Width="16px" />
+        </td>
       <td>
 
                     <asp:FileUpload ID="File_VID" runat="server" />
@@ -370,11 +412,15 @@
     </tr>
     <tr>
       <td class="auto-style6">Hoja de Seguridad</td>
-      <td>
+      <td class="auto-style68">
                     <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-<asp:ImageButton ID="borra_hoja_seg" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_hoja_seg_Click" Width="16px" />
-                    <asp:Image ID="HS_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Width="16px" Visible="False" />
                  </td>
+        <td class="auto-style64">
+            <asp:Image ID="HS_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
+        </td>
+        <td class="auto-style64">
+            <asp:ImageButton ID="borra_hoja_seg" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_hoja_seg_Click" Width="16px" />
+        </td>
       <td>
 
                     <asp:FileUpload ID="File_HS" runat="server" />
@@ -387,16 +433,21 @@
                  </td>
     </tr>
     <tr>
-      <td colspan="9" class="BottomTabla"><strong>Accesorios y Repuestos</strong></td>
+      <td colspan="11" class="BottomTabla"><strong>Accesorios y Repuestos</strong></td>
     </tr>
     <tr>
       <td class="auto-style56">Accesorio 1:</td>
-      <td colspan="1" class="auto-style52" >
+      <td colspan="1" class="auto-style72" >
           <asp:TextBox ID="txt_acc1" runat="server" Enabled="False"></asp:TextBox>
-<asp:ImageButton ID="borra_acc1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc1_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAc1" runat="server" ImageUrl="~/img/ver.gif" style="height: 15px;" OnClick="ImgBtnAc1_Click" />
-</td>
-      <td colspan="7" class="auto-style52">
+          &nbsp;
+          </td>
+        <td class="auto-style63">
+            <asp:ImageButton ID="borra_acc4" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc1_Click" />
+        </td>
+        <td class="auto-style63">
+            <asp:ImageButton ID="ImgBtnAc4" runat="server" Height="16px" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc1_Click" />
+        </td>
+      <td colspan="7" class="auto-style63">
           <asp:DropDownList ID="LstProdDispAc1" runat="server" Visible="False" Height="21px">
           </asp:DropDownList>
 
@@ -406,12 +457,17 @@
     </tr>
     <tr>
       <td class="auto-style58">Accesorio 2:</td>
-      <td colspan="1" class="auto-style1" >
+      <td colspan="1" class="auto-style71" >
           <asp:TextBox ID="txt_acc2" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_acc2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc2_Click" style="height: 16px" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAc2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc2_Click" />
+          &nbsp;
+          </td>
+         <td class="auto-style65">
+             <asp:ImageButton ID="borra_acc2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc2_Click" style="height: 16px" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style65">
+            <asp:ImageButton ID="ImgBtnAc5" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc2_Click" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispAc2" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -421,12 +477,17 @@
     </tr>
     <tr>
       <td class="auto-style53">Accesorio 3:</td>
-      <td colspan="1" class="auto-style1">
+      <td colspan="1" class="auto-style71">
           <asp:TextBox ID="txt_acc3" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_acc3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc3_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAc3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc3_Click" style="width: 13px" />
+          &nbsp;
+          </td>
+         <td class="auto-style65">
+             <asp:ImageButton ID="borra_acc3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc3_Click" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style65">
+            <asp:ImageButton ID="ImgBtnAc3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc3_Click" style="width: 13px" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispAc3" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -436,12 +497,17 @@
     </tr>
     <tr>
       <td class="auto-style57">Repuesto 1:</td>
-      <td colspan="1" class="auto-style40">
+      <td colspan="1" class="auto-style70">
           <asp:TextBox ID="txt_rep1" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_rep1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep1_Click" style="width: 16px" />&nbsp;
-          <asp:ImageButton ID="ImgBtnRe1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe1_Click" style="width: 13px" />
+          &nbsp;
+          </td>
+         <td class="auto-style62">
+             <asp:ImageButton ID="borra_rep1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep1_Click" style="width: 16px" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style62">
+            <asp:ImageButton ID="ImgBtnRe1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe1_Click" style="width: 13px" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispRe1" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -451,12 +517,17 @@
     </tr>
     <tr>
       <td class="auto-style57">Repuesto 2:</td>
-      <td colspan="1" class="auto-style40" >
+      <td colspan="1" class="auto-style70" >
           <asp:TextBox ID="txt_rep2" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_rep2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep2_Click" style="height: 16px" />&nbsp;
-          <asp:ImageButton ID="ImgBtnRe2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe2_Click" />
+          &nbsp;
+          </td>
+         <td class="auto-style62">
+             <asp:ImageButton ID="borra_rep2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep2_Click" style="height: 16px" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style62">
+            <asp:ImageButton ID="ImgBtnRe2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe2_Click" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispRe2" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -466,12 +537,17 @@
     </tr>
     <tr>
       <td class="auto-style58">Repuesto 3:</td>
-      <td colspan="1" >
+      <td colspan="1" class="auto-style68" >
           <asp:TextBox ID="txt_rep3" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_rep3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep3_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnRe3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe3_Click" />
+          &nbsp;
+          </td>
+         <td class="auto-style64">
+             <asp:ImageButton ID="borra_rep3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep3_Click" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style64">
+            <asp:ImageButton ID="ImgBtnRe3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe3_Click" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispRe3" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -481,12 +557,17 @@
     </tr>
     <tr>
       <td class="auto-style58">Alternativa 1:</td>
-      <td colspan="1" >
+      <td colspan="1" class="auto-style68" >
           <asp:TextBox ID="txt_alt1" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_alt1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt1_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAl1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl1_Click" style="width: 13px" />
+          &nbsp;
+          </td>
+         <td class="auto-style64">
+             <asp:ImageButton ID="borra_alt1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt1_Click" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style64">
+            <asp:ImageButton ID="ImgBtnAl1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl1_Click" style="width: 13px" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispAl1" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -496,12 +577,17 @@
     </tr>
     <tr>
       <td class="auto-style58">Alternativa 2:</td>
-      <td colspan="1" >
+      <td colspan="1" class="auto-style68" >
           <asp:TextBox ID="txt_alt2" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_alt2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt2_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAl2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl2_Click" />
+          &nbsp;
+          </td>
+         <td class="auto-style64">
+             <asp:ImageButton ID="borra_alt2" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt2_Click" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style64">
+            <asp:ImageButton ID="ImgBtnAl2" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl2_Click" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispAl2" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -511,12 +597,17 @@
     </tr>
     <tr>
       <td class="auto-style58">Alternativa 3:</td>
-      <td colspan="1">
+      <td colspan="1" class="auto-style68">
           <asp:TextBox ID="txt_alt3" runat="server" Enabled="False"></asp:TextBox>
-          <asp:ImageButton ID="borra_alt3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt3_Click" />&nbsp;
-          <asp:ImageButton ID="ImgBtnAl3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl3_Click" />
+          &nbsp;
+          </td>
+         <td class="auto-style64">
+             <asp:ImageButton ID="borra_alt3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_alt3_Click" />
         </td>
-         <td colspan="7" class="auto-style40">
+        <td class="auto-style64">
+            <asp:ImageButton ID="ImgBtnAl3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAl3_Click" />
+        </td>
+         <td colspan="7" class="auto-style62">
           <asp:DropDownList ID="LstProdDispAl3" runat="server" Visible="False">
           </asp:DropDownList>
 
@@ -525,11 +616,11 @@
                  </td>
     </tr>
     <tr>
-      <td colspan="9" class="BottomTabla"><strong>Categorías y Subcategorías</strong></td>
+      <td colspan="11" class="BottomTabla"><strong>Categorías y Subcategorías</strong></td>
     </tr>
     <tr>
       <td class="auto-style58">Categoria1 </td>
-      <td colspan="2" >
+      <td colspan="4" >
           <asp:DropDownList ID="LstCategorias1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias1_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -543,7 +634,7 @@
     </tr>
     <tr>
       <td class="auto-style41">Categoria 2</td>
-      <td colspan="2" class="auto-style42" >
+      <td colspan="4" class="auto-style42" >
           <asp:DropDownList ID="LstCategorias2" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias2_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -557,7 +648,7 @@
     </tr>
     <tr>
       <td class="auto-style58">Categoria 3</td>
-      <td colspan="2" >
+      <td colspan="4" >
           <asp:DropDownList ID="LstCategorias3" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias3_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -572,12 +663,12 @@
     <tr >
       <td class="auto-style43"><p>Tabla T&eacute;cnica</p>
         </td>
-      <td colspan="8" class="auto-style44" >
+      <td colspan="10" class="auto-style44" >
                     <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="945px"></asp:TextBox>
                  </td>
     </tr>
     <tr >
-      <td class="auto-style54" colspan="9">
+      <td class="auto-style54" colspan="11">
           <asp:GridView ID="GridView1" runat="server" Caption="Historial de Modificaciones" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1098px">
               <AlternatingRowStyle BackColor="White" />
               <EditRowStyle BackColor="#2461BF" />
@@ -595,7 +686,7 @@
     </tr>
     <tr >
       <td class="auto-style58">&nbsp;</td>
-      <td colspan="4" class="auto-style50" >
+      <td colspan="6" class="auto-style50" >
                     <asp:Button ID="Btn_emigrar" runat="server" Text="Subir/Actualizar Código al Sitio Web" OnClick="Btn_emigrar_Click" />
                 </td>
       <td colspan="4" >
@@ -603,7 +694,7 @@
                 </td>
     </tr>
     <tr id="filaboton">
-      <td colspan="9"  class="BottomTabla"></td>
+      <td colspan="11"  class="BottomTabla"></td>
     </tr>
   </table></td>
 </tr>

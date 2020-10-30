@@ -1220,6 +1220,24 @@ namespace erpweb
                     }
 
                     lbl_status.Text = "Actualización realizada correctamente";
+                    LstProdDispAc1.Visible = false;
+                    LstProdDispAc2.Visible = false;
+                    LstProdDispAc3.Visible = false;
+                    LstProdDispAl1.Visible = false;
+                    LstProdDispAl2.Visible = false;
+                    LstProdDispAl3.Visible = false;
+                    LstProdDispRe1.Visible = false;
+                    LstProdDispRe2.Visible = false;
+                    LstProdDispRe3.Visible = false;
+                    ImgBtnAddAC1.Visible = false;
+                    ImgBtnAddAC2.Visible = false;
+                    ImgBtnAddAC3.Visible = false;
+                    ImgBtnAddRE1.Visible = false;
+                    ImgBtnAddRE2.Visible = false;
+                    ImgBtnAddRE3.Visible = false;
+                    ImgBtnAddAL1.Visible = false;
+                    ImgBtnAddAL2.Visible = false;
+                    ImgBtnAddAL3.Visible = false;
 
                     if (v_precio != Convert.ToDouble(txt_precio.Text))
                     {

@@ -292,15 +292,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_manual_tecnico;
         
         /// <summary>
-        /// Control borra_manual_tecnico.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_manual_tecnico;
-        
-        /// <summary>
         /// Control MT_Warning.
         /// </summary>
         /// <remarks>
@@ -308,6 +299,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image MT_Warning;
+        
+        /// <summary>
+        /// Control borra_manual_tecnico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_manual_tecnico;
         
         /// <summary>
         /// Control File_FT.
@@ -346,15 +346,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_presentacion;
         
         /// <summary>
-        /// Control borra_presentacion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_presentacion;
-        
-        /// <summary>
         /// Control PR_Warning.
         /// </summary>
         /// <remarks>
@@ -362,6 +353,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image PR_Warning;
+        
+        /// <summary>
+        /// Control borra_presentacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_presentacion;
         
         /// <summary>
         /// Control File_PRE.
@@ -391,15 +391,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_fotog;
         
         /// <summary>
-        /// Control borra_fotog.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_fotog;
-        
-        /// <summary>
         /// Control FG_Warning.
         /// </summary>
         /// <remarks>
@@ -407,6 +398,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image FG_Warning;
+        
+        /// <summary>
+        /// Control borra_fotog.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_fotog;
         
         /// <summary>
         /// Control File_FG.
@@ -436,15 +436,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_fotoc;
         
         /// <summary>
-        /// Control borra_fotoc.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_fotoc;
-        
-        /// <summary>
         /// Control FC_Warning.
         /// </summary>
         /// <remarks>
@@ -452,6 +443,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image FC_Warning;
+        
+        /// <summary>
+        /// Control borra_fotoc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_fotoc;
         
         /// <summary>
         /// Control File_FC.
@@ -481,15 +481,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_video;
         
         /// <summary>
-        /// Control borra_video.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_video;
-        
-        /// <summary>
         /// Control VD_Warning.
         /// </summary>
         /// <remarks>
@@ -497,6 +488,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image VD_Warning;
+        
+        /// <summary>
+        /// Control borra_video.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_video;
         
         /// <summary>
         /// Control File_VID.
@@ -526,15 +526,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_hoja_seguridad;
         
         /// <summary>
-        /// Control borra_hoja_seg.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_hoja_seg;
-        
-        /// <summary>
         /// Control HS_Warning.
         /// </summary>
         /// <remarks>
@@ -542,6 +533,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image HS_Warning;
+        
+        /// <summary>
+        /// Control borra_hoja_seg.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton borra_hoja_seg;
         
         /// <summary>
         /// Control File_HS.
@@ -571,22 +571,22 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_acc1;
         
         /// <summary>
-        /// Control borra_acc1.
+        /// Control borra_acc4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_acc1;
+        protected global::System.Web.UI.WebControls.ImageButton borra_acc4;
         
         /// <summary>
-        /// Control ImgBtnAc1.
+        /// Control ImgBtnAc4.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc1;
+        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc4;
         
         /// <summary>
         /// Control LstProdDispAc1.
@@ -625,13 +625,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton borra_acc2;
         
         /// <summary>
-        /// Control ImgBtnAc2.
+        /// Control ImgBtnAc5.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc2;
+        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc5;
         
         /// <summary>
         /// Control LstProdDispAc2.
