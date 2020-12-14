@@ -370,7 +370,8 @@ namespace erpweb
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
                         //txt_codigoprov.Enabled = false;
-                        txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
+                        //txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
+                        txt_caracteristicas.Text = reader[21].ToString();
                         lbl_manual_tecnico.Text = reader[22].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         lbl_fotoc.Text = reader[24].ToString();
@@ -969,7 +970,7 @@ namespace erpweb
         protected void ImgBtnFG_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            if(File_FT.HasFile)
+            if(File_FG.HasFile)
             {
                 int tamano = File_FG.PostedFile.ContentLength;
                 // verficamos que el archivo no pese mas de 5 MB
@@ -992,7 +993,7 @@ namespace erpweb
         protected void ImgBtnFC_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            if (File_FT.HasFile)
+            if (File_FC.HasFile)
             {
                 int tamano = File_FC.PostedFile.ContentLength;
                 // verficamos que el archivo no pese mas de 5 MB
@@ -1012,7 +1013,7 @@ namespace erpweb
         protected void ImgBtnPRE_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            if (File_FT.HasFile)
+            if (File_PRE.HasFile)
             {
                 int tamano = File_PRE.PostedFile.ContentLength;
                 // verficamos que el archivo no pese mas de 5 MB
@@ -1032,7 +1033,7 @@ namespace erpweb
         protected void ImgBtnVID_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            if (File_FT.HasFile)
+            if (File_VID.HasFile)
             {
                 int tamano = File_VID.PostedFile.ContentLength;
                 // verficamos que el archivo no pese mas de 5 MB
@@ -1053,7 +1054,7 @@ namespace erpweb
         protected void ImgBtnHS_Click(object sender, ImageClickEventArgs e)
         {
             string codigo = txt_codigo.Text;
-            if (File_FT.HasFile)
+            if (File_HS.HasFile)
             {
                 int tamano = File_HS.PostedFile.ContentLength;
                 // verficamos que el archivo no pese mas de 5 MB
