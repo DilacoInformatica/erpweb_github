@@ -13,6 +13,7 @@ namespace erpweb
     public partial class Adm_Clientes : System.Web.UI.Page
     {
         int v_id_cliente = 0;
+        int v_id_contacto = 0;
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
 
@@ -67,7 +68,7 @@ namespace erpweb
             queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
             queryString = queryString + "if(ifnull(tbl_clientes.leido_erp,0) = 0,'N','S') leido_erp, ";
             queryString = queryString + "if(ifnull(tbl_clientes.cliente_erp,0) = 0,'N','S') cliente_erp, ";
-            queryString = queryString + "(select count(1) from tbl_contactos_clientes where id_cliente = tbl_clientes.id_cliente) contactos ";
+            queryString = queryString + "(select count(1) from tbl_contactos_clientes where rut_cliente = tbl_clientes.rut) contactos ";
             queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -991,7 +992,12 @@ namespace erpweb
                             }
                         }
                     }
+                    
 
+                    if (v_id_cliente != 0)
+                    {
+                        inserta_contacto_web(rut);
+                    }
                     connection.Close();
                     connection.Dispose();
 
@@ -1051,6 +1057,187 @@ namespace erpweb
                 }
             }
         }
+
+        protected void inserta_contacto_web(int rut)
+        {
+            // creamos el cliente en el ERP para analisis de información
+            String queryString = "";
+            queryString = "SELECT Rut_cliente, "; // 0
+            queryString = queryString + "IFNULL(Nombre,''), ";
+            queryString = queryString + "IFNULL(Apellido,''), ";
+            queryString = queryString + "IFNULL(Telefono,''), ";
+            queryString = queryString + "IFNULL(Telefono2, ''), ";
+            queryString = queryString + "IFNULL(Celular,''), "; // 5
+            queryString = queryString + "IFNULL(Email,''), ";
+            queryString = queryString + "IFNULL(cargo,''), ";
+            queryString = queryString + " IFNULL(observaciones,'') "; // 8
+            queryString = queryString + "FROM tbl_contactos_clientes where Rut_cliente = " + rut;
+          
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.ExecuteNonQuery();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+
+                            insert_contacto_desde_web_cliente(Convert.ToInt32(dr.GetString(0)), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7), dr.GetString(8));
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
+
+        void insert_contacto_desde_web_cliente(int rut, string Nombre, string apellido, string telefono, string telefono2, string Celular, string Email, string cargo, string observaciones)
+        {
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_inserta_contacto_cliente_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rut", rut);
+                    cmd.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_nombre", Nombre);
+                    cmd.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_apellido", Nombre);
+                    cmd.Parameters["@v_apellido"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_telefonos", telefono);
+                    cmd.Parameters["@v_telefonos"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_telefonos2", telefono2); // Pendiente creacion Cliente
+                    cmd.Parameters["@v_telefonos2"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_celular", Celular); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_celular"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_email", Email); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_email"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_cargo", cargo); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_cargo"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_obs", observaciones); // Pendiente creacion contacto Cliente
+                    cmd.Parameters["@v_obs"].Direction = ParameterDirection.Input;
+
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                lbl_error.Text = rdr.GetInt32(0).ToString();
+                                v_id_contacto = Convert.ToInt32(rdr.GetInt32(0));
+                            }
+                        }
+                    }
+
+
+                    if (v_id_contacto != 0)
+                    {
+                        actualiza_data_web(v_id_cliente, v_id_contacto, rut);
+                    }
+                    connection.Close();
+                    connection.Dispose();
+
+                   // actualiza_cliente_sitio_a_erp(rut, Convert.ToInt32(usuario));
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        void actualiza_data_web(int id_cliente, int id_contacto, int rut)
+        {
+
+            // Actualizamos los valores
+            string query = "";
+
+            query = "update dilacocl_dilacoweb.tbl_clientes ";
+            query = query + " set id_cliente = " + id_cliente;
+            query = query + " , leido_erp = 1 ";
+            query = query + " where rut = " + rut;
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Dispose();
+                    lbl_status.Text = "Producto grabado correctamente en la Web";
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+
+            query = "update tbl_contactos_clientes ";
+            query = query + " set id_cliente = " + id_cliente;
+            query = query + " ,id_contacto= " + id_contacto;
+            query = query + ", leido_erp = 1, cliente_erp = 1, Activo = 1 ";
+            query = query + " where rut_cliente  =" + rut;
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Dispose();
+                    lbl_status.Text = "Cliente autorizado";
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
+
+
 
     }
 }
