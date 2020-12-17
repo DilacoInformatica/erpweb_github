@@ -84,6 +84,9 @@
         .auto-style42 {
             width: 2076px;
         }
+        .auto-style43 {
+            height: 9px;
+        }
         </style>
 </head>
 <body>
@@ -212,7 +215,7 @@
 
             <table>
                 <tr class="BottomTabla">
-                    <td colspan ="7">
+                    <td colspan ="7" class="auto-style43">
                         Información global</td>
                     
                 </tr>

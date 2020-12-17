@@ -25,7 +25,17 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             num_cotizacion = Convert.ToInt32(Request.QueryString["cot"].ToString());
-            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+           // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+
+            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            {
+                usuario = 2; // mi usuarios por default mientras no nos conectemos al servidor
+            }
+            else
+            {
+                usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+            }
+
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
 
@@ -147,8 +157,8 @@ namespace erpweb
             queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%d-%m-%Y') fecha, "; // 12
             queryString = queryString + " cl.id_region, "; //13
             queryString = queryString + " (select replace(nombre_region,'Región','') from tbl_regiones where id_region = cl.Id_region) region, "; //14
-            queryString = queryString + " ct.Neto_Venta,  ct.Tax_venta, ct.TOTAL,  "; // 15, 16, 17, 18
-            queryString = queryString + " (select sigla from tbl_Monedas where ID_Moneda = ct.id_moneda) Moneda "; //19
+            queryString = queryString + " IFNULL(ct.Neto_Venta,0),  IFNULL(ct.Tax_venta,0), IFNULL(ct.TOTAL,0),  "; // 15, 16, 17, 18
+            queryString = queryString + " IFNULL((select sigla from tbl_Monedas where ID_Moneda = ct.id_moneda),1) Moneda "; //19
             queryString = queryString + "  from tbl_cotizaciones ct ";
             queryString = queryString + "  inner join tbl_clientes cl on cl.id_cliente = ct.id_cliente ";
             queryString = queryString + "  where ct.Cotizac_Num = " + num_cotizacion;
@@ -215,7 +225,7 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "select dn.item Item, it.codigo 'Código', it.descripcion 'Descripción' , dn.cantidad 'Cantidad', dn.Valor_Unitario 'Precio Unitario' ";
+            queryString = "select dn.item Item, it.codigo 'Codigo', it.descripcion 'Descripcion' , dn.cantidad 'Cantidad', IFNULL(dn.Valor_Unitario,1) 'Precio Unitario' ";
             queryString = queryString + "from tbl_items_cotizacion dn inner ";
             queryString = queryString + "join tbl_items it on it.id_item = dn.id_item ";
             queryString = queryString + "where dn.ID_Cotizacion = " + v_id_cotizacion;
@@ -386,7 +396,7 @@ namespace erpweb
                                     {
                                         if (!rdr.IsDBNull(0))
                                         {
-                                            lbl_error.Text = rdr.GetInt32(0).ToString();
+                                            //lbl_error.Text = rdr.GetInt32(0).ToString();
                                             v_id_cotizacion = Convert.ToInt32(rdr.GetInt32(0));
                                         }
                                     }

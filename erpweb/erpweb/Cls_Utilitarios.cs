@@ -12,7 +12,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente =2; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente =1; // Indica el ambiente dónde debe conectarse el sistema
 
         string correo_envia = "informatica@dilaco.com";
         string correo_recibe = "sebastian.aranda.o@gmail.com";
@@ -42,8 +42,8 @@ namespace erpweb
             string salida = "";
             if (servidor == "SSERVER" && ambiente == 1)
             {
-                salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-               // salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                //salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
+                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {
@@ -122,6 +122,7 @@ namespace erpweb
             System.Net.Mail.MailMessage EmailMsgObj = new System.Net.Mail.MailMessage();
             EmailMsgObj.IsBodyHtml = true;
             EmailMsgObj.To.Add(receptor);
+           // EmailMsgObj.To.Add("saranda@dilaco.com");
             EmailMsgObj.To.Add("saranda@dilaco.com");
             EmailMsgObj.From = new System.Net.Mail.MailAddress(correo_envia);
 

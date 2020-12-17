@@ -10,6 +10,7 @@
    }
 input[type=button], input[type=submit] {
 	cursor:pointer;
+    margin-left: 0px;
 }
 
 button[disabled] {
@@ -35,13 +36,15 @@ input:disabled[type=submit], input:disabled[type=button]{
 
 
 html,form {
-	font-family:Verdana, Geneva, sans-serif;
+	border-style: none;
+    border-color: inherit;
+    border-width: medium;
+    font-family:Verdana, Geneva, sans-serif;
 	font-size: 11px;
 	margin:0;
     padding:0;
-    height:100%;
-    border:none;
-   }
+    height:407px;
+    }
 
 table {	
 	border-collapse: collapse; 
@@ -852,6 +855,7 @@ input[type=text], input[type=password] {
 }
 select {
 	height: 21px;
+    margin-left: 0px;
 }
 .stexGris {
 	font-size: 10px;

@@ -140,6 +140,7 @@
     <Content Include="img\cerrar.png" />
     <Content Include="img\mas.jpg" />
     <Content Include="img\warning.png" />
+    <Content Include="Lista_exportacion_items_web.aspx" />
     <Content Include="Notas_Venta.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -239,6 +240,13 @@
     </Compile>
     <Compile Include="Items_ppal.aspx.designer.cs">
       <DependentUpon>Items_ppal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Lista_exportacion_items_web.aspx.cs">
+      <DependentUpon>Lista_exportacion_items_web.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Lista_exportacion_items_web.aspx.designer.cs">
+      <DependentUpon>Lista_exportacion_items_web.aspx</DependentUpon>
     </Compile>
     <Compile Include="Notas_Venta.aspx.cs">
       <DependentUpon>Notas_Venta.aspx</DependentUpon>
