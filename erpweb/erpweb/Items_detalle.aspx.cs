@@ -182,6 +182,7 @@ namespace erpweb
             query = query + ",iw.Activo "; //49
             query = query + ",fp.nombre division "; //50
             query = query + ",fp.ID_Familia "; //51
+            query = query + ",isnull(iw.Multiplo,1) Multiplo "; //52
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
@@ -393,6 +394,7 @@ namespace erpweb
                         txt_alt1.Text = reader[35].ToString();
                         txt_alt2.Text = reader[36].ToString();
                         txt_alt3.Text = reader[37].ToString();
+                        txt_multiplo.Text = reader[52].ToString();
 
                         if (lbl_fotog.Text.Trim() != "")
                         {
@@ -687,6 +689,7 @@ namespace erpweb
                 query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
                 query = query + ",Manual_tecnico = '"+ lbl_manual_tecnico.Text +"'";
                 query = query + ",Presentacion_producto = '" + lbl_presentacion.Text  + "'";
+                query = query + ",Multiplo = '" + txt_multiplo.Text;
                 query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text  +"'";
                 query = query + ",Foto = '" + lbl_fotoc.Text  + "'";
                 query = query + ",Foto_grande = '" + lbl_fotog.Text + "'";
@@ -736,7 +739,8 @@ namespace erpweb
                 query = query + "Caracteristicas, ";
                 query = query + "Manual_tecnico, ";
                 query = query + "Presentacion_producto, ";
-                query = query + "Hoja_de_Seguridad, ";
+                query = query + "Multiplo, ";
+                 query = query + "Hoja_de_Seguridad, ";
                 query = query + "Foto, ";
                 query = query + "Foto_grande, ";
                 query = query + "Video, ";
@@ -791,6 +795,7 @@ namespace erpweb
                 query = query + "'" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "',";
                 query = query + "'" + lbl_manual_tecnico.Text + "',";
                 query = query + "'" + lbl_presentacion.Text + "',";
+                query = query + txt_multiplo + ",";
                 query = query + "'" + lbl_hoja_seguridad.Text + "',"; 
                 query = query + "'" + lbl_fotoc.Text + "',";
                 query = query + "'" + lbl_fotog.Text + "',";
@@ -1117,6 +1122,7 @@ namespace erpweb
             query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
             query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
             query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
+            query = query + ",Multiplo = '" + txt_multiplo.Text + "'";
             query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text.Trim() + "'";
             query = query + ",Foto = '" + lbl_fotoc.Text + "'";
             query = query + ",Foto_grande = '" + lbl_fotog.Text + "'";

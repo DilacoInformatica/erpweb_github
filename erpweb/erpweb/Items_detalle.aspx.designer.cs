@@ -256,6 +256,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_unidad;
         
         /// <summary>
+        /// Control txt_multiplo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_multiplo;
+        
+        /// <summary>
         /// Control txt_marca.
         /// </summary>
         /// <remarks>
