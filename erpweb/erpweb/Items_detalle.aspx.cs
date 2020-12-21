@@ -685,12 +685,12 @@ namespace erpweb
                 query = query + ",id_moneda = " + LstMonedas.SelectedItem.Value.ToString();// LstMonedas.SelectedValue.ToString();
                 query = query + ",Unidad_vta = '" + txt_unidad.Text + "'";
                 query = query + ",Unidad = '" + lbl_unidad.Text + "'";
-                query = query + ",Codigo_prov = '" + txt_codigoprov + "'";
+                query = query + ",Codigo_prov = '" + txt_codigoprov.Text + "'";
                 query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
                 query = query + ",Manual_tecnico = '"+ lbl_manual_tecnico.Text +"'";
                 query = query + ",Presentacion_producto = '" + lbl_presentacion.Text  + "'";
-                query = query + ",Multiplo = '" + txt_multiplo.Text;
-                query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text  +"'";
+                query = query + ",Multiplo = " + txt_multiplo.Text.Replace(",", ".");
+                    query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text  +"'";
                 query = query + ",Foto = '" + lbl_fotoc.Text  + "'";
                 query = query + ",Foto_grande = '" + lbl_fotog.Text + "'";
                 //query = query + ",Foto_Maestra = NULL";
@@ -795,7 +795,7 @@ namespace erpweb
                 query = query + "'" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "',";
                 query = query + "'" + lbl_manual_tecnico.Text + "',";
                 query = query + "'" + lbl_presentacion.Text + "',";
-                query = query + txt_multiplo + ",";
+                query = query + txt_multiplo.Text.Replace(",", ".") + ",";
                 query = query + "'" + lbl_hoja_seguridad.Text + "',"; 
                 query = query + "'" + lbl_fotoc.Text + "',";
                 query = query + "'" + lbl_fotog.Text + "',";
@@ -1122,7 +1122,7 @@ namespace erpweb
             query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
             query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
             query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
-            query = query + ",Multiplo = '" + txt_multiplo.Text + "'";
+            query = query + ",Multiplo = " + txt_multiplo.Text.Replace(",",".") ;
             query = query + ",Hoja_de_Seguridad = '" + lbl_hoja_seguridad.Text.Trim() + "'";
             query = query + ",Foto = '" + lbl_fotoc.Text + "'";
             query = query + ",Foto_grande = '" + lbl_fotog.Text + "'";

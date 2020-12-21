@@ -271,7 +271,7 @@
       <td >Presentación: </td>
       <td colspan="3">
           <asp:TextBox ID="txt_unidad" runat="server" Width="185px"></asp:TextBox>
-          <asp:TextBox ID="txt_multiplo" runat="server" Width="16px"></asp:TextBox>
+          <asp:TextBox ID="txt_multiplo" runat="server" Width="27px"></asp:TextBox>
         </td>
     </tr>
     <tr>
