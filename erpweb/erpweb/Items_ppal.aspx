@@ -36,13 +36,11 @@
         }
         .auto-style20 {
             height: 28px;
+            width: 202px;
         }
         .auto-style21 {
             width: 254px;
             height: 28px;
-        }
-        .auto-style28 {
-            height: 24px;
         }
         .auto-style29 {
             width: 254px;
@@ -60,8 +58,8 @@
             border-collapse: collapse;
             border-spacing: 0;
             padding: 0px;
-            height: 264px;
-            width: 99%;
+            height: 280px;
+            width: 117%;
         }
         .auto-style34 {
             width: 1198px;
@@ -79,13 +77,28 @@
         }
         .auto-style40 {
             height: 21px;
-            width: 2076px;
-        }
-        .auto-style42 {
-            width: 2076px;
+            width: 2386px;
         }
         .auto-style43 {
             height: 9px;
+        }
+        .auto-style44 {
+            width: 202px;
+        }
+        .auto-style45 {
+            height: 21px;
+            width: 202px;
+        }
+        .auto-style46 {
+            height: 24px;
+            width: 202px;
+        }
+        .auto-style49 {
+            height: 19px;
+            width: 443px;
+        }
+        .auto-style50 {
+            width: 2386px;
         }
         </style>
 </head>
@@ -103,18 +116,18 @@
                         
                             <table border="0" cellpadding="2" cellspacing="0" class="auto-style33">
                                 <tr class="HeadTabla">
-                                    <td class="auto-style31" colspan="3"><strong><img alt="" src="img/vineta.gif" />Búsqueda Artículos </strong></td>
+                                    <td class="auto-style49" colspan="3"><strong><img alt="" src="img/vineta.gif" />Búsqueda Artículos </strong></td>
                                     <td class="auto-style31" colspan="2" style="text-align: right">
                                         <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Palabra Clave</td>
+                                    <td class="auto-style44">Palabra Clave</td>
                                     <td colspan="4">&nbsp;<asp:TextBox ID="txt_palabra_clave" runat="server" BackColor="#FFFFCC" Width="401px"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="auto-style12">Division</td>
+                                    <td class="auto-style45">Division</td>
                                     <td class="auto-style12" colspan="4">
                                         <asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged">
                                             <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
@@ -122,7 +135,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="auto-style12">Categoría</td>
+                                    <td class="auto-style45">Categoría</td>
                                     <td class="auto-style14">
                                         <span class="nuevoEstilo1">
                                         <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
@@ -139,14 +152,14 @@
                                         </span></td>
                                 </tr>
                                 <tr>
-                                    <td class="auto-style12">Línea de Venta</td>
+                                    <td class="auto-style45">Línea de Venta</td>
                                     <td class="auto-style16">
                                         <span class="nuevoEstilo1">
                                         <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True">
                                             <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                         </asp:DropDownList>
                                         </span></td>
-                                    <td class="auto-style42" colspan="2">Letra</td>
+                                    <td class="auto-style50" colspan="2">Letra</td>
                                     <td class="auto-style37">
                                         <span class="nuevoEstilo1">
                                         <asp:DropDownList ID="LstLetras" runat="server" AppendDataBoundItems="True">
@@ -155,10 +168,10 @@
                                         </span></td>
                                 </tr>
                                 <tr>
-                                    <td width="127">Código Dilaco </td>
+                                    <td class="auto-style44">Código Dilaco </td>
                                     <td class="auto-style16">&nbsp;<asp:TextBox ID="txt_codigo" runat="server" BackColor="#FFFFCC"></asp:TextBox>
                                     </td>
-                                    <td class="auto-style42" colspan="2">Código Prov. </td>
+                                    <td class="auto-style46" colspan="2">Código Prov. </td>
                                     <td class="auto-style37">
                                         <asp:TextBox ID="txt_codprov" runat="server" BackColor="#FFFFCC" Width="119px"></asp:TextBox>
                                         <span class="nuevoEstilo1">
@@ -171,31 +184,45 @@
                                             <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
                                         </asp:DropDownList>
                                     </td>
-                                    <td colspan="2" class="auto-style42">&nbsp;</td>
+                                    <td colspan="2" class="auto-style50">&nbsp;</td>
                                     <td class="auto-style37">&nbsp;</td>
                                 </tr>
                                 <tr>
-                                    <td class="auto-style28">Artículos SIN Categorías </td>
+                                    <td class="auto-style46">Artículos sin Categorías </td>
                                     <td class="auto-style29">
                                         <asp:CheckBox ID="chk_sin_cat" runat="server" />
                                     </td>
-                                    <td class="auto-style42" colspan="2">Artículos Publicados</td>
+                                    <td class="auto-style46" colspan="2">Artículos Publicados</td>
                                     <td class="auto-style38">
                                         <asp:CheckBox ID="chk_publicados" runat="server" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="auto-style28">Artículos sin Imágenes</td>
+                                    <td class="auto-style46">Artículos sin Imágenes</td>
                                     <td class="auto-style29">
+                                        <span class="nuevoEstilo1">
                                         <asp:CheckBox ID="chk_sin_imagenes" runat="server" />
+                                        </span>
                                     </td>
-                                    <td class="auto-style42" colspan="2">Artículos NO Publicados</td>
+                                    <td class="auto-style46" colspan="2">Artículos no Publicados</td>
                                     <td class="auto-style38">
+                                        <span class="nuevoEstilo1">
                                         <asp:CheckBox ID="chk_no_publicados" runat="server" />
+                                        </span>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="auto-style46"><span class="nuevoEstilo1">Artículos s</span>ólo Cotizaciones</td>
+                                    <td class="auto-style29"><span class="nuevoEstilo1">
+                                        <asp:CheckBox ID="chk_cotizac" runat="server" />
+                                        </span></td>
+                                    <td class="" colspan="2">Artículos sólo Ventas</td>
+                                    <td class="auto-style38"><span class="nuevoEstilo1">
+                                        <asp:CheckBox ID="chk_ventas" runat="server" />
+                                        </span></td>
+                                </tr>
                                 <tr class="baseTabla">
-                                    <td class="baseTabla">&nbsp;</td>
+                                    <td class="auto-style44">&nbsp;</td>
                                     <td colspan="4">
                                         <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" />
                                     </td>

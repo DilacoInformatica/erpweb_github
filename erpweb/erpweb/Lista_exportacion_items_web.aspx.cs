@@ -68,7 +68,7 @@ namespace erpweb
         {
             string sql = "";
 
-            sql = "SELECT tbl_Items.id_item, tbl_Items.codigo, dbo.PadreHijo(id_item) ph, isnull(tbl_Items.sigla, '') Letra, tbl_items.descripcion, tbl_items.Unidad, ";
+            sql = "SELECT tbl_Items.id_item ID, tbl_Items.codigo Codigo, dbo.PadreHijo(id_item) ph, isnull(tbl_Items.sigla, '') Letra, tbl_items.descripcion, tbl_items.Unidad, ";
             sql = sql + "isnull(tbl_Familias_Productos.ID_Familia,0) ID_Familia, isnull(tbl_Categorias.ID_Categoria,0) ID_Categoria, isnull(tbl_Subcategorias.ID_SubCategoria,0) ID_SubCategoria, ";
             sql = sql + " isnull((select 1 from tbl_items_web where Id_Item = dbo.tbl_Items.ID_Item),0) item_web ";
            /* sql = "SELECT tbl_Items.id_item, tbl_Items.codigo,dbo.PadreHijo(id_item) ph,  dbo.tbl_Items.Id_Linea_Venta, dbo.tbl_Items.Id_Categoria, dbo.tbl_Items.Id_SubCategoria, Publicar_Web, Ultimo_Factor, Ultimo_Precio , Fecha_precio, dbo.tbl_Items.Sigla,  dbo.tbl_Items.Precio,   dbo.tbl_Items.ID_Item, dbo.tbl_Items.Codigo, dbo.tbl_Items.Descripcion, dbo.tbl_Categorias.Nombre AS Categoria, ";
@@ -140,110 +140,74 @@ namespace erpweb
                 try
                 {
                     connection.Open();
-                    //SqlCommand command = new SqlCommand(sql, connection);
-                    //SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
-                   // DataSet dr = new DataSet();
-                 //   reader.Fill(dr, "tbl_clientes");
-                //    LstItems.DataSource = dr;
-                 //   LstItems.DataBind();
-
-
                     SqlCommand command = new SqlCommand(sql, connection);
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    DataSet ds = new DataSet();
-
-                    DataTable table = new DataTable("items");
-                    table.Columns.Add(new DataColumn("Id", typeof(int)));
-                    table.Columns.Add(new DataColumn("Código", typeof(string)));
-                    table.Columns.Add(new DataColumn("PH", typeof(string)));
-                    table.Columns.Add(new DataColumn("Sigla", typeof(string)));
-                    table.Columns.Add(new DataColumn("Descripción", typeof(string)));
-                    table.Columns.Add(new DataColumn("Unidad", typeof(string)));
-                    table.Columns.Add(new DataColumn("ID_Familia", typeof(int)));
-                    table.Columns.Add(new DataColumn("ID_Categoria", typeof(int)));
-                    table.Columns.Add(new DataColumn("ID_SubCategoria", typeof(int)));
-                    table.Columns.Add(new DataColumn("item_web", typeof(int)));
+                    SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                    DataSet dr = new DataSet();
+                    reader.Fill(dr, "tbl_clientes");
+                    LstItems.DataSource = dr;
+                    LstItems.DataBind();
 
 
+                    //SqlCommand command = new SqlCommand(sql, connection);
+                    //SqlDataReader reader = command.ExecuteReader();
 
-                    int v_id = 0;
-                    string v_codigo = "";
-                    string v_ph = "";
-                    string v_sigla = "";
-                    string v_descripcion = "";
-                    string v_unidad = "";
-                    int v_id_fam = 0;
-                    int v_id_cat = 0;
-                    int v_id_subcat = 0;
-                    int v_web = 0;
+                    //DataSet ds = new DataSet();
 
-
-                    while (reader.Read())
-                    {
-
-                        LstItems
-                        v_id = reader.GetInt32(0);
-                        v_codigo = reader.GetString(1);
-                        v_ph = reader.GetString(2);
-                        v_sigla = reader.GetString(3);
-                        v_descripcion = reader.GetString(4);
-                        v_unidad = reader.GetString(5);
-                        v_id_fam = reader.GetInt32(6);
-                        v_id_cat = reader.GetInt32(7);
-                        v_id_subcat = reader.GetInt32(8);
-                        v_web = reader.GetInt32(9);
-
-                        DataGrid row;
-
-
-                        DataGridItemCollection cell;
-
-                        cell.Get
-
-
-                        GridViewRowCollection cell = GridViewRowCollection
+                    //DataTable table = new DataTable("items");
+                    //table.Columns.Add(new DataColumn("Id", typeof(int)));
+                    //table.Columns.Add(new DataColumn("Código", typeof(string)));
+                    //table.Columns.Add(new DataColumn("PH", typeof(string)));
+                    //table.Columns.Add(new DataColumn("Sigla", typeof(string)));
+                    //table.Columns.Add(new DataColumn("Descripción", typeof(string)));
+                    //table.Columns.Add(new DataColumn("Unidad", typeof(string)));
+                    //table.Columns.Add(new DataColumn("ID_Familia", typeof(int)));
+                    //table.Columns.Add(new DataColumn("ID_Categoria", typeof(int)));
+                    //table.Columns.Add(new DataColumn("ID_SubCategoria", typeof(int)));
+                    //table.Columns.Add(new DataColumn("item_web", typeof(int)));
 
 
 
-                    Cell = New DataGridViewCheckBoxCell
-                    Cell.Value = dtrDatos("Surveys_Status_Report_Active_YesNo")
-                    Row.Cells.Add(Cell)
-
-                    Cell = New DataGridViewTextBoxCell
-                    Cell.Value = dtrDatos("IdProyecto").ToString
-                    Row.Cells.Add(Cell)
-                    Cell = New DataGridViewTextBoxCell
-                    Cell.Value = UtilApp.Project_Client_Info(dtrDatos("IdProyecto").ToString)
-                    Row.Cells.Add(Cell)
-                    Cell = New DataGridViewTextBoxCell
-                    Cell.Value = CType(dtrDatos("Fecha_Fin_Cumplimentacion"), Date).ToShortDateString
-                    Row.Cells.Add(Cell)
-                    Cell = New DataGridViewTextBoxCell
-                    Cell.Value = dtrDatos("Surveys_Course_Group_ID").ToString
-                    Row.Cells.Add(Cell)
-                    Cell = New DataGridViewTextBoxCell
-                    Cell.Value = CType(dtrDatos("Surveys_Status_Report_Last_Date"), Date).ToShortDateString
-                    Row.Cells.Add(Cell)
-
-                    gridDatos.Rows.Add(Row);
+                    //int v_id = 0;
+                    //string v_codigo = "";
+                    //string v_ph = "";
+                    //string v_sigla = "";
+                    //string v_descripcion = "";
+                    //string v_unidad = "";
+                    //int v_id_fam = 0;
+                    //int v_id_cat = 0;
+                    //int v_id_subcat = 0;
+                    //int v_web = 0;
 
 
+                    //while (reader.Read())
+                    //{
 
-                        table.Rows.Add(v_id,
-                                       v_codigo,
-                                       v_ph,
-                                       v_sigla,
-                                       v_descripcion,
-                                       v_unidad,
-                                       v_id_fam,
-                                       v_id_cat,
-                                       v_id_subcat,
-                                       v_web);
-                    }
+                   
+                    //    v_id = reader.GetInt32(0);
+                    //    v_codigo = reader.GetString(1);
+                    //    v_ph = reader.GetString(2);
+                    //    v_sigla = reader.GetString(3);
+                    //    v_descripcion = reader.GetString(4);
+                    //    v_unidad = reader.GetString(5);
+                    //    v_id_fam = reader.GetInt32(6);
+                    //    v_id_cat = reader.GetInt32(7);
+                    //    v_id_subcat = reader.GetInt32(8);
+                    //    v_web = reader.GetInt32(9);
+
+                    //    table.Rows.Add(v_id,
+                    //                   v_codigo,
+                    //                   v_ph,
+                    //                   v_sigla,
+                    //                   v_descripcion,
+                    //                   v_unidad,
+                    //                   v_id_fam,
+                    //                   v_id_cat,
+                    //                   v_id_subcat,
+                    //                   v_web);
+                    //}
                     
-                    LstItems.DataSource = table;
-                        LstItems.DataBind();
+                   // LstItems.DataSource = table;
+                    //LstItems.DataBind();
 
                     connection.Close();
                     connection.Dispose();
@@ -277,6 +241,134 @@ namespace erpweb
             Lst_SubCat.Items.Add(new ListItem("Seleccione", "0", true));
             carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and Id_Familia = " + valor + " order by nombre", Lst_Cat, "tbl_categorias", "ID_Categoria", "Nombre");
         }
-    
- }
+
+        protected void LstItems_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+                DropDownList ddlCategories = e.Row.FindControl("LstUnidadVenta") as DropDownList;
+                if (ddlCategories != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                    
+                    carga_contrl_lista("select ID_Unidad_Venta, Nombre from tbl_Unidad_Venta where Activo = 1 ", ddlCategories, "tbl_Unidad_Venta", "ID_Unidad_Venta", "Nombre");
+                   // lbl_error.Text = drv["Unidad"].ToString();
+
+                    foreach (ListItem item in ddlCategories.Items)
+                    {
+                        if (item.Text == drv["Unidad"].ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
+                    }
+
+                   // ddlCategories.SelectedValue = drv["Unidad"].ToString();
+                }
+
+                DropDownList ddlFamilias = e.Row.FindControl("LstFamilias") as DropDownList;
+                if (ddlFamilias != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                    lbl_error.Text = drv["Id_SubCategoria"].ToString();
+                    carga_contrl_lista("select id_familia, nombre from tbl_Familias_Productos where Activo = 1 order by nombre", ddlFamilias, "tbl_Familias_Productos", "id_familia", "Nombre");
+
+                    foreach (ListItem item in ddlFamilias.Items)
+                    {
+                        if (item.Value == drv["Id_Familia"].ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
+                    }
+
+                    // ddlCategories.SelectedValue = drv["Unidad"].ToString();
+                }
+
+
+                DropDownList ddlCategorias = e.Row.FindControl("LstCategorias") as DropDownList;
+                if (ddlCategorias != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                    
+                    carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and Id_Familia = " + drv["Id_Familia"].ToString() + " order by nombre", ddlCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
+                    //lbl_error.Text = drv["Id_Categoria"].ToString();
+
+                    foreach (ListItem item in ddlCategorias.Items)
+                    {
+                        if (item.Value == drv["Id_Categoria"].ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
+                    }
+
+                    // ddlCategories.SelectedValue = drv["Unidad"].ToString();
+                }
+
+
+                DropDownList ddlSubCategorias = e.Row.FindControl("LstSubCategorias") as DropDownList;
+                if (ddlSubCategorias != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                    carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + drv["ID_Categoria"].ToString() + " order by nombre ", ddlSubCategorias, "tbl_Subcategorias", "ID_SubCategoria", "Nombre");
+
+                    foreach (ListItem item in ddlSubCategorias.Items)
+                    {
+                        if (item.Value == drv["Id_SubCategoria"].ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
+                    }
+
+                    // ddlCategories.SelectedValue = drv["Unidad"].ToString();
+                }
+
+                DropDownList ddlLetras = e.Row.FindControl("LstLetras") as DropDownList;
+                if (ddlLetras != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                    carga_contrl_lista("select 'A' id_lista, 'A' letra union all select 'B' id_lista, 'B' letra union all select 'C' id_lista, 'C' letra union all select 'D' id_lista, 'D' letra union all select 'E' id_lista, 'E' letra union all select 'F' id_lista, 'F' letra union all select 'G' id_lista, 'G' letra", ddlLetras, "tbl_letras", "id_lista", "letra");
+                    lbl_error.Text = drv["Letra"].ToString();
+
+                    foreach (ListItem item in ddlLetras.Items)
+                    {
+                        if (item.Value == drv["Letra"].ToString())
+                        {
+                            item.Selected = true;
+                            break;
+                        }
+                    }
+
+                    // ddlCategories.SelectedValue = drv["Unidad"].ToString();
+                }
+
+                CheckBox ddpublicar = e.Row.FindControl("Chk_publicar") as CheckBox;
+                if (ddpublicar != null)
+                {
+                    //Get the data from DB and bind the dropdownlist
+                   
+                    lbl_error.Text = drv["item_web"].ToString();
+
+                    if  (drv["item_web"].ToString() == "0")
+                    {
+                        ddpublicar.Checked = false;
+                    }
+                    else
+                    {
+                        ddpublicar.Checked = true;
+                    }
+                }
+
+
+
+
+                
+            }
+        }
+
+       
+    }
 }

@@ -115,6 +115,7 @@ table {
 	font-size: 13px;
 	font-weight: bold;
 	color: #000033;
+    width: 1411px;
 }
 .BodyNoticia {
 
@@ -854,8 +855,7 @@ th:only-child{
 input[type=text], input[type=password] {
 }
 select {
-	height: 21px;
-    margin-left: 0px;
+	margin-left: 0px;
 }
 .stexGris {
 	font-size: 10px;

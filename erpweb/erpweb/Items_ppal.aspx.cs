@@ -194,6 +194,20 @@ namespace erpweb
                        // master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
                         master_queryString = master_queryString + "and isnull(tbl_items_web.Foto, '') = '' and isnull(tbl_items_web.Foto_Grande,'') = ''";
                     }
+
+
+                    if (chk_cotizac.Checked)
+                    {
+                        // master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.cotizaciones, 0) = 1";
+                    }
+
+
+                    if (chk_ventas.Checked)
+                    {
+                        // master_queryString = master_queryString + "and len(isnull(tbl_items_web.Foto, 0)) + len(isnull(tbl_items_web.Foto_Grande, 0)) = 0 ";
+                        master_queryString = master_queryString + "and isnull(tbl_items_web.ventas, 0) = 1";
+                    }
                 }
                 connection.Open();
                 

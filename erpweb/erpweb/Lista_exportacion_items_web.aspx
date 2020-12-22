@@ -190,52 +190,88 @@
                     </td>
             </tr>
         </table>
-        <asp:GridView ID="LstItems" runat="server" AutoGenerateColumns="False" Height="119px" Width="348px">
+        <br />
+        <asp:GridView ID="LstItems" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="939px" OnRowDataBound="LstItems_RowDataBound">
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
-                <asp:TemplateField HeaderText="Id">
+                <asp:BoundField DataField="ID" HeaderText="ID" />
+                <asp:BoundField DataField="Codigo" HeaderText="Código" />
+                <asp:BoundField DataField="PH" />
+                <asp:TemplateField HeaderText="Letra" ShowHeader="False">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextBox5" runat="server" Text='<%# Bind("Letra") %>'></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Código">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label2" runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="PH">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server"></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Sigla">
-                    <EditItemTemplate>
-                        <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
-                    </EditItemTemplate>
-                    <ItemTemplate>
-                        <asp:DropDownList ID="Lst_Unidades" runat="server">
+                        <asp:DropDownList ID="LstLetras" runat="server" Width="46px" AppendDataBoundItems="True">
+                            <asp:ListItem Value="0">Seleccione</asp:ListItem>
                         </asp:DropDownList>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Descripcion">
+                <asp:TemplateField HeaderText="Descripción">
                     <EditItemTemplate>
-                        <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Descripcion") %>' Width="902px"></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="Label5" runat="server"></asp:Label>
+                        <asp:TextBox ID="Txt_descrip" runat="server" Height="17px" Text='<%# Bind("Descripcion") %>' Width="809px"></asp:TextBox>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="Unidad" HeaderText="Unidad" />
+                <asp:TemplateField HeaderText="Unidad">
+                    <ItemTemplate>
+                        <asp:DropDownList ID="LstUnidadVenta" runat="server">
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Familia">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("ID_Familia") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:DropDownList ID="LstFamilias" runat="server" Height="21px" Width="273px" AppendDataBoundItems="True">
+                            <asp:ListItem Value="0">Seleccione</asp:ListItem>
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Categoria">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("ID_Categoria") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:DropDownList ID="LstCategorias" runat="server" Height="17px" Width="239px" AppendDataBoundItems="True">
+                            <asp:ListItem Value="0">Seleccione</asp:ListItem>
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="SubCategoría">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("ID_Subcategoria") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True" Height="16px" Width="256px">
+                            <asp:ListItem Value="0">Seleccione</asp:ListItem>
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Publicar Web">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox6" runat="server" Text='<%# Bind("item_web") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="Chk_publicar" runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+            <EditRowStyle BackColor="#999999" />
+            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
+            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#E9E7E2" />
+            <SortedAscendingHeaderStyle BackColor="#506C8C" />
+            <SortedDescendingCellStyle BackColor="#FFFDF8" />
+            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
-        <br />
     </form>
 </body>
 </html>

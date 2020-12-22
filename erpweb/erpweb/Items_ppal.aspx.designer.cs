@@ -166,6 +166,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.CheckBox chk_no_publicados;
         
         /// <summary>
+        /// Control chk_cotizac.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_cotizac;
+        
+        /// <summary>
+        /// Control chk_ventas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_ventas;
+        
+        /// <summary>
         /// Control Btn_buscar.
         /// </summary>
         /// <remarks>

@@ -54,13 +54,13 @@ namespace erpweb
 
             if (modo == "W")
             {
-                Btn_volver.Visible = true;
-                ImgBtn_Cerrar.Visible = false;
+                Btn_volver.Visible = false;
+                ImgBtn_Cerrar.Visible = true;
             }
             else
             {
-                Btn_volver.Visible = false;
-                ImgBtn_Cerrar.Visible = true;
+                Btn_volver.Visible = true;
+                ImgBtn_Cerrar.Visible = false;
             }
 
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
