@@ -67,14 +67,19 @@ namespace erpweb
         protected void Buscar_Click(object sender, EventArgs e)
         {
             string sql = "";
-            sql = "SELECT  dbo.tbl_Items.Id_Linea_Venta, dbo.tbl_Items.Id_Categoria, dbo.tbl_Items.Id_SubCategoria, Publicar_Web, Ultimo_Factor, Ultimo_Precio , Fecha_precio, dbo.tbl_Items.Sigla,  dbo.tbl_Items.Precio,   dbo.tbl_Items.ID_Item, dbo.tbl_Items.Codigo, dbo.tbl_Items.Descripcion, dbo.tbl_Categorias.Nombre AS Categoria, ";
+
+            sql = "SELECT tbl_Items.id_item, tbl_Items.codigo, dbo.PadreHijo(id_item) ph, isnull(tbl_Items.sigla, '') Letra, tbl_items.descripcion, tbl_items.Unidad, ";
+            sql = sql + "isnull(tbl_Familias_Productos.ID_Familia,0) ID_Familia, isnull(tbl_Categorias.ID_Categoria,0) ID_Categoria, isnull(tbl_Subcategorias.ID_SubCategoria,0) ID_SubCategoria, ";
+            sql = sql + " isnull((select 1 from tbl_items_web where Id_Item = dbo.tbl_Items.ID_Item),0) item_web ";
+           /* sql = "SELECT tbl_Items.id_item, tbl_Items.codigo,dbo.PadreHijo(id_item) ph,  dbo.tbl_Items.Id_Linea_Venta, dbo.tbl_Items.Id_Categoria, dbo.tbl_Items.Id_SubCategoria, Publicar_Web, Ultimo_Factor, Ultimo_Precio , Fecha_precio, dbo.tbl_Items.Sigla,  dbo.tbl_Items.Precio,   dbo.tbl_Items.ID_Item, dbo.tbl_Items.Codigo, dbo.tbl_Items.Descripcion, dbo.tbl_Categorias.Nombre AS Categoria, ";
             sql = sql + " dbo.tbl_Subcategorias.Nombre AS SubCategoria, dbo.tbl_Proveedores.Nombre_Fantasia AS Proveedor, dbo.tbl_Items.Unidad, dbo.tbl_Items.Activo, ";
-            sql = sql + " dbo.tbl_Items.Cod_Barra";
+            sql = sql + " dbo.tbl_Items.Cod_Barra";*/
             sql = sql + " FROM dbo.tbl_Items LEFT OUTER  JOIN";
             sql = sql + " dbo.tbl_Categorias ON dbo.tbl_Items.Id_Categoria = dbo.tbl_Categorias.ID_Categoria LEFT OUTER JOIN";
+            sql = sql + " dbo.tbl_Familias_Productos ON tbl_Familias_Productos.ID_Familia = dbo.tbl_Categorias.Id_Familia LEFT OUTER JOIN ";
             sql = sql + " dbo.tbl_Subcategorias ON dbo.tbl_Items.Id_SubCategoria = dbo.tbl_Subcategorias.ID_SubCategoria LEFT OUTER JOIN";
             sql = sql + "  dbo.tbl_Proveedores ON dbo.tbl_Items.Id_proveedor = dbo.tbl_Proveedores.ID_Proveedor";
-            sql = sql + " where 1 = 1 ";
+            sql = sql + " where tbl_Items.Activo = 1 ";
             if (Txt_Codigo.Text != "")
             {
                 sql = sql + " and tbl_items_web.codigo like  '" + Txt_Codigo.Text + "%'";
@@ -130,7 +135,126 @@ namespace erpweb
                 sql = sql + " (tbl_Items.ID_Categoria = 0 or tbl_Items.ID_Categoria IS Null)";
             }
 
-           
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    //SqlCommand command = new SqlCommand(sql, connection);
+                    //SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                   // DataSet dr = new DataSet();
+                 //   reader.Fill(dr, "tbl_clientes");
+                //    LstItems.DataSource = dr;
+                 //   LstItems.DataBind();
+
+
+                    SqlCommand command = new SqlCommand(sql, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    DataSet ds = new DataSet();
+
+                    DataTable table = new DataTable("items");
+                    table.Columns.Add(new DataColumn("Id", typeof(int)));
+                    table.Columns.Add(new DataColumn("Código", typeof(string)));
+                    table.Columns.Add(new DataColumn("PH", typeof(string)));
+                    table.Columns.Add(new DataColumn("Sigla", typeof(string)));
+                    table.Columns.Add(new DataColumn("Descripción", typeof(string)));
+                    table.Columns.Add(new DataColumn("Unidad", typeof(string)));
+                    table.Columns.Add(new DataColumn("ID_Familia", typeof(int)));
+                    table.Columns.Add(new DataColumn("ID_Categoria", typeof(int)));
+                    table.Columns.Add(new DataColumn("ID_SubCategoria", typeof(int)));
+                    table.Columns.Add(new DataColumn("item_web", typeof(int)));
+
+
+
+                    int v_id = 0;
+                    string v_codigo = "";
+                    string v_ph = "";
+                    string v_sigla = "";
+                    string v_descripcion = "";
+                    string v_unidad = "";
+                    int v_id_fam = 0;
+                    int v_id_cat = 0;
+                    int v_id_subcat = 0;
+                    int v_web = 0;
+
+
+                    while (reader.Read())
+                    {
+
+                        LstItems
+                        v_id = reader.GetInt32(0);
+                        v_codigo = reader.GetString(1);
+                        v_ph = reader.GetString(2);
+                        v_sigla = reader.GetString(3);
+                        v_descripcion = reader.GetString(4);
+                        v_unidad = reader.GetString(5);
+                        v_id_fam = reader.GetInt32(6);
+                        v_id_cat = reader.GetInt32(7);
+                        v_id_subcat = reader.GetInt32(8);
+                        v_web = reader.GetInt32(9);
+
+                        DataGrid row;
+
+
+                        DataGridItemCollection cell;
+
+                        cell.Get
+
+
+                        GridViewRowCollection cell = GridViewRowCollection
+
+
+
+                    Cell = New DataGridViewCheckBoxCell
+                    Cell.Value = dtrDatos("Surveys_Status_Report_Active_YesNo")
+                    Row.Cells.Add(Cell)
+
+                    Cell = New DataGridViewTextBoxCell
+                    Cell.Value = dtrDatos("IdProyecto").ToString
+                    Row.Cells.Add(Cell)
+                    Cell = New DataGridViewTextBoxCell
+                    Cell.Value = UtilApp.Project_Client_Info(dtrDatos("IdProyecto").ToString)
+                    Row.Cells.Add(Cell)
+                    Cell = New DataGridViewTextBoxCell
+                    Cell.Value = CType(dtrDatos("Fecha_Fin_Cumplimentacion"), Date).ToShortDateString
+                    Row.Cells.Add(Cell)
+                    Cell = New DataGridViewTextBoxCell
+                    Cell.Value = dtrDatos("Surveys_Course_Group_ID").ToString
+                    Row.Cells.Add(Cell)
+                    Cell = New DataGridViewTextBoxCell
+                    Cell.Value = CType(dtrDatos("Surveys_Status_Report_Last_Date"), Date).ToShortDateString
+                    Row.Cells.Add(Cell)
+
+                    gridDatos.Rows.Add(Row);
+
+
+
+                        table.Rows.Add(v_id,
+                                       v_codigo,
+                                       v_ph,
+                                       v_sigla,
+                                       v_descripcion,
+                                       v_unidad,
+                                       v_id_fam,
+                                       v_id_cat,
+                                       v_id_subcat,
+                                       v_web);
+                    }
+                    
+                    LstItems.DataSource = table;
+                        LstItems.DataBind();
+
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
 
         }
 

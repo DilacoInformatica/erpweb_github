@@ -20,6 +20,7 @@
         }
         .auto-style6 {
             height: 12px;
+            width: 716px;
         }
         .auto-style7 {
             height: 15px;
@@ -38,6 +39,7 @@
         }
         .auto-style12 {
             height: 24px;
+            width: 716px;
         }
         .auto-style13 {
             width: 397px;
@@ -61,6 +63,7 @@
         }
         .auto-style19 {
             height: 22px;
+            width: 716px;
         }
         .nuevoEstilo1 {
             font-family: Arial;
@@ -79,7 +82,7 @@
             border-spacing: 0;
             padding: 0px;
             height: 264px;
-            width: 99%;
+            width: 74%;
         }
         .auto-style34 {
             height: 21px;
@@ -143,7 +146,7 @@
                 </td>
                 <td class="auto-style11">Por SubCategría</td>
                 <td class="auto-style12">
-                    <asp:DropDownList ID="Lst_SubCat" runat="server" AppendDataBoundItems="True">
+                    <asp:DropDownList ID="Lst_SubCat" runat="server" AppendDataBoundItems="True" AutoPostBack="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
@@ -183,9 +186,56 @@
                     <asp:Button ID="Buscar" class="boton" runat="server" Text="Buscar" Width="154px" OnClick="Buscar_Click" />
                 </td>
                 <td colspan="3" class="auto-style34">
+                    <asp:Label ID="lbl_error" runat="server" ForeColor="#FF3300"></asp:Label>
                     </td>
             </tr>
         </table>
+        <asp:GridView ID="LstItems" runat="server" AutoGenerateColumns="False" Height="119px" Width="348px">
+            <Columns>
+                <asp:TemplateField HeaderText="Id">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label1" runat="server"></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Código">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label2" runat="server"></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="PH">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label3" runat="server"></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Sigla">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:DropDownList ID="Lst_Unidades" runat="server">
+                        </asp:DropDownList>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Descripcion">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="Label5" runat="server"></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
+        <br />
     </form>
 </body>
 </html>
