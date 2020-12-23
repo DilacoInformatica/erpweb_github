@@ -1160,68 +1160,68 @@ namespace erpweb
 
                     if (lbl_manual_tecnico.Text.Trim() != "")
                     {
-                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text)) )
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim())) )
                         {
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
                         }
                         else
                         {
-                            File.Delete(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text));
+                            //File.Delete(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
                         }
                         
                     }
 
                     if (lbl_presentacion.Text.Trim() != "")
                     {
-                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_presentacion.Text)))
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim())))
                         {
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
                         }
                         else
                         {
-                            File.Delete(Path.Combine(ruta_alterna, lbl_presentacion.Text));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text));
+                           // File.Delete(Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
                         }
                     }
 
                     if (lbl_hoja_seguridad.Text.Trim() != "")
                     {
-                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text)))
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim())))
                         {
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text.Trim()), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
                         }
                         else
                         {
-                            File.Delete(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text));
+                            //File.Delete(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text.Trim()), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
                         }
 
                     }
 
                     if (lbl_fotoc.Text.Trim() != "")
                     {
-                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotoc.Text)))
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim())))
                         {
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text), Path.Combine(ruta_alterna, lbl_fotoc.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
                         }
                         else
                         {
-                            File.Delete(Path.Combine(ruta_alterna, lbl_fotoc.Text));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text), Path.Combine(ruta_alterna, lbl_fotoc.Text));
+                           // File.Delete(Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
                         }
                     }
 
                     if (lbl_fotog.Text.Trim() != "")
                     {
-                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotog.Text)))
+                        if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotog.Text.Trim())))
                         {
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text), Path.Combine(ruta_alterna, lbl_fotog.Text));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
                         }
                         else
                         {
-                            File.Delete(Path.Combine(ruta_alterna, lbl_fotog.Text));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text), Path.Combine(ruta_alterna, lbl_fotog.Text));
+                            //File.Delete(Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
+                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
                         }
 
                     }
