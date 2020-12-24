@@ -136,7 +136,7 @@
         }
         </style>
     </head>
-<body style="width: 1151px; height: 1517px">
+<body style="width: 1429px; height: 1517px">
 <form id="form1" runat="server" enctype="multipart/form-data">
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -160,7 +160,9 @@
       </table></td>
     </tr>
     <tr>
-      <td class="auto-style6">&nbsp;</td>
+      <td class="auto-style6">
+          <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+        </td>
       <td colspan="6" class="auto-style48" >
         <asp:Label ID="lbl_status" runat="server" BackColor="White"></asp:Label>
         <asp:Label ID="lbl_error" runat="server" BackColor="Red"></asp:Label>
@@ -224,7 +226,7 @@
     </tr>
     <tr>
       <td class="auto-style58">Texto Destacado</td>
-      <td colspan="10"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="939px" TextMode="MultiLine"></asp:TextBox>
+      <td colspan="10"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="1272px" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -287,7 +289,7 @@
     <tr>
       <td class="auto-style58">Caracter&iacute;sticas</td>
       <td colspan="10">
-                    <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="945px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1277px" TextMode="MultiLine"></asp:TextBox>
                  </td>
     </tr>
     <tr>
@@ -665,7 +667,7 @@
       <td class="auto-style43"><p>Tabla T&eacute;cnica</p>
         </td>
       <td colspan="10" class="auto-style44" >
-                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="945px"></asp:TextBox>
+                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px"></asp:TextBox>
                  </td>
     </tr>
     <tr >

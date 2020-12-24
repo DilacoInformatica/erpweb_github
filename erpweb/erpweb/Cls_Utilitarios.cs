@@ -65,9 +65,21 @@ namespace erpweb
 
         }
 
-        public string retorna_ruta ()
+        public string retorna_ambiente ()
         {
             if(ambiente == 1 ) // Local
+            {
+                return "D";
+            }
+            else // Servidor
+            {
+                return "P";
+            }
+        }
+
+        public string retorna_ruta()
+        {
+            if (ambiente == 1) // Local
             {
                 return @"C:\intranet\documentos\Biblioteca";
             }
@@ -76,8 +88,8 @@ namespace erpweb
                 return @"E:\intranet\documentos\Biblioteca";
             }
         }
-      
-       public string actualiza_historial_nv(int valor, int usuario, string comentario,string servidor, string codigo )
+
+        public string actualiza_historial_nv(int valor, int usuario, string comentario,string servidor, string codigo )
         {
             string sql = "";
             sql = "INSERT INTO tbl_Seguimiento (COD_DOC, Fecha_Seg, Id_Tipo_Accion, Fecha_Vencimiento, Id_Usuario_Resp, ";

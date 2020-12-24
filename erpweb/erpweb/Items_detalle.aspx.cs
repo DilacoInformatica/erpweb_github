@@ -49,6 +49,7 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
 
+            lbl_ambiente.Text = utiles.retorna_ambiente();
 
             ruta_alterna = utiles.retorna_ruta();
 
@@ -95,11 +96,11 @@ namespace erpweb
                 carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias3, "tbl_categorias", "ID_SubCategoria", "Nombre");
 
                 muestra_info(id_item);
-                HS_Warning.Visible = false;
+                /*MT_Warning.Visible = false;
                 VD_Warning.Visible = false;
                 HS_Warning.Visible = false;
                 FG_Warning.Visible = false;
-                FC_Warning.Visible = false;
+                FC_Warning.Visible = false;*/
             }
         }
 
@@ -398,7 +399,7 @@ namespace erpweb
 
                         if (lbl_fotog.Text.Trim() != "")
                         {
-                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            archivo2 = Path.Combine(ruta_alterna, lbl_fotog.Text.Trim());
                             extension = Path.GetExtension(archivo2);
                             if (File.Exists(archivo2))
                             {
@@ -407,18 +408,27 @@ namespace erpweb
                                 if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                 {
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                    lbl_fotog.Text = nuevo_nom;
+                                }
+                                else
+                                {
+                                    if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                    }
+                                    lbl_fotog.Text = nuevo_nom;
                                 }
                             }
                             else
                             {
                                 FG_Warning.Visible = true;
+                                lbl_fotog.ForeColor = Color.Red;
                             }
                         }
 
                         if (lbl_fotoc.Text.Trim() != "")
                         {
-                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            archivo2 = Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim());
                             extension = Path.GetExtension(archivo2);
                             if (File.Exists(archivo2))
                             {
@@ -427,18 +437,27 @@ namespace erpweb
                                 if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                 {
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                    lbl_fotoc.Text = nuevo_nom;
+                                }
+                                else
+                                {
+                                    if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                    }
+                                    lbl_fotoc.Text = nuevo_nom;
                                 }
                             }
                             else
                             {
                                 FC_Warning.Visible = true;
+                                lbl_fotoc.ForeColor = Color.Red;
                             }
                         }
 
                         if (lbl_video.Text.Trim() != "")
                         {
-                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            archivo2 = Path.Combine(ruta_alterna, lbl_video.Text.Trim());
                             extension = Path.GetExtension(archivo2);
                             if (File.Exists(archivo2))
                             {
@@ -447,7 +466,16 @@ namespace erpweb
                                 if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                 {
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                    lbl_video.Text = nuevo_nom;
+                                }
+                                else
+                                {
+                                    if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                    }
+                                    lbl_video.Text = nuevo_nom;
+                                    lbl_video.ForeColor = Color.Red;
                                 }
                             }
                             else
@@ -458,7 +486,7 @@ namespace erpweb
 
                         if (lbl_manual_tecnico.Text.Trim() != "")
                         {
-                            archivo2 = Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim());
+                            archivo2 = Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim());
                             extension = Path.GetExtension(archivo2);
                             if (File.Exists(archivo2))
                             {
@@ -467,13 +495,22 @@ namespace erpweb
                                 if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                 {
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                    lbl_manual_tecnico.Text = nuevo_nom;
                                 }
-                                
+                                else
+                                {
+                                    if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                    }
+                                    lbl_manual_tecnico.Text = nuevo_nom;
+                                }
+
                             }
                             else
                             {
                                 MT_Warning.Visible = true;
+                                lbl_manual_tecnico.ForeColor = Color.Red;
                             }
 
                         }
@@ -484,20 +521,57 @@ namespace erpweb
                             extension = Path.GetExtension(archivo2);
                             if (File.Exists(archivo2))
                             {
-                                nuevo_nom = "HS_" + txt_codigo.Text.Replace(" ","") + extension;
+                                nuevo_nom = "HS_" + txt_codigo.Text.Replace(" ", "") + extension;
                                 ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
                                 if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
                                 {
                                     File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
                                     lbl_hoja_seguridad.Text = nuevo_nom;
                                 }
+                                else
+                                {
+                                    if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                    }
+                                    lbl_hoja_seguridad.Text = nuevo_nom;
+                                }
                             }
                             else
                             {
                                 HS_Warning.Visible = true;
+                                lbl_hoja_seguridad.ForeColor = Color.Red;
                             }
 
                         }
+                            if (lbl_presentacion.Text.Trim() != "")
+                            {
+                                archivo2 = Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim());
+                                extension = Path.GetExtension(archivo2);
+                                if (File.Exists(archivo2))
+                                {
+                                    nuevo_nom = "PR_" + txt_codigo.Text.Replace(" ", "") + extension;
+                                    ruta_local = Server.MapPath(@"~/Catalogo/Productos/Presentacion/");
+                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+                                    {
+                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+                                        lbl_presentacion.Text = nuevo_nom;
+                                    }
+                                    else
+                                    {
+                                        if (!File.Exists(Path.Combine(ruta_alterna, nuevo_nom)))
+                                        {
+                                            File.Copy(archivo2, Path.Combine(ruta_alterna, nuevo_nom));
+                                        }
+                                        lbl_presentacion.Text = nuevo_nom;
+                                    }
+                                }
+                                else
+                                {
+                                    PR_Warning.Visible = true;
+                                    lbl_presentacion.ForeColor = Color.Red;
+                                }
+                            }
                     }
                     reader.Close();
                     connection.Close();
@@ -845,7 +919,7 @@ namespace erpweb
                     // Presentación
                     if (lbl_presentacion.Text.Trim() != "")
                     {
-                        ruta_server = @"/dinamicos/productos/Presentacion/";
+                        ruta_server = @"/dinamicos/productos/presentacion/";
                         ruta_local = Server.MapPath(@"~/Catalogo/Productos/Presentacion/");
                         string result = ftp.Ftp(server, user, password, lbl_presentacion.Text, ruta_local, ruta_server);
                     }
@@ -1167,7 +1241,10 @@ namespace erpweb
                         else
                         {
                             //File.Delete(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
+                            if (!File.Exists(Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim())))
+                            {
+                                File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), lbl_manual_tecnico.Text), Path.Combine(ruta_alterna, lbl_manual_tecnico.Text.Trim()));
+                            }
                         }
                         
                     }
@@ -1180,8 +1257,12 @@ namespace erpweb
                         }
                         else
                         {
-                           // File.Delete(Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
+                            // File.Delete(Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
+                            if (!File.Exists(Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim())))
+                            {
+                                File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion.Text), Path.Combine(ruta_alterna, lbl_presentacion.Text.Trim()));
+                            }
+                                
                         }
                     }
 
@@ -1193,8 +1274,12 @@ namespace erpweb
                         }
                         else
                         {
-                            //File.Delete(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text.Trim()), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
+                            if (!File.Exists(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim())))
+                            {
+                                File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/HojaS/"), lbl_hoja_seguridad.Text.Trim()), Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
+                            }
+                                //File.Delete(Path.Combine(ruta_alterna, lbl_hoja_seguridad.Text.Trim()));
+                                
                         }
 
                     }
@@ -1207,8 +1292,12 @@ namespace erpweb
                         }
                         else
                         {
-                           // File.Delete(Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
+                            // File.Delete(Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
+                            if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim())))
+                            {
+                                File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotoc.Text.Trim()));
+                            }
+                               
                         }
                     }
 
@@ -1220,8 +1309,11 @@ namespace erpweb
                         }
                         else
                         {
-                            //File.Delete(Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
-                            File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
+                            if (!File.Exists(Path.Combine(ruta_alterna, lbl_fotog.Text.Trim())))
+                            {
+                                File.Copy(Path.Combine(Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotog.Text.Trim()), Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));
+                            }
+                                //File.Delete(Path.Combine(ruta_alterna, lbl_fotog.Text.Trim()));  
                         }
 
                     }
