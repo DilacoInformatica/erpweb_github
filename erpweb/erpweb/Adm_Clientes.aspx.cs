@@ -29,7 +29,7 @@ namespace erpweb
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
-
+            lbl_ambiente.Text = utiles.retorna_ambiente();
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
@@ -519,9 +519,9 @@ namespace erpweb
                 queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Vendedor_cliente ON cl.ID_Cliente = tbl_Vendedor_cliente.id_Cliente ";
                 queryString = queryString + "LEFT OUTER JOIN dbo.vis_clientes_lv vc on vc.id_cliente = cl.ID_Cliente ";
                 queryString = queryString + "LEFT OUTER JOIN tbl_Regiones rr on rr.ID_Region = sc.Id_Region ";
-                queryString = queryString + "WHERE(cl.Es_Cliente = 1) ";
+                queryString = queryString + "WHERE (cl.Es_Cliente = 1) ";
                 queryString = queryString + "and isnull(cl.Activo, 0) = 1 ";
-                queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
+                //queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
 
                 if (txt_id.Text != "")
                 {

@@ -59,7 +59,7 @@
             border-spacing: 0;
             padding: 0px;
             height: 280px;
-            width: 117%;
+            width: 96%;
         }
         .auto-style34 {
             width: 1198px;

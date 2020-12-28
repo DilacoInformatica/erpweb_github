@@ -71,7 +71,8 @@
         </div>
         <table class="auto-style10">
             <tr class="BottomTabla">
-                <td colspan="11" class="auto-style16">Búsqueda de Clientes en Sitio Web         </tr>
+                <td colspan="11" class="auto-style16">Búsqueda de Clientes en Sitio Web         (<asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+                    )</tr>
             <tr>
                 <td>Id</td>
                 <td>&nbsp;</td>
