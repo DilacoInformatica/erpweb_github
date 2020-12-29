@@ -49,6 +49,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button BtnGrabar;
         
         /// <summary>
+        /// Control Btn_act_superior.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btn_act_superior;
+        
+        /// <summary>
         /// Control Btn_volver.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,33 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
+        /// Control lbl_activo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_activo;
+        
+        /// <summary>
+        /// Control LinkAct_item.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkAct_item;
+        
+        /// <summary>
+        /// Control LinkDesAct_item.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkDesAct_item;
+        
+        /// <summary>
         /// Control lbl_web.
         /// </summary>
         /// <remarks>
@@ -110,6 +146,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chck_visible;
+        
+        /// <summary>
+        /// Control chck_prodped.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chck_prodped;
         
         /// <summary>
         /// Control txt_codigo.
@@ -137,15 +182,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chck_venta;
-        
-        /// <summary>
-        /// Control chck_prodped.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chck_prodped;
         
         /// <summary>
         /// Control chck_cot.

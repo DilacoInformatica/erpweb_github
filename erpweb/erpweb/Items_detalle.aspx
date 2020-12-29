@@ -41,6 +41,7 @@
         }
         .auto-style45 {
             height: 21px;
+            text-align: center;
         }
         .auto-style47 {
             width: 852px;
@@ -48,8 +49,7 @@
         }
         .auto-style48 {
             height: 19px;
-            width: 371px;
-        }
+            }
         .auto-style49 {
             height: 25px;
             width: 371px;
@@ -134,6 +134,13 @@
             height: 17px;
             text-align: left;
         }
+        .auto-style73 {
+            width: 149px;
+            height: 22px;
+        }
+        .auto-style74 {
+            height: 22px;
+        }
         </style>
     </head>
 <body style="width: 1429px; height: 1517px">
@@ -152,6 +159,9 @@
           <td class="auto-style45" >
                     <asp:Button ID="BtnGrabar" runat="server" OnClick="BtnGrabar_Click" Text="Grabar" CssClass="auto-style4" Width="85px" />
                 </td>
+                      <td class="auto-style45">
+                          <asp:Button ID="Btn_act_superior" runat="server" OnClick="Btn_act_superior_Click" Text="Subir/Actualizar Código al Sitio Web" Width="232px" />
+            </td>
                       <td class="auto-style45" >
                     <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
                         <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
@@ -163,42 +173,49 @@
       <td class="auto-style6">
           <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
         </td>
-      <td colspan="6" class="auto-style48" >
+      <td colspan="10" class="auto-style48" >
         <asp:Label ID="lbl_status" runat="server" BackColor="White"></asp:Label>
         <asp:Label ID="lbl_error" runat="server" BackColor="Red"></asp:Label>
                  </td>
-      <td class="auto-style11" >&nbsp;</td>
-      <td colspan="3" >
-                      &nbsp;</td>
     </tr>
     <tr>
-      <td class="auto-style6">Registrado en Sitio</td>
+      <td class="auto-style6">Activo</td>
       <td colspan="6" class="auto-style48" >
-                    <asp:Label ID="lbl_web" runat="server"></asp:Label>
+                    <asp:Label ID="lbl_activo" runat="server"></asp:Label>
+                    &nbsp;<asp:LinkButton ID="LinkAct_item" runat="server" OnClick="LinkAct_item_Click" Visible="False">Activar Código</asp:LinkButton>
+                    <asp:LinkButton ID="LinkDesAct_item" runat="server" OnClick="LinkDesAct_item_Click" Visible="False">Desactivar Código</asp:LinkButton>
                  </td>
-      <td class="auto-style11" >Visible</td>
+      <td class="auto-style11" >Reg. en Sitio</td>
       <td colspan="3" >
-                      <asp:CheckBox ID="chck_visible" runat="server" TextAlign="Left" />
+                      <asp:Label ID="lbl_web" runat="server"></asp:Label>
                 </td>
     </tr>
     <tr>
-      <td class="auto-style53">C&oacute;digo</td>
+      <td class="auto-style53">Visible</td>
       <td colspan="6" class="auto-style49" >
-          <asp:TextBox ID="txt_codigo" runat="server" Enabled="False" Width="95px"></asp:TextBox>
-          <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
+          <asp:CheckBox ID="chck_visible" runat="server" TextAlign="Left" />
         </td>
-      <td colspan="3">Venta</td>
+      <td colspan="3">Prod. Pedido</td>
         <td class="auto-style59">
-                     <asp:CheckBox ID="chck_venta" runat="server" TextAlign="Left" />
+                     <asp:CheckBox ID="chck_prodped" runat="server" TextAlign="Left" />
                 </td>
     </tr>
+      <tr>
+          <td class="auto-style53">Código</td>
+          <td class="auto-style49" colspan="6">
+              <asp:TextBox ID="txt_codigo" runat="server" Enabled="False" Width="95px"></asp:TextBox>
+              <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
+          </td>
+          <td colspan="3">&nbsp;</td>
+          <td class="auto-style59">&nbsp;</td>
+      </tr>
     <tr>
-      <td class="auto-style58">Prod. a Pedido</td>
-      <td colspan="5">
-                      <asp:CheckBox ID="chck_prodped" runat="server" TextAlign="Left" />
+      <td class="auto-style73">Venta</td>
+      <td colspan="5" class="auto-style74">
+                      <asp:CheckBox ID="chck_venta" runat="server" TextAlign="Left" />
                 </td>
-      <td colspan="3">Cotizaciones</td>
-      <td colspan="2">
+      <td colspan="3" class="auto-style74">Cotizaciones</td>
+      <td colspan="2" class="auto-style74">
                     <asp:CheckBox ID="chck_cot" runat="server" TextAlign="Left" />
                 </td>
     </tr>
@@ -672,7 +689,7 @@
     </tr>
     <tr >
       <td class="auto-style54" colspan="11">
-          <asp:GridView ID="GridView1" runat="server" Caption="Historial de Modificaciones" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1098px">
+          <asp:GridView ID="GridView1" runat="server" Caption="Historial de Modificaciones" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1404px">
               <AlternatingRowStyle BackColor="White" />
               <EditRowStyle BackColor="#2461BF" />
               <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
