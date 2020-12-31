@@ -757,7 +757,7 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "UPDATE tbl_nota_vta SET Leido_ERP = 1 WHERE Nta_vta_num =  " + numero;
+            queryString = "UPDATE tbl_nota_vta SET Leido_ERP = 1, status = 1 WHERE Nta_vta_num =  " + numero;
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try

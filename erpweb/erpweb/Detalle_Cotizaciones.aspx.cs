@@ -502,7 +502,7 @@ namespace erpweb
         {
             String queryString = "";
 
-            queryString = "UPDATE tbl_cotizaciones SET Leido_ERP = 1 WHERE Cotizac_Num =  " + numero;
+            queryString = "UPDATE tbl_cotizaciones SET Leido_ERP = 1, status = 1 WHERE Cotizac_Num =  " + numero;
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try

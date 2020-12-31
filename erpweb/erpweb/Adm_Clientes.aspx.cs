@@ -162,6 +162,7 @@ namespace erpweb
                     lbl_error.Text = "";
 
                     lbl_status.Text = "Clientes insertados correctamente";
+                    lista_clientes_web();
                 }
                 catch (Exception ex)
                 {
@@ -668,7 +669,7 @@ namespace erpweb
         {
             String queryString = "";
             lbl_error.Text = "";
-            queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
+            queryString = "SELECT IFNULL(tbl_clientes.ID_Cliente,0) Id, ";
             queryString = queryString + "tbl_clientes.Rut, ";
             queryString = queryString + "tbl_clientes.Dv_Rut, ";
             queryString = queryString + "tbl_clientes.Razon_Social, ";
@@ -876,7 +877,16 @@ namespace erpweb
 
                     if (check.Checked)
                     {
-                        inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[2].Text));
+                        lbl_mensaje.Text = row.Cells[1].Text;
+                        if (row.Cells[1].Text == "0")
+                        {
+                            inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[2].Text));
+                        }
+                        else
+                        {
+                            lbl_status.Text = "Cliente ya fue ingresado al ERP";
+                        }
+                        
                     }
                 }
             }
@@ -1001,7 +1011,7 @@ namespace erpweb
                     connection.Close();
                     connection.Dispose();
 
-                    actualiza_cliente_sitio_a_erp(rut, Convert.ToInt32(usuario));
+                    actualiza_cliente_sitio_a_erp(rut, v_id_cliente, Convert.ToInt32(usuario));
                 }
                 catch (Exception ex)
                 {
@@ -1014,7 +1024,7 @@ namespace erpweb
             }
         }
 
-        void actualiza_cliente_sitio_a_erp(int v_rut, int v_usuario)
+        void actualiza_cliente_sitio_a_erp(int v_rut, int v_id_cliente,  int v_usuario)
         {
             string query = "";
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -1029,8 +1039,11 @@ namespace erpweb
                     command.Parameters.AddWithValue("@v_rut", v_rut);
                     command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
 
+                    command.Parameters.AddWithValue("@v_id_cliente", v_id_cliente);
+                    command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
                     command.Parameters.AddWithValue("@v_usuario", v_usuario);
-                    command.Parameters["@v_Id_contacto"].Direction = ParameterDirection.Input;
+                    command.Parameters["@v_usuario"].Direction = ParameterDirection.Input;
 
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
                     MySqlDataReader dr = command.ExecuteReader();
