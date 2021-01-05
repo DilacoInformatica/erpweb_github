@@ -8,8 +8,10 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.IO;
+
 using System.Collections;
 using System.Collections.Generic;
+using HtmlAgilityPack;
 
 namespace erpweb
 {
@@ -102,6 +104,7 @@ namespace erpweb
                 HS_Warning.Visible = false;
                 FG_Warning.Visible = false;
                 FC_Warning.Visible = false;*/
+ 
             }
         }
 
@@ -211,7 +214,8 @@ namespace erpweb
                         else
                         {
                             lbl_activo.Text = "NO";
-                            lbl_status.Text = "Producto desactivado en el ERP... no se puede realizar ninguna acción sobre él hasta que se active nuevamente";
+                            //lbl_status.Text = "Producto desactivado en el ERP... no se puede realizar ninguna acción sobre él hasta que se active nuevamente";
+                            lbl_status.Text = "Producto no publicado en Sitio Web.";
                             lbl_status.ForeColor = Color.Red;
                             LinkAct_item.Visible = true;
                         }
@@ -380,8 +384,7 @@ namespace erpweb
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
                         //txt_codigoprov.Enabled = false;
-                        //txt_caracteristicas.Text = HttpContext.Current.Server.HtmlEncode(reader[21].ToString());
-                        txt_caracteristicas.Text = reader[21].ToString();
+
                         lbl_manual_tecnico.Text = reader[22].ToString();
                         txt_proveedor.Text = reader[46].ToString();
                         lbl_fotoc.Text = reader[24].ToString();
@@ -393,7 +396,37 @@ namespace erpweb
                         }
                         lbl_video.Text = reader[26].ToString();
                         lbl_hoja_seguridad.Text = reader[45].ToString();
-                        txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString());
+                        //  txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString());
+                        //
+                        string myEncodedString = HttpUtility.HtmlEncode((reader[21].ToString()));
+                        StringWriter myWriter = new StringWriter();
+                        HttpUtility.HtmlDecode(myEncodedString, myWriter);
+                        string myDecodedString = myWriter.ToString();
+                        txt_caracteristicas.Text = myDecodedString; // HttpContext.Current.Server.HtmlDecode(reader[21].ToString());
+
+
+                        txt_caracteristicas.Visible = false;
+                        lbl_caracteristicas.Text = myDecodedString;
+
+                        myEncodedString = HttpUtility.HtmlEncode((reader[44].ToString()));
+                        StringWriter myWriter2 = new StringWriter();
+                        HttpUtility.HtmlDecode(myEncodedString, myWriter2);
+                        myDecodedString = myWriter2.ToString();
+                        txt_tabla_tecnica.Text = myDecodedString;
+
+                        txt_tabla_tecnica.Visible = false;
+                        lbl_tabla_tecnica.Text = myDecodedString;
+
+
+                        // txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlDecode(reader[44].ToString());
+                        //  string pattern = "<.*?>";
+                        // txt_caracteristicas.Text = Regex.Replace(HttpUtility.HtmlDecode(reader[21].ToString()), pattern, string.Empty);
+                        //lbl_caracteristicas.Text = reader[21].ToString();
+                        // txt_caracteristicas.Text = HttpUtility.HtmlDecode(reader[21].ToString());
+
+                        // HttpUtility.HtmlDecode(reader[44].ToString());
+                        //lbl_tabla_tecnica.Text = reader[44].ToString();
+                        // txt_caracteristicas.Text = HttpContext.Current.Server.HtmlDecode(reader[21].ToString());
                         txt_acc1.Text = reader[29].ToString();
                         txt_acc2.Text = reader[30].ToString();
                         txt_acc3.Text = reader[31].ToString();
@@ -652,8 +685,10 @@ namespace erpweb
         {
             /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
                server control at run time. */
+           
         }
 
+      
         protected void Btn_volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Items_ppal.aspx");
@@ -789,6 +824,7 @@ namespace erpweb
                     query = query + ",Unidad_vta = '" + txt_unidad.Text + "'";
                     query = query + ",Unidad = '" + lbl_unidad.Text + "'";
                     query = query + ",Codigo_prov = '" + txt_codigoprov.Text + "'";
+                   // query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
                     query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
                     query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
                     query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
@@ -813,7 +849,9 @@ namespace erpweb
                     query = query + ",Id_subcategoria1 = " + LstSubCategorias1.SelectedItem.Value.ToString();
                     query = query + ",Id_subcategoria2 = " + LstSubCategorias2.SelectedItem.Value.ToString();
                     query = query + ",Id_subcategoria3 = " + LstSubCategorias3.SelectedItem.Value.ToString();
+                   // query = query + ",tabla_tecnica ='" + txt_tabla_tecnica.Text.Replace(",", ".").Trim() + "'";
                     query = query + ",tabla_tecnica ='" + txt_tabla_tecnica.Text.Replace(",", ".").Trim() + "'";
+                    
                     query = query + "  WHERE Id_Item = " + id_item;
                 }
                 else
@@ -895,6 +933,7 @@ namespace erpweb
                     query = query + "'" + txt_unidad.Text + "',";
                     query = query + "'" + lbl_unidad.Text + "',";
                     query = query + "'" + txt_codigoprov.Text + "',";
+                   // query = query + "'" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "',";
                     query = query + "'" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "',";
                     query = query + "'" + lbl_manual_tecnico.Text + "',";
                     query = query + "'" + lbl_presentacion.Text + "',";
@@ -1050,6 +1089,30 @@ namespace erpweb
                     connection.Dispose();
                 }
             }
+
+            query = "update tbl_items set Publicar_Web = 0 where codigo = '" + txt_codigo.Text + "'";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+
+
+
         }
 
 
@@ -1259,6 +1322,8 @@ namespace erpweb
             query = query + ",id_moneda = " + LstMonedas.SelectedItem.Value.ToString();// LstMonedas.SelectedValue.ToString();
             query = query + ",Unidad_vta = '" + txt_unidad.Text + "'";
             query = query + ",Caracteristicas = '" + txt_caracteristicas.Text.Replace(",", ".").Trim() + "'";
+           
+            
             query = query + ",Manual_tecnico = '" + lbl_manual_tecnico.Text + "'";
             query = query + ",Presentacion_producto = '" + lbl_presentacion.Text + "'";
             query = query + ",Multiplo = " + txt_multiplo.Text.Replace(",", ".");
@@ -1283,6 +1348,7 @@ namespace erpweb
             query = query + ",Id_subcategoria2 = " + LstSubCategorias2.SelectedItem.Value.ToString();
             query = query + ",Id_subcategoria3 = " + LstSubCategorias3.SelectedItem.Value.ToString();
             query = query + ",tabla_tecnica ='" + txt_tabla_tecnica.Text.Replace(",", ".").Trim() + "'";
+           
             query = query + "  WHERE Id_Item = " + id_item;
 
             using (SqlConnection connection = new SqlConnection(Sserver))

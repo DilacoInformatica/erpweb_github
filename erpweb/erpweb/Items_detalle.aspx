@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Items_detalle.aspx.cs" Inherits="erpweb.Item" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Items_detalle.aspx.cs" Inherits="erpweb.Item" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
@@ -307,6 +307,7 @@
       <td class="auto-style58">Caracter&iacute;sticas</td>
       <td colspan="10">
                     <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1277px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lbl_caracteristicas" runat="server"></asp:Label>
                  </td>
     </tr>
     <tr>
@@ -684,7 +685,8 @@
       <td class="auto-style43"><p>Tabla T&eacute;cnica</p>
         </td>
       <td colspan="10" class="auto-style44" >
-                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px"></asp:TextBox>
+                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lbl_tabla_tecnica" runat="server"></asp:Label>
                  </td>
     </tr>
     <tr >

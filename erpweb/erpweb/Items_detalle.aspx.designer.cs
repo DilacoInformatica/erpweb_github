@@ -337,6 +337,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_caracteristicas;
         
         /// <summary>
+        /// Control lbl_caracteristicas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_caracteristicas;
+        
+        /// <summary>
         /// Control lbl_manual_tecnico.
         /// </summary>
         /// <remarks>
@@ -1082,6 +1091,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_tabla_tecnica;
+        
+        /// <summary>
+        /// Control lbl_tabla_tecnica.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_tabla_tecnica;
         
         /// <summary>
         /// Control GridView1.

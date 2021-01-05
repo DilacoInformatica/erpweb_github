@@ -132,8 +132,8 @@ namespace erpweb
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.activo,0) = 0,'N','S') 'Activo' ";
                     master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item  ";
-                    master_queryString = master_queryString + "left outer join tbl_categorias on tbl_categorias.Id_categoria = tbl_items_web.Id_categoria  ";
-                    master_queryString = master_queryString + "left outer join tbl_Familias_Productos on tbl_Familias_Productos.Id_Familia = tbl_categorias.Id_Familia where 1 = 1  ";
+                   // master_queryString = master_queryString + "left outer join tbl_categorias on tbl_categorias.Id_categoria = tbl_items_web.Id_categoria  ";
+                    //master_queryString = master_queryString + "left outer join tbl_Familias_Productos on tbl_Familias_Productos.Id_Familia = tbl_categorias.Id_Familia where 1 = 1  ";
                     if (codigo != "")
                     {
                         master_queryString = master_queryString + "and tbl_items_web.codigo like  '" + codigo + "%'";
@@ -146,12 +146,12 @@ namespace erpweb
 
                     if (LstCategorias.SelectedItem.Value.ToString() != "0")
                     {
-                        master_queryString = master_queryString + "and tbl_items.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
+                        master_queryString = master_queryString + "and tbl_items_web.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
                     }
 
                     if (LstSubCategorias.SelectedItem.Value.ToString() != "0")
                     {
-                        master_queryString = master_queryString + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
+                        master_queryString = master_queryString + "and tbl_items_web.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
                     }
 
                     if (LstLetras.SelectedItem.Value.ToString() != "0")
@@ -166,7 +166,11 @@ namespace erpweb
 
                     if (LstDivision.SelectedItem.Value.ToString() != "0")
                     {
-                        master_queryString = master_queryString + "and tbl_Familias_Productos.Id_Familia = '" + LstDivision.SelectedItem.Value.ToString() + "'";
+                       // master_queryString = master_queryString + "and tbl_Familias_Productos.Id_Familia = '" + LstDivision.SelectedItem.Value.ToString() + "'";
+
+                        master_queryString = master_queryString + "and tbl_items_web.Id_Categoria in (select ID_Categoria from tbl_Familias_Productos fm ";
+                        master_queryString = master_queryString + "inner join tbl_Categorias ct on ct.Id_Familia = fm.ID_Familia ";
+                        master_queryString = master_queryString + "where fm.ID_Familia = " + LstDivision.SelectedItem.Value.ToString()  + ") ";
                     }
 
                     if (LstProveedores.SelectedItem.Value.ToString() != "0")
