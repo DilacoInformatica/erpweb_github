@@ -146,7 +146,10 @@
     <Content Include="img\adjuntarTH_off.gif" />
     <Content Include="img\cancela.gif" />
     <Content Include="img\cerrar.png" />
+    <Content Include="img\grabar.png" />
+    <Content Include="img\html.png" />
     <Content Include="img\mas.jpg" />
+    <Content Include="img\vista.png" />
     <Content Include="img\warning.png" />
     <Content Include="Lista_exportacion_items_web.aspx" />
     <Content Include="Notas_Venta.aspx" />

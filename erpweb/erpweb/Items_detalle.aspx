@@ -24,6 +24,7 @@
         }
         .auto-style12 {
             width: 16%;
+            height: 24px;
         }
         .auto-style41 {
             width: 149px;
@@ -34,7 +35,7 @@
         }
         .auto-style43 {
             width: 149px;
-            height: 132px;
+            height: 27px;
         }
         .auto-style44 {
             height: 132px;
@@ -140,6 +141,13 @@
         }
         .auto-style74 {
             height: 22px;
+        }
+        .auto-style76 {
+            height: 42px;
+            width: 149px;
+        }
+        .auto-style77 {
+            margin-top: 11px;
         }
         </style>
     </head>
@@ -294,22 +302,29 @@
         </td>
     </tr>
     <tr>
-      <td class="auto-style58">Marca</td>
-      <td colspan="6">
+      <td class="auto-style55">Marca</td>
+      <td colspan="6" class="auto-style51">
           <asp:TextBox ID="txt_marca" runat="server" Width="477px"></asp:TextBox>
         </td>
       <td class="auto-style12" >C&oacute;digo Prov.</td>
-      <td colspan="3">
+      <td colspan="3" class="auto-style51">
           <asp:TextBox ID="txt_codigoprov" runat="server" Width="207px"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style58">Caracter&iacute;sticas</td>
-      <td colspan="10">
-                    <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1277px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_caracteristicas" runat="server"></asp:Label>
+      <td colspan="10" rowspan="2">
+                    <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove" Width="1310px"></asp:Label>
                  </td>
     </tr>
+      <tr>
+          <td class="auto-style58">
+              <asp:ImageButton ID="ImgHTmlCar" runat="server" Height="35px" ImageUrl="~/img/html.png" OnClick="ImgHTmlCar_Click" ViewStateMode="Enabled" Visible="False" Width="41px" />
+              <asp:ImageButton ID="ImgVerCar" runat="server" Height="35px" ImageUrl="~/img/vista.png" OnClick="ImgVerCar_Click" Visible="False" Width="41px" />
+              <asp:ImageButton ID="ImgGrabaCar" runat="server" Height="35px" ImageUrl="~/img/grabar.png" Visible="False" Width="41px" OnClick="ImgGrabaCar_Click1" />
+          </td>
+      </tr>
     <tr>
 
       <td colspan="11" class="BottomTabla">
@@ -682,13 +697,20 @@
         </td>
     </tr>
     <tr >
-      <td class="auto-style43"><p>Tabla T&eacute;cnica</p>
+      <td class="auto-style43">Tabla T&eacute;cnica
         </td>
-      <td colspan="10" class="auto-style44" >
+      <td colspan="10" class="auto-style44" rowspan="2" >
                     <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_tabla_tecnica" runat="server"></asp:Label>
+                    <asp:Label ID="lbl_tabla_tecnica" runat="server" BorderStyle="Groove" Width="1306px"></asp:Label>
                  </td>
     </tr>
+      <tr>
+          <td class="auto-style76">
+              <asp:ImageButton ID="ImgHTmltec" runat="server" Height="35px" ImageUrl="~/img/html.png" OnClick="ImgHTmlTec_Click" Visible="False" Width="41px" />
+              <asp:ImageButton ID="ImgVerTec" runat="server" CssClass="auto-style77" Height="35px" ImageUrl="~/img/vista.png" OnClick="ImgVerTec_Click" Visible="False" Width="41px" />
+              <asp:ImageButton ID="ImgGrabaTec" runat="server" Height="35px" ImageUrl="~/img/grabar.png" OnClick="ImgGrabaTec_Click" Visible="False" Width="41px" />
+          </td>
+      </tr>
     <tr >
       <td class="auto-style54" colspan="11">
           <asp:GridView ID="GridView1" runat="server" Caption="Historial de Modificaciones" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1404px">
