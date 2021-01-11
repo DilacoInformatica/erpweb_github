@@ -84,13 +84,6 @@
         }
               
         }
-        .auto-style59 {
-            width: 268435456px;
-        }
-        .auto-style60 {
-            height: 28px;
-            width: 268435456px;
-        }
         .auto-style61 {
             width: 1132px;
         }
@@ -149,10 +142,13 @@
         .auto-style77 {
             margin-top: 11px;
         }
+        .auto-style78 {
+            height: 1589px;
+        }
         </style>
     </head>
-<body style="width: 1429px; height: 1517px">
-<form id="form1" runat="server" enctype="multipart/form-data">
+<body style="width: 1429px; height: 1593px">
+<form id="form1" runat="server" enctype="multipart/form-data" class="auto-style78">
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -204,7 +200,7 @@
           <asp:CheckBox ID="chck_visible" runat="server" TextAlign="Left" />
         </td>
       <td colspan="3">Prod. Pedido</td>
-        <td class="auto-style59">
+        <td>
                      <asp:CheckBox ID="chck_prodped" runat="server" TextAlign="Left" />
                 </td>
     </tr>
@@ -215,7 +211,7 @@
               <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
           </td>
           <td colspan="3">&nbsp;</td>
-          <td class="auto-style59">&nbsp;</td>
+          <td>&nbsp;</td>
       </tr>
     <tr>
       <td class="auto-style73">Venta</td>
@@ -315,7 +311,7 @@
       <td class="auto-style58">Caracter&iacute;sticas</td>
       <td colspan="10" rowspan="2">
                     <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove" Width="1310px"></asp:Label>
+                    <asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove" Width="1309px" Height="127px"></asp:Label>
                  </td>
     </tr>
       <tr>
@@ -662,7 +658,7 @@
           </asp:DropDownList>
         </td>
       <td  colspan="5" >SubCategoria1</td>
-      <td class="auto-style59"  >
+      <td  >
           <asp:DropDownList ID="LstSubCategorias1" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -676,7 +672,7 @@
           </asp:DropDownList>
         </td>
       <td  colspan="5" class="auto-style42" >SubCategoria2</td>
-      <td class="auto-style60"  >
+      <td class="auto-style42"  >
           <asp:DropDownList ID="LstSubCategorias2" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -690,7 +686,7 @@
           </asp:DropDownList>
         </td>
       <td colspan="5" >SubCategoria3</td>
-      <td class="auto-style59" >
+      <td >
           <asp:DropDownList ID="LstSubCategorias3" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
@@ -701,7 +697,7 @@
         </td>
       <td colspan="10" class="auto-style44" rowspan="2" >
                     <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_tabla_tecnica" runat="server" BorderStyle="Groove" Width="1306px"></asp:Label>
+                    <asp:Label ID="lbl_tabla_tecnica" runat="server" BorderStyle="Groove" Width="1304px" Height="121px"></asp:Label>
                  </td>
     </tr>
       <tr>

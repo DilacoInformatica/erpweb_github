@@ -67,6 +67,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_id_cot;
         
         /// <summary>
+        /// Control lbl_ambiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
+        
+        /// <summary>
         /// Control lbl_numero_erp.
         /// </summary>
         /// <remarks>
@@ -92,15 +101,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_n_oc;
-        
-        /// <summary>
-        /// Control lbl_cliente.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_cliente;
         
         /// <summary>
         /// Control lbl_rut.
@@ -130,6 +130,42 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_existe;
         
         /// <summary>
+        /// Control lbl_id_cliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_id_cliente;
+        
+        /// <summary>
+        /// Control lbl_empresa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_empresa;
+        
+        /// <summary>
+        /// Control lbl_nombre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_nombre;
+        
+        /// <summary>
+        /// Control lbl_apellidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_apellidos;
+        
+        /// <summary>
         /// Control lbl_fono.
         /// </summary>
         /// <remarks>
@@ -137,6 +173,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_fono;
+        
+        /// <summary>
+        /// Control lbl_movil.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_movil;
         
         /// <summary>
         /// Control lbl_email.
@@ -157,13 +202,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_direccion;
         
         /// <summary>
-        /// Control lbl_comuna.
+        /// Control txt_comuna.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_comuna;
+        protected global::System.Web.UI.WebControls.TextBox txt_comuna;
         
         /// <summary>
         /// Control lbl_ciudad.
@@ -182,6 +227,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_region;
+        
+        /// <summary>
+        /// Control Lst_Region.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Lst_Region;
         
         /// <summary>
         /// Control lista_detalles.

@@ -117,7 +117,7 @@ namespace erpweb
 
                     master_queryString = " Select tbl_items_web.id_item 'Id', ";
                     master_queryString = master_queryString + "tbl_items_web.codigo 'Código', ";
-                    master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 30) 'Descripción', ";
+                    master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 50) 'Descripción', ";
                     master_queryString = master_queryString + "tbl_items_web.Marca , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.visible, 0) = 0, 'N', 'S') 'Visible', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";

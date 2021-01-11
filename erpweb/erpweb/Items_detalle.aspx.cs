@@ -441,9 +441,8 @@ namespace erpweb
                             txt_tabla_tecnica.Visible = true;
                             lbl_tabla_tecnica.Visible = false;
                             txt_tabla_tecnica.Text = myDecodedString;
-                            ImgGrabaTec.Visible = false;
+                            ImgGrabaTec.Visible = true;
                             ImgVerTec.Visible = false;
-                            ImgHTmltec.Visible = true;
                         }
                         else
                         {
@@ -742,10 +741,14 @@ namespace erpweb
                 if (lbl_activo.Text == "SI")
                 {
                     elimna_item();
+                    desactiva_producto();
+                }
+                else
+                {
+                    lbl_error.Text = "Producto está desactivado, no se puede eliminar de la Web";
                 }
             }
-
-
+           
         }
 
         void elimna_item()
@@ -805,6 +808,10 @@ namespace erpweb
             if (lbl_activo.Text == "SI")
             {
                 actualiza();
+            }
+            else
+            {
+                lbl_error.Text = "Producto está desactivado, no se puede actualizar";
             }
         }
 
@@ -1109,7 +1116,7 @@ namespace erpweb
         void desactiva_producto()
         {
             string query = "";
-            query = "update tbl_items_web set activo = 0 where codigo = '" + txt_codigo.Text + "'";
+            query = "update tbl_items_web set activo = 0, visible = 0 where codigo = '" + txt_codigo.Text + "'";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -1313,6 +1320,10 @@ namespace erpweb
             if (lbl_activo.Text == "SI")
             {
                 Grabar();
+            }
+            else
+            {
+                lbl_error.Text = "Producto está desactivado, no se puede actualizar";
             }
         }
 
@@ -1936,6 +1947,10 @@ namespace erpweb
             {
                 actualiza();
             }
+            else
+            {
+                lbl_error.Text = "Producto está desactivado, no se puede actualizar";
+            }
         }
 
         protected void LinkAct_item_Click(object sender, EventArgs e)
@@ -1956,7 +1971,28 @@ namespace erpweb
         void activa_item()
         {
             string query = "";
-            query = "update tbl_items_web set activo = 1 where codigo = '" + txt_codigo.Text + "'";
+            query = "update tbl_items_web set activo = 1, visible = 1 where codigo = '" + txt_codigo.Text + "'";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+
+            query = "update tbl_items set Publicar_Web = 1 where codigo = '" + txt_codigo.Text + "'";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -1988,7 +2024,7 @@ namespace erpweb
                     desactiva_producto();
                     LinkDesAct_item.Visible = false;
                     muestra_info(id_item);
-                    elimna_item();
+                   // elimna_item();
                     lbl_status.Text = "Código desactivado y eliminado del Sitio Web";
                 }
             }
@@ -2041,11 +2077,11 @@ namespace erpweb
             ImgVerCar.Visible = false;
             ImgHTmlCar.Visible = true;
             ImgGrabaCar.Visible = false;
-            if (lbl_caracteristicas.Text == "")
+            /*if (lbl_caracteristicas.Text == "")
             {
                 lbl_caracteristicas.Visible = false;
                 txt_caracteristicas.Visible = true;
-            }
+            }*/
         }
 
         protected void ImgGrabaCar_Click(object sender, ImageClickEventArgs e)
@@ -2077,11 +2113,11 @@ namespace erpweb
             ImgVerTec.Visible = false;
             ImgHTmltec.Visible = true;
             ImgGrabaTec.Visible = false;
-            if (lbl_tabla_tecnica.Text == "")
+           /* if (lbl_tabla_tecnica.Text == "")
             {
                 lbl_tabla_tecnica.Visible = false;
                 txt_tabla_tecnica.Visible = true;
-            }
+            }*/
         }
 
         protected void ImgGrabaTec_Click(object sender, ImageClickEventArgs e)

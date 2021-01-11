@@ -12,7 +12,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente =2; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente =1; // Indica el ambiente dónde debe conectarse el sistema
 
         string correo_envia = "informatica@dilaco.com";
         string correo_recibe = "sebastian.aranda.o@gmail.com";
@@ -129,7 +129,7 @@ namespace erpweb
             SMTPClientService.Host = "mail.dilaco.com";
             SMTPClientService.Port = 25;
             SMTPClientService.EnableSsl = false;
-            SMTPClientService.Credentials = new System.Net.NetworkCredential(correo_envia, "informatica#2019");
+            SMTPClientService.Credentials = new System.Net.NetworkCredential(correo_envia, "informatica#2021");
 
             System.Net.Mail.MailMessage EmailMsgObj = new System.Net.Mail.MailMessage();
             EmailMsgObj.IsBodyHtml = true;
