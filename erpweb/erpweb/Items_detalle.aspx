@@ -167,6 +167,9 @@
                           <asp:Button ID="Btn_act_superior" runat="server" OnClick="Btn_act_superior_Click" Text="Subir/Actualizar Código al Sitio Web" Width="232px" />
             </td>
                       <td class="auto-style45" >
+                    <asp:Button ID="Btn_eliminar_todo" runat="server" Text="Eliminar" BackColor="Red" Font-Bold="True" Font-Italic="False" OnClick="Btn_eliminar_todo_Click" />
+                </td>
+                      <td class="auto-style45" >
                     <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
                         <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
                 </td>
@@ -189,7 +192,7 @@
                     &nbsp;<asp:LinkButton ID="LinkAct_item" runat="server" OnClick="LinkAct_item_Click" Visible="False">Activar Código</asp:LinkButton>
                     <asp:LinkButton ID="LinkDesAct_item" runat="server" OnClick="LinkDesAct_item_Click" Visible="False">Desactivar Código</asp:LinkButton>
                  </td>
-      <td class="auto-style11" >Reg. en Sitio</td>
+      <td class="auto-style11" >Publicado en Sitio</td>
       <td colspan="3" >
                       <asp:Label ID="lbl_web" runat="server"></asp:Label>
                 </td>
@@ -210,8 +213,10 @@
               <asp:TextBox ID="txt_codigo" runat="server" Enabled="False" Width="95px"></asp:TextBox>
               <asp:ImageButton ID="ImgBtnLink" runat="server" ImageUrl="~/img/ver.gif" />
           </td>
-          <td colspan="3">&nbsp;</td>
-          <td>&nbsp;</td>
+          <td colspan="3" class="auto-style1">Crear Datos faltantes</td>
+          <td class="auto-style1">
+              <asp:CheckBox ID="Chk_crea_data" runat="server" TextAlign="Left" />
+          </td>
       </tr>
     <tr>
       <td class="auto-style73">Venta</td>
@@ -247,13 +252,13 @@
     </tr>
     <tr>
       <td class="auto-style58">Texto Destacado</td>
-      <td colspan="10"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="1272px" TextMode="MultiLine"></asp:TextBox>
+      <td colspan="10"><asp:TextBox ID="txt_texto_destacado" runat="server" Height="52px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
       <td class="auto-style53">Descripci&oacute;n<span class="asteriscoObligatorio">*</span></td>
       <td colspan="10" class="auto-style1">
-          <asp:TextBox ID="txt_descripcion" runat="server" Height="52px" Width="940px" TextMode="MultiLine"></asp:TextBox>
+          <asp:TextBox ID="txt_descripcion" runat="server" Height="52px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -268,6 +273,7 @@
           <asp:DropDownList ID="LstDivision" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
+          <asp:Image ID="Div_fam" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="División aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
         </td>
     </tr>
     <tr>
@@ -276,6 +282,7 @@
           <asp:DropDownList ID="LstCategorias" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
+          <asp:Image ID="Div_Cat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="Categoría aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
         </td>
       <td class="auto-style51">
           SubCategor&iacute;a</td>
@@ -283,6 +290,7 @@
           <asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True">
               <asp:ListItem Value="0">Seleccione</asp:ListItem>
           </asp:DropDownList>
+          <asp:Image ID="Div_Subcat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="SubCategoría aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
         </td>
     </tr>
     <tr>
@@ -311,7 +319,7 @@
       <td class="auto-style58">Caracter&iacute;sticas</td>
       <td colspan="10" rowspan="2">
                     <asp:TextBox ID="txt_caracteristicas" runat="server" Height="102px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove" Width="1309px" Height="127px"></asp:Label>
+                    <asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove" Width="1315px" Height="127px"></asp:Label>
                  </td>
     </tr>
       <tr>
@@ -375,7 +383,7 @@
                  </td>
     </tr>
     <tr>
-      <td class="auto-style58">Foto Grande</td>
+      <td class="auto-style58">Foto 1</td>
       <td class="auto-style68">
                     <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
@@ -398,7 +406,7 @@
                  </td>
     </tr>
     <tr>
-      <td class="auto-style58">Foto Chica</td>
+      <td class="auto-style58">Foto 2</td>
       <td class="auto-style68">
                  <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
@@ -696,8 +704,8 @@
       <td class="auto-style43">Tabla T&eacute;cnica
         </td>
       <td colspan="10" class="auto-style44" rowspan="2" >
-                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="111px" Width="1309px" TextMode="MultiLine"></asp:TextBox>
-                    <asp:Label ID="lbl_tabla_tecnica" runat="server" BorderStyle="Groove" Width="1304px" Height="121px"></asp:Label>
+                    <asp:TextBox ID="txt_tabla_tecnica" runat="server" Height="175px" Width="1315px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:Label ID="lbl_tabla_tecnica" runat="server" BorderStyle="Groove" Width="1315px" Height="176px"></asp:Label>
                  </td>
     </tr>
       <tr>

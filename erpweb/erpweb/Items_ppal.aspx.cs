@@ -129,7 +129,7 @@ namespace erpweb
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto_Grande,'') = '','N','S') 'Foto Grande', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.video,'') = '','N','S') 'Video', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N','S') 'Hoja Seguridad', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.activo,0) = 0,'N','S') 'Publicado', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.activo,0) = 0,'N','S') 'Activo' ";
                     master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item  ";
                    // master_queryString = master_queryString + "left outer join tbl_categorias on tbl_categorias.Id_categoria = tbl_items_web.Id_categoria  ";

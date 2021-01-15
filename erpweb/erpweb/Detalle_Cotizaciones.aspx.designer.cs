@@ -139,6 +139,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_id_cliente;
         
         /// <summary>
+        /// Control Chk_Cli_Particular.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Chk_Cli_Particular;
+        
+        /// <summary>
         /// Control lbl_empresa.
         /// </summary>
         /// <remarks>
@@ -193,6 +202,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_email;
         
         /// <summary>
+        /// Control lbl_id_cli.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_id_cli;
+        
+        /// <summary>
+        /// Control lbl_id_con.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_id_con;
+        
+        /// <summary>
         /// Control lbl_direccion.
         /// </summary>
         /// <remarks>
@@ -236,6 +263,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Lst_Region;
+        
+        /// <summary>
+        /// Control lbl_respaldo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_respaldo;
         
         /// <summary>
         /// Control lista_detalles.

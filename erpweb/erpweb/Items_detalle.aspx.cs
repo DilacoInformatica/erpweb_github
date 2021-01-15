@@ -17,6 +17,7 @@ namespace erpweb
 {
     public partial class Item : System.Web.UI.Page
     {
+        string v_completa = "";
         string Sserver = "";
         string SMysql = "";
         string modo = "";
@@ -73,6 +74,7 @@ namespace erpweb
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas... Producto se desactivará y no podrá modificarlo')";
                 LinkAct_item.Attributes["Onclick"] = "return confirm('Desea Activar nuevamente el Producto?')";
                 LinkDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
+                Btn_eliminar_todo.Attributes["Onclick"] = "return confirm('Producto se eliminará en la ficha Web del ERP y del Sitio... Desea Continuar?')";
                 //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
                 // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
@@ -92,9 +94,9 @@ namespace erpweb
 
 
 
-                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_categorias.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
-                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_categorias.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
-                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_categorias.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias3, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_Familias_Productos.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias1, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_Familias_Productos.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias2, "tbl_categorias", "ID_Categoria", "Nombre");
+                carga_contrl_lista("select ID_Categoria, CONCAT('(',tbl_Familias_Productos.Nombre,') ',tbl_categorias.Nombre ) Nombre from tbl_categorias inner join tbl_Familias_Productos	  on tbl_Familias_Productos.ID_Familia = tbl_categorias.Id_Familia where tbl_Familias_Productos.Activo = 1 order by tbl_Familias_Productos.Nombre, tbl_Categorias.Nombre", LstCategorias3, "tbl_categorias", "ID_Categoria", "Nombre");
 
                 //carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias1, "tbl_categorias", "ID_SubCategoria", "Nombre");
                 //carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 order by nombre", LstSubCategorias2, "tbl_categorias", "ID_SubCategoria", "Nombre");
@@ -322,6 +324,20 @@ namespace erpweb
                         //    LstMonedas.Items[0].Selected = true;
                         //}
 
+                        foreach (ListItem item in LstCategorias1.Items)
+                        {
+                            if (item.Value == reader[38].ToString())
+                            {
+                                item.Selected = true;
+                                break;
+                            }
+                        }
+
+                        if (reader[38].ToString()!= "")
+                        {
+                            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[38].ToString() + " order by Nombre", LstSubCategorias1, "tbl_Subcategorias", "ID_SubCategoria", "Nombre");
+                        }
+
                         foreach (ListItem item in LstSubCategorias1.Items)
                         {
                             if (item.Value == reader[41].ToString())
@@ -329,6 +345,22 @@ namespace erpweb
                                 item.Selected = true;
                                 break;
                             }
+                        }
+
+
+                        foreach (ListItem item in LstCategorias2.Items)
+                        {
+                           // lbl_error.Text = reader[39].ToString();
+                            if (item.Value == reader[39].ToString())
+                            {
+                                item.Selected = true;
+                                break;
+                            }
+                        }
+
+                        if (reader[39].ToString() != "")
+                        {
+                            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[39].ToString() + " order by Nombre", LstSubCategorias2, "tbl_Subcategorias", "ID_SubCategoria", "Nombre");
                         }
 
                         foreach (ListItem item in LstSubCategorias2.Items)
@@ -340,36 +372,24 @@ namespace erpweb
                             }
                         }
 
-                        foreach (ListItem item in LstSubCategorias3.Items)
-                        {
-                            if (item.Value == reader[43].ToString())
-                            {
-                                item.Selected = true;
-                                break;
-                            }
-                        }
-
-                        foreach (ListItem item in LstCategorias1.Items)
-                        {
-                            if (item.Value == reader[40].ToString())
-                            {
-                                item.Selected = true;
-                                break;
-                            }
-                        }
-
-                        foreach (ListItem item in LstCategorias2.Items)
-                        {
-                            if (item.Value == reader[40].ToString())
-                            {
-                                item.Selected = true;
-                                break;
-                            }
-                        }
-
+                      
                         foreach (ListItem item in LstCategorias3.Items)
                         {
                             if (item.Value == reader[40].ToString())
+                            {
+                                item.Selected = true;
+                                break;
+                            }
+                        }
+
+                        if (reader[40].ToString() != "")
+                        {
+                            carga_contrl_lista("select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1 and id_categoria = " + reader[40].ToString() + " order by Nombre", LstSubCategorias3, "tbl_Subcategorias", "ID_SubCategoria", "Nombre");
+                        }
+
+                        foreach (ListItem item in LstSubCategorias3.Items)
+                        {
+                            if (item.Value == reader[43].ToString())
                             {
                                 item.Selected = true;
                                 break;
@@ -443,15 +463,16 @@ namespace erpweb
                             txt_tabla_tecnica.Text = myDecodedString;
                             ImgGrabaTec.Visible = true;
                             ImgVerTec.Visible = false;
+                            ImgHTmltec.Visible = false;
                         }
                         else
                         {
                             txt_tabla_tecnica.Visible = false;
                             lbl_tabla_tecnica.Visible = true;
                             lbl_tabla_tecnica.Text = myDecodedString;
-
+                            ImgHTmltec.Visible = true;
                             ImgGrabaTec.Visible = false;
-                            ImgHTmltec.Visible = false;
+
                             ImgVerTec.Visible = false;
                         }
 
@@ -653,6 +674,36 @@ namespace erpweb
                             }
                         }
 
+                        // Validamos que la familia, categoria y subcategoría fueron cargadas....
+                        if (LstDivision.SelectedValue.ToString() != "0")
+                        {
+                            if (consulta_familia_mysql("F", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(LstCategorias.SelectedValue.ToString()), Convert.ToInt32(LstSubCategorias.SelectedValue.ToString())) == 0)
+                            {
+                                // Familia no existe... debmos crearala en la web
+                                Div_fam.Visible = true;
+                            }
+                        }
+
+                        // Categoria
+                        if (LstCategorias.SelectedValue.ToString() != "'0")
+                        {
+                            if (consulta_familia_mysql("C", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(LstCategorias.SelectedValue.ToString()), Convert.ToInt32(LstSubCategorias.SelectedValue.ToString())) == 0)
+                            {
+                                // Familia no existe... debmos crearala en la web
+                                Div_Cat.Visible = true;
+                            }
+                        }
+
+                        // Subcateroría
+                        if (LstSubCategorias.SelectedValue.ToString() != "0")
+                        {
+                            if (consulta_familia_mysql("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(LstCategorias.SelectedValue.ToString()), Convert.ToInt32(LstSubCategorias.SelectedValue.ToString())) == 0)
+                            {
+                                // Familia no existe... debmos crearala en la web
+                                Div_Subcat.Visible = true;
+                            }
+                        }
+
                         // verificamos si el producto fue eliminado del sitio web y eso signfica que esta desactivado
 
                     }
@@ -674,7 +725,7 @@ namespace erpweb
         void validamysql(int id_item)
         {
             string query = "";
-            query = "select count(1) existe from tbl_items where Id_Item = " + id_item;
+            query = "select count(1) existe from tbl_items where visible = 1 and Id_Item = " + id_item;
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
@@ -1078,6 +1129,254 @@ namespace erpweb
                         conn.Dispose();
                     }
                 }
+
+                // Una vez cargado o actualizado el producto...revisamos si la familia, categoria y subcategoría estan cargadas al sitio
+                if (Chk_crea_data.Checked)
+                {
+                    Adm_familia_producto(LstDivision.SelectedValue.ToString(), LstCategorias.SelectedValue.ToString(), LstSubCategorias.SelectedValue.ToString());
+                }
+               
+            }
+        }
+
+
+        void Adm_familia_producto( string familia, string categoria, string subcategoria)
+        {
+            Div_Cat.Visible = false;
+            Div_fam.Visible = false;
+            Div_Subcat.Visible = false;
+
+            // Validamos cada una de las opciones... si estas no exiten las cargamos en el Sitio
+            // Familia
+            if (familia != "0")
+            {
+                if (consulta_familia_mysql("F", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria)) == 0)
+                {
+                    // Familia no existe... debmos crearala en la web
+                    Carga_familia_mysql("F", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria));
+                }
+            }
+          
+            // Categoria
+            if (subcategoria != "'0")
+            {
+                if (consulta_familia_mysql("C", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria)) == 0)
+                {
+                    // Familia no existe... debmos crearala en la web
+                    Carga_familia_mysql("C", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria));
+                }
+            }
+           
+            // Subcateroría
+            if (subcategoria != " 0")
+            {
+                if (consulta_familia_mysql("S", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria)) == 0)
+                {
+                    // Familia no existe... debmos crearala en la web
+                    Carga_familia_mysql("S", Convert.ToInt32(familia), Convert.ToInt32(categoria), Convert.ToInt32(subcategoria));
+                }
+            }
+           
+        }
+
+        void Carga_familia_mysql (string rama, int familia, int categoria, int subcategoria)
+        {
+            // rescatamos los valores desde SQLSERVER
+            int v_Id_Familia = 0;
+            int v_ID_Categoria = 0;
+            int v_ID_SubCategoria = 0;
+            string v_codigo = "";
+            string v_Nombre = "";
+            string v_Descripcion = "";
+            int v_Tiene_SubCategoria = 0;
+            int v_Orden = 0;
+            int v_Activo = 0;
+            string v_Creado = "";
+            int v_Usr_Crea = 0;
+            string v_Actualizado = "";
+            int v_Usr_Actualiza = 0;
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_carga_info_familia_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rama", rama);
+                    cmd.Parameters["@v_rama"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_fam", familia);
+                    cmd.Parameters["@v_fam"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_cat", categoria);
+                    cmd.Parameters["@v_cat"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_subcat", subcategoria);
+                    cmd.Parameters["@v_subcat"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                v_Id_Familia = Convert.ToInt32(rdr.GetString(0)); 
+                                v_ID_Categoria = Convert.ToInt32(rdr.GetString(1)); 
+                                v_ID_SubCategoria = Convert.ToInt32(rdr.GetString(2)); 
+                                v_codigo = Convert.ToString(rdr.GetString(3)); 
+                                v_Nombre = Convert.ToString(rdr.GetString(4)); 
+                                v_Descripcion = Convert.ToString(rdr.GetString(5)); 
+                                v_Tiene_SubCategoria = Convert.ToInt32(rdr.GetString(6));
+                                v_Orden = Convert.ToInt32(rdr.GetString(7));
+                                v_Activo = Convert.ToInt32(rdr.GetString(8));
+                                v_Creado = Convert.ToString(rdr.GetString(9));
+                                v_Usr_Crea = Convert.ToInt32(rdr.GetString(10));
+                                v_Actualizado = Convert.ToString(rdr.GetString(11)); 
+                                v_Usr_Actualiza = Convert.ToInt32(rdr.GetString(12));
+
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+
+            // Unva vez obtenidos los valores del ERP... los enviamos al MYSQL
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("Adm_ramas_Sitio", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@v_Id_Familia", v_Id_Familia);
+                    cmd.Parameters["@v_Id_Familia"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_ID_Categoria", v_ID_Categoria);
+                    cmd.Parameters["@v_ID_Categoria"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_ID_SubCategoria", v_ID_SubCategoria);
+                    cmd.Parameters["@v_ID_SubCategoria"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
+                    cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Nombre", v_Nombre);
+                    cmd.Parameters["@v_Nombre"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Descripcion", v_Descripcion);
+                    cmd.Parameters["@v_Descripcion"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Tiene_SubCategoria", v_Tiene_SubCategoria);
+                    cmd.Parameters["@v_Tiene_SubCategoria"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Orden", v_Orden);
+                    cmd.Parameters["@v_Orden"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Activo", v_Activo);
+                    cmd.Parameters["@v_Activo"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Usr_Crea", v_Usr_Crea);
+                    cmd.Parameters["@v_Usr_Crea"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_Usr_Actualiza", v_Usr_Actualiza);
+                    cmd.Parameters["@v_Usr_Actualiza"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                lbl_error.Text = rdr.GetInt32(0).ToString();
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public int consulta_familia_mysql (string rama, int familia, int categoria, int subcategoria)
+        {
+            int retorno = 0;
+            using (MySqlConnection connection = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand("consulta_rama_familia", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter param = new MySqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rama", rama);
+                    cmd.Parameters["@v_rama"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_familia", familia);
+                    cmd.Parameters["@v_familia"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_cat", categoria);
+                    cmd.Parameters["@v_cat"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_subcat", subcategoria);
+                    cmd.Parameters["@v_subcat"].Direction = ParameterDirection.Input;
+                    
+                    using (MySqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //lbl_error.Text = rdr.GetInt32(0).ToString();
+                                retorno = Convert.ToInt32(rdr.GetString(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return retorno;
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return 0;
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
 
@@ -1158,7 +1457,28 @@ namespace erpweb
                 }
             }
 
+            query = "update dilacocl_dilacoweb.tbl_items set visible = 0 where codigo = '" + txt_codigo.Text + "'";
 
+            // MYSQL
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
 
         }
 
@@ -1963,13 +2283,14 @@ namespace erpweb
                     activa_item();
                     LinkAct_item.Visible = false;
                     muestra_info(id_item);
-                    lbl_status.Text = "";
+                    lbl_status.Text = "Producto activado... Visible en el Sitio Web";
                 }
             }
         }
 
         void activa_item()
         {
+            // SQL
             string query = "";
             query = "update tbl_items_web set activo = 1, visible = 1 where codigo = '" + txt_codigo.Text + "'";
 
@@ -1990,6 +2311,7 @@ namespace erpweb
                     connection.Close();
                     connection.Dispose();
                 }
+
             }
 
             query = "update tbl_items set Publicar_Web = 1 where codigo = '" + txt_codigo.Text + "'";
@@ -2012,6 +2334,29 @@ namespace erpweb
                     connection.Dispose();
                 }
             }
+
+            query = "update dilacocl_dilacoweb.tbl_items set visible = 1 where codigo = '" + txt_codigo.Text + "'";
+
+            // MYSQL
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
         }
 
         protected void LinkDesAct_item_Click(object sender, EventArgs e)
@@ -2025,7 +2370,7 @@ namespace erpweb
                     LinkDesAct_item.Visible = false;
                     muestra_info(id_item);
                    // elimna_item();
-                    lbl_status.Text = "Código desactivado y eliminado del Sitio Web";
+                    lbl_status.Text = "Código desactivado y deja de estar publicado en el Sitio Web";
                 }
             }
         }
@@ -2141,5 +2486,90 @@ namespace erpweb
             ImgVerCar.Visible = false;
             ImgGrabaCar.Visible = false;
         }
+
+        protected void Btn_eliminar_todo_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                elimna_item();
+                elimina_producto_ficha_erp();
+                if (v_completa == "OK")
+                {
+                    lbl_error.Text = "Producto Eliminado de Categoría Web";
+                }
+                else
+                {
+                    lbl_error.Text = "Producto NO Eliminado de Categoría Web";
+                }
+            }
+        }
+
+        void elimina_producto_ficha_erp()
+        {
+
+
+         /*   string query = "";
+            query = "web_elimina_producto_web";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }*/
+
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_elimina_producto_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_codigo", txt_codigo.Text.Trim());
+                    cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                    
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //lbl_error.Text = rdr.GetInt32(0).ToString();
+                                v_completa = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
     }
-    }
+ }

@@ -609,53 +609,61 @@ namespace erpweb
 
                     if (check.Checked)
                     {
-                        using (MySqlConnection conn = new MySqlConnection(SMysql))
+
+                        if (Convert.ToInt32(row.Cells[2].Text) != 0)
                         {
-                            query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE id_cliente = " + Convert.ToInt32(row.Cells[1].Text);
-                            try
+                            using (MySqlConnection conn = new MySqlConnection(SMysql))
                             {
 
-                               /* conn.Open();
-                                MySqlCommand command = new MySqlCommand(query, conn);
-                                command.ExecuteNonQuery();
-                                conn.Close();
-                                conn.Dispose();
-                                lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";*/
-                                
-
-                                conn.Open();
-                                query = "elimina_cliente";
-                                MySqlCommand command = new MySqlCommand(query, conn);
-                                command.CommandType = CommandType.StoredProcedure;
-
-                                command.Parameters.AddWithValue("@v_Id_cliente", Convert.ToInt32(row.Cells[1].Text));
-                                command.Parameters["@v_Id_cliente"].Direction = ParameterDirection.Input;
-                                
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                                MySqlDataReader dr = command.ExecuteReader();
-
-                                while (dr.Read())
+                                query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE Rut = " + Convert.ToInt32(row.Cells[2].Text) + " and razon_social = '" + row.Cells[4].Text + "'";
+                                try
                                 {
-                                    if (!dr.IsDBNull(0))
+
+                                    /* conn.Open();
+                                     MySqlCommand command = new MySqlCommand(query, conn);
+                                     command.ExecuteNonQuery();
+                                     conn.Close();
+                                     conn.Dispose();
+                                     lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";*/
+
+
+                                    conn.Open();
+                                    query = "elimina_cliente";
+                                    MySqlCommand command = new MySqlCommand(query, conn);
+                                    command.CommandType = CommandType.StoredProcedure;
+
+                                    command.Parameters.AddWithValue("@v_rut", Convert.ToInt32(row.Cells[2].Text));
+                                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_nombre", row.Cells[4].Text);
+                                    command.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
+
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                                    MySqlDataReader dr = command.ExecuteReader();
+
+                                    while (dr.Read())
                                     {
-                                        lbl_status.Text = dr.GetString(0);
+                                        if (!dr.IsDBNull(0))
+                                        {
+                                            lbl_status.Text = dr.GetString(0);
+                                        }
                                     }
+
+                                    conn.Close();
+                                    conn.Dispose();
+                                    lbl_error.Text = "";
+
+                                    lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";
+                                    lista_clientes.DataSource = null;
+                                    lista_clientes.DataBind();
+                                    lista_clientes_web();
                                 }
-
-                                conn.Close();
-                                conn.Dispose();
-                                lbl_error.Text = "";
-
-                                lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";
-                                lista_clientes.DataSource = null;
-                                lista_clientes.DataBind();
-                                lista_clientes_web();
-                            }
-                            catch (Exception ex)
-                            {
-                                lbl_error.Text = ex.Message + query;
-                                conn.Close();
-                                conn.Dispose();
+                                catch (Exception ex)
+                                {
+                                    lbl_error.Text = ex.Message + query;
+                                    conn.Close();
+                                    conn.Dispose();
+                                }
                             }
                         }
                     }

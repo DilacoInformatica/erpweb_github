@@ -58,6 +58,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_act_superior;
         
         /// <summary>
+        /// Control Btn_eliminar_todo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btn_eliminar_todo;
+        
+        /// <summary>
         /// Control Btn_volver.
         /// </summary>
         /// <remarks>
@@ -175,6 +184,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton ImgBtnLink;
         
         /// <summary>
+        /// Control Chk_crea_data.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Chk_crea_data;
+        
+        /// <summary>
         /// Control chck_venta.
         /// </summary>
         /// <remarks>
@@ -265,6 +283,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstDivision;
         
         /// <summary>
+        /// Control Div_fam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_fam;
+        
+        /// <summary>
         /// Control LstCategorias.
         /// </summary>
         /// <remarks>
@@ -274,6 +301,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstCategorias;
         
         /// <summary>
+        /// Control Div_Cat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Cat;
+        
+        /// <summary>
         /// Control LstSubCategorias.
         /// </summary>
         /// <remarks>
@@ -281,6 +317,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategorias;
+        
+        /// <summary>
+        /// Control Div_Subcat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Subcat;
         
         /// <summary>
         /// Control LstLineaVtas.

@@ -48,7 +48,7 @@ namespace erpweb
             sql = sql + "(select COUNT(distinct ct.id_categoria) from tbl_Items_web iw ";
             sql = sql + "inner join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             sql = sql + "where iw.publicado_sitio = 1  and ct.Id_Familia = tbl_Familias_Productos.ID_Familia) Publicadas ";
-            sql = sql + "from tbl_Familias_Productos where Activo = 1 ";
+            sql = sql + "from tbl_Familias_Productos ";
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
                 try

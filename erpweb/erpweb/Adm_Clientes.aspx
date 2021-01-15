@@ -66,7 +66,7 @@
 <body style="height: 875px">
     <form id="form1" runat="server" class="auto-style12">
     <div>
-        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web <span class="auto-style18">(usuario conectado:</span><asp:Label ID="lbl_usuario" runat="server" CssClass="auto-style18"></asp:Label>
+        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web <span class="auto-style18">(Usuario Conectado:</span><asp:Label ID="lbl_usuario" runat="server" CssClass="auto-style18"></asp:Label>
             )</span></h1>
         </div>
         <table class="auto-style10">

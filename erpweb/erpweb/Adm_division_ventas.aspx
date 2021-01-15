@@ -55,14 +55,17 @@
             color: #000033;
             width: 1587px;
         }
+        .auto-style26 {
+            height: 1276px;
+        }
         </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" class="auto-style26">
     <div>
           <table class="titNoticia">
             <tr>
-                <td class="auto-style23"><h1><img alt="" src="img/vineta.gif" />Administración división Ventas</h1>
+                <td class="auto-style23"><h1><img alt="" src="img/vineta.gif" />Administración división Ventas </h1>
                  </td>
             </tr>
         </table>

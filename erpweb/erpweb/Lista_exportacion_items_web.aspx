@@ -191,7 +191,7 @@
             </tr>
         </table>
         <br />
-        <asp:GridView ID="LstItems" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="939px" OnRowDataBound="LstItems_RowDataBound">
+        <asp:GridView ID="LstItems" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" Width="939px" OnRowDataBound="LstItems_RowDataBound" OnSelectedIndexChanged="LstItems_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="ID" />

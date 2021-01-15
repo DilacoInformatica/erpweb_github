@@ -181,7 +181,7 @@ namespace erpweb
           //  queryString = queryString + " cl.Dv_Rut, "; //5
            // queryString = queryString + " cl.Razon_Social, "; //6
             queryString = queryString + " SUBSTRING(ct.identificacion_cliente, 1, INSTR(ct.identificacion_cliente, '-') - 1) 'Rut', "; // 4
-            queryString = queryString + "SUBSTRING(ct.identificacion_cliente, INSTR(ct.identificacion_cliente, '-') + 1, 1) 'Dv', "; //5
+            queryString = queryString + "UPPER(SUBSTRING(ct.identificacion_cliente, INSTR(ct.identificacion_cliente, '-') + 1, 1)) 'Dv', "; //5
             queryString = queryString + "UPPER(ifnull(cl.Razon_Social, CONCAT(cl.Nombre, ' ', cl.Apellido))) 'Razon Social', "; //6
             queryString = queryString + " cl.direccion, "; //7
             queryString = queryString + " IFNULL(cl.Comuna,'') Comuna, "; //8
@@ -449,21 +449,19 @@ namespace erpweb
 
         void crea_cotizacion()
         {
-            int v_id_contacto = 0;
-            int v_id_cliente = 0;
             int v_id_cotizacion = 0;
             int v_id_item_cotizacion = 0;
             string v_email = "";
-                // revisamos la creación del cliente
-            if (lbl_existe.Text == "NO")
-            {
+            // revisamos la creación del cliente
+           // if (lbl_existe.Text == "NO")
+          //  {
                 inserta_cliente_prospecto_en_ERP(lbl_rut.Text, lbl_empresa.Text, lbl_nombre.Text, lbl_apellidos.Text, lbl_direccion.Text, lbl_ciudad.Text, txt_comuna.Text, Lst_Region.SelectedItem.Value.ToString(), lbl_fono.Text, lbl_movil.Text, lbl_email.Text);
-            }
-            else
-            {
-
-                v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
-                v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
+           // }
+           // else
+           // {
+          //      v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
+           //     v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
+          //  }
                 // Insertamos la Nv en el ERP
                 using (SqlConnection connection = new SqlConnection(Sserver))
                 {
@@ -614,8 +612,6 @@ namespace erpweb
                     Btn_crearCot.Enabled = false;
                 }
                 // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
-                
-            }
         }
 
         void actualiza_Cotizacion(int numero)
@@ -714,6 +710,43 @@ namespace erpweb
                             if (!rdr.IsDBNull(0))
                             {
                                 lbl_numero_erp.Text = Convert.ToString(rdr.GetInt32(0));
+                            }
+                        }
+                    }
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+        }
+
+        void entrega_nunmeros_cliente(int rut, string razon, string nombre, string apellido)
+        {
+            string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
+
+
+            sql = "select tbl_clientes.id_cliente, tbl_Contactos_Cliente.ID_Contacto_cliente from tbl_clientes ";
+            sql = sql + "inner join tbl_Contactos_Cliente on tbl_Contactos_Cliente.Id_Cliente = tbl_clientes.ID_Cliente ";
+            sql = sql + "where rut = " + rut + " and Razon_Social = '" + razon + "' and nombre = '"+ nombre + "' and Apellido = '"+ apellido + "'";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                v_id_cliente = Convert.ToInt32(rdr.GetInt32(0));
+                                v_id_contacto = Convert.ToInt32(rdr.GetInt32(1));
                             }
                         }
                     }
@@ -831,7 +864,7 @@ namespace erpweb
                                 //lbl_error.Text = rdr.GetInt32(0).ToString();
                                 v_id_cliente = Convert.ToInt32(rdr.GetInt32(0));
                                 v_id_contacto= Convert.ToInt32(rdr.GetInt32(1));
-                                Actualiza_cliente_web(lbl_rut_exit.Text, v_id_cliente, lbl_empresa.Text, lbl_nombre.Text, lbl_apellidos.Text);
+                                Actualiza_cliente_web(lbl_rut_exit.Text, v_id_cliente, v_id_contacto);
                             }
                         }
                     }
@@ -874,6 +907,9 @@ namespace erpweb
                     command.Parameters.AddWithValue("@v_rut", rut);
                     command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
 
+                    command.Parameters.AddWithValue("@v_id_cliente", id_cliente);
+                    command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
                     command.Parameters.AddWithValue("@v_id_contacto", id_contacto);
                     command.Parameters["@v_id_contacto"].Direction = ParameterDirection.Input;
 
@@ -915,10 +951,10 @@ namespace erpweb
                         }
                     }
 
-                    if (result != "OK")
-                    {
-                        lbl_error.Text = "ERROR AL ACTUALIZAR CLIENTE EN EL SITIO WEB";
-                    }
+                   // if (result != "OK")
+                 //   {
+                 //       lbl_error.Text = "ERROR AL ACTUALIZAR CLIENTE EN EL SITIO WEB";
+                 //   }
 
                     conn.Close();
                     conn.Dispose();
@@ -978,6 +1014,19 @@ namespace erpweb
                 total = total + Convert.ToDouble(e.Row.Cells[4].Text);
             }
                 
+        }
+
+        protected void Chk_Cli_Particular_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.Chk_Cli_Particular.Checked == true)
+            {
+                lbl_respaldo.Text = lbl_empresa.Text;
+                lbl_empresa.Text = "";
+            } // if
+            else
+            {
+                lbl_empresa.Text = lbl_respaldo.Text;
+            } // else
         }
     }
 }
