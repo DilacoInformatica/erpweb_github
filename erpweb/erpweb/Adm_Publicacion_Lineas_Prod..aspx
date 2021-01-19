@@ -63,41 +63,25 @@
         .auto-style31 {
             width: 68px;
         }
-        .auto-style32 {
-            text-align: right;
+        .auto-style45 {
+            width: 97%;
         }
-        .auto-style33 {
-            width: 70%;
-        }
-        .auto-style34 {
-            height: 15px;
-        }
-        .auto-style35 {
-            height: 15px;
-            width: 113px;
-        }
-        .auto-style37 {
+        .auto-style47 {
+            text-align: center;
             height: 24px;
         }
-        .auto-style38 {
+        .auto-style50 {
             height: 24px;
-            width: 457px;
+            width: 828px;
+            }
+        .auto-style51 {
+            width: 684px;
         }
-        .auto-style39 {
-            height: 15px;
-            width: 457px;
+        .auto-style52 {
+            text-align: center;
         }
-        .auto-style41 {
-            height: 24px;
-            width: 476px;
-        }
-        .auto-style42 {
-            height: 15px;
-            width: 476px;
-        }
-        .auto-style44 {
-            height: 15px;
-            width: 1805px;
+        .auto-style53 {
+            height: 212px;
         }
         </style>
 </head>
@@ -116,7 +100,7 @@
         <br />
         <table class="auto-style26">
             <tr class="BottomTabla">
-                <td colspan="6" class="auto-style28">
+                <td colspan="7" class="auto-style28">
         <img alt=""src="img/vineta.gif" /> <strong>Busqueda De Información</strong></td>
             </tr>
             <tr>
@@ -135,52 +119,146 @@
                 <td class="auto-style30">Subcategoría</td>
                 <td>
                     <asp:DropDownList ID="LstSubCategoria" runat="server" AppendDataBoundItems="True">
+                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-            </tr>
-            <tr>
-                <td class="auto-style32" colspan="6">
+                <td>
                     <asp:Button ID="Btn_Buscar" runat="server" OnClick="Btn_Buscar_Click" Text="Buscar" />
                 </td>
             </tr>
-        </table>
+            </table>
+        <br />
         <br />
         <div>
-
-            <table class="auto-style33">
+            <table class="auto-style45">
                 <tr class="BottomTabla">
-                    <td colspan="3" class="auto-style37">Sitio Web</td>
-                    <td class="auto-style41"></td>
-                    <td class="auto-style38"></td>
-                    <td class="auto-style37"></td>
-                    <td class="auto-style37">&nbsp;</td>
+                    <td class="auto-style50"><strong>ERP</strong></td>
+                    <td class="auto-style47"><strong>SITIO WEB</strong></td>
                 </tr>
                 <tr>
-                    <td class="auto-style35">Nombre</td>
-                    <td class="auto-style44">
-                        <asp:Label ID="lbl_nombre" runat="server"></asp:Label>
+                    <td class="auto-style51">
+                        <div>
+                        <asp:GridView ID="GrdDivERP" runat="server" AutoGenerateColumns="False" Caption="Detalle Familia ERP" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="GrdDivERP_RowDataBound" ShowFooter="True" Width="619px" Height="189px">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="Id_Familia" HeaderText="Id" />
+                                <asp:BoundField DataField="codigo" HeaderText="Código" />
+                                <asp:TemplateField HeaderText="Nombre">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Nombre") %>'></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txt_nombre" runat="server" Height="16px" Width="481px"></asp:TextBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                <asp:BoundField DataField="Orden" HeaderText="Orden" />
+                                <asp:TemplateField HeaderText="Activo">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_Activo" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EditRowStyle BackColor="#2461BF" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#EFF3FB" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                            </div>
                     </td>
-                    <td class="auto-style34">Alias</td>
-                    <td class="auto-style42">
-                        <asp:TextBox ID="txt_alias" runat="server" BackColor="#FFFFCC" Width="543px"></asp:TextBox>
-                    </td>
-                    <td class="auto-style39">Visible</td>
-                    <td class="auto-style34">
-                        <asp:CheckBox ID="ChkDivVisible" runat="server" />
-                    </td>
-                    <td class="auto-style34">
-                        <asp:Button ID="Btn_Ac_Div" runat="server" OnClick="Btn_Ac_Div_Click" Text="Actualizar" />
+                    <td class="auto-style51">
+                        <div class="auto-style52">
+                        <asp:GridView ID="GridDivWeb" runat="server" AutoGenerateColumns="False" Caption="Detalle Familia Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="GridDivWeb_RowDataBound" ShowFooter="True" Width="619px" Height="189px">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="id_familia" HeaderText="ID" />
+                                <asp:BoundField DataField="codigo" HeaderText="Código" />
+                                <asp:BoundField DataField="nombre" HeaderText="Nombre" />
+                                <asp:BoundField DataField="orden" HeaderText="Orden" />
+                                <asp:TemplateField HeaderText="Activo">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_activo" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Visible">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_visible" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Etiqueta">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:TextBox ID="txt_etiqueta" runat="server" Height="18px" Width="544px"></asp:TextBox>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EditRowStyle BackColor="#2461BF" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#EFF3FB" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                            </div>
                     </td>
                 </tr>
-                </table>
+                <tr>
+                    <td class="auto-style53"><div>
+                        <asp:GridView ID="GrdCategoriasERP" runat="server" Caption="SubCateorías" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="ID_Categoria" HeaderText="ID" />
+                                <asp:BoundField DataField="codigo" HeaderText="Código" />
+                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                <asp:BoundField DataField="Orden" HeaderText="Orden" />
+                                <asp:TemplateField HeaderText="Activo">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_Activo" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
+                            <EditRowStyle BackColor="#2461BF" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#EFF3FB" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                        </div></td>
+                    <td class="auto-style53"><div>
 
-        </div>
-        <br />
-        <div>
-
-            <asp:GridView ID="GrdCategorias" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" AutoGenerateSelectButton="True" Caption="Categorias" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="925px">
+            <asp:GridView ID="GrdCategoriasWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Caption="Categorias" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="904px" OnSelectedIndexChanged="GrdCategorias_SelectedIndexChanged">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
+                    <asp:ButtonField Text="Ver" />
                     <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="Cod" HeaderText="Código" />
                     <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
@@ -213,7 +291,43 @@
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
 
+                        </div></td>
+                </tr>
+                 <tr>
+                    <td><div>
+                        <asp:GridView ID="GrdSubCatERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EditRowStyle BackColor="#2461BF" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#EFF3FB" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                        </div></td>
+                    <td><div>
+                        <asp:GridView ID="GrdSubCatWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EditRowStyle BackColor="#2461BF" />
+                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#EFF3FB" />
+                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                        </div></td>
+                </tr>
+            </table>
         </div>
+        <br />
     </form>
 </body>
 </html>

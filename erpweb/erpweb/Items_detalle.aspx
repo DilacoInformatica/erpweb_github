@@ -338,7 +338,7 @@
       <td class="auto-style6">Manual Técnico</td>
       <td class="auto-style69">
                     <asp:Label ID="lbl_manual_tecnico" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-                 </td>
+                    (Max 5MB)</td>
         <td class="auto-style66">
             <asp:Image ID="MT_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
@@ -364,7 +364,7 @@
       <td class="auto-style68">
                     <asp:Label ID="lbl_presentacion" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-                 </td>
+                    (Max 5MB)</td>
         <td class="auto-style64">
             <asp:Image ID="PR_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
@@ -387,7 +387,7 @@
       <td class="auto-style68">
                     <asp:Label ID="lbl_fotog" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-                 </td>
+                    (Max 5MB)</td>
         <td class="auto-style64">
             <asp:Image ID="FG_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
@@ -410,7 +410,7 @@
       <td class="auto-style68">
                  <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
-                 </td>
+                 (Max 5MB)</td>
         <td class="auto-style64">
             <asp:Image ID="FC_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
@@ -432,7 +432,7 @@
       <td class="auto-style58">Vídeo</td>
       <td class="auto-style68">
                     <asp:Label ID="lbl_video" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-                 </td>
+                    (Max 5MB)</td>
         <td class="auto-style64">
             <asp:Image ID="VD_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
@@ -454,7 +454,7 @@
       <td class="auto-style6">Hoja de Seguridad</td>
       <td class="auto-style68">
                     <asp:Label ID="lbl_hoja_seguridad" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
-                 </td>
+                    (Max 5MB)</td>
         <td class="auto-style64">
             <asp:Image ID="HS_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>

@@ -218,6 +218,7 @@ namespace erpweb
                         else
                         {
                             lbl_activo.Text = "NO";
+                            lbl_web.Text = "NO";
                             //lbl_status.Text = "Producto desactivado en el ERP... no se puede realizar ninguna acción sobre él hasta que se active nuevamente";
                             lbl_status.Text = "Producto no publicado en Sitio Web.";
                             lbl_status.ForeColor = Color.Red;
@@ -685,7 +686,7 @@ namespace erpweb
                         }
 
                         // Categoria
-                        if (LstCategorias.SelectedValue.ToString() != "'0")
+                        if (LstCategorias.SelectedValue.ToString() != "0" )
                         {
                             if (consulta_familia_mysql("C", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(LstCategorias.SelectedValue.ToString()), Convert.ToInt32(LstSubCategorias.SelectedValue.ToString())) == 0)
                             {
@@ -1179,7 +1180,7 @@ namespace erpweb
            
         }
 
-        void Carga_familia_mysql (string rama, int familia, int categoria, int subcategoria)
+        void Carga_familia_mysql(string rama, int familia, int categoria, int subcategoria)
         {
             // rescatamos los valores desde SQLSERVER
             int v_Id_Familia = 0;
@@ -2263,14 +2264,15 @@ namespace erpweb
 
         protected void Btn_act_superior_Click(object sender, EventArgs e)
         {
-            if (lbl_activo.Text == "SI")
+            actualiza();
+           /* if (lbl_activo.Text == "SI")
             {
                 actualiza();
             }
             else
             {
                 lbl_error.Text = "Producto está desactivado, no se puede actualizar";
-            }
+            }*/
         }
 
         protected void LinkAct_item_Click(object sender, EventArgs e)

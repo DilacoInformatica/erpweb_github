@@ -61,6 +61,11 @@ namespace erpweb
                 salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
             }
 
+            if (servidor == "MYSQL2" && ambiente == 2)
+            {
+                salida = @"server=dev.dilaco.com;database=dilacocl_ecommerce;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+            }
+
             return salida;
 
         }

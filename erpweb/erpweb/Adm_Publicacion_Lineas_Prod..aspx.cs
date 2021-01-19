@@ -24,6 +24,10 @@ namespace erpweb
         int id_familia = 0;
         int id_categoria = 0;
         int id_subcategoria = 0;
+        int v_categoria = 0;
+        int v_subcategoria = 0;
+        int v_famila = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
@@ -38,7 +42,7 @@ namespace erpweb
             }
             if (!this.IsPostBack)
             {
-               Btn_Ac_Div.Attributes["Onclick"] = "return confirm('Este cambio afectará a toda la división, Desaea Continuar?')";
+               
                 // Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
                 carga_contrl_lista("select id_familia, nombre from tbl_Familias_Productos where Activo = 1 order by nombre", LstDivision, "tbl_Familias_Productos", "id_familia", "Nombre");
             }
@@ -90,6 +94,12 @@ namespace erpweb
 
         protected void Btn_Buscar_Click(object sender, EventArgs e)
         {
+            string categoria = "";
+            string subcategoria = "";
+            string famila = "";
+
+
+
             lbl_error.Text = "";
           if (LstDivision.SelectedValue.ToString() == "0")
             {
@@ -97,59 +107,84 @@ namespace erpweb
             }
           else
             {
-                lista_info_division();
-                lista_info_categorias(LstDivision.SelectedValue.ToString());
+                famila = LstDivision.SelectedValue.ToString();
+                categoria = LstCategoria.SelectedValue.ToString();
+                subcategoria = LstSubCategoria.SelectedValue.ToString();
+
+                if (famila == "") {v_famila = 0; } else {v_famila = Convert.ToInt32(LstDivision.SelectedValue.ToString());}
+                if (categoria == "") {v_categoria = 0; } else {v_categoria = Convert.ToInt32(LstCategoria.SelectedValue.ToString());}
+                if (subcategoria == "") {v_subcategoria = 0; } else {v_subcategoria = Convert.ToInt32(LstSubCategoria.SelectedValue.ToString());}
+
+                // FAMILIAS
+                Lista_division_erp("F", v_famila, v_categoria, v_subcategoria, GrdDivERP);
+                lista_division_web("F", v_famila, v_categoria, v_subcategoria, GridDivWeb);
+
+                // CATEGORIAS
+
+                Lista_division_erp("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasERP);
+                lista_division_web("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasWEB);
+
+                //lista_info_categorias_web(v_famila, v_categoria);
             }
         }
 
 
-        void lista_info_categorias(string id_familia)
+        void Lista_division_erp(string rama, int id_familia, int categoria, int subcategoria, GridView grilla)
         {
-         
-            string v_AliasNombre = "";
-            string v_nombre = "";
-
-            using (MySqlConnection connection = new MySqlConnection(SMysql))
+            using (SqlConnection connection = new SqlConnection(Sserver))
             {
                 try
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand("lista_categorias", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    MySqlParameter param = new MySqlParameter();
+                    SqlCommand cmd = new SqlCommand("web_muestra_info_ramas_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
                     // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rama", rama);
+                    cmd.Parameters["@v_rama"].Direction = ParameterDirection.Input;
 
+                    cmd.Parameters.AddWithValue("@v_fam", id_familia);
+                    cmd.Parameters["@v_fam"].Direction = ParameterDirection.Input;
 
-                    command.Parameters.AddWithValue("@v_division", LstDivision.SelectedValue.ToString());
-                    command.Parameters["@v_division"].Direction = ParameterDirection.Input;
-
-                    DataSet ds = new DataSet();
-                    DataTable table = new DataTable();
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                   
-                    ///MySqlDataReader dr = command.ExecuteReader();
-                    mysqlDAdp.Fill(table);
-
-                    if (!table.HasErrors)
+                    if (categoria == 0)
                     {
-                        lbl_mensaje.Text = "Sin Resultados";
+                        cmd.Parameters.AddWithValue("@v_cat", DBNull.Value);
+                        cmd.Parameters["@v_cat"].Direction = ParameterDirection.Input;
                     }
                     else
                     {
-                        GrdCategorias.DataSource = table;
-                        GrdCategorias.DataBind();
-
-                       // lbl_cantidad.Text = "Cantidad de Registros: " + Convert.ToString(Lista_cotizacion.Rows.Count);
+                        cmd.Parameters.AddWithValue("@v_cat", LstCategoria.SelectedValue.ToString());
+                        cmd.Parameters["@v_cat"].Direction = ParameterDirection.Input;
                     }
 
-                    //lbl_cantidad.Text = "Cantidad de Registros: " + Convert.ToString(GrdCategorias.Rows.Count);
 
+                    if (subcategoria == 0)
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcat", DBNull.Value);
+                        cmd.Parameters["@v_subcat"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcat", LstSubCategoria.SelectedValue.ToString());
+                        cmd.Parameters["@v_subcat"].Direction = ParameterDirection.Input;
+                    }
+
+                    DataSet ds = new DataSet();
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
+
+                    grilla.DataSource = ds;
+                    grilla.DataBind();
+
+                    SqlDataAdapter reader = new SqlDataAdapter();
+
+                 //   GrdDivERP.DataMember = "tbl_Familias_Productos";
 
 
                     connection.Close();
                     connection.Dispose();
-
                 }
                 catch (Exception ex)
                 {
@@ -160,9 +195,11 @@ namespace erpweb
                     connection.Close();
                 }
             }
+
         }
 
-        void lista_info_division()
+
+        void lista_division_web(string rama, int id_familia, int categoria, int subcategoria, GridView Grilla)
         {
             int v_id_familia = 0;
             string v_codigo = "";
@@ -177,35 +214,52 @@ namespace erpweb
                 try
                 {
                     connection.Open();
-                    MySqlCommand cmd = new MySqlCommand("lista_division", connection);
+                    MySqlCommand cmd = new MySqlCommand("Lista_ramas_web", connection);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     MySqlParameter param = new MySqlParameter();
                     // Parámetros
 
+                    cmd.Parameters.AddWithValue("@v_rama", rama);
+                    cmd.Parameters["@v_rama"].Direction = ParameterDirection.Input;
 
-                    cmd.Parameters.AddWithValue("@v_division", LstDivision.SelectedValue.ToString());
+                    cmd.Parameters.AddWithValue("@v_division", id_familia);
                     cmd.Parameters["@v_division"].Direction = ParameterDirection.Input;
 
-                    using (MySqlDataReader rdr = cmd.ExecuteReader())
+                    if (categoria == 0)
                     {
-                        while (rdr.Read())
-                        {
-                            if (!rdr.IsDBNull(0))
-                            {
-
-                                /*id_familia, codigo, nombre, orden, activo, visible, AliasNombre*/
-                                //lbl_error.Text = rdr.GetInt32(0).ToString();
-                                v_id_familia = rdr.GetInt32(0);
-                                v_codigo = rdr.GetString(1);
-                                v_nombre = rdr.GetString(2);
-                                v_orden = rdr.GetInt32(3);
-                                v_activo = rdr.GetInt32(4);
-                                v_visible = rdr.GetInt32(5);
-                                v_AliasNombre = rdr.GetString(6);
-                            }
-                        }
+                        cmd.Parameters.AddWithValue("@v_categoria", DBNull.Value);
+                        cmd.Parameters["@v_categoria"].Direction = ParameterDirection.Input;
                     }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@v_categoria", categoria);
+                        cmd.Parameters["@v_categoria"].Direction = ParameterDirection.Input;
+                    }
+
+
+                    if (subcategoria == 0)
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcategoria", DBNull.Value);
+                        cmd.Parameters["@v_subcategoria"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcategoria", LstDivision.SelectedValue.ToString());
+                        cmd.Parameters["@v_subcategoria"].Direction = ParameterDirection.Input;
+                    }
+
+                   
+
+
+                    DataSet ds = new DataSet();
+                    DataTable table = new DataTable();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(cmd);
+
+                    ///MySqlDataReader dr = command.ExecuteReader();
+                    mysqlDAdp.Fill(table);
+                    Grilla.DataSource = table;
+                    Grilla.DataBind();
 
                     connection.Close();
                     connection.Dispose();
@@ -219,17 +273,6 @@ namespace erpweb
                 {
                     connection.Close();
                 }
-            }
-
-            lbl_nombre.Text = v_nombre;
-            txt_alias.Text = v_AliasNombre;
-            if (v_visible == 1)
-            {
-                ChkDivVisible.Checked = true;
-            }
-            else
-            {
-                ChkDivVisible.Checked = false;
             }
         }
 
@@ -274,6 +317,7 @@ namespace erpweb
                 {
                     Chk_activo.Checked = false;
                 }
+                Chk_activo.Enabled = false;
 
                 CheckBox Chk_visible = e.Row.FindControl("Chk_visible") as CheckBox;
 
@@ -288,5 +332,115 @@ namespace erpweb
             }
         }
 
+        protected void GrdDivERP_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+                CheckBox Chk_activo = e.Row.FindControl("Chk_Activo") as CheckBox;
+
+                // lbl_error.Text = drv["Activo"].ToString();
+
+                if (Convert.ToBoolean(drv["Activo"]))
+                {
+                    Chk_activo.Checked = true;
+                }
+                else
+                {
+                    Chk_activo.Checked = false;
+                }
+
+                TextBox etiqueta = e.Row.FindControl("txt_nombre") as TextBox;
+
+                etiqueta.Text = drv["Nombre"].ToString();
+                etiqueta.Enabled = false;
+
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
+            }
+        }
+
+        protected void GridDivWeb_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+                CheckBox Chk_activo = e.Row.FindControl("Chk_Activo") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Activo"]))
+                {
+                    Chk_activo.Checked = true;
+                }
+                else
+                {
+                    Chk_activo.Checked = false;
+                }
+
+                Chk_activo.Enabled = false;
+
+                CheckBox Chk_visible = e.Row.FindControl("Chk_visible") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Visible"]))
+                {
+                    Chk_visible.Checked = true;
+                }
+                else
+                {
+                    Chk_visible.Checked = false;
+                }
+
+                TextBox etiqueta = e.Row.FindControl("txt_etiqueta") as TextBox;
+
+                etiqueta.Text = drv["AliasNombre"].ToString();
+
+
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
+            }
+        }
+
+        protected void GrdCategoriasERP_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+                  CheckBox Chk_visible = e.Row.FindControl("Chk_Activo") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Activo"]))
+                {
+                    Chk_visible.Checked = true;
+                }
+                else
+                {
+                    Chk_visible.Checked = false;
+                }
+
+
+               /* e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;*/
+            }
+        }
+
+        protected void GrdCategoriasERP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridViewRow row = GrdCategoriasWEB.SelectedRow;
+
+            row.Cells[1].Text
+        }
     }
 }

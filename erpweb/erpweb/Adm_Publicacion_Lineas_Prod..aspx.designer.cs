@@ -76,48 +76,57 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_Buscar;
         
         /// <summary>
-        /// Control lbl_nombre.
+        /// Control GrdDivERP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_nombre;
+        protected global::System.Web.UI.WebControls.GridView GrdDivERP;
         
         /// <summary>
-        /// Control txt_alias.
+        /// Control GridDivWeb.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_alias;
+        protected global::System.Web.UI.WebControls.GridView GridDivWeb;
         
         /// <summary>
-        /// Control ChkDivVisible.
+        /// Control GrdCategoriasERP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ChkDivVisible;
+        protected global::System.Web.UI.WebControls.GridView GrdCategoriasERP;
         
         /// <summary>
-        /// Control Btn_Ac_Div.
+        /// Control GrdCategoriasWEB.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_Ac_Div;
+        protected global::System.Web.UI.WebControls.GridView GrdCategoriasWEB;
         
         /// <summary>
-        /// Control GrdCategorias.
+        /// Control GrdSubCatERP.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GrdCategorias;
+        protected global::System.Web.UI.WebControls.GridView GrdSubCatERP;
+        
+        /// <summary>
+        /// Control GrdSubCatWEB.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GrdSubCatWEB;
     }
 }

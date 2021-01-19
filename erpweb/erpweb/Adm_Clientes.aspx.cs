@@ -16,6 +16,7 @@ namespace erpweb
         int v_id_contacto = 0;
         string Sserver = ""; // Conexion Servidor
         string SMysql = ""; // Conexion Server
+        string SMysql2 = "";
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         string usuario = "";
@@ -25,6 +26,7 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
@@ -53,7 +55,7 @@ namespace erpweb
         void lista_clientes_web()
         {
             string queryString = "";
-            queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
+            queryString = "SELECT IFNULL(tbl_clientes.ID_Cliente,0) Id, ";
             queryString = queryString + "tbl_clientes.Rut, ";
             queryString = queryString + "tbl_clientes.Dv_Rut, ";
             queryString = queryString + "tbl_clientes.Razon_Social, ";
@@ -69,7 +71,7 @@ namespace erpweb
             queryString = queryString + "if(ifnull(tbl_clientes.leido_erp,0) = 0,'N','S') leido_erp, ";
             queryString = queryString + "if(ifnull(tbl_clientes.cliente_erp,0) = 0,'N','S') cliente_erp, ";
             queryString = queryString + "(select count(1) from tbl_contactos_clientes where rut_cliente = tbl_clientes.rut) contactos ";
-            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
+            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes WHERE nombre is null ";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
@@ -885,7 +887,7 @@ namespace erpweb
 
                     if (check.Checked)
                     {
-                        lbl_mensaje.Text = row.Cells[1].Text;
+                     //   lbl_mensaje.Text = row.Cells[1].Text;
                         if (row.Cells[1].Text == "0")
                         {
                             inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[2].Text));
@@ -998,6 +1000,7 @@ namespace erpweb
 
                     cmd.Parameters.AddWithValue("@v_email", email); // Pendiente creacion contacto Cliente
                     cmd.Parameters["@v_email"].Direction = ParameterDirection.Input;
+                    
 
                     using (SqlDataReader rdr = cmd.ExecuteReader())
                     {
@@ -1020,6 +1023,7 @@ namespace erpweb
                     connection.Dispose();
 
                     actualiza_cliente_sitio_a_erp(rut, v_id_cliente, Convert.ToInt32(usuario));
+                    activa_cliente_web(rut + '-' +dv, email, razon_social);
                 }
                 catch (Exception ex)
                 {
@@ -1030,6 +1034,50 @@ namespace erpweb
                     connection.Close();
                 }
             }
+        }
+
+        void activa_cliente_web(string rut, string email, string cliente)
+        {
+
+            // Actualizamos los valores
+            string query = "";
+
+            query = "update dilacocl_dilacoweb.clients ";
+            query = query + " set active = 1 ";
+            query = query + " where replace(rut,'.','') = " + rut; 
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql2))
+            {
+                try
+                {
+                    conn.Open();
+
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.ExecuteNonQuery();
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+
+            string cuerpo_correo = "";
+
+
+            cuerpo_correo = "<p><strong> BIENVENIDO / A <a href = 'www.dilaco.cl' >DILACO.CL </a></strong></p>";
+            cuerpo_correo = cuerpo_correo + "< p > Hola Cliente , "+ cliente + "< br />";
+            cuerpo_correo = cuerpo_correo + "Felicitaciones!tu cuenta ha sido creada, desde ahora <br/> ";
+            cuerpo_correo = cuerpo_correo + "puede acceder a revisar nuestro catalogo de ventas y <br/>";
+            cuerpo_correo = cuerpo_correo + "realizar  pedidos, cotizaciones y consultas <br/>";
+            cuerpo_correo = cuerpo_correo + "Importadora Dilaco S.A < br /></p>";
+
+                                // Si la actualización funciona correctamente... enviamos un correo al cliente dando aviso
+           utiles.enviar_correo("Bienvenido a Dilaco.cl", cuerpo_correo, email);
         }
 
         void actualiza_cliente_sitio_a_erp(int v_rut, int v_id_cliente,  int v_usuario)

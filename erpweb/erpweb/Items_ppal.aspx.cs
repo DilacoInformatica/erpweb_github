@@ -1157,5 +1157,7 @@ namespace erpweb
             LstSubCategorias.Items.Add(new ListItem("Seleccione", "0", true));
             carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and Id_Familia = " + valor + " order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
         }
+
+       
     }
 }
