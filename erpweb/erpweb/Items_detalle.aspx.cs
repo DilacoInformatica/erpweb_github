@@ -1565,7 +1565,7 @@ namespace erpweb
                 if (tamano <= 5000000)
                 {
                     string[] allowedExtensions = { ".png", ".gif", ".jpg", ".bpm" };
-                    administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo.Trim(), lbl_fotog, allowedExtensions);
+                    administra_archivos(File_FC, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), "FC_" + codigo.Trim(), lbl_fotoc, allowedExtensions);
                     //subir_archivo(File_FC, "FC_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Imagenes/"), lbl_fotoc);
                 }
                 else

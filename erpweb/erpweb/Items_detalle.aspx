@@ -145,6 +145,21 @@
         .auto-style78 {
             height: 1589px;
         }
+        .auto-style79 {
+            width: 149px;
+            height: 33px;
+        }
+        .auto-style80 {
+            text-align: left;
+            height: 33px;
+        }
+        .auto-style81 {
+            text-align: right;
+            height: 33px;
+        }
+        .auto-style82 {
+            height: 33px;
+        }
         </style>
     </head>
 <body style="width: 1429px; height: 1593px">
@@ -406,23 +421,23 @@
                  </td>
     </tr>
     <tr>
-      <td class="auto-style58">Foto 2</td>
-      <td class="auto-style68">
+      <td class="auto-style79">Foto 2</td>
+      <td class="auto-style80">
                  <asp:Label ID="lbl_fotoc" runat="server" BackColor="#CCCCCC" Width="189px" Height="20px"></asp:Label>
 
                  (Max 5MB)</td>
-        <td class="auto-style64">
+        <td class="auto-style81">
             <asp:Image ID="FC_Warning" runat="server" Height="16px" ImageUrl="~/img/warning.png" Visible="False" Width="16px" />
         </td>
-        <td class="auto-style64">
+        <td class="auto-style81">
             <asp:ImageButton ID="borra_fotoc" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_fotoc_Click" Width="16px" />
         </td>
-      <td>
+      <td class="auto-style82">
 
                     <asp:FileUpload ID="File_FC" runat="server" />
 
                  </td>
-      <td>
+      <td class="auto-style82">
 
                     <asp:ImageButton ID="ImgBtnFC" runat="server" ImageUrl="~/img/mas.jpg" OnClick="ImgBtnFC_Click" Width="14px" />
 

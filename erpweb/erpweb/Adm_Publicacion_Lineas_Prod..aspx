@@ -73,7 +73,8 @@
         .auto-style50 {
             height: 24px;
             width: 828px;
-            }
+            text-align: center;
+        }
         .auto-style51 {
             width: 684px;
         }
@@ -82,6 +83,14 @@
         }
         .auto-style53 {
             height: 212px;
+            vertical-align: top;
+        }
+        .auto-style55 {
+            width: 684px;
+            text-align: center;
+        }
+        .auto-style56 {
+            text-align: left;
         }
         </style>
 </head>
@@ -136,7 +145,7 @@
                     <td class="auto-style47"><strong>SITIO WEB</strong></td>
                 </tr>
                 <tr>
-                    <td class="auto-style51">
+                    <td class="auto-style55">
                         <div>
                         <asp:GridView ID="GrdDivERP" runat="server" AutoGenerateColumns="False" Caption="Detalle Familia ERP" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="GrdDivERP_RowDataBound" ShowFooter="True" Width="619px" Height="189px">
                             <AlternatingRowStyle BackColor="White" />
@@ -161,6 +170,14 @@
                                         <asp:CheckBox ID="Chk_Activo" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Publicado">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_FamPublicado" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                             </Columns>
                             <EditRowStyle BackColor="#2461BF" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -176,7 +193,7 @@
                             </div>
                     </td>
                     <td class="auto-style51">
-                        <div class="auto-style52">
+                        <div>
                         <asp:GridView ID="GridDivWeb" runat="server" AutoGenerateColumns="False" Caption="Detalle Familia Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="GridDivWeb_RowDataBound" ShowFooter="True" Width="619px" Height="189px">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
@@ -224,7 +241,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style53"><div>
+                    <td class="auto-style53"><div class="auto-style56">
                         <asp:GridView ID="GrdCategoriasERP" runat="server" Caption="SubCateorías" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
@@ -234,10 +251,18 @@
                                 <asp:BoundField DataField="Orden" HeaderText="Orden" />
                                 <asp:TemplateField HeaderText="Activo">
                                     <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
                                     </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:CheckBox ID="Chk_Activo" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Publicado">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_CatPublicada" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
@@ -252,17 +277,18 @@
                             <SortedDescendingCellStyle BackColor="#E9EBEF" />
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
-                        </div></td>
-                    <td class="auto-style53"><div>
 
-            <asp:GridView ID="GrdCategoriasWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Caption="Categorias" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="904px" OnSelectedIndexChanged="GrdCategorias_SelectedIndexChanged">
+                        </div></td>
+                    <td class="auto-style53"><div class="auto-style56">
+
+            <asp:GridView ID="GrdCategoriasWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Caption="Categorias" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="841px" Height="189px">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:ButtonField Text="Ver" />
                     <asp:BoundField DataField="ID" HeaderText="ID" />
                     <asp:BoundField DataField="Cod" HeaderText="Código" />
                     <asp:BoundField DataField="Categoria" HeaderText="Categoría" />
-                    <asp:TemplateField ConvertEmptyStringToNull="False">
+                    <asp:TemplateField ConvertEmptyStringToNull="False" HeaderText="Activo">
                         <EditItemTemplate>
                             <asp:DynamicControl ID="DynamicControl1" runat="server" DataField="" Mode="Edit" />
                         </EditItemTemplate>
@@ -270,7 +296,7 @@
                             <asp:CheckBox ID="Chk_activo" runat="server" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ConvertEmptyStringToNull="False">
+                    <asp:TemplateField ConvertEmptyStringToNull="False" HeaderText="Visible">
                         <EditItemTemplate>
                             <asp:DynamicControl ID="DynamicControl2" runat="server" DataField="" Mode="Edit" />
                         </EditItemTemplate>
@@ -294,9 +320,30 @@
                         </div></td>
                 </tr>
                  <tr>
-                    <td><div>
-                        <asp:GridView ID="GrdSubCatERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px">
+                    <td class="auto-style52"><div class="auto-style56">
+                        <asp:GridView ID="GrdSubCatERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdSubCatERP_RowDataBound">
                             <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="ID_SubCategoria" HeaderText="ID" />
+                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                <asp:BoundField DataField="Orden" HeaderText="Orden" />
+                                <asp:TemplateField HeaderText="Activo">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_activo" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Publicado">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="Chk_PubSubCat" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
                             <EditRowStyle BackColor="#2461BF" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -328,6 +375,8 @@
             </table>
         </div>
         <br />
+                        <asp:Label ID="lbl_cat" runat="server"></asp:Label>
+
     </form>
 </body>
 </html>

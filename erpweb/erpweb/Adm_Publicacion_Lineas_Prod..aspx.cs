@@ -153,7 +153,7 @@ namespace erpweb
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@v_cat", LstCategoria.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@v_cat", categoria);
                         cmd.Parameters["@v_cat"].Direction = ParameterDirection.Input;
                     }
 
@@ -245,13 +245,11 @@ namespace erpweb
                     }
                     else
                     {
-                        cmd.Parameters.AddWithValue("@v_subcategoria", LstDivision.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@v_subcategoria", subcategoria);
                         cmd.Parameters["@v_subcategoria"].Direction = ParameterDirection.Input;
                     }
 
                    
-
-
                     DataSet ds = new DataSet();
                     DataTable table = new DataTable();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(cmd);
@@ -351,6 +349,18 @@ namespace erpweb
                     Chk_activo.Checked = false;
                 }
 
+
+                CheckBox publicado = e.Row.FindControl("Chk_FamPublicado") as CheckBox;
+
+                if (consulta_estado_publicacion("C", v_famila, 0, 0) == 0)
+                {
+                    publicado.Checked = false;
+                }
+                else
+                {
+                    publicado.Checked = true;
+                }
+
                 TextBox etiqueta = e.Row.FindControl("txt_nombre") as TextBox;
 
                 etiqueta.Text = drv["Nombre"].ToString();
@@ -415,7 +425,7 @@ namespace erpweb
             {
                 DataRowView drv = e.Row.DataItem as DataRowView;
 
-                  CheckBox Chk_visible = e.Row.FindControl("Chk_Activo") as CheckBox;
+                CheckBox Chk_visible = e.Row.FindControl("Chk_Activo") as CheckBox;
 
                 if (Convert.ToBoolean(drv["Activo"]))
                 {
@@ -426,21 +436,148 @@ namespace erpweb
                     Chk_visible.Checked = false;
                 }
 
+                CheckBox publicado = e.Row.FindControl("Chk_CatPublicada") as CheckBox;
+                
+                if (consulta_estado_publicacion("C",v_famila, Convert.ToInt32(drv["ID_Categoria"]),0) == 0)
+                {
+                    publicado.Checked = false;
+                }
+                else
+                {
+                    publicado.Checked = true;
+                }
 
-               /* e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
-                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
-                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;*/
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Center;
             }
+        }
+
+        public int consulta_estado_publicacion (string rama, int familia, int categoria, int subcategoria)
+        {
+            int resultado = 0;
+ 
+             using (MySqlConnection connection = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand("consulta_ramas_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter param = new MySqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@v_rama", rama);
+                    cmd.Parameters["@v_rama"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_division", familia);
+                    cmd.Parameters["@v_division"].Direction = ParameterDirection.Input;
+
+                    if (categoria == 0)
+                    {
+                        cmd.Parameters.AddWithValue("@v_categoria", DBNull.Value);
+                        cmd.Parameters["@v_categoria"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@v_categoria", categoria);
+                        cmd.Parameters["@v_categoria"].Direction = ParameterDirection.Input;
+                    }
+
+
+                    if (subcategoria == 0)
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcategoria", DBNull.Value);
+                        cmd.Parameters["@v_subcategoria"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@v_subcategoria", subcategoria);
+                        cmd.Parameters["@v_subcategoria"].Direction = ParameterDirection.Input;
+                    }
+
+
+                    MySqlDataReader myReader;
+                    myReader = cmd.ExecuteReader();  //stop here
+                    try
+                    {
+                        while (myReader.Read())
+                        {
+                            resultado = myReader.GetInt32(0);
+                        }
+                    }
+                    finally
+                    {
+                        connection.Close();
+                        connection.Dispose();
+                    }
+
+                    return resultado;
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return 0;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            
         }
 
         protected void GrdCategoriasERP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridViewRow row = GrdCategoriasWEB.SelectedRow;
+            GridViewRow row = GrdCategoriasERP.SelectedRow;
+            lbl_cat.Text = "";
+            lbl_cat.Text = row.Cells[1].Text;
+            Lista_division_erp("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(row.Cells[1].Text),0, GrdSubCatERP);
+            //  
+        }
 
-            row.Cells[1].Text
+        protected void GrdSubCatERP_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+                CheckBox Chk_visible = e.Row.FindControl("Chk_Activo") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Activo"]))
+                {
+                    Chk_visible.Checked = true;
+                }
+                else
+                {
+                    Chk_visible.Checked = false;
+                }
+
+                CheckBox publicado = e.Row.FindControl("Chk_PubSubCat") as CheckBox;
+
+                if (consulta_estado_publicacion("S", v_famila, Convert.ToInt32(lbl_cat.Text),  Convert.ToInt32(drv["ID_SubCategoria"])) == 0)
+                {
+                    publicado.Checked = false;
+                }
+                else
+                {
+                    publicado.Checked = true;
+                }
+
+
+                 e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                 e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
+                 e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Center;
+                 e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Center;
+                 e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Center;
+            }
         }
     }
 }
