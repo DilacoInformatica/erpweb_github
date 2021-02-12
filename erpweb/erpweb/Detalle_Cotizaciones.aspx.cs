@@ -233,6 +233,8 @@ namespace erpweb
                             if (ubicacion != "E")
                             {
                                lbl_existe.Text = detecta_cliente(Convert.ToInt32(dr.GetString(4)));
+                                //Si cliente existe habilitamos check que permite usar la info ya creada en el ERP
+                                Chk_data_existente.Enabled = true;
                             }
                             else
                             {
@@ -260,6 +262,7 @@ namespace erpweb
 
                             foreach (ListItem item in Lst_Region.Items)
                             {
+                                item.Selected = false;
                                 if (item.Value == lbl_region.Text)
                                 {
                                     item.Selected = true;
@@ -673,7 +676,7 @@ namespace erpweb
                         }
                     }
 
-                    if (result != "OK")
+                    if (result == "")
                     {
                         lbl_error.Text = "ERROR AL ACTUALIZAR COTIZACION EN EL SITIO WEB";
                     }
@@ -1048,6 +1051,82 @@ namespace erpweb
             {
                 lbl_empresa.Text = lbl_respaldo.Text;
             } // else
+        }
+
+        protected void Chk_data_existente_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.Chk_data_existente.Checked == true)
+            {
+                // reemplazamos la información que viene por la que ya existe en el ERP...  la información que llegara se ingresará como Contacto del Cliente existe
+                using (SqlConnection connection = new SqlConnection(Sserver))
+                {
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand("web_muestra_info_cliente_existente", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter param = new SqlParameter();
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@v_rut",lbl_rut.Text);
+                        cmd.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+  
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                if (!rdr.IsDBNull(0))
+                                {
+
+                                   //lbl_error.Text = rdr.GetInt32(0).ToString();
+                                    v_id_cliente = Convert.ToInt32(rdr.GetInt32(1));
+                                    v_id_contacto = Convert.ToInt32(rdr.GetInt32(2));
+                                    lbl_empresa.Text = rdr.GetString(3);
+                                    lbl_ciudad.Text = rdr.GetString(6);
+                                    txt_comuna.Text = rdr.GetString(7);
+                                    lbl_direccion.Text = rdr.GetString(8);
+                                    lbl_region.Text = Convert.ToString(rdr.GetInt32(9));
+                                    lbl_email.Text = rdr.GetString(10);
+                                    lbl_nombre.Text = rdr.GetString(11);
+                                    lbl_apellidos.Text = rdr.GetString(12);
+
+                                    foreach (ListItem item in Lst_Region.Items)
+                                    {
+                                        item.Selected = false;
+                                        if (item.Value == lbl_region.Text)
+                                        {
+                                            item.Selected = true;
+                                            break;
+                                        }
+                                    }
+
+
+
+
+                                    // Actualiza_cliente_web(lbl_rut_exit.Text, v_id_cliente, v_id_contacto);
+                                }
+                            }
+                        }
+
+                        connection.Close();
+                        connection.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            } 
+            else
+            {
+                Lst_Region.Items.Clear();
+                carga_contrl_lista("select id_region, concat(Codigo, ' ', nombre_corto) region from tbl_Regiones where activo = 1", Lst_Region, "tbl_Regiones", "id_region", "region");
+                muestra_info_cotizacion(num_cotizacion);
+            }
         }
     }
 }

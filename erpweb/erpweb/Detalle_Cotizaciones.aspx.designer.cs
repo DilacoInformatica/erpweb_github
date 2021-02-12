@@ -103,6 +103,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_id_cliente;
         
         /// <summary>
+        /// Control Chk_data_existente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Chk_data_existente;
+        
+        /// <summary>
         /// Control Chk_Cli_Particular.
         /// </summary>
         /// <remarks>
@@ -211,15 +220,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_ciudad;
         
         /// <summary>
-        /// Control lbl_region.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_region;
-        
-        /// <summary>
         /// Control Lst_Region.
         /// </summary>
         /// <remarks>
@@ -236,6 +236,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_respaldo;
+        
+        /// <summary>
+        /// Control lbl_region.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_region;
         
         /// <summary>
         /// Control lbl_status.

@@ -80,6 +80,12 @@
             color: #000033;
             width: 1010px;
         }
+        .auto-style40 {
+            font-size: small;
+        }
+        .auto-style41 {
+            height: 22px;
+        }
         </style>
 </head>
 <body>
@@ -103,115 +109,127 @@
     </div>
         <table class="auto-style1">
             <tr class="BottomTabla">
-                <td class="auto-style8" colspan="7"><h4><strong>CABECERA COTIZACIÓN</strong></h4></td>
+                <td class="auto-style8" colspan="10"><h4><strong>CABECERA COTIZACIÓN</strong></h4></td>
             </tr>
             <tr>
                 <td>Numero Cotización ERP</td>
                 <td class="auto-style6">
                     <span class="Estilo_titulo"><strong>
-                    <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
+                    <asp:Label ID="lbl_numero_erp" runat="server" CssClass="auto-style40"></asp:Label>
                     </strong> </span>
                 </td>
+                <td class="auto-style6">
+                    &nbsp;</td>
                 <td class="auto-style38">Fecha</td>
                 <td class="auto-style8">
                     <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
                 </td>
-                <td colspan="2">
+                <td colspan="3">
                     N° OC</td>
-                <td class="auto-style34">
+                <td class="auto-style34" colspan="2">
                     <asp:Label ID="lbl_n_oc" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr class="BottomTabla">
-                <td class="auto-style35" colspan="7"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
+                <td class="auto-style35" colspan="10"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
             </tr>
             <tr>
-                <td class="auto-style8">Rut</td>
-                <td class="auto-style8" colspan="2">
-                    <asp:Label ID="lbl_rut" runat="server" BorderStyle="Groove"></asp:Label>
+                <td class="auto-style41">Rut</td>
+                <td class="auto-style41" colspan="3">
+                    <asp:Label ID="lbl_rut" runat="server" BorderStyle="Groove" Width="247px"></asp:Label>
                     <asp:Label ID="lbl_rut_exit" runat="server" Visible="False"></asp:Label>
                 </td>
-                <td class="auto-style8" colspan="2">
+                <td class="auto-style41" colspan="2">
                     Existe en ERP</td>
-                <td class="auto-style8" colspan="2">
+                <td class="auto-style41">
                     <asp:Label ID="lbl_existe" runat="server" BorderStyle="Groove"></asp:Label>
                     <asp:Label ID="lbl_id_cliente" runat="server" ForeColor="Red"></asp:Label>
+                </td>
+                <td class="auto-style41" colspan="2">
+                    Usar Información existente?</td>
+                <td class="auto-style41">
+                    <asp:CheckBox ID="Chk_data_existente" runat="server" AutoPostBack="True" Enabled="False" OnCheckedChanged="Chk_data_existente_CheckedChanged" />
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">Cliente Particular</td>
-                <td class="auto-style8" colspan="6">
+                <td class="auto-style8" colspan="9">
                     <asp:CheckBox ID="Chk_Cli_Particular" runat="server" AutoPostBack="True" OnCheckedChanged="Chk_Cli_Particular_CheckedChanged" />
                 </td>
             </tr>
             <tr>
                 <td>Empresa</td>
-                <td class="auto-style8" colspan="6">
-                    <asp:Label ID="lbl_empresa" runat="server" BorderStyle="Double" Width="815px" Height="36px"></asp:Label>
+                <td class="auto-style8" colspan="9">
+                    <asp:Label ID="lbl_empresa" runat="server" BorderStyle="Double" Width="931px" Height="36px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">Nombre</td>
-                <td class="auto-style8" colspan ="6">
+                <td class="auto-style8" colspan ="9">
                     <asp:Label ID="lbl_nombre" runat="server" BorderStyle="Groove" Width="400px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style8">Apellidos</td>
-                <td class="auto-style8" colspan ="6">
+                <td class="auto-style8" colspan ="9">
                     <asp:Label ID="lbl_apellidos" runat="server" BorderStyle="Groove" Width="400px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style9">Teléfono</td>
-                <td colspan="6" class="auto-style12">
+                <td colspan="9" class="auto-style12">
                     <asp:Label ID="lbl_fono" runat="server" BorderStyle="Groove" Width="252px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style9">Móvil</td>
-                <td colspan="6" class="auto-style12">
+                <td colspan="9" class="auto-style12">
                     <asp:Label ID="lbl_movil" runat="server" BorderStyle="Groove" Width="252px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td class="auto-style9">Email</td>
-                <td colspan="4" class="auto-style12">
+                <td colspan="5" class="auto-style12">
                     <asp:Label ID="lbl_email" runat="server" BorderStyle="Groove" Width="367px"></asp:Label>
                 </td>
-                <td class="auto-style12" colspan="2">
+                <td class="auto-style12" colspan="4">
                     <asp:Label ID="lbl_id_cli" runat="server" Visible="False"></asp:Label>
                     <asp:Label ID="lbl_id_con" runat="server" Visible="False"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>Dirección</td>
-                <td class="auto-style8" colspan="6">
-                    <asp:Label ID="lbl_direccion" runat="server" BorderStyle="Groove" Height="47px" Width="815px"></asp:Label>
+                <td class="auto-style8" colspan="9">
+                    <asp:Label ID="lbl_direccion" runat="server" BorderStyle="Groove" Height="47px" Width="933px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>Comuna</td>
-                <td class="auto-style6" colspan="2">
-                    <asp:TextBox ID="txt_comuna" runat="server" BackColor="#FFFFCC" Width="252px"></asp:TextBox>
+                <td class="auto-style6" colspan="3">
+                    <asp:TextBox ID="txt_comuna" runat="server" BackColor="#FFFFCC" Width="347px"></asp:TextBox>
                 </td>
-                <td colspan="2">Ciudad</td>
-                <td class="auto-style8" colspan="2">
-                    <asp:Label ID="lbl_ciudad" runat="server" BorderStyle="Groove" Width="252px"></asp:Label>
+                <td colspan="2">&nbsp;</td>
+                <td class="auto-style8" colspan="4">
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td>Ciudad</td>
+                <td class="auto-style8" colspan="9">
+                    <asp:Label ID="lbl_ciudad" runat="server" BorderStyle="Groove" Width="350px"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>Región</td>
-                <td class="auto-style8" colspan="6">
-                    <asp:Label ID="lbl_region" runat="server"></asp:Label>
+                <td class="auto-style8" colspan="9">
                     <asp:DropDownList ID="Lst_Region" runat="server" AppendDataBoundItems="True" Height="16px">
                         <asp:ListItem Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                     <asp:Label ID="lbl_respaldo" runat="server" Visible="False"></asp:Label>
+                    <asp:Label ID="lbl_region" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
-                <td colspan="7">
+                <td colspan="10">
             <asp:Label ID="lbl_status" runat="server"></asp:Label>
             <asp:Label ID="lbl_error" runat="server"></asp:Label>
             <asp:Label ID="lbl_id_cot" runat="server" Visible="False"></asp:Label>
@@ -219,7 +237,7 @@
                 </td>
             </tr>
             </table>
-        <asp:GridView ID="lista_detalles" runat="server" Caption="Detalle de la Cotización" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1260px" ShowFooter="True" OnRowDataBound="lista_detalles_RowDataBound">
+        <asp:GridView ID="lista_detalles" runat="server" Caption="Detalle de la Cotización" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1143px" ShowFooter="True" OnRowDataBound="lista_detalles_RowDataBound">
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -238,7 +256,7 @@
                 <td class="auto-style31">Vendedor/Emisor</td>
                 <td class="auto-style32">
                     <asp:DropDownList ID="Lista_Vendedores" runat="server" AppendDataBoundItems="True">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                        <asp:ListItem Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td class="auto-style33">
