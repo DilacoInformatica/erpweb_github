@@ -180,8 +180,11 @@ namespace erpweb
            // queryString = queryString + " cl.Rut, "; //4
           //  queryString = queryString + " cl.Dv_Rut, "; //5
            // queryString = queryString + " cl.Razon_Social, "; //6
-            queryString = queryString + " SUBSTRING(ct.identificacion_cliente, 1, INSTR(ct.identificacion_cliente, '-') - 1) 'Rut', "; // 4
-            queryString = queryString + "UPPER(SUBSTRING(ct.identificacion_cliente, INSTR(ct.identificacion_cliente, '-') + 1, 1)) 'Dv', "; //5
+           // queryString = queryString + " SUBSTRING(ct.identificacion_cliente, 1, INSTR(ct.identificacion_cliente, '-') - 1) 'Rut', "; // 4
+          //  queryString = queryString + "UPPER(SUBSTRING(ct.identificacion_cliente, INSTR(ct.identificacion_cliente, '-') + 1, 1)) 'Dv', "; //5
+
+            queryString = queryString + "  SUBSTRING(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), 1, INSTR(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), '-') - 1) 'Rut', ";
+            queryString = queryString + " UPPER(SUBSTRING(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), INSTR(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), '-') + 1, 1))'Dv', ";
             queryString = queryString + "UPPER(ifnull(cl.Razon_Social, CONCAT(cl.Nombre, ' ', cl.Apellido))) 'Razon Social', "; //6
             queryString = queryString + " cl.direccion, "; //7
             queryString = queryString + " IFNULL(cl.Comuna,'') Comuna, "; //8
@@ -201,7 +204,7 @@ namespace erpweb
             // queryString = queryString + " inner join tbl_clientes cl on cl.id_cliente = ct.id_cliente ";
             if (ubicacion != "E")
             {
-                queryString = queryString + " inner join tbl_clientes cl on CONCAT(cl.Rut, '-', cl.Dv_rut) = ct.identificacion_cliente ";
+                queryString = queryString + " inner join tbl_clientes cl on CONCAT(cl.Rut, '-', cl.Dv_rut) = ct.identificacion_cliente or cl.id_cliente = ct.id_cliente ";
             }
             else
             { 
@@ -248,11 +251,23 @@ namespace erpweb
                             lbl_direccion.Text = dr.GetString(7);
                             txt_comuna.Text = dr.GetString(8);
                             lbl_ciudad.Text = dr.GetString(9);
-                            lbl_region.Text = dr.GetString(14);
+                            lbl_region.Text = dr.GetString(13);
                             lbl_empresa.Text = dr.GetString(19);
                             lbl_movil.Text = dr.GetString(20);
                             lbl_nombre.Text = dr.GetString(21);
                             lbl_apellidos.Text = dr.GetString(22);
+                            lbl_region.Visible = false;
+
+                            foreach (ListItem item in Lst_Region.Items)
+                            {
+                                if (item.Value == lbl_region.Text)
+                                {
+                                    item.Selected = true;
+                                    break;
+                                }
+                            }
+
+                           // Lst_Region.Visible = true;
 
                             if (lbl_fono.Text == "")
                             {
@@ -264,11 +279,11 @@ namespace erpweb
                                 lbl_movil.Text = "0";
                             }
 
-                            if (lbl_region.Text == "")
+                          /*  if (lbl_region.Text == "")
                             {
                                 lbl_region.Visible = false;
                                 Lst_Region.Visible = true;
-                            }
+                            }*/
                             // Despacho
 
                             v_neto = Convert.ToDouble(dr.GetString(15));
@@ -608,7 +623,7 @@ namespace erpweb
                     lbl_status.ForeColor = Color.Red;
                     v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
                     utiles.actualiza_historial_nv(v_id_cotizacion, usuario, "Se crea Cotización Web", Sserver, "COT");
-                    utiles.enviar_correo("Cotización Web asignada", "N° Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
+                    utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                     Btn_crearCot.Enabled = false;
                 }
                 // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
@@ -617,7 +632,7 @@ namespace erpweb
         void actualiza_Cotizacion(int numero)
         {
             string queryString = "";
-            queryString = "actualiza_cotizacion_leida ";
+            queryString = "Actualiza_estado_Documento ";
 
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -629,8 +644,14 @@ namespace erpweb
                     MySqlCommand command = new MySqlCommand(queryString, conn);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    command.Parameters.AddWithValue("@v_Cotizac_Num", numero);
-                    command.Parameters["@v_Cotizac_Num"].Direction = ParameterDirection.Input;
+                    command.Parameters.AddWithValue("@v_doc", numero);
+                    command.Parameters["@v_doc"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_tipo", "CO");
+                    command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_status", 1);
+                    command.Parameters["@v_status"].Direction = ParameterDirection.Input;
 
                     DataSet ds = new DataSet();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
@@ -667,29 +688,29 @@ namespace erpweb
                     conn.Close();
                     conn.Dispose();
                 }
+                /*String queryString = "";
+
+                queryString = "UPDATE tbl_cotizaciones SET Leido_ERP = 1, status = 1 WHERE Cotizac_Num =  " + numero;
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    try
+                    {
+                        conn.Open();
+                        MySqlCommand command = new MySqlCommand(queryString, conn);
+                        command.ExecuteNonQuery();
+
+                        conn.Close();
+                        conn.Dispose();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }*/
             }
-            /*String queryString = "";
-
-            queryString = "UPDATE tbl_cotizaciones SET Leido_ERP = 1, status = 1 WHERE Cotizac_Num =  " + numero;
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.ExecuteNonQuery();
-
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }*/
         }
 
         void entrega_num_cot_erp(int v_id_cotizacion)

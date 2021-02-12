@@ -16,9 +16,6 @@
         .auto-style2 {
             width: 105px;
         }
-        .auto-style3 {
-            width: 331px;
-        }
         .auto-style6 {
             width: 331px;
             height: 28px;
@@ -51,6 +48,33 @@
         .auto-style15 {
             height: 24px;
         }
+        .auto-style16 {
+            height: 16px;
+        }
+        .auto-style17 {
+            width: 331px;
+            height: 16px;
+        }
+        .auto-style18 {
+            height: 15px;
+        }
+        .auto-style19 {
+            width: 331px;
+            height: 4px;
+        }
+        .auto-style20 {
+            height: 4px;
+        }
+        .auto-style21 {
+            height: 28px;
+        }
+        .auto-style22 {
+            height: 12px;
+        }
+        .auto-style23 {
+            width: 331px;
+            height: 12px;
+        }
     </style>
     
 
@@ -76,42 +100,44 @@
                 <td class="auto-style8" colspan="4"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
             </tr>
             <tr>
-                <td>Numero NV ERP</td>
-                <td class="auto-style3">
+                <td class="auto-style16">Numero NV ERP</td>
+                <td class="auto-style17">
                     <span class="Estilo_titulo"><strong>
                     <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
                     </strong> </span>
                 </td>
-                <td class="auto-style3">
+                <td class="auto-style17">
                     Fecha</td>
-                <td class="auto-style3">
+                <td class="auto-style17">
                     <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>N° OC</td>
-                <td class="auto-style3">
+                <td class="auto-style19">
+                    <strong>
                     <asp:Label ID="lbl_n_oc" runat="server"></asp:Label>
+                    </strong>
                 </td>
-                <td class="auto-style3">
+                <td class="auto-style19">
                     N° Transaccion WebPay</td>
-                <td class="auto-style3">
+                <td class="auto-style19">
                     <strong>
                     <asp:Label ID="lbl_transac_pago" runat="server"></asp:Label>
                     </strong>
                 </td>
             </tr>
             <tr>
-                <td>Tipo Facturación</td>
-                <td class="auto-style6">
+                <td class="auto-style22">Tipo Facturación</td>
+                <td class="auto-style23">
                      <strong>
                      <asp:Label ID="lbl_tipo_facturacion" runat="server"></asp:Label>
                      </strong>
                 </td>
-                <td class="auto-style6">
-                    &nbsp;</td>
-                <td class="auto-style6">
-                    &nbsp;</td>
+                <td class="auto-style23">
+                    </td>
+                <td class="auto-style23">
+                    </td>
             </tr>
             <tr class="BottomTabla">
                 <td class="auto-style15" colspan="4"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
@@ -268,7 +294,8 @@
             <tr>
                 <td class="auto-style31">Vendedor/Emisor</td>
                 <td class="auto-style32">
-                    <asp:DropDownList ID="Lista_Vendedores" runat="server">
+                    <asp:DropDownList ID="Lista_Vendedores" runat="server" AppendDataBoundItems="True">
+                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
                 <td class="auto-style33">

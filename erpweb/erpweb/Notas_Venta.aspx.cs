@@ -116,6 +116,7 @@ namespace erpweb
                 e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 

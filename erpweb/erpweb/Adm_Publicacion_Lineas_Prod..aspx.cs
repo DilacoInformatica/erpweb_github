@@ -540,6 +540,8 @@ namespace erpweb
             lbl_cat.Text = "";
             lbl_cat.Text = row.Cells[1].Text;
             Lista_division_erp("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(row.Cells[1].Text),0, GrdSubCatERP);
+            
+            lista_division_web("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(row.Cells[1].Text), 0, GrdSubCatWEB);
             //  
         }
 
@@ -577,6 +579,44 @@ namespace erpweb
                  e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Center;
                  e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Center;
                  e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Center;
+            }
+        }
+
+        protected void GrdSubCatWEB_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+                CheckBox Chk_visible = e.Row.FindControl("ChkActivoSC") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Activo"]))
+                {
+                    Chk_visible.Checked = true;
+                }
+                else
+                {
+                    Chk_visible.Checked = false;
+                }
+
+                Chk_visible.Enabled = false;
+
+                CheckBox publicado = e.Row.FindControl("ChkVisibleSC") as CheckBox;
+
+                if (Convert.ToBoolean(drv["Visible"]))
+                {
+                    publicado.Checked = true;
+                }
+                else
+                {
+                    publicado.Checked = false;
+                }
+
+
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Center;
             }
         }
     }

@@ -242,7 +242,7 @@
                 </tr>
                 <tr>
                     <td class="auto-style53"><div class="auto-style56">
-                        <asp:GridView ID="GrdCategoriasERP" runat="server" Caption="SubCateorías" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
+                        <asp:GridView ID="GrdCategoriasERP" runat="server" Caption="Cateorías ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:BoundField DataField="ID_Categoria" HeaderText="ID" />
@@ -281,7 +281,7 @@
                         </div></td>
                     <td class="auto-style53"><div class="auto-style56">
 
-            <asp:GridView ID="GrdCategoriasWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Caption="Categorias" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="841px" Height="189px">
+            <asp:GridView ID="GrdCategoriasWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateColumns="False" Caption="Categorias WEB" OnRowDataBound="GrdCategorias_RowDataBound" ShowFooter="True" Width="841px" Height="189px">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:ButtonField Text="Ver" />
@@ -320,8 +320,8 @@
                         </div></td>
                 </tr>
                  <tr>
-                    <td class="auto-style52"><div class="auto-style56">
-                        <asp:GridView ID="GrdSubCatERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdSubCatERP_RowDataBound">
+                    <td class="auto-style53"><div class="auto-style56">
+                        <asp:GridView ID="GrdSubCatERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdSubCatERP_RowDataBound" Caption="SubCategorías ERP" ShowFooter="True">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:BoundField DataField="ID_SubCategoria" HeaderText="ID" />
@@ -356,9 +356,29 @@
                             <SortedDescendingHeaderStyle BackColor="#4870BE" />
                         </asp:GridView>
                         </div></td>
-                    <td><div>
-                        <asp:GridView ID="GrdSubCatWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px">
+                    <td class="auto-style53"><div>
+                        <asp:GridView ID="GrdSubCatWEB" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="841px" AutoGenerateColumns="False" OnRowDataBound="GrdSubCatWEB_RowDataBound" Caption="SubCategorías WEB" ShowFooter="True">
                             <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="ID" HeaderText="ID" />
+                                <asp:BoundField DataField="SubCategoria" HeaderText="SubCategoria" />
+                                <asp:TemplateField HeaderText="Activo">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="ChkActivoSC" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Visible">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="ChkVisibleSC" runat="server" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
                             <EditRowStyle BackColor="#2461BF" />
                             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -375,7 +395,7 @@
             </table>
         </div>
         <br />
-                        <asp:Label ID="lbl_cat" runat="server"></asp:Label>
+                        <asp:Label ID="lbl_cat" runat="server" Visible="False"></asp:Label>
 
     </form>
 </body>

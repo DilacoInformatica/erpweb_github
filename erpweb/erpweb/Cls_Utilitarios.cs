@@ -12,7 +12,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente =2; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente =1; // Indica el ambiente dónde debe conectarse el sistema
 
         string correo_envia = "informatica@dilaco.com";
         string correo_recibe = "sebastian.aranda.o@gmail.com";

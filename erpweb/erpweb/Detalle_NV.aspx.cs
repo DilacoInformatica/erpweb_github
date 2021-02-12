@@ -94,14 +94,13 @@ namespace erpweb
         void carga_vendedores()
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
-            sql = "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all ";
-            sql = sql + "SELECT TOP 100 PERCENT dbo.tbl_Usuarios.ID_usuario, CONCAT(dbo.tbl_Usuarios.Nombre_Usu, ' ', dbo.tbl_Usuarios.Apellido_Usu) ";
+            sql = sql + "SELECT TOP 100 PERCENT dbo.tbl_Usuarios.ID_usuario, CONCAT(dbo.tbl_Usuarios.Apellido_Usu, ' ', dbo.tbl_Usuarios.Nombre_Usu) Vendedor ";
             sql = sql + "FROM dbo.tbl_Areas_Empresa RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Cargo ON ";
             sql = sql + "dbo.tbl_Areas_Empresa.ID_Area = dbo.tbl_Cargo.Id_Area RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Usuarios ON ";
             sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo ";
-            sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1) ";
+            sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1)  ORDER BY CONCAT(dbo.tbl_Usuarios.Apellido_Usu, ' ', dbo.tbl_Usuarios.Nombre_Usu)  ";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -198,8 +197,8 @@ namespace erpweb
             queryString = queryString + "(select nombre_region from tbl_regiones where id_region = c.id_region) region, "; //16
             queryString = queryString + "c.ciudad, "; //17
             queryString = queryString + "c.comuna, "; //18
-            queryString = queryString + "a.Obs_despacho, "; //19
-            queryString = queryString + "a.Direccion_despacho, "; //20
+            queryString = queryString + "IFNULL(a.Obs_despacho,'') Obs_despacho, "; //19
+            queryString = queryString + "IFNULL(a.Direccion_despacho,'') Direccion_despacho, "; //20
             queryString = queryString + "(select nombre_region from tbl_regiones where id_region = a.id_region_despacho) region_despacho , "; //21
             queryString = queryString + "(select nombre from tbl_ciudad where id_ciudad = a.id_ciudad_despacho) ciudad, "; //22
             queryString = queryString + "ifnull((select descripcion from tbl_comunas where id_comuna = a.id_comuna_despacho),'') comuna_despacho, "; //23
@@ -600,7 +599,7 @@ namespace erpweb
                                     cmd.Parameters.AddWithValue("@v_comunadespacho", lbl_comuna_despacho.Text); // Pendiente creacion contacto Cliente
                                     cmd.Parameters["@v_comunadespacho"].Direction = ParameterDirection.Input;
 
-                                    cmd.Parameters.AddWithValue("@v_Folio_transac_web", lbl_fono_despacho.Text); // Pendiente creacion contacto Cliente
+                                    cmd.Parameters.AddWithValue("@v_Folio_transac_web", lbl_transac_pago.Text); // Pendiente creacion contacto Cliente
                                     cmd.Parameters["@v_Folio_transac_web"].Direction = ParameterDirection.Input;
 
                                     cmd.Parameters.AddWithValue("@v_id_vendedor", Lista_Vendedores.SelectedItem.Value.ToString()); // Pendiente creacion contacto Cliente
@@ -756,16 +755,52 @@ namespace erpweb
         void actualiza_NV(int numero)
         {
             string queryString = "";
+            queryString = "Actualiza_estado_Documento ";
 
-            queryString = "UPDATE tbl_nota_vta SET Leido_ERP = 1, status = 1 WHERE Nta_vta_num =  " + numero;
+
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
+                string result = "";
                 try
                 {
                     conn.Open();
                     MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.ExecuteNonQuery();
-                   
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_doc", numero);
+                    command.Parameters["@v_doc"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_tipo", "NV");
+                    command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_status", 3);
+                    command.Parameters["@v_status"].Direction = ParameterDirection.Input;
+
+                    DataSet ds = new DataSet();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        lbl_status.Text = "Sin Resultados";
+                    }
+                    else
+                    {
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                // NV
+                                result = Convert.ToString(dr.GetString(0));
+                            }
+                        }
+                    }
+
+                    if (result != "OK")
+                    {
+                        lbl_error.Text = "ERROR AL ACTUALIZAR NV EN EL SITIO WEB";
+                    }
+
                     conn.Close();
                     conn.Dispose();
 
@@ -776,6 +811,29 @@ namespace erpweb
                     conn.Close();
                     conn.Dispose();
                 }
+
+                //    string queryString = "";
+
+                //queryString = "UPDATE tbl_nota_vta SET Leido_ERP = 1, status = 3 WHERE Nta_vta_num =  " + numero;
+                //using (MySqlConnection conn = new MySqlConnection(SMysql))
+                //{
+                //    try
+                //    {
+                //        conn.Open();
+                //        MySqlCommand command = new MySqlCommand(queryString, conn);
+                //        command.ExecuteNonQuery();
+
+                //        conn.Close();
+                //        conn.Dispose();
+
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        lbl_error.Text = ex.Message;
+                //        conn.Close();
+                //        conn.Dispose();
+                //    }
+                //}
             }
         }
 
