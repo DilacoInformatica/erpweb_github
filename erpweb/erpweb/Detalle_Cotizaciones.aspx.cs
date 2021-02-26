@@ -28,13 +28,15 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         double total = 0;
+        string tipo = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         int usuario = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             num_cotizacion = Convert.ToInt32(Request.QueryString["cot"].ToString());
             ubicacion = Request.QueryString["ubicacion"].ToString();
-           // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+            tipo = Request.QueryString["tipo"].ToString();
+            // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
 
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
@@ -50,6 +52,7 @@ namespace erpweb
             lbl_ambiente.Text = utiles.retorna_ambiente();
 
             Btn_crearCot.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta Cotización Web en el ERP, desea proceder?')";
+            Btn_RechazarCot.Attributes["Onclick"] = "return confirm('Ud está a punto de RECHAZAR esta Cotización Web en el ERP, desea proceder?')";
             if (!this.IsPostBack)
             {
                 carga_vendedores();
@@ -60,7 +63,7 @@ namespace erpweb
                     lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
                     lbl_error.ForeColor = Color.Red;
                 }
-                muestra_info_cotizacion(num_cotizacion);
+                muestra_info_cotizacion(num_cotizacion, ubicacion, tipo);
             }
         }
 
@@ -167,51 +170,11 @@ namespace erpweb
             }
         }
 
-        void muestra_info_cotizacion(int num_cotizacion)
+        void muestra_info_cotizacion(int num_cotizacion, string ubicacion, string tipo)
         {
             int v_id_cotizacion = 0;
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-            string queryString = "";
-
-            queryString = "select ct.ID_Cotizacion, "; //0 
-            queryString = queryString + " ct.Cotizac_Num, "; // 1
-            queryString = queryString + " ct.Nombre_Cotizacion, "; // 2
-            queryString = queryString + " ct.Id_Tipo_Cotizacion, "; // 3
-           // queryString = queryString + " cl.Rut, "; //4
-          //  queryString = queryString + " cl.Dv_Rut, "; //5
-           // queryString = queryString + " cl.Razon_Social, "; //6
-           // queryString = queryString + " SUBSTRING(ct.identificacion_cliente, 1, INSTR(ct.identificacion_cliente, '-') - 1) 'Rut', "; // 4
-          //  queryString = queryString + "UPPER(SUBSTRING(ct.identificacion_cliente, INSTR(ct.identificacion_cliente, '-') + 1, 1)) 'Dv', "; //5
-
-            queryString = queryString + "  SUBSTRING(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), 1, INSTR(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), '-') - 1) 'Rut', ";
-            queryString = queryString + " UPPER(SUBSTRING(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), INSTR(IFNULL(ct.identificacion_cliente, concat(cl.Rut, '-', cl.Dv_rut)), '-') + 1, 1))'Dv', ";
-            queryString = queryString + "UPPER(ifnull(cl.Razon_Social, CONCAT(cl.Nombre, ' ', cl.Apellido))) 'Razon Social', "; //6
-            queryString = queryString + " cl.direccion, "; //7
-            queryString = queryString + " IFNULL(cl.Comuna,'') Comuna, "; //8
-            queryString = queryString + " IFNULL(cl.Ciudad,'') Ciudad, "; //9
-            queryString = queryString + " IFNULL(cl.Telefonos,'') Telefonos, "; //10
-            queryString = queryString + " IFNULL(cl.Email,'') Email, "; //11
-            queryString = queryString + " DATE_FORMAT(ct.Fecha_Cotizac, '%d-%m-%Y') fecha, "; // 12
-            queryString = queryString + " IFNULL(cl.id_region,0) id_region, "; //13
-            queryString = queryString + "IFNULL((select replace(nombre_region,'Región','') from tbl_regiones where id_region = cl.Id_region),'') region, "; //14
-            queryString = queryString + " IFNULL(ct.Neto_Venta,0),  IFNULL(ct.Tax_venta,0), IFNULL(ct.TOTAL,0),  "; // 15, 16, 17
-            queryString = queryString + " IFNULL((select sigla from tbl_Monedas where ID_Moneda = ct.id_moneda),1) Moneda, "; //18
-            queryString = queryString + " IFNULL(UPPER(cl.Empresa),'PARTICULAR') Empresa, "; //19
-            queryString = queryString + " IFNULL(cl.Telefonos2,'') Telefonos2, "; //20
-            queryString = queryString + " UPPER(IFNULL(cl.Nombre, '')) 'Nombre', "; //21
-            queryString = queryString + " UPPER(IFNULL(cl.Apellido, '')) 'Apellido' "; //21
-            queryString = queryString + "  from tbl_cotizaciones ct ";
-            // queryString = queryString + " inner join tbl_clientes cl on cl.id_cliente = ct.id_cliente ";
-            if (ubicacion != "E")
-            {
-                queryString = queryString + " inner join tbl_clientes cl on CONCAT(cl.Rut, '-', cl.Dv_rut) = ct.identificacion_cliente or cl.id_cliente = ct.id_cliente ";
-            }
-            else
-            { 
-                queryString = queryString + " inner join tbl_clientes cl on cl.Rut = ct.identificacion_cliente and UPPER(ifnull(cl.Pais,'')) not in ('CHILE') ";
-            }
-            
-            queryString = queryString + "  where ct.Cotizac_Num = " + num_cotizacion;
+            string queryString = "lista_cot_web_detalle";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
@@ -219,99 +182,117 @@ namespace erpweb
                 {
                     conn.Open();
                     MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.ExecuteNonQuery();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_Cotizac_Num", num_cotizacion);
+                    command.Parameters["@v_Cotizac_Num"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@tipo", Convert.ToInt32(tipo));
+                    command.Parameters["@tipo"].Direction = ParameterDirection.Input;
+
+                    DataSet ds = new DataSet();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
                     MySqlDataReader dr = command.ExecuteReader();
 
-                    while (dr.Read())
+                    if (!dr.HasRows)
                     {
-                        if (!dr.IsDBNull(0))
+                        lbl_status.Text = "Sin Resultados";
+                    }
+                    else
+                    {
+                        while (dr.Read())
                         {
-                            // NV
-                            v_id_cotizacion = Convert.ToInt32(dr.GetString(0));
-                            lbl_id_cot.Text = dr.GetString(0);
-                            if (ubicacion != "E")
+                            if (!dr.IsDBNull(0))
                             {
-                               lbl_existe.Text = detecta_cliente(Convert.ToInt32(dr.GetString(4)));
-                                //Si cliente existe habilitamos check que permite usar la info ya creada en el ERP
-                                Chk_data_existente.Enabled = true;
-                            }
-                            else
-                            {
-                               lbl_existe.Text = "NO";
-                            }
-                                
-                            //v_id_nta_vta = Convert.ToInt32(dr.GetString(0));
-                            lbl_numero.Text = dr.GetString(1);
-                            lbl_fecha.Text = dr.GetString(12);
-                            // Clientes
-                            lbl_nombre.Text = dr.GetString(6);
-                            lbl_rut.Text = dr.GetString(4) + '-' + dr.GetString(5);
-                            lbl_rut_exit.Text = dr.GetString(4);
-                            lbl_fono.Text = dr.GetString(10);
-                            lbl_email.Text = dr.GetString(11);
-                            lbl_direccion.Text = dr.GetString(7);
-                            txt_comuna.Text = dr.GetString(8);
-                            lbl_ciudad.Text = dr.GetString(9);
-                            lbl_region.Text = dr.GetString(13);
-                            lbl_empresa.Text = dr.GetString(19);
-                            lbl_movil.Text = dr.GetString(20);
-                            lbl_nombre.Text = dr.GetString(21);
-                            lbl_apellidos.Text = dr.GetString(22);
-                            lbl_region.Visible = false;
-
-                            foreach (ListItem item in Lst_Region.Items)
-                            {
-                                item.Selected = false;
-                                if (item.Value == lbl_region.Text)
+                                // NV
+                                v_id_cotizacion = Convert.ToInt32(dr.GetString(0));
+                                lbl_id_cot.Text = dr.GetString(0);
+                                if (ubicacion != "E")
                                 {
-                                    item.Selected = true;
-                                    break;
+                                    lbl_existe.Text = detecta_cliente(Convert.ToInt32(dr.GetString(4)));
+                                    //Si cliente existe habilitamos check que permite usar la info ya creada en el ERP
+                                    Chk_data_existente.Enabled = true;
                                 }
-                            }
+                                else
+                                {
+                                    lbl_existe.Text = "NO";
+                                }
 
-                           // Lst_Region.Visible = true;
-
-                            if (lbl_fono.Text == "")
-                            {
-                                lbl_fono.Text = "0";
-                            }
-
-                            if (lbl_movil.Text == "")
-                            {
-                                lbl_movil.Text = "0";
-                            }
-
-                          /*  if (lbl_region.Text == "")
-                            {
+                                //v_id_nta_vta = Convert.ToInt32(dr.GetString(0));
+                                lbl_numero.Text = dr.GetString(1);
+                                lbl_fecha.Text = dr.GetString(12);
+                                // Clientes
+                                lbl_nombre.Text = dr.GetString(6);
+                                lbl_rut.Text = dr.GetString(4) + '-' + dr.GetString(5);
+                                lbl_rut_exit.Text = dr.GetString(4);
+                                lbl_fono.Text = dr.GetString(10);
+                                lbl_email.Text = dr.GetString(11);
+                                lbl_direccion.Text = dr.GetString(7);
+                                txt_comuna.Text = dr.GetString(8);
+                                lbl_ciudad.Text = dr.GetString(9);
+                                lbl_region.Text = dr.GetString(13);
+                                lbl_empresa.Text = dr.GetString(19);
+                                lbl_movil.Text = dr.GetString(20);
+                                lbl_nombre.Text = dr.GetString(21);
+                                lbl_apellidos.Text = dr.GetString(22);
                                 lbl_region.Visible = false;
-                                Lst_Region.Visible = true;
-                            }*/
-                            // Despacho
 
-                            v_neto = Convert.ToDouble(dr.GetString(15));
-                            v_tax = Convert.ToDouble(dr.GetString(16));
-                            v_total = Convert.ToDouble(dr.GetString(17));
-                            
-                           
-                            //lbl_neto.Text = v_neto.ToString("C3", CultureInfo.CurrentCulture);
+                                foreach (ListItem item in Lst_Region.Items)
+                                {
+                                    item.Selected = false;
+                                    if (item.Value == lbl_region.Text)
+                                    {
+                                        item.Selected = true;
+                                        break;
+                                    }
+                                }
 
-                            /*lbl_moneda.Text = "$";
-                            lbl_neto.Text = lbl_moneda.Text + ' ' + v_neto.ToString("N2");
-                            lbl_tax.Text = lbl_moneda.Text + ' ' + v_tax.ToString("N");
-                            lbl_total.Text = lbl_moneda.Text + ' ' + v_total.ToString("N");*/
+                                // Lst_Region.Visible = true;
 
-                            if (ubicacion == "E")
-                            {
-                                lbl_error.Text = "Cotización corresponde a Extranjeros... No es posible ingresarlo al ERP ";
-                                lbl_email.ForeColor = Color.Red;
-                                Btn_crearCot.Enabled = false;
+                                if (lbl_fono.Text == "")
+                                {
+                                    lbl_fono.Text = "0";
+                                }
+
+                                if (lbl_movil.Text == "")
+                                {
+                                    lbl_movil.Text = "0";
+                                }
+
+                                /*  if (lbl_region.Text == "")
+                                  {
+                                      lbl_region.Visible = false;
+                                      Lst_Region.Visible = true;
+                                  }*/
+                                // Despacho
+
+                                v_neto = Convert.ToDouble(dr.GetString(15));
+                                v_tax = Convert.ToDouble(dr.GetString(16));
+                                v_total = Convert.ToDouble(dr.GetString(17));
+
+
+                                //lbl_neto.Text = v_neto.ToString("C3", CultureInfo.CurrentCulture);
+
+                                /*lbl_moneda.Text = "$";
+                                lbl_neto.Text = lbl_moneda.Text + ' ' + v_neto.ToString("N2");
+                                lbl_tax.Text = lbl_moneda.Text + ' ' + v_tax.ToString("N");
+                                lbl_total.Text = lbl_moneda.Text + ' ' + v_total.ToString("N");*/
+
+                                if (ubicacion == "E")
+                                {
+                                    lbl_error.Text = "Cotización corresponde a Extranjeros... No es posible ingresarlo al ERP ";
+                                    lbl_email.ForeColor = Color.Red;
+                                    Btn_crearCot.Enabled = false;
+                                }
+
                             }
                         }
                     }
 
+                  
                     conn.Close();
                     conn.Dispose();
+
                     detalle_cotizacion(v_id_cotizacion);
                 }
                 catch (Exception ex)
@@ -473,7 +454,10 @@ namespace erpweb
             // revisamos la creación del cliente
            // if (lbl_existe.Text == "NO")
           //  {
+          if (!Chk_data_existente.Checked)
+            {
                 inserta_cliente_prospecto_en_ERP(lbl_rut.Text, lbl_empresa.Text, lbl_nombre.Text, lbl_apellidos.Text, lbl_direccion.Text, lbl_ciudad.Text, txt_comuna.Text, Lst_Region.SelectedItem.Value.ToString(), lbl_fono.Text, lbl_movil.Text, lbl_email.Text);
+            }
            // }
            // else
            // {
@@ -623,7 +607,6 @@ namespace erpweb
                     actualiza_Cotizacion(Convert.ToInt32(lbl_numero.Text));
                     entrega_num_cot_erp(v_id_cotizacion);
                     lbl_status.Text = "Cotización creada correctamente en el ERP, aparecerá en el Home del usuario a quien fue asignada";
-                    lbl_status.ForeColor = Color.Red;
                     v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
                     utiles.actualiza_historial_nv(v_id_cotizacion, usuario, "Se crea Cotización Web", Sserver, "COT");
                     utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
@@ -955,6 +938,9 @@ namespace erpweb
                     command.Parameters.AddWithValue("@v_email", lbl_email.Text);
                     command.Parameters["@v_email"].Direction = ParameterDirection.Input;
 
+                    command.Parameters.AddWithValue("@v_cotizacion", Convert.ToInt32(lbl_numero.Text));
+                    command.Parameters["@v_cotizacion"].Direction = ParameterDirection.Input;
+
                     DataSet ds = new DataSet();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
                     MySqlDataReader dr = command.ExecuteReader();
@@ -975,10 +961,10 @@ namespace erpweb
                         }
                     }
 
-                   // if (result != "OK")
-                 //   {
-                 //       lbl_error.Text = "ERROR AL ACTUALIZAR CLIENTE EN EL SITIO WEB";
-                 //   }
+                   if (result != "OK")
+                    {
+                        lbl_error.Text = "ERROR AL ACTUALIZAR CLIENTE EN EL SITIO WEB " + result;
+                    }
 
                     conn.Close();
                     conn.Dispose();
@@ -1125,7 +1111,76 @@ namespace erpweb
             {
                 Lst_Region.Items.Clear();
                 carga_contrl_lista("select id_region, concat(Codigo, ' ', nombre_corto) region from tbl_Regiones where activo = 1", Lst_Region, "tbl_Regiones", "id_region", "region");
-                muestra_info_cotizacion(num_cotizacion);
+                muestra_info_cotizacion(num_cotizacion,ubicacion,tipo);
+            }
+        }
+
+        protected void Btn_RechazarCot_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+
+            if (Page.IsValid)
+            {
+                string queryString = "";
+                queryString = "Rechaza_Documento ";
+
+
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    string result = "";
+                    try
+                    {
+                        conn.Open();
+                        MySqlCommand command = new MySqlCommand(queryString, conn);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@v_doc", lbl_numero.Text);
+                        command.Parameters["@v_doc"].Direction = ParameterDirection.Input;
+
+                        command.Parameters.AddWithValue("@v_tipo", "CO");
+                        command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                        DataSet ds = new DataSet();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                        MySqlDataReader dr = command.ExecuteReader();
+
+                        if (!dr.HasRows)
+                        {
+                            lbl_status.Text = "Sin Resultados";
+                        }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    // NV
+                                    result = Convert.ToString(dr.GetString(0));
+                                }
+                            }
+                        }
+
+                        if (result != "")
+                        {
+                            lbl_error.Text = "ERROR AL RECHAZAR COTIZACION ";
+                        }
+                        else
+                        {
+                            lbl_status.Text = "Cotización N° " + lbl_numero.Text + " fue Rechazada exitosamente";
+                            Btn_crearCot.Enabled = false;
+                        }
+
+                        conn.Close();
+                        conn.Dispose();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
             }
         }
     }

@@ -33,13 +33,6 @@
         .auto-style11 {
             width: 5230px;
         }
-        .auto-style12 {
-            background-color: #FFFFCC;
-        }
-        .auto-style13 {
-            width: 981px;
-            background-color: #FFFFCC;
-        }
         .auto-style14 {
             width: 981px;
             text-align: right;
@@ -62,9 +55,6 @@
             width: 331px;
             height: 4px;
         }
-        .auto-style20 {
-            height: 4px;
-        }
         .auto-style21 {
             height: 28px;
         }
@@ -75,11 +65,20 @@
             width: 331px;
             height: 12px;
         }
+        .auto-style24 {
+            text-align: right;
+        }
+        .auto-style25 {
+            width: 205px;
+        }
+        .auto-style26 {
+            margin-left: 169px;
+        }
     </style>
     
 
 </head>
-<body>
+<body style="width: 1379px; height: 38px">
     <form id="form1" runat="server" class="auto-style21">
     <div>
           <table  class="titNoticia">
@@ -124,6 +123,7 @@
                 <td class="auto-style19">
                     <strong>
                     <asp:Label ID="lbl_transac_pago" runat="server"></asp:Label>
+                    &nbsp;<asp:LinkButton ID="LnkUpdInfoPagoNV" runat="server" OnClick="LnkUpdInfoPagoNV_Click" Visible="False">Actualizar Información</asp:LinkButton>
                     </strong>
                 </td>
             </tr>
@@ -166,12 +166,12 @@
             </tr>
             <tr>
                 <td class="auto-style9">Teléfono</td>
-                <td class="auto-style12">
+                <td class="auto-style8">
                     <asp:Label ID="lbl_fono" runat="server"></asp:Label>
                 </td>
-                <td class="auto-style12">
+                <td class="auto-style8">
                     Email</td>
-                <td class="auto-style12">
+                <td class="aauto-style8">
                     <asp:Label ID="lbl_email" runat="server"></asp:Label>
                 </td>
             </tr>
@@ -204,10 +204,11 @@
                 <td class="auto-style8">
                     &nbsp;</td>
                 <td class="auto-style8">
-                    &nbsp;</td>
+                    <asp:Label ID="lbl_transac" runat="server" Visible="False"></asp:Label>
+                </td>
             </tr>
-            <tr class="BottomTabla">
-                <td class="auto-style13" colspan="4"><h4><strong>Información de Despacho:</strong></h4></td>
+            <tr class="BottomTabla"">
+                <td colspan="4"><h4><strong>Información de Despacho:</strong></h4></td>
             </tr>
             <tr>
                 <td class="auto-style2">Contacto</td>
@@ -293,12 +294,15 @@
 <table class="auto-style1">
             <tr>
                 <td class="auto-style31">Vendedor/Emisor</td>
-                <td class="auto-style32">
+                <td class="auto-style25">
                     <asp:DropDownList ID="Lista_Vendedores" runat="server" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-                <td class="auto-style33">
+                <td class="auto-style24">
+                    <asp:Button ID="Btn_Rechazar" runat="server" BackColor="Red" CssClass="auto-style26" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar Nota de Venta" Width="190px" />
+                </td>
+                <td class="auto-style24">
                     <asp:Button ID="Btn_crearNV" runat="server" OnClick="Btn_crearNV_Click" Text="Crear NV en ERP" />
                 </td>
             </tr>

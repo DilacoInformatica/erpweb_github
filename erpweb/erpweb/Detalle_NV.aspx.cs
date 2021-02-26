@@ -16,6 +16,9 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
 
+        string transac_pago = "";
+        string estado_pago = "";
+
         int id_nv = 0;
         int v_id_nta_vta = 0;
         int v_id_cliente = 0;
@@ -35,11 +38,13 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
+                LnkUpdInfoPagoNV.Attributes["Onclick"] = "return confirm('Confirma actualizacion de Información de Pago de la NV?')";
+                Btn_Rechazar.Attributes["Onclick"] = "return confirm('Confirma que rechazará la cotización?')";
                 carga_vendedores();
                 if (VerificaexistenciaNVERP(id_nv) == "SI")
                 {
                     Btn_crearNV.Enabled = false;
-                    lbl_error.Text = "NV N°"+ id_nv  + " ya fue creado en el ERP, consulte con su Administrador";
+                    lbl_error.Text = "NV N°" + id_nv + " ya fue creado en el ERP, consulte con su Administrador";
                     lbl_error.ForeColor = Color.Red;
                 }
                 muestra_info_nv(id_nv);
@@ -106,18 +111,18 @@ namespace erpweb
             {
                 try
                 {
-                connection.Open();
-                //SqlCommand command = new SqlCommand(sql, connection);
-                SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
-                DataSet dr = new DataSet();
-                reader.Fill(dr, "tbl_clientes");
-                Lista_Vendedores.DataSource = dr;
-                Lista_Vendedores.DataValueField = "ID_usuario";
-                Lista_Vendedores.DataTextField = "Vendedor";
-                Lista_Vendedores.DataBind();
+                    connection.Open();
+                    //SqlCommand command = new SqlCommand(sql, connection);
+                    SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                    DataSet dr = new DataSet();
+                    reader.Fill(dr, "tbl_clientes");
+                    Lista_Vendedores.DataSource = dr;
+                    Lista_Vendedores.DataValueField = "ID_usuario";
+                    Lista_Vendedores.DataTextField = "Vendedor";
+                    Lista_Vendedores.DataBind();
 
-                connection.Close();
-                connection.Dispose();
+                    connection.Close();
+                    connection.Dispose();
                 }
                 catch (Exception ex)
                 {
@@ -128,7 +133,7 @@ namespace erpweb
             }
         }
 
-        public string detecta_cliente(int v_rut) 
+        public string detecta_cliente(int v_rut)
         {
             string sql = "select count(1) from tbl_clientes where rut = " + v_rut;
             string result = "N";
@@ -176,55 +181,25 @@ namespace erpweb
         void muestra_info_nv(int id_nv)
         {
             NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
-            string queryString = "";
-            
-            queryString = "SELECT a.Id_Nota_Vta, "; // 0
-            queryString = queryString + "a.Nta_vta_num, "; // 1
-            queryString = queryString + "DATE_FORMAT(a.fecha, '%d-%m-%Y') fecha, "; // 2
-            queryString = queryString + "a.Observaciones, "; //3 
-            queryString = queryString + "a.Id_cliente, "; //4
-            queryString = queryString + "d.Id_contacto, "; //5
-            queryString = queryString + "c.Rut, "; //6
-            queryString = queryString + "c.Dv_Rut, "; //7
-            queryString = queryString + "c.Telefonos, "; //8
-            queryString = queryString + "c.email, "; //9
-            queryString = queryString + "c.Razon_Social, "; //10
-            queryString = queryString + "a.Suma_total, "; //11
-            queryString = queryString + "a.Neto, "; //12
-            queryString = queryString + "a.Tax_venta, "; //13
-            queryString = queryString + "a.total, "; //14
-            queryString = queryString + "c.Direccion 'Dirección', "; //15
-            queryString = queryString + "(select nombre_region from tbl_regiones where id_region = c.id_region) region, "; //16
-            queryString = queryString + "c.ciudad, "; //17
-            queryString = queryString + "c.comuna, "; //18
-            queryString = queryString + "IFNULL(a.Obs_despacho,'') Obs_despacho, "; //19
-            queryString = queryString + "IFNULL(a.Direccion_despacho,'') Direccion_despacho, "; //20
-            queryString = queryString + "(select nombre_region from tbl_regiones where id_region = a.id_region_despacho) region_despacho , "; //21
-            queryString = queryString + "(select nombre from tbl_ciudad where id_ciudad = a.id_ciudad_despacho) ciudad, "; //22
-            queryString = queryString + "ifnull((select descripcion from tbl_comunas where id_comuna = a.id_comuna_despacho),'') comuna_despacho, "; //23
-            queryString = queryString + "a.fono_despacho, "; // 24
-            queryString = queryString + "a.email_despacho, "; //25
-            queryString = queryString + "a.No_transaccion_web, "; //26
-            queryString = queryString + "a.Leido_ERP, "; //27
-            queryString = queryString + "1 status_nv ,"; //28
-            queryString = queryString + " ifnull(a.contacto_despacho,'') contacto_despacho, "; //29
-            queryString = queryString + " (select sigla from tbl_Monedas where ID_Moneda = a.Id_Moneda) Moneda, "; //30
-            queryString = queryString + " ifnull(numero_oc,0) numero_oc, ";
-            queryString = queryString + " ifnull(id_tipo_fact,1) id_tipo_fact ";
-            queryString = queryString + "FROM tbl_nota_vta a ";
-            queryString = queryString + "inner join tbl_clientes c on c.id_cliente = a.Id_cliente ";
-            queryString = queryString + "left outer join tbl_contactos_clientes d on d.id_cliente = c.Id_cliente ";
-            queryString = queryString + " WHERE a.Nta_vta_num = " + id_nv;
+            string queryString = "lista_nv_web_detalle";
+            string estadonv = "";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
                 {
                     conn.Open();
+
                     MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.ExecuteNonQuery();
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_nv", id_nv);
+                    command.Parameters["@v_nv"].Direction = ParameterDirection.Input;
+
+                    DataSet ds = new DataSet();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
                     MySqlDataReader dr = command.ExecuteReader();
+
 
                     while (dr.Read())
                     {
@@ -268,6 +243,27 @@ namespace erpweb
                             lbl_tax.Text = lbl_moneda.Text + ' ' + v_tax.ToString("N");
                             lbl_total.Text = lbl_moneda.Text + ' ' + v_total.ToString("N");
                             lbl_n_oc.Text = dr.GetString(31);
+                            estadonv = dr.GetString(33);
+
+                            // Si la NV esta en estado INGRESADO... consultamos si existe un numero de transaccion y la NV no se ingresó correctamente
+
+                            if (estadonv == "INGRESADO" && dr.GetString(26) == "0")
+                            {
+
+                                transac_pago = consulta_estado_correcto_nv(id_nv);
+
+                                if (transac_pago != "0")
+                                {
+                                    lbl_error.Text = "Se detecta inconsistencia en la NV, debe regualizar información de pago antes de procesar";
+                                    Btn_crearNV.Enabled = false;
+                                    LnkUpdInfoPagoNV.Visible = true;
+                                    lbl_transac.Text = transac_pago;
+                                }
+                                else
+                                {
+                                    Btn_Rechazar.Enabled = true;
+                                }
+                            }
 
                             if (dr.GetInt32(32) == 1)
                             {
@@ -291,6 +287,67 @@ namespace erpweb
                     lbl_error.Text = ex.Message;
                     conn.Close();
                     conn.Dispose();
+                }
+            }
+        }
+
+
+        public string consulta_estado_correcto_nv(int v_nv)
+        {
+            string queryString = "";
+            queryString = "obtiene_cod_transbank ";
+
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                string result = "";
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_nv", v_nv);
+                    command.Parameters["@v_nv"].Direction = ParameterDirection.Input;
+
+                    DataSet ds = new DataSet();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        lbl_status.Text = "Sin Resultados";
+                    }
+                    else
+                    {
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                // NV
+                                result = Convert.ToString(dr.GetString(0));
+                            }
+                        }
+                    }
+
+                    if (result != "OK")
+                    {
+                        lbl_error.Text = "ERROR AL OBTENER N° DE TRANSACCIONN WEBPAY";
+                    }
+
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                    return "0";
                 }
             }
         }
@@ -371,7 +428,7 @@ namespace erpweb
                         if (!dr.IsDBNull(0))
                         {
 
-                           insert_cliente_en_ERP(Convert.ToInt32(dr.GetString(0)), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5),dr.GetString(6), dr.GetString(7),Convert.ToInt32(dr.GetString(8)), dr.GetString(9),dr.GetString(10), dr.GetString(11));
+                            insert_cliente_en_ERP(Convert.ToInt32(dr.GetString(0)), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7), Convert.ToInt32(dr.GetString(8)), dr.GetString(9), dr.GetString(10), dr.GetString(11));
                         }
                     }
 
@@ -471,7 +528,7 @@ namespace erpweb
             }
             if (busco == "I")
             {
-                sql = "select id_cliente from tbl_clientes where rut = " + rut ;
+                sql = "select id_cliente from tbl_clientes where rut = " + rut;
             }
 
             int result = 0;
@@ -545,10 +602,21 @@ namespace erpweb
                         else
                         {
 
-                            v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
-                            v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
-                            // Insertamos la Nv en el ERP
-                            using (SqlConnection connection = new SqlConnection(Sserver))
+                            v_id_contacto = 54328; // busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
+                            v_id_cliente = 18909; // busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
+
+
+                            
+                          if (lbl_tipo_facturacion.Text == "Factura Electrónica")
+                            {
+                                id_tipo_fac = 1;
+                            }
+                         if (lbl_tipo_facturacion.Text == "Boleta Electrónica")
+                            {
+                                id_tipo_fac = 2;
+                            }
+                        // Insertamos la Nv en el ERP
+                        using (SqlConnection connection = new SqlConnection(Sserver))
                             {
                                 try
                                 {
@@ -663,7 +731,7 @@ namespace erpweb
                                                 cmd.Parameters.AddWithValue("@v_item", v_id_item);
                                                 cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
 
-                                                cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
+                                                cmd.Parameters.AddWithValue("@v_codigo", v_codigo.Trim());
                                                 cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
 
                                                 cmd.Parameters.AddWithValue("@v_descripcion", v_descrip);
@@ -707,23 +775,24 @@ namespace erpweb
                                 actualiza_NV(Convert.ToInt32(lbl_numero.Text));
                                 entrega_num_nv_erp(v_id_nta_vta);
                                 lbl_status.Text = "Nota de Venta creada correctamente en el ERP, revise el Home";
-                                utiles.actualiza_historial_nv(v_id_nta_vta, usuario, "Se crea NV desde Sitio Web",Sserver,"NV");
+                                utiles.actualiza_historial_nv(v_id_nta_vta, usuario, "Se crea NV desde Sitio Web", Sserver, "NV");
                                 lbl_status.ForeColor = Color.Red;
-                                v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()),Sserver);
+                                v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
                                 utiles.enviar_correo("Nv Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
+                                Btn_crearNV.Enabled = false;
                             }
                             // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
                         }
                     }
                 }
             }
-          }
+        }
 
         void entrega_num_nv_erp(int v_id_nta_vta)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
             sql = "select distinct Nta_Vta_Num from tbl_Nota_Venta where ID_Nta_Vta = " + v_id_nta_vta;
-            
+
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
                 try
@@ -840,6 +909,145 @@ namespace erpweb
         protected void Btn_volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Notas_Venta.aspx");
+        }
+
+        protected void LnkUpdInfoPagoNV_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+
+
+                string queryString = "";
+                queryString = "Actualiza_NV_FolTransac";
+
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    string result = "";
+                    try
+                    {
+                        conn.Open();
+
+                        MySqlCommand command = new MySqlCommand(queryString, conn);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@n_nv", lbl_numero.Text);
+                        command.Parameters["@n_nv"].Direction = ParameterDirection.Input;
+
+                        command.Parameters.AddWithValue("@v_folio", lbl_transac.Text);
+                        command.Parameters["@v_folio"].Direction = ParameterDirection.Input;
+
+                        command.Parameters.AddWithValue("@v_estado", "PAGADO");
+                        command.Parameters["@v_estado"].Direction = ParameterDirection.Input;
+
+                        DataSet ds = new DataSet();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                        MySqlDataReader dr = command.ExecuteReader();
+
+                        if (!dr.HasRows)
+                        {
+                            lbl_status.Text = "Sin Resultados";
+                        }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    // NV
+                                    result = Convert.ToString(dr.GetString(0));
+                                    lbl_transac_pago.Text = lbl_transac.Text;
+                                }
+                            }
+                        }
+
+                        if (result != "OK")
+                        {
+                            lbl_error.Text = "ERROR AL ACTUALIZAR NV EN EL SITIO WEB";
+                        }
+
+                        conn.Close();
+                        conn.Dispose();
+                        LnkUpdInfoPagoNV.Visible = false;
+                        Btn_crearNV.Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
+        }
+
+        protected void Btn_Rechazar_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+
+            if (Page.IsValid)
+            {
+                string queryString = "";
+                queryString = "Rechaza_Documento";
+
+
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    string result = "";
+                    try
+                    {
+                        conn.Open();
+                        MySqlCommand command = new MySqlCommand(queryString, conn);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@v_doc", lbl_numero.Text);
+                        command.Parameters["@v_doc"].Direction = ParameterDirection.Input;
+
+                        command.Parameters.AddWithValue("@v_tipo", "NV");
+                        command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                        DataSet ds = new DataSet();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                        MySqlDataReader dr = command.ExecuteReader();
+
+                        if (!dr.HasRows)
+                        {
+                            lbl_status.Text = "Sin Resultados";
+                        }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    // NV
+                                    result = Convert.ToString(dr.GetString(0));
+                                }
+                            }
+                        }
+
+                        if (result != "OK")
+                        {
+                            lbl_error.Text = "ERROR AL RECHAZAR NV ";
+                        }
+                        else
+                        {
+                            lbl_status.Text = "NV N° " + lbl_numero.Text + " fue Rechazada exitosamente";
+                            Btn_crearNV.Enabled = false;
+                        }
+
+                        conn.Close();
+                        conn.Dispose();
+                        Btn_Rechazar.Enabled = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
         }
     }
 }

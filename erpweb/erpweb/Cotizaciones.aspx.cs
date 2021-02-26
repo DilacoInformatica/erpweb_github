@@ -109,7 +109,7 @@ namespace erpweb
         protected void Lista_cotizacion_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Lista_cotizacion.SelectedRow;
-            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + row.Cells[8].Text);
+            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + row.Cells[12].Text + "&tipo=" + row.Cells[13].Text);
         }
     }
 }

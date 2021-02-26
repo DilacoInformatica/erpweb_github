@@ -86,6 +86,10 @@
         .auto-style41 {
             height: 22px;
         }
+        .auto-style42 {
+            text-align: right;
+            width: 37px;
+        }
         </style>
 </head>
 <body>
@@ -103,6 +107,7 @@
                     </td>
                 </tr>
             </table>
+            <asp:Label ID="lbl_status" runat="server"></asp:Label>
             <br />
         </div>
     
@@ -230,7 +235,6 @@
             </tr>
             <tr>
                 <td colspan="10">
-            <asp:Label ID="lbl_status" runat="server"></asp:Label>
             <asp:Label ID="lbl_error" runat="server"></asp:Label>
             <asp:Label ID="lbl_id_cot" runat="server" Visible="False"></asp:Label>
             <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
@@ -259,8 +263,11 @@
                         <asp:ListItem Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </td>
+                <td class="auto-style42">
+                    <asp:Button ID="Btn_RechazarCot" runat="server" BackColor="Red" Font-Bold="False" OnClick="Btn_RechazarCot_Click" Text="Rechazar Cotización" Width="220px" />
+                </td>
                 <td class="auto-style33">
-                    <asp:Button ID="Btn_crearCot" runat="server" OnClick="Btn_crearCot_Click" Text="Crear Cotización en ERP" />
+                    <asp:Button ID="Btn_crearCot" runat="server" OnClick="Btn_crearCot_Click" Text="Crear Cotización en ERP" Width="220px" />
                 </td>
             </tr>
         </table>
