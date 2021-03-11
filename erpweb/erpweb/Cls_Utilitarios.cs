@@ -47,8 +47,8 @@ namespace erpweb
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {
-                // salida = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion  Local
-                salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+                salida = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion  Local
+                //salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
             }
             if (servidor == "SSERVER" && ambiente == 2)
             {

@@ -7,20 +7,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Notas de Venta generadas en el Sitio Web</title>
     <link href="css/estilos.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
     <style type="text/css">
         .auto-style32 {
             width: 90px;
+            height: 27px;
         }
         .auto-style8 {
             width: 61px;
             text-align: center;
+            height: 27px;
         }
         .auto-style34 {
             width: 141px;
+            height: 27px;
         }
         .auto-style35 {
             height: 39px;
             width: 621px;
+        }
+        .auto-style37 {
+            height: 27px;
+        }
+        .auto-style38 {
+            position: relative;
+            width: 100%;
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            max-width: 100%;
+            left: 0px;
+            top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
         }
         </style>
     <script>
@@ -38,20 +60,20 @@
 
 <body>
     <form id="form1" runat="server">
-    <div>
       <table  class="titNoticia">
             <tr>
                 <td class="auto-style35"><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Notas de Venta generadas en Sitio Web</span></h1>
                  </td>
             </tr>
         </table>
-                <table class="auto-style9">
+      
+           <table class="auto-style9">
             <tr class="BottomTabla">
                 <td colspan="6"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
             </tr>
             <tr>
                 <td class="auto-style34">Nota de Venta</td>
-                <td>
+                <td class="auto-style37">
                     <asp:TextBox ID="txt_nv" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                 </td>
                 <td class="auto-style32">
@@ -59,7 +81,7 @@
                 <td class="auto-style32">
                     <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                 </td>
-                <td>
+                <td class="auto-style37">
                     <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click"/>
                 </td>
                 <td class="auto-style8">
