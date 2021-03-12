@@ -52,7 +52,12 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
 
-            lbl_ambiente.Text = utiles.retorna_ambiente();
+            //lbl_ambiente.Text = utiles.retorna_ambiente();
+
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
 
             ruta_alterna = utiles.retorna_ruta();
 

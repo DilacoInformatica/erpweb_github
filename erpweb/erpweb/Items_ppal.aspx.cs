@@ -37,7 +37,7 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
-            Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
+            //Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
@@ -289,9 +289,7 @@ namespace erpweb
                 //LstProductos.DataSource = table;
                 //LstProductos.DataBind();
 
-
-
-                lbl_cantidad.Text ="Cantidad de Registros: " + Convert.ToString(Productos.Rows.Count);
+                lbl_cantidad.Text = Convert.ToString(Productos.Rows.Count);
             }
         }
 
@@ -382,575 +380,575 @@ namespace erpweb
                server control at run time. */
         }
 
-        protected void Btn_Transpaso_Masivo_Click(object sender, EventArgs e)
-        {
-            lista_errores.Columns.Add("Información");
-            lista_errores.Columns.Add("Resultado");
-            GridResultados.DataSource = lista_errores;
-            lista_errores.Clear();
-            GridResultados.DataBind();
-            GridResultados.Visible = false;
-            string query = "";
-            string ruta_server = "";
-            string ruta_local = "";
-            string descripcion = "";
-            int ins = 0;
-            int upd = 0;
-            int err = 0;
-            int arc = 0;
-            int are = 0;
-            ClsFTP ftp = new ClsFTP();
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                // Comenzamos con el transpaso masivo de información al Servidor Web
-                query = "SELECT tbl_items_web.Id_Item "; // 0
-                query = query + ",tbl_items_web.Codigo "; // 1
-                query = query + ",isnull(tbl_items_web.habilitado_venta,0) habilitado_venta  "; // 2
-                query = query + ",isnull(tbl_items_web.prodpedido,0) prodpedido "; //3
-                query = query + ",isnull(tbl_items_web.visible,0) visible "; //4
-                query = query + ",isnull(tbl_items_web.cotizaciones,0) cotizaciones "; //5
-                query = query + ",isnull(tbl_items_web.ventas,0) ventas "; //6
-                query = query + ",tbl_items_web.Texto_Destacado "; //7 
-                query = query + ",tbl_items_web.codigo_maestro "; //8
-                query = query + ",tbl_items_web.Texto_maestro "; //9
-                query = query + ",tbl_items_web.Descripcion_maestro "; //10
-                query = query + ",tbl_items_web.Descripcion "; // 11
-                query = query + ",isnull(tbl_items_web.Id_Categoria,0) Id_Categoria "; // 12
-                query = query + ",isnull(tbl_items_web.Id_SubCategoria,0) Id_SubCategoria "; //13
-                query = query + ",isnull(tbl_items_web.Id_Linea_Venta,0) Id_Linea_Venta "; //14
-                query = query + ",isnull(tbl_items_web.Id_proveedor,0) id_proveedor "; //15
-                query = query + ",tbl_items_web.Marca "; //16
-                query = query + ",isnull(tbl_items_web.Precio, 0) Precio "; // 17
-                query = query + ",isnull(tbl_items_web.Id_moneda,0) id_moneda "; // 18
-                query = query + ",tbl_items_web.unidad_vta ";  // 19
-                query = query + ",tbl_items_web.Codigo_prov "; //20
-                query = query + ",tbl_items_web.Caracteristicas "; //21
-                query = query + ",tbl_items_web.Manual_Tecnico "; //22
-                query = query + ",tbl_items_web.Presentacion_Producto  "; //23
-                query = query + ",tbl_items_web.Foto "; //24
-                query = query + ",tbl_items_web.Foto_Grande "; //25
-                query = query + ",tbl_items_web.Video "; //26
-                query = query + ",tbl_items_web.Producto_Nuevo "; //27
-                query = query + ",tbl_items_web.Producto_Oferta "; //28
-                query = query + ",isnull(tbl_items_web.Id_Accesorio1,0) Id_Accesorio1 "; //29
-                query = query + ",isnull(tbl_items_web.Id_Accesorio2,0) Id_Accesorio2 "; //30
-                query = query + ",isnull(tbl_items_web.Id_Accesorio3,0) Id_Accesorio3 "; //31
-                query = query + ",isnull(tbl_items_web.Id_Repuesto1,0) Id_Repuesto1 "; //32
-                query = query + ",isnull(tbl_items_web.Id_Repuesto2,0) Id_Repuesto2 "; //33
-                query = query + ",isnull(tbl_items_web.Id_Repuesto3,0) Id_Repuesto3 "; //34
-                query = query + ",isnull(tbl_items_web.Id_Alternativa1,0) Id_Alternativa "; //35
-                query = query + ",isnull(tbl_items_web.Id_Alternativa2,0) Id_Alternativa2 "; //36
-                query = query + ",isnull(tbl_items_web.Id_Alternativa3,0) Id_Alternativa3 "; //37
-                query = query + ",isnull(tbl_items_web.Id_Categoria1,0) Id_Categoria "; //38
-                query = query + ",isnull(tbl_items_web.Id_Categoria2,0) Id_Categoria2 "; //39
-                query = query + ",isnull(tbl_items_web.Id_Categoria3,0) Id_Categoria3 "; //40
-                query = query + ",isnull(tbl_items_web.Id_SubCategoria1,0) Id_SubCategoria1 "; //41
-                query = query + ",isnull(tbl_items_web.Id_SubCategoria2,0) Id_SubCategoria2 "; //42
-                query = query + ",isnull(tbl_items_web.Id_SubCategoria3,0) Id_SubCategoria3 "; //43
-                query = query + ",tbl_items_web.Tabla_Tecnica "; //44
-                query = query + ",tbl_items_web.Hoja_de_Seguridad "; //45
-                query = query + ",pr.Nombre_Fantasia "; //46
-                query = query + "FROM tbl_Items_web with(nolock) ";
-                query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = tbl_items_web.Id_Categoria ";
-                query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = tbl_items_web.Id_SubCategoria ";
-                query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = tbl_items_web.Id_proveedor ";
-                query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = tbl_items_web.Id_moneda ";
-                query = query + "inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1 ";
+        //protected void Btn_Transpaso_Masivo_Click(object sender, EventArgs e)
+        //{
+        //    lista_errores.Columns.Add("Información");
+        //    lista_errores.Columns.Add("Resultado");
+        //    GridResultados.DataSource = lista_errores;
+        //    lista_errores.Clear();
+        //    GridResultados.DataBind();
+        //    GridResultados.Visible = false;
+        //    string query = "";
+        //    string ruta_server = "";
+        //    string ruta_local = "";
+        //    string descripcion = "";
+        //    int ins = 0;
+        //    int upd = 0;
+        //    int err = 0;
+        //    int arc = 0;
+        //    int are = 0;
+        //    ClsFTP ftp = new ClsFTP();
+        //    Page.Validate();
+        //    if (Page.IsValid)
+        //    {
+        //        // Comenzamos con el transpaso masivo de información al Servidor Web
+        //        query = "SELECT tbl_items_web.Id_Item "; // 0
+        //        query = query + ",tbl_items_web.Codigo "; // 1
+        //        query = query + ",isnull(tbl_items_web.habilitado_venta,0) habilitado_venta  "; // 2
+        //        query = query + ",isnull(tbl_items_web.prodpedido,0) prodpedido "; //3
+        //        query = query + ",isnull(tbl_items_web.visible,0) visible "; //4
+        //        query = query + ",isnull(tbl_items_web.cotizaciones,0) cotizaciones "; //5
+        //        query = query + ",isnull(tbl_items_web.ventas,0) ventas "; //6
+        //        query = query + ",tbl_items_web.Texto_Destacado "; //7 
+        //        query = query + ",tbl_items_web.codigo_maestro "; //8
+        //        query = query + ",tbl_items_web.Texto_maestro "; //9
+        //        query = query + ",tbl_items_web.Descripcion_maestro "; //10
+        //        query = query + ",tbl_items_web.Descripcion "; // 11
+        //        query = query + ",isnull(tbl_items_web.Id_Categoria,0) Id_Categoria "; // 12
+        //        query = query + ",isnull(tbl_items_web.Id_SubCategoria,0) Id_SubCategoria "; //13
+        //        query = query + ",isnull(tbl_items_web.Id_Linea_Venta,0) Id_Linea_Venta "; //14
+        //        query = query + ",isnull(tbl_items_web.Id_proveedor,0) id_proveedor "; //15
+        //        query = query + ",tbl_items_web.Marca "; //16
+        //        query = query + ",isnull(tbl_items_web.Precio, 0) Precio "; // 17
+        //        query = query + ",isnull(tbl_items_web.Id_moneda,0) id_moneda "; // 18
+        //        query = query + ",tbl_items_web.unidad_vta ";  // 19
+        //        query = query + ",tbl_items_web.Codigo_prov "; //20
+        //        query = query + ",tbl_items_web.Caracteristicas "; //21
+        //        query = query + ",tbl_items_web.Manual_Tecnico "; //22
+        //        query = query + ",tbl_items_web.Presentacion_Producto  "; //23
+        //        query = query + ",tbl_items_web.Foto "; //24
+        //        query = query + ",tbl_items_web.Foto_Grande "; //25
+        //        query = query + ",tbl_items_web.Video "; //26
+        //        query = query + ",tbl_items_web.Producto_Nuevo "; //27
+        //        query = query + ",tbl_items_web.Producto_Oferta "; //28
+        //        query = query + ",isnull(tbl_items_web.Id_Accesorio1,0) Id_Accesorio1 "; //29
+        //        query = query + ",isnull(tbl_items_web.Id_Accesorio2,0) Id_Accesorio2 "; //30
+        //        query = query + ",isnull(tbl_items_web.Id_Accesorio3,0) Id_Accesorio3 "; //31
+        //        query = query + ",isnull(tbl_items_web.Id_Repuesto1,0) Id_Repuesto1 "; //32
+        //        query = query + ",isnull(tbl_items_web.Id_Repuesto2,0) Id_Repuesto2 "; //33
+        //        query = query + ",isnull(tbl_items_web.Id_Repuesto3,0) Id_Repuesto3 "; //34
+        //        query = query + ",isnull(tbl_items_web.Id_Alternativa1,0) Id_Alternativa "; //35
+        //        query = query + ",isnull(tbl_items_web.Id_Alternativa2,0) Id_Alternativa2 "; //36
+        //        query = query + ",isnull(tbl_items_web.Id_Alternativa3,0) Id_Alternativa3 "; //37
+        //        query = query + ",isnull(tbl_items_web.Id_Categoria1,0) Id_Categoria "; //38
+        //        query = query + ",isnull(tbl_items_web.Id_Categoria2,0) Id_Categoria2 "; //39
+        //        query = query + ",isnull(tbl_items_web.Id_Categoria3,0) Id_Categoria3 "; //40
+        //        query = query + ",isnull(tbl_items_web.Id_SubCategoria1,0) Id_SubCategoria1 "; //41
+        //        query = query + ",isnull(tbl_items_web.Id_SubCategoria2,0) Id_SubCategoria2 "; //42
+        //        query = query + ",isnull(tbl_items_web.Id_SubCategoria3,0) Id_SubCategoria3 "; //43
+        //        query = query + ",tbl_items_web.Tabla_Tecnica "; //44
+        //        query = query + ",tbl_items_web.Hoja_de_Seguridad "; //45
+        //        query = query + ",pr.Nombre_Fantasia "; //46
+        //        query = query + "FROM tbl_Items_web with(nolock) ";
+        //        query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = tbl_items_web.Id_Categoria ";
+        //        query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = tbl_items_web.Id_SubCategoria ";
+        //        query = query + "left outer join tbl_Proveedores pr on pr.ID_Proveedor = tbl_items_web.Id_proveedor ";
+        //        query = query + "left outer join tbl_Monedas mn on mn.ID_Moneda = tbl_items_web.Id_moneda ";
+        //        query = query + "inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item where 1 = 1 ";
 
-                if (txt_codigo.Text != "")
-                {
-                    query = query + "and  tbl_items_web.codigo like  '" + txt_codigo.Text + "%'";
-                }
+        //        if (txt_codigo.Text != "")
+        //        {
+        //            query = query + "and  tbl_items_web.codigo like  '" + txt_codigo.Text + "%'";
+        //        }
 
-                if (txt_codprov.Text != "")
-                {
-                    query = query + "and tbl_items.Codigo_prov like  '" + txt_codprov.Text + "%'";
-                }
+        //        if (txt_codprov.Text != "")
+        //        {
+        //            query = query + "and tbl_items.Codigo_prov like  '" + txt_codprov.Text + "%'";
+        //        }
 
-                if (LstCategorias.SelectedItem.Value.ToString() != "0")
-                {
-                    query = query + "and tbl_items.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
-                }
+        //        if (LstCategorias.SelectedItem.Value.ToString() != "0")
+        //        {
+        //            query = query + "and tbl_items.Id_Categoria = " + LstCategorias.SelectedItem.Value.ToString();
+        //        }
 
-                if (LstSubCategorias.SelectedItem.Value.ToString() != "0")
-                {
-                    query = query + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
-                }
+        //        if (LstSubCategorias.SelectedItem.Value.ToString() != "0")
+        //        {
+        //            query = query + "and tbl_items.Id_Subcategoria = " + LstSubCategorias.SelectedItem.Value.ToString();
+        //        }
 
-               // if (LstLetras.SelectedItem.Value.ToString() != " ")
-               // {
-               //     master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
-              //  }
+        //       // if (LstLetras.SelectedItem.Value.ToString() != " ")
+        //       // {
+        //       //     master_queryString = master_queryString + "and tbl_items.Sigla = '" + LstLetras.SelectedItem.Value.ToString() + "'";
+        //      //  }
 
 
-                if (LstProveedores.SelectedItem.Value.ToString() != "0")
-                {
-                    query = query + "and tbl_items.Id_proveedor = " + LstProveedores.SelectedItem.Value.ToString();
-                }
+        //        if (LstProveedores.SelectedItem.Value.ToString() != "0")
+        //        {
+        //            query = query + "and tbl_items.Id_proveedor = " + LstProveedores.SelectedItem.Value.ToString();
+        //        }
 
-                if (chk_sin_cat.Checked)
-                {
-                    query = query + "and isnull(tbl_items.Id_Categoria,0) = 0 ";
-                }
+        //        if (chk_sin_cat.Checked)
+        //        {
+        //            query = query + "and isnull(tbl_items.Id_Categoria,0) = 0 ";
+        //        }
 
-                if (chk_no_publicados.Checked)
-                {
-                    query = query + "and isnull(tbl_items.publicado_sitio,0) = 0 ";
-                }
+        //        if (chk_no_publicados.Checked)
+        //        {
+        //            query = query + "and isnull(tbl_items.publicado_sitio,0) = 0 ";
+        //        }
 
-                if (chk_publicados.Checked)
-                {
-                    query = query + "and isnull(tbl_items.publicado_sitio,0) = 1 ";
-                }
+        //        if (chk_publicados.Checked)
+        //        {
+        //            query = query + "and isnull(tbl_items.publicado_sitio,0) = 1 ";
+        //        }
 
-                using (SqlConnection connection = new SqlConnection(Sserver))
-                {
-                    try
-                    {
-                        connection.Open();
-                        SqlCommand command = new SqlCommand(query, connection);
+        //        using (SqlConnection connection = new SqlConnection(Sserver))
+        //        {
+        //            try
+        //            {
+        //                connection.Open();
+        //                SqlCommand command = new SqlCommand(query, connection);
 
-                        SqlDataReader reader = command.ExecuteReader();
-                        // Transpaso a Mysql
-                        while (reader.Read())
-                        {
-                            // Verficamos que exista el item en el servidor web
-                            if (validamysql(reader[0].ToString()))
-                            {
+        //                SqlDataReader reader = command.ExecuteReader();
+        //                // Transpaso a Mysql
+        //                while (reader.Read())
+        //                {
+        //                    // Verficamos que exista el item en el servidor web
+        //                    if (validamysql(reader[0].ToString()))
+        //                    {
 
-                                descripcion = reader[11].ToString();
+        //                        descripcion = reader[11].ToString();
 
-                                if (descripcion.Length > 101)
-                                {
-                                    descripcion = descripcion.Substring(0, 100);
-                                }
-                                upd++;
-                                query = "UPDATE dilacocl_dilacoweb.tbl_items ";
-                                query = query + "SET ";
-                                query = query + " descripcion = '" + Context.Server.HtmlDecode(descripcion) + "'";
-                                query = query + ",prodpedido = " + reader[3].ToString();
-                                query = query + ",visible = " + reader[4].ToString();
-                                query = query + ",cotizaciones = " + reader[5].ToString();
-                                query = query + ",ventas = " + reader[6].ToString();
-                                query = query + ",texto_destacado = '" + Context.Server.HtmlDecode(reader[7].ToString().Replace(",", ".").Trim() + "'");
-                                query = query + ",Id_Categoria = " + reader[12].ToString();
-                                query = query + ",Id_Subcategoria = " + reader[13].ToString();
-                                query = query + ",Id_Linea_Venta = " + reader[14].ToString();
-                                query = query + ",proveedor = '" + reader[46].ToString().Replace(",", ".").Trim() + "'";
-                                query = query + ",Marca = '" + Context.Server.HtmlDecode(reader[16].ToString().Replace(",", ".").Trim() + "'");
-                                query = query + ",precio = " + reader[17].ToString().Replace(",", ".");
-                                query = query + ",id_moneda = " + reader[18].ToString();
-                                query = query + ",Unidad_vta = '" + reader[19].ToString() + "'";
-                                query = query + ",Codigo_prov = '" + Context.Server.HtmlDecode(reader[20].ToString() + "'");
-                                query = query + ",Caracteristicas = '" + Context.Server.HtmlDecode(reader[21].ToString().Replace(",", ".").Trim() + "'");
-                                query = query + ",Manual_tecnico = '" + reader[22].ToString() + "'";
-                                query = query + ",Presentacion_producto = '" + reader[23].ToString() + "'";
-                                query = query + ",Hoja_de_Seguridad = '" + reader[45].ToString() + "'";
-                                query = query + ",Foto = '" + reader[24].ToString() + "'";
-                                query = query + ",Foto_grande = '" + reader[25].ToString() + "'";
-                                query = query + ",Video = '" + reader[26].ToString() + "'";
-                                query = query + ",Id_Accesorio1 = " + reader[29].ToString();
-                                query = query + ",Id_Accesorio2 = " + reader[30].ToString();
-                                query = query + ",Id_Accesorio3 = " + reader[31].ToString();
-                                query = query + ",Id_Repuesto1 = " + reader[32].ToString();
-                                query = query + ",Id_Repuesto2 = " + reader[33].ToString();
-                                query = query + ",Id_Repuesto3 = " + reader[34].ToString();
-                                query = query + ",Id_Alternativa1 = " + reader[35].ToString();
-                                query = query + ",Id_Alternativa2 = " + reader[36].ToString();
-                                query = query + ",Id_Alternativa3 = " + reader[37].ToString();
-                                query = query + ",Id_categoria1 = " + reader[38].ToString();
-                                query = query + ",Id_categoria2 = " + reader[39].ToString();
-                                query = query + ",Id_categoria3 = " + reader[40].ToString();
-                                query = query + ",Id_subcategoria1 = " + reader[41].ToString();
-                                query = query + ",Id_subcategoria2 = " + reader[42].ToString();
-                                query = query + ",Id_subcategoria3 = " + reader[43].ToString();
-                                query = query + ",tabla_tecnica ='" + Context.Server.HtmlDecode(reader[44].ToString().Replace(",", ".").Trim() + "'");
-                                query = query + "  WHERE Id_Item = " + reader[0].ToString();
-                            }
-                            else
-                            {
+        //                        if (descripcion.Length > 101)
+        //                        {
+        //                            descripcion = descripcion.Substring(0, 100);
+        //                        }
+        //                        upd++;
+        //                        query = "UPDATE dilacocl_dilacoweb.tbl_items ";
+        //                        query = query + "SET ";
+        //                        query = query + " descripcion = '" + Context.Server.HtmlDecode(descripcion) + "'";
+        //                        query = query + ",prodpedido = " + reader[3].ToString();
+        //                        query = query + ",visible = " + reader[4].ToString();
+        //                        query = query + ",cotizaciones = " + reader[5].ToString();
+        //                        query = query + ",ventas = " + reader[6].ToString();
+        //                        query = query + ",texto_destacado = '" + Context.Server.HtmlDecode(reader[7].ToString().Replace(",", ".").Trim() + "'");
+        //                        query = query + ",Id_Categoria = " + reader[12].ToString();
+        //                        query = query + ",Id_Subcategoria = " + reader[13].ToString();
+        //                        query = query + ",Id_Linea_Venta = " + reader[14].ToString();
+        //                        query = query + ",proveedor = '" + reader[46].ToString().Replace(",", ".").Trim() + "'";
+        //                        query = query + ",Marca = '" + Context.Server.HtmlDecode(reader[16].ToString().Replace(",", ".").Trim() + "'");
+        //                        query = query + ",precio = " + reader[17].ToString().Replace(",", ".");
+        //                        query = query + ",id_moneda = " + reader[18].ToString();
+        //                        query = query + ",Unidad_vta = '" + reader[19].ToString() + "'";
+        //                        query = query + ",Codigo_prov = '" + Context.Server.HtmlDecode(reader[20].ToString() + "'");
+        //                        query = query + ",Caracteristicas = '" + Context.Server.HtmlDecode(reader[21].ToString().Replace(",", ".").Trim() + "'");
+        //                        query = query + ",Manual_tecnico = '" + reader[22].ToString() + "'";
+        //                        query = query + ",Presentacion_producto = '" + reader[23].ToString() + "'";
+        //                        query = query + ",Hoja_de_Seguridad = '" + reader[45].ToString() + "'";
+        //                        query = query + ",Foto = '" + reader[24].ToString() + "'";
+        //                        query = query + ",Foto_grande = '" + reader[25].ToString() + "'";
+        //                        query = query + ",Video = '" + reader[26].ToString() + "'";
+        //                        query = query + ",Id_Accesorio1 = " + reader[29].ToString();
+        //                        query = query + ",Id_Accesorio2 = " + reader[30].ToString();
+        //                        query = query + ",Id_Accesorio3 = " + reader[31].ToString();
+        //                        query = query + ",Id_Repuesto1 = " + reader[32].ToString();
+        //                        query = query + ",Id_Repuesto2 = " + reader[33].ToString();
+        //                        query = query + ",Id_Repuesto3 = " + reader[34].ToString();
+        //                        query = query + ",Id_Alternativa1 = " + reader[35].ToString();
+        //                        query = query + ",Id_Alternativa2 = " + reader[36].ToString();
+        //                        query = query + ",Id_Alternativa3 = " + reader[37].ToString();
+        //                        query = query + ",Id_categoria1 = " + reader[38].ToString();
+        //                        query = query + ",Id_categoria2 = " + reader[39].ToString();
+        //                        query = query + ",Id_categoria3 = " + reader[40].ToString();
+        //                        query = query + ",Id_subcategoria1 = " + reader[41].ToString();
+        //                        query = query + ",Id_subcategoria2 = " + reader[42].ToString();
+        //                        query = query + ",Id_subcategoria3 = " + reader[43].ToString();
+        //                        query = query + ",tabla_tecnica ='" + Context.Server.HtmlDecode(reader[44].ToString().Replace(",", ".").Trim() + "'");
+        //                        query = query + "  WHERE Id_Item = " + reader[0].ToString();
+        //                    }
+        //                    else
+        //                    {
 
-                                descripcion = reader[11].ToString();
+        //                        descripcion = reader[11].ToString();
 
-                                if (descripcion.Length > 101)
-                                {
-                                    descripcion = descripcion.Substring(0, 100);
-                                }
-                                ins++;
-                                query = "INSERT INTO dilacocl_dilacoweb.tbl_items ";
-                                query = query + "(Id_Item, ";
-                                query = query + "codigo, ";
-                                query = query + "descripcion, ";
-                                query = query + "prodpedido, ";
-                                query = query + "visible, ";
-                                query = query + "cotizaciones, ";
-                                query = query + "ventas, ";
-                                query = query + "texto_destacado, ";
-                                query = query + "Id_Categoria, ";
-                                query = query + "Id_Subcategoria, ";
-                                query = query + "Id_Linea_Venta, ";
-                                query = query + "proveedor, ";
-                                query = query + "Marca, ";
-                                query = query + "precio, ";
-                                query = query + "id_moneda, ";
-                                query = query + "Unidad_vta, ";
-                                query = query + "codigo_prov,";
-                                query = query + "Caracteristicas, ";
-                                query = query + "Manual_tecnico, ";
-                                query = query + "Presentacion_producto, ";
-                                query = query + "Hoja_de_Seguridad, ";
-                                query = query + "Foto, ";
-                                query = query + "Foto_grande, ";
-                                query = query + "Video, ";
-                                query = query + "Id_Accesorio1, ";
-                                query = query + "Id_Accesorio2, ";
-                                query = query + "Id_Accesorio3, ";
-                                query = query + "Id_Repuesto1, ";
-                                query = query + "Id_Repuesto2, ";
-                                query = query + "Id_Repuesto3, ";
-                                query = query + "Id_Alternativa1, ";
-                                query = query + "Id_Alternativa2, ";
-                                query = query + "Id_Alternativa3, ";
-                                query = query + "Id_categoria1, ";
-                                query = query + "Id_categoria2, ";
-                                query = query + "Id_categoria3, ";
-                                query = query + "Id_subcategoria1, ";
-                                query = query + "Id_subcategoria2, ";
-                                query = query + "Id_subcategoria3, ";
-                                query = query + "tabla_tecnica) ";
-                                query = query + "VALUES ";
-                                query = query + "(" + reader[0].ToString() + ",";
-                                query = query + "'" + reader[1].ToString().Replace(",", ".").Trim() + "',";
-                                query = query + "'" + descripcion.Replace(",", ".").Trim() + "',";
-                                query = query + reader[3].ToString() + ",";
-                                query = query + reader[4].ToString() + ",";
-                                query = query + reader[5].ToString() + ",";
-                                query = query + reader[6].ToString() + ",";
-                                query = query + "'" + reader[7].ToString() + "',";
-                                query = query + reader[12].ToString() + ",";
-                                query = query + reader[13].ToString() + ",";
-                                query = query + reader[14].ToString() + ",";
-                                query = query + "'" + reader[46].ToString().Replace(",", ".").Trim() + "',";
-                                query = query + "'" + reader[16].ToString().Replace(",", ".").Trim() + "',";
-                                query = query + reader[17].ToString().Replace(",", ".") + ",";
-                                query = query + reader[18].ToString() + ",";
-                                query = query + "'" + reader[19].ToString().Trim() + "',";
-                                query = query + "'" + reader[20].ToString().Trim() + "',";
-                                query = query + "'" + reader[21].ToString().Trim() + "',";
-                                query = query + "'" + reader[22].ToString().Trim() + "',";
-                                query = query + "'" + reader[23].ToString().Trim() + "',";
-                                query = query + "'" + reader[45].ToString().Trim() + "',";
-                                query = query + "'" + reader[24].ToString().Trim() + "',";
-                                query = query + "'" + reader[25].ToString().Trim() + "',";
-                                query = query + "'" + reader[26].ToString().Trim() + "',";
-                                query = query + reader[29].ToString() + ",";
-                                query = query + reader[30].ToString() + ",";
-                                query = query + reader[31].ToString() + ",";
-                                query = query + reader[32].ToString() + ",";
-                                query = query + reader[33].ToString() + ",";
-                                query = query + reader[34].ToString() + ",";
-                                query = query + reader[35].ToString() + ",";
-                                query = query + reader[36].ToString() + ",";
-                                query = query + reader[37].ToString() + ",";
-                                query = query + reader[38].ToString() + ",";
-                                query = query + reader[39].ToString() + ",";
-                                query = query + reader[40].ToString() + ",";
-                                query = query + reader[41].ToString() + ",";
-                                query = query + reader[42].ToString() + ",";
-                                query = query + reader[43].ToString().Replace(",",".").Trim() + ",";
-                                query = query + "'" + reader[44].ToString() + "')";
-                            }
+        //                        if (descripcion.Length > 101)
+        //                        {
+        //                            descripcion = descripcion.Substring(0, 100);
+        //                        }
+        //                        ins++;
+        //                        query = "INSERT INTO dilacocl_dilacoweb.tbl_items ";
+        //                        query = query + "(Id_Item, ";
+        //                        query = query + "codigo, ";
+        //                        query = query + "descripcion, ";
+        //                        query = query + "prodpedido, ";
+        //                        query = query + "visible, ";
+        //                        query = query + "cotizaciones, ";
+        //                        query = query + "ventas, ";
+        //                        query = query + "texto_destacado, ";
+        //                        query = query + "Id_Categoria, ";
+        //                        query = query + "Id_Subcategoria, ";
+        //                        query = query + "Id_Linea_Venta, ";
+        //                        query = query + "proveedor, ";
+        //                        query = query + "Marca, ";
+        //                        query = query + "precio, ";
+        //                        query = query + "id_moneda, ";
+        //                        query = query + "Unidad_vta, ";
+        //                        query = query + "codigo_prov,";
+        //                        query = query + "Caracteristicas, ";
+        //                        query = query + "Manual_tecnico, ";
+        //                        query = query + "Presentacion_producto, ";
+        //                        query = query + "Hoja_de_Seguridad, ";
+        //                        query = query + "Foto, ";
+        //                        query = query + "Foto_grande, ";
+        //                        query = query + "Video, ";
+        //                        query = query + "Id_Accesorio1, ";
+        //                        query = query + "Id_Accesorio2, ";
+        //                        query = query + "Id_Accesorio3, ";
+        //                        query = query + "Id_Repuesto1, ";
+        //                        query = query + "Id_Repuesto2, ";
+        //                        query = query + "Id_Repuesto3, ";
+        //                        query = query + "Id_Alternativa1, ";
+        //                        query = query + "Id_Alternativa2, ";
+        //                        query = query + "Id_Alternativa3, ";
+        //                        query = query + "Id_categoria1, ";
+        //                        query = query + "Id_categoria2, ";
+        //                        query = query + "Id_categoria3, ";
+        //                        query = query + "Id_subcategoria1, ";
+        //                        query = query + "Id_subcategoria2, ";
+        //                        query = query + "Id_subcategoria3, ";
+        //                        query = query + "tabla_tecnica) ";
+        //                        query = query + "VALUES ";
+        //                        query = query + "(" + reader[0].ToString() + ",";
+        //                        query = query + "'" + reader[1].ToString().Replace(",", ".").Trim() + "',";
+        //                        query = query + "'" + descripcion.Replace(",", ".").Trim() + "',";
+        //                        query = query + reader[3].ToString() + ",";
+        //                        query = query + reader[4].ToString() + ",";
+        //                        query = query + reader[5].ToString() + ",";
+        //                        query = query + reader[6].ToString() + ",";
+        //                        query = query + "'" + reader[7].ToString() + "',";
+        //                        query = query + reader[12].ToString() + ",";
+        //                        query = query + reader[13].ToString() + ",";
+        //                        query = query + reader[14].ToString() + ",";
+        //                        query = query + "'" + reader[46].ToString().Replace(",", ".").Trim() + "',";
+        //                        query = query + "'" + reader[16].ToString().Replace(",", ".").Trim() + "',";
+        //                        query = query + reader[17].ToString().Replace(",", ".") + ",";
+        //                        query = query + reader[18].ToString() + ",";
+        //                        query = query + "'" + reader[19].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[20].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[21].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[22].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[23].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[45].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[24].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[25].ToString().Trim() + "',";
+        //                        query = query + "'" + reader[26].ToString().Trim() + "',";
+        //                        query = query + reader[29].ToString() + ",";
+        //                        query = query + reader[30].ToString() + ",";
+        //                        query = query + reader[31].ToString() + ",";
+        //                        query = query + reader[32].ToString() + ",";
+        //                        query = query + reader[33].ToString() + ",";
+        //                        query = query + reader[34].ToString() + ",";
+        //                        query = query + reader[35].ToString() + ",";
+        //                        query = query + reader[36].ToString() + ",";
+        //                        query = query + reader[37].ToString() + ",";
+        //                        query = query + reader[38].ToString() + ",";
+        //                        query = query + reader[39].ToString() + ",";
+        //                        query = query + reader[40].ToString() + ",";
+        //                        query = query + reader[41].ToString() + ",";
+        //                        query = query + reader[42].ToString() + ",";
+        //                        query = query + reader[43].ToString().Replace(",",".").Trim() + ",";
+        //                        query = query + "'" + reader[44].ToString() + "')";
+        //                    }
 
-                            // Comenzamos la inserción de registros
-                            using (MySqlConnection conn = new MySqlConnection(SMysql))
-                            {
-                                try
-                                {
-                                    conn.Open();
+        //                    // Comenzamos la inserción de registros
+        //                    using (MySqlConnection conn = new MySqlConnection(SMysql))
+        //                    {
+        //                        try
+        //                        {
+        //                            conn.Open();
 
-                                    MySqlCommand com = new MySqlCommand(query, conn);
-                                    com.ExecuteNonQuery();
-                                    conn.Close();
-                                    conn.Dispose();
+        //                            MySqlCommand com = new MySqlCommand(query, conn);
+        //                            com.ExecuteNonQuery();
+        //                            conn.Close();
+        //                            conn.Dispose();
 
-                                    //// Si el producto fue grabado correctamente, cargamos los archivos en el servidor
-                                    //// Manual Técnico
-                                    if (reader[22].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/manual_tecnico/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/manual_tecnico/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[22].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "MT_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    // copiamos de vuelta el archivo generado a la ficha
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[22].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }
-                                    }
-                                    // Presentación
-                                    if (reader[23].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/Presentacion/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/Presentacion/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[23].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "PR_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[23].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }
-                                    }
+        //                            //// Si el producto fue grabado correctamente, cargamos los archivos en el servidor
+        //                            //// Manual Técnico
+        //                            if (reader[22].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/manual_tecnico/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/manual_tecnico/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[22].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "MT_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            // copiamos de vuelta el archivo generado a la ficha
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[22].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }
+        //                            }
+        //                            // Presentación
+        //                            if (reader[23].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/Presentacion/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Presentacion/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[23].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "PR_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[23].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }
+        //                            }
 
-                                    // Hoja Seguridad
-                                    if (reader[45].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/hds/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[45].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "HS_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                            // Hoja Seguridad
+        //                            if (reader[45].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/hds/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/HojaS/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[45].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "HS_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
   
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[45].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }
-                                    }
-                                    // Foto C
-                                    if (reader[24].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/img/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[24].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "FC_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[24].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }
-                                    }
-                                    // Foto G
-                                    if (reader[25].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/img/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[25].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "FG_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[25].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }
-                                    }
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[45].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }
+        //                            }
+        //                            // Foto C
+        //                            if (reader[24].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/img/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[24].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "FC_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[24].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }
+        //                            }
+        //                            // Foto G
+        //                            if (reader[25].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/img/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/img/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[25].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "FG_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom));
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[25].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }
+        //                            }
 
-                                    // Video
-                                    if (reader[26].ToString().Trim() != "")
-                                    {
-                                        ruta_server = @"/dinamicos/productos/Videos/";
-                                        ruta_local = Server.MapPath(@"~/Catalogo/Productos/Videos/");
-                                        archivo2 = Path.Combine(ruta_alterna, reader[26].ToString().Trim());
-                                        extension = Path.GetExtension(archivo2);
-                                        if (File.Exists(archivo2))
-                                        {
-                                            nuevo_nom = "VD_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
-                                            if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
-                                            {
-                                                File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
-                                                string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
-                                                if (result == "OK")
-                                                {
-                                                    arc++;
-                                                    act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
-                                                    act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
-                                                    File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom)); 
-                                                }
-                                                else
-                                                {
-                                                    are++;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            string result = ftp.Ftp(server, user, password, reader[26].ToString().Trim(), ruta_local, ruta_server);
-                                            if (result == "OK")
-                                            {
-                                                arc++;
-                                            }
-                                            else
-                                            {
-                                                are++;
-                                            }
-                                        }  
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    err++;
-                                    lbl_error.Text = ex.Message;
-                                    conn.Close();
-                                    conn.Dispose();
-                                }
-                            }
-                        }
-                        reader.Close();
-                        // Final Transpaso
-                        lista_errores.Rows.Add("Ítems Nuevos", Convert.ToString(ins));
-                        lista_errores.Rows.Add("Ítems Actualizados", Convert.ToString(upd));
-                        lista_errores.Rows.Add("Error", Convert.ToString(err));
-                        lista_errores.Rows.Add("Archivos Procesados", Convert.ToString(arc));
-                        lista_errores.Rows.Add("Archivos con error", Convert.ToString(are));
-                        GridResultados.DataBind();
-                        GridResultados.Visible = true;
-                        connection.Close();
-                        connection.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        lbl_error.Text = ex.Message + query;
-                    }
-                    connection.Close();
-                    connection.Dispose();
-                }
-            }
-        }
+        //                            // Video
+        //                            if (reader[26].ToString().Trim() != "")
+        //                            {
+        //                                ruta_server = @"/dinamicos/productos/Videos/";
+        //                                ruta_local = Server.MapPath(@"~/Catalogo/Productos/Videos/");
+        //                                archivo2 = Path.Combine(ruta_alterna, reader[26].ToString().Trim());
+        //                                extension = Path.GetExtension(archivo2);
+        //                                if (File.Exists(archivo2))
+        //                                {
+        //                                    nuevo_nom = "VD_" + reader[1].ToString().Replace(",", ".").Trim() + extension;
+        //                                    if (!File.Exists(Path.Combine(ruta_local, nuevo_nom)))
+        //                                    {
+        //                                        File.Copy(archivo2, Path.Combine(ruta_local, nuevo_nom));
+        //                                        string result = ftp.Ftp(server, user, password, nuevo_nom.ToString().Trim(), ruta_local, ruta_server);
+        //                                        if (result == "OK")
+        //                                        {
+        //                                            arc++;
+        //                                            act_nom_archivosserver("update tbl_items_web set Manual_Tecnico = '" + nuevo_nom + "' where id_item = " + reader[0].ToString());
+        //                                            act_nom_archivomysql("update tbl_items set Manual_Tecnico = '" + nuevo_nom + "' where id_item = '" + reader[0].ToString());
+        //                                            File.Copy(Path.Combine(ruta_local, nuevo_nom), Path.Combine(ruta_alterna, nuevo_nom)); 
+        //                                        }
+        //                                        else
+        //                                        {
+        //                                            are++;
+        //                                        }
+        //                                    }
+        //                                }
+        //                                else
+        //                                {
+        //                                    string result = ftp.Ftp(server, user, password, reader[26].ToString().Trim(), ruta_local, ruta_server);
+        //                                    if (result == "OK")
+        //                                    {
+        //                                        arc++;
+        //                                    }
+        //                                    else
+        //                                    {
+        //                                        are++;
+        //                                    }
+        //                                }  
+        //                            }
+        //                        }
+        //                        catch (Exception ex)
+        //                        {
+        //                            err++;
+        //                            lbl_error.Text = ex.Message;
+        //                            conn.Close();
+        //                            conn.Dispose();
+        //                        }
+        //                    }
+        //                }
+        //                reader.Close();
+        //                // Final Transpaso
+        //                lista_errores.Rows.Add("Ítems Nuevos", Convert.ToString(ins));
+        //                lista_errores.Rows.Add("Ítems Actualizados", Convert.ToString(upd));
+        //                lista_errores.Rows.Add("Error", Convert.ToString(err));
+        //                lista_errores.Rows.Add("Archivos Procesados", Convert.ToString(arc));
+        //                lista_errores.Rows.Add("Archivos con error", Convert.ToString(are));
+        //                GridResultados.DataBind();
+        //                GridResultados.Visible = true;
+        //                connection.Close();
+        //                connection.Dispose();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                Console.WriteLine(ex.Message);
+        //                lbl_error.Text = ex.Message + query;
+        //            }
+        //            connection.Close();
+        //            connection.Dispose();
+        //        }
+        //    }
+        //}
 
 
         void act_nom_archivosserver (string sentencia)

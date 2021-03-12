@@ -6,200 +6,56 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
  <link href="css/estilos.css" rel="stylesheet" />
+    <link href="css/estilos.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
     <title>Detalle de Producto</title>
-    <style type="text/css">
-        .auto-style1 {
-            height: 25px;
-        }
-        .auto-style4 {
-            margin-left: 43px;
-        }
-        .auto-style6 {
-            height: 19px;
-            width: 149px;
-        }
-        .auto-style11 {
-            height: 19px;
-            width: 16%;
-        }
-        .auto-style12 {
-            width: 16%;
-            height: 24px;
-        }
-        .auto-style41 {
-            width: 149px;
-            height: 28px;
-        }
-        .auto-style42 {
-            height: 28px;
-        }
-        .auto-style43 {
-            width: 149px;
-            height: 27px;
-        }
-        .auto-style44 {
-            height: 132px;
-        }
-        .auto-style45 {
-            height: 21px;
-            text-align: center;
-        }
-        .auto-style47 {
-            width: 852px;
-            height: 21px;
-        }
-        .auto-style48 {
-            height: 19px;
-            }
-        .auto-style49 {
-            height: 25px;
-            width: 371px;
-        }
-        .auto-style50 {
-            width: 371px;
-        }
-        .auto-style51 {
-            height: 24px;
-        }
-        .auto-style53 {
-            height: 25px;
-            width: 149px;
-        }
-        .auto-style54 {
-        }
-        .auto-style55 {
-            height: 24px;
-            width: 149px;
-        }
-        .auto-style56 {
-            height: 17px;
-            width: 149px;
-        }
-        .auto-style57 {
-            height: 18px;
-            width: 149px;
-        }
-        .auto-style58 {
-            width: 149px;
-        }
-              
-        }
-        .auto-style61 {
-            width: 1132px;
-        }
-        .auto-style62 {
-            height: 18px;
-            text-align: right;
-        }
-        .auto-style63 {
-            height: 17px;
-            text-align: right;
-        }
-        .auto-style64 {
-            text-align: right;
-        }
-        .auto-style65 {
-            height: 25px;
-            text-align: right;
-        }
-        .auto-style66 {
-            text-align: right;
-            height: 19px;
-        }
-        .auto-style67 {
-            height: 19px;
-        }
-        .auto-style68 {
-            text-align: left;
-        }
-        .auto-style69 {
-            text-align: left;
-            height: 19px;
-        }
-        .auto-style70 {
-            height: 18px;
-            text-align: left;
-        }
-        .auto-style71 {
-            height: 25px;
-            text-align: left;
-        }
-        .auto-style72 {
-            height: 17px;
-            text-align: left;
-        }
-        .auto-style73 {
-            width: 149px;
-            height: 22px;
-        }
-        .auto-style74 {
-            height: 22px;
-        }
-        .auto-style76 {
-            height: 42px;
-            width: 149px;
-        }
-        .auto-style77 {
-            margin-top: 11px;
-        }
-        .auto-style78 {
-            height: 1589px;
-        }
-        .auto-style79 {
-            width: 149px;
-            height: 33px;
-        }
-        .auto-style80 {
-            text-align: left;
-            height: 33px;
-        }
-        .auto-style81 {
-            text-align: right;
-            height: 33px;
-        }
-        .auto-style82 {
-            height: 33px;
-        }
-        </style>
+    
+        
+    
+    
+        
     </head>
 <body style="width: 1429px; height: 1593px">
 <form id="form1" runat="server" enctype="multipart/form-data" class="auto-style78">
 <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
+    <ContentTemplate> 
+        <br />
+    <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-4 justify-content-center">
+			 <h3><span class="badge badge-none"><img alt=""src="img/vineta.gif" />Edici&oacute;n de Art&iacute;culo (Web)</span></h3>
+		</div>
+		<div class="col-md-2 justify-content-center">
+            <h3><asp:Button ID="BtnGrabar" runat="server" OnClick="BtnGrabar_Click" Text="Grabar" CssClass="btn btn-primary btn-block" /></h3>
+		</div>
+		<div class="col-md-2 justify-content-center">
+            <h3><asp:Button ID="Btn_act_superior" runat="server" OnClick="Btn_act_superior_Click" Text="Subir/Act Código al Sitio Web" CssClass="btn btn-success btn-block" /></h3>
+		</div>
+        <div class="col-md-2 justify-content-center">
+            <h3><asp:Button ID="Btn_eliminar_todo" runat="server" Text="Eliminar"  OnClick="Btn_eliminar_todo_Click" CssClass="btn btn-warning btn-block"/></h3>
+		</div>
+         <div class="col-md-2 justify-content-center">
+            <h3><asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" CssClass="btn btn-danger btn-block" /></h3>
+            <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
+		</div>
+	</div>
+</div>
+<br />
+        <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			 <span><h4><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></h4></span> 
+             <span><h4><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></h4></span> 
+             <span><h4><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-warning"></asp:Label></h4></span>
+		</div>
+	</div>
+</div>
+<br />
+
 <table  border="0">
 <tr>
   <td colspan="2" class="auto-style61"><table>
-    <tr>
-      <td colspan="11"><table width="100%" border="0"   class="titNoticia">
-        <tr class="BottomTabla">
-          <td class="auto-style47">
-        <img alt=""src="img/vineta.gif" />Edici&oacute;n de Art&iacute;culo (Web)</td>
-          <td class="auto-style45" >
-                    <asp:Button ID="BtnGrabar" runat="server" OnClick="BtnGrabar_Click" Text="Grabar" CssClass="auto-style4" Width="85px" />
-                </td>
-                      <td class="auto-style45">
-                          <asp:Button ID="Btn_act_superior" runat="server" OnClick="Btn_act_superior_Click" Text="Subir/Actualizar Código al Sitio Web" Width="232px" />
-            </td>
-                      <td class="auto-style45" >
-                    <asp:Button ID="Btn_eliminar_todo" runat="server" Text="Eliminar" BackColor="Red" Font-Bold="True" Font-Italic="False" OnClick="Btn_eliminar_todo_Click" />
-                </td>
-                      <td class="auto-style45" >
-                    <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
-                        <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" style="text-align: right"/>
-                </td>
-        </tr>
-      </table></td>
-    </tr>
-    <tr>
-      <td class="auto-style6">
-          <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
-        </td>
-      <td colspan="10" class="auto-style48" >
-        <asp:Label ID="lbl_status" runat="server" BackColor="White"></asp:Label>
-        <asp:Label ID="lbl_error" runat="server" BackColor="Red"></asp:Label>
-                 </td>
-    </tr>
     <tr>
       <td class="auto-style6">Activo</td>
       <td colspan="6" class="auto-style48" >
@@ -762,6 +618,7 @@
   </table></td>
 </tr>
 </table>
+        </span>
         </ContentTemplate>
     <Triggers>
        <asp:PostBackTrigger ControlID="ImgBtnFT" />

@@ -103,6 +103,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstLetras;
         
         /// <summary>
+        /// Control LstProveedores.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LstProveedores;
+        
+        /// <summary>
         /// Control txt_codigo.
         /// </summary>
         /// <remarks>
@@ -119,15 +128,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_codprov;
-        
-        /// <summary>
-        /// Control LstProveedores.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LstProveedores;
         
         /// <summary>
         /// Control chk_sin_cat.
@@ -157,15 +157,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.CheckBox chk_sin_imagenes;
         
         /// <summary>
-        /// Control chk_no_publicados.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chk_no_publicados;
-        
-        /// <summary>
         /// Control chk_cotizac.
         /// </summary>
         /// <remarks>
@@ -182,6 +173,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chk_ventas;
+        
+        /// <summary>
+        /// Control chk_no_publicados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chk_no_publicados;
         
         /// <summary>
         /// Control Btn_buscar.
@@ -220,15 +220,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_prod_publicados;
         
         /// <summary>
-        /// Control Btn_Transpaso_Masivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_Transpaso_Masivo;
-        
-        /// <summary>
         /// Control Excel.
         /// </summary>
         /// <remarks>
@@ -236,6 +227,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton Excel;
+        
+        /// <summary>
+        /// Control LstProductos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView LstProductos;
         
         /// <summary>
         /// Control GridResultados.
@@ -254,14 +254,5 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView Productos;
-        
-        /// <summary>
-        /// Control LstProductos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView LstProductos;
     }
 }

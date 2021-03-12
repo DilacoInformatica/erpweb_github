@@ -134,8 +134,14 @@ namespace erpweb
                 categoria = LstCategoria.SelectedValue.ToString();
                 subcategoria = LstSubCategoria.SelectedValue.ToString();
 
+                if (lbl_cat.Text != "")
+                {
+                    categoria = lbl_cat.Text;
+                }
+
                 if (famila == "") { v_famila = 0; } else { v_famila = Convert.ToInt32(LstDivision.SelectedValue.ToString()); }
                 if (categoria == "") { v_categoria = 0; } else { v_categoria = Convert.ToInt32(LstCategoria.SelectedValue.ToString()); }
+                
                 if (subcategoria == "") { v_subcategoria = 0; } else { v_subcategoria = Convert.ToInt32(LstSubCategoria.SelectedValue.ToString()); }
 
                 // FAMILIAS
@@ -145,7 +151,9 @@ namespace erpweb
                 // CATEGORIAS
 
                 Lista_division_erp("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasERP);
-              //  lista_division_web("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasWEB);
+
+                if(v_categoria == 0 && lbl_cat.Text != "") { v_categoria = Convert.ToInt32(lbl_cat.Text); }
+                Lista_division_erp("S", v_famila, v_categoria, v_subcategoria, GrdSubCatERP);
 
                 //lista_info_categorias_web(v_famila, v_categoria);
 
@@ -755,7 +763,7 @@ namespace erpweb
                 revisa_division_prod_ERP(Convert.ToInt32(fila.Cells[1].Text), "CA", activo);
                 revisa_division_prod_WEB(Convert.ToInt32(fila.Cells[1].Text), "CA", activo, publicado, txt_etiqueta_web.Text);
 
-                Lista_division_erp("S", Convert.ToInt32(Txt_Id_ERP.Text), Convert.ToInt32(fila.Cells[1].Text), 0, GrdSubCatERP);
+               // Lista_division_erp("S", Convert.ToInt32(Txt_Id_ERP.Text), Convert.ToInt32(fila.Cells[1].Text), 0, GrdSubCatERP);
 
                 // else
                 //  {
@@ -888,7 +896,7 @@ namespace erpweb
                     command.Parameters["@v_visible"].Direction = ParameterDirection.Input;
 
                     command.Parameters.AddWithValue("@v_etiqueta", etiqueta);
-                    command.Parameters["@v_visible"].Direction = ParameterDirection.Input;
+                    command.Parameters["@v_etiqueta"].Direction = ParameterDirection.Input;
 
                     DataSet ds = new DataSet();
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
@@ -950,9 +958,6 @@ namespace erpweb
 
                         Chk_Publicado.Enabled = false;
                         Chk_Activo.Enabled = false;
-
-                        Chk_Publicado.Checked = false;
-                        Chk_Activo.Checked = false;
                     }
 
                     foreach (GridViewRow fila in GrdSubCatERP.Rows)
@@ -962,9 +967,46 @@ namespace erpweb
 
                         Chk_Publicado.Enabled = false;
                         Chk_Activo.Enabled = false;
+                    }
 
+                }
+                else
+                {
+                    Chk_Activo_WEB.Checked = true;
+                    if (consulta_estado_publicacion("F", Convert.ToInt32(Txt_Id_ERP.Text), 0, 0) == 0) { Chk_En_Sitio_ERP.Checked = false; Chk_Publicado_Web.Checked = false; } else { Chk_En_Sitio_ERP.Checked = true; Chk_Publicado_Web.Checked = true; }
+                    procesar_busqueda();
+                }
+            }    
+        }
+
+        protected void Chk_Publicado_Web_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Txt_Id_ERP.Text != "")
+            {
+                if (Chk_Publicado_Web.Checked && !Chk_Activo_WEB.Checked)
+                {
+                    lbl_error.Text = "No puede  publicar sin que no esté activada la División ";
+                    Chk_Publicado_Web.Checked = false;
+                }
+
+                if (!Chk_Publicado_Web.Checked)
+                {
+
+                  
+                    lbl_error.Text = "";
+
+                    // Desactivamos Todos los movimientos en Categorías y Subcategorías
+
+                    foreach (GridViewRow fila in GrdCategoriasERP.Rows)
+                    {
+                        CheckBox Chk_Publicado = fila.FindControl("Chk_CatPublicada") as CheckBox;
                         Chk_Publicado.Checked = false;
-                        Chk_Activo.Checked = false;
+                    }
+
+                    foreach (GridViewRow fila in GrdSubCatERP.Rows)
+                    {
+                        CheckBox Chk_Publicado = fila.FindControl("Chk_PubSubCat") as CheckBox;
+                        Chk_Publicado.Checked = false;
                     }
 
                 }
@@ -975,16 +1017,8 @@ namespace erpweb
                     procesar_busqueda();
                 }
             }
-            
-        }
 
-        protected void Chk_Publicado_Web_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Chk_Publicado_Web.Checked && !Chk_Activo_WEB.Checked)
-            {
-                lbl_error.Text = "No puede  publicar la División sin que no esté activada la División ";
-                Chk_Publicado_Web.Checked = false;
-            }
+
         }
 
         protected void Btn_Grabar_Click(object sender, EventArgs e)
