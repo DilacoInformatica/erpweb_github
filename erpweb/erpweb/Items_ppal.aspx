@@ -42,20 +42,20 @@
             <div class="row bg-light text-dark">
 				<div class="col-md-3">
 					 <h5><span class="badge badge-info">División</span></h5>
-                     <h5><asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" CssClass="form-control" Width="405px">
+                     <h5><asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" CssClass="form-control" Width="350px">
                                             <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                         </asp:DropDownList></h5>
 				</div>
                 <div class="col-md-3">
                     <h5><span class="badge badge-info">Catgoría</span></h5>
-                     <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" CssClass="form-control" Width="405px">
+                     <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" CssClass="form-control" Width="350px">
                      <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                      </asp:DropDownList>
                     <h5></h5>
 				</div>
 				<div class="col-md-3">
                     <h5><span class="badge badge-info">Subcategoría</span></h5>
-                    <h5><asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True" CssClass="form-control" Width="405px">
+                    <h5><asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True" CssClass="form-control" Width="350px">
                        <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
                        </asp:DropDownList></h5>
 				</div>
@@ -65,7 +65,7 @@
 			        <div class="row">
 				        <div class="col-md-3">
                             <h5><span class="badge badge-info">Línea de Venta</span></h5>
-                            <h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control" Width="405px">
+                            <h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control" Width="350px">
                                 <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                 </asp:DropDownList></h5>
 				        </div>
@@ -158,7 +158,7 @@
             <h4><asp:Label ID="lbl_prod_publicados" runat="server" CssClass="form-control text-info" Width="146px"></asp:Label></h4>
 		</div>
 		<div class="col-md-4">
-             <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" Width="59px"  CssClass="auto-style1" Height="59px" />
+             <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" Width="44px"  CssClass="auto-style1" Height="41px" />
 		</div>
 	</div>
 </div>
