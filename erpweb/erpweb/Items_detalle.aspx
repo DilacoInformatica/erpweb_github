@@ -14,6 +14,47 @@
     
     
         
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            -ms-flex: 0 0 16.666667%;
+            flex: 0 0 16.666667%;
+            max-width: 16.666667%;
+            left: 0px;
+            top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .auto-style2 {
+            position: relative;
+            width: 28%;
+            -ms-flex: 0 0 16.666667%;
+            flex: 0 0 16.666667%;
+            max-width: 16.666667%;
+            left: 0px;
+            top: 0px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .auto-style3 {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: none;
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+    </style>
+    
+        
+    
+    
+        
     </head>
 <body style="width: 1429px; height: 1593px">
 <form id="form1" runat="server" enctype="multipart/form-data" class="auto-style78">
@@ -52,6 +93,18 @@
 	</div>
 </div>
 <br />
+<div class="row">
+	<div class="col-md-2">
+        <h4><span class="badge badge-primary">Activo</span></h4><span class="badge badge-primary">Activo</span>
+	</div>
+	<div class="col-md-7">
+           <h4><asp:Label ID="lbl_activo" runat="server" CssClass="form-control" Width="93px"></asp:Label></h4>
+	</div>
+	<div class="col-md-2">
+        <asp:LinkButton ID="LinkAct_item" runat="server" OnClick="LinkAct_item_Click" Visible="False" CssClass="form-control">Activar Código</asp:LinkButton>
+        <asp:LinkButton ID="LinkDesAct_item" runat="server" OnClick="LinkDesAct_item_Click" Visible="False" CssClass="form-control">Desactivar Código</asp:LinkButton>
+	</div>
+	</div>
 
 <table  border="0">
 <tr>
@@ -59,9 +112,7 @@
     <tr>
       <td class="auto-style6">Activo</td>
       <td colspan="6" class="auto-style48" >
-                    <asp:Label ID="lbl_activo" runat="server"></asp:Label>
-                    &nbsp;<asp:LinkButton ID="LinkAct_item" runat="server" OnClick="LinkAct_item_Click" Visible="False">Activar Código</asp:LinkButton>
-                    <asp:LinkButton ID="LinkDesAct_item" runat="server" OnClick="LinkDesAct_item_Click" Visible="False">Desactivar Código</asp:LinkButton>
+                    
                  </td>
       <td class="auto-style11" >Publicado en Sitio</td>
       <td colspan="3" >

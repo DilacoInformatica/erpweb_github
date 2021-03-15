@@ -8,6 +8,15 @@
 <link href="css/estilos.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <title>Productos</title>
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            display: block;
+            padding-left: 1.25rem;
+            left: 0px;
+            top: 0px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -112,25 +121,25 @@
 		    </div>
 		    <div class="col-md-2">
                 <h4><span class="badge badge-info">Prod. Publicados</span></h4>
-                <h4><asp:CheckBox ID="chk_publicados" runat="server" CssClass  ="form-controls"/></h4>
+                <h4><asp:CheckBox ID="chk_publicados" runat="server" CssClass  ="form-check"/></h4>
 		    </div>
 		    <div class="col-md-2">
                 <h4><span class="badge badge-info">Prod. sin Imagénes</span></h4>
-                <h4><asp:CheckBox ID="chk_sin_imagenes" runat="server" CssClass  ="form-controls"/></h4>
+                <h4><asp:CheckBox ID="chk_sin_imagenes" runat="server" CssClass  ="form-check"/></h4>
 		    </div>
 	    </div>
             <div class="row bg-light text-dark">
 		    <div class="col-md-2">
                 <h4><span class="badge badge-info">Prod. sólo Cotización</span></h4>
-                <h4><asp:CheckBox ID="chk_cotizac" runat="server" CssClass  ="form-controls" /></h4>
+                <h4><asp:CheckBox ID="chk_cotizac" runat="server" CssClass  ="form-check" /></h4>
 		    </div>
              <div class="col-md-2">
                 <h4><span class="badge badge-info">Prod. sólo Ventas</span></h4>
-                <h4><asp:CheckBox ID="chk_ventas" runat="server" CssClass  ="form-controls" /></h4>
+                <h4><asp:CheckBox ID="chk_ventas" runat="server" CssClass  ="form-check" /></h4>
 		    </div>
 		    <div class="col-md-2">
                 <h4><span class="badge badge-info">Prod. NO Publicados</span></h4>
-                <h4><asp:CheckBox ID="chk_no_publicados" runat="server" CssClass  ="form-controls" /></h4>
+                <h4><asp:CheckBox ID="chk_no_publicados" runat="server" CssClass  ="form-check" /></h4>
 		    </div>
 	    </div>
         <div class ="row bg-light text-dark">
