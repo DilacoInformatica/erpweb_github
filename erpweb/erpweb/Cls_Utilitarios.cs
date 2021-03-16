@@ -43,8 +43,8 @@ namespace erpweb
             if (servidor == "SSERVER" && ambiente == 1)
             {
                 //salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                //salida = @"Data Source=LAPTOP-K0J0KFD2;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                salida = @"Data Source=LAPTOP-K0J0KFD2;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
+                //salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {

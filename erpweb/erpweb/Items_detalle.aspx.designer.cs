@@ -82,7 +82,7 @@ namespace erpweb {
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgBtn_Cerrar;
+        protected global::System.Web.UI.WebControls.Image ImgBtn_Cerrar;
         
         /// <summary>
         /// Control lbl_ambiente.
@@ -112,13 +112,31 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control lbl_activo.
+        /// Control Div_fam.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_activo;
+        protected global::System.Web.UI.WebControls.Image Div_fam;
+        
+        /// <summary>
+        /// Control Div_Subcat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Subcat;
+        
+        /// <summary>
+        /// Control Div_Cat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Cat;
         
         /// <summary>
         /// Control LinkAct_item.
@@ -137,6 +155,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkDesAct_item;
+        
+        /// <summary>
+        /// Control lbl_activo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_activo;
         
         /// <summary>
         /// Control lbl_web.
@@ -247,15 +274,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_precio;
         
         /// <summary>
-        /// Control txt_texto_destacado.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_texto_destacado;
-        
-        /// <summary>
         /// Control txt_descripcion.
         /// </summary>
         /// <remarks>
@@ -263,6 +281,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_descripcion;
+        
+        /// <summary>
+        /// Control txt_texto_destacado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_texto_destacado;
         
         /// <summary>
         /// Control txt_proveedor.
@@ -283,15 +310,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstDivision;
         
         /// <summary>
-        /// Control Div_fam.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_fam;
-        
-        /// <summary>
         /// Control LstCategorias.
         /// </summary>
         /// <remarks>
@@ -301,15 +319,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstCategorias;
         
         /// <summary>
-        /// Control Div_Cat.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_Cat;
-        
-        /// <summary>
         /// Control LstSubCategorias.
         /// </summary>
         /// <remarks>
@@ -317,15 +326,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategorias;
-        
-        /// <summary>
-        /// Control Div_Subcat.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_Subcat;
         
         /// <summary>
         /// Control LstLineaVtas.
@@ -373,24 +373,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_codigoprov;
         
         /// <summary>
-        /// Control txt_caracteristicas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_caracteristicas;
-        
-        /// <summary>
-        /// Control lbl_caracteristicas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_caracteristicas;
-        
-        /// <summary>
         /// Control ImgHTmlCar.
         /// </summary>
         /// <remarks>
@@ -416,6 +398,24 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImgGrabaCar;
+        
+        /// <summary>
+        /// Control txt_caracteristicas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_caracteristicas;
+        
+        /// <summary>
+        /// Control lbl_caracteristicas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_caracteristicas;
         
         /// <summary>
         /// Control lbl_manual_tecnico.
@@ -461,15 +461,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImgBtnFT;
-        
-        /// <summary>
-        /// Control img_prod.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_prod;
         
         /// <summary>
         /// Control lbl_presentacion.
@@ -697,6 +688,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton ImgBtnHS;
         
         /// <summary>
+        /// Control img_prod.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image img_prod;
+        
+        /// <summary>
         /// Control txt_acc1.
         /// </summary>
         /// <remarks>
@@ -706,22 +706,22 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_acc1;
         
         /// <summary>
-        /// Control borra_acc4.
+        /// Control borra_acc1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton borra_acc4;
+        protected global::System.Web.UI.WebControls.ImageButton borra_acc1;
         
         /// <summary>
-        /// Control ImgBtnAc4.
+        /// Control ImgBtnAc1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc4;
+        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc1;
         
         /// <summary>
         /// Control LstProdDispAc1.
@@ -760,13 +760,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.ImageButton borra_acc2;
         
         /// <summary>
-        /// Control ImgBtnAc5.
+        /// Control ImgBtnAc2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc5;
+        protected global::System.Web.UI.WebControls.ImageButton ImgBtnAc2;
         
         /// <summary>
         /// Control LstProdDispAc2.
@@ -1156,24 +1156,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategorias3;
         
         /// <summary>
-        /// Control txt_tabla_tecnica.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_tabla_tecnica;
-        
-        /// <summary>
-        /// Control lbl_tabla_tecnica.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_tabla_tecnica;
-        
-        /// <summary>
         /// Control ImgHTmltec.
         /// </summary>
         /// <remarks>
@@ -1199,6 +1181,24 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ImgGrabaTec;
+        
+        /// <summary>
+        /// Control txt_tabla_tecnica.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_tabla_tecnica;
+        
+        /// <summary>
+        /// Control lbl_tabla_tecnica.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_tabla_tecnica;
         
         /// <summary>
         /// Control GridView1.

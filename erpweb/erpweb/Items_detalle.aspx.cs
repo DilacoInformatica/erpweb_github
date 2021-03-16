@@ -78,7 +78,7 @@ namespace erpweb
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas... Producto se desactivará y no podrá modificarlo')";
                 LinkAct_item.Attributes["Onclick"] = "return confirm('Desea Activar nuevamente el Producto?')";
-                LinkDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
+               LinkDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
                 Btn_eliminar_todo.Attributes["Onclick"] = "return confirm('Producto se eliminará en la ficha Web del ERP y del Sitio... Desea Continuar?')";
                 //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
@@ -776,14 +776,6 @@ namespace erpweb
                 }
             }
         }
-
-        public override void VerifyRenderingInServerForm(Control control)
-        {
-            /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
-               server control at run time. */
-
-        }
-
 
         protected void Btn_volver_Click(object sender, EventArgs e)
         {
@@ -1525,7 +1517,7 @@ namespace erpweb
                 // verficamos que el archivo no pese mas de 5 MB
                 if (tamano <= 5000000)
                 {
-                    string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
+                    string[] allowedExtensions = { ".pdf", ".doc", ".docx", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
                     administra_archivos(File_FT, Server.MapPath(@"~/Catalogo/Productos/Manual_tecnico/"), "MT_" + codigo, lbl_manual_tecnico, allowedExtensions);
                 }
                 else
@@ -1589,7 +1581,7 @@ namespace erpweb
                 // verficamos que el archivo no pese mas de 5 MB
                 if (tamano <= 5000000)
                 {
-                    string[] allowedExtensions = { ".pdf", ".doc", ".xdoc", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
+                    string[] allowedExtensions = { ".pdf", ".doc", ".docx", ".txt", ".xls", ".xlsx", ".xppt", ".xppt" };
                     administra_archivos(File_PRE, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), "PR_" + codigo.Trim(), lbl_presentacion, allowedExtensions);
                     //subir_archivo(File_PRE, "PR_" + codigo, Server.MapPath(@"~/Catalogo/Productos/Presentacion/"), lbl_presentacion);
                 }
