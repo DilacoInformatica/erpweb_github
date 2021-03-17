@@ -18,13 +18,13 @@
         <br />
    
 <%-- Maqueta Boostrap --%>
- <div class="container-fluid">
-     <div class="container-fluid">
+ <div class="container-fluid rounded border border-secondary bg-info">
+     <div class="container-fluid ">
             <div class="row">
             <div class="col-md-11">
                 <div class="row">
                     <div class="col-md-4">
-                        <h3 class="text-primary">
+                        <h3 class="text-white">
                             Edición de Artículo (Web)
                         </h3>
                     </div>
@@ -38,7 +38,7 @@
                         <asp:Button ID="Btn_eliminar_todo" CssClass="form-control btn btn-block btn-danger" runat="server" Text="Eliminar" OnClick="Btn_eliminar_todo_Click" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Button ID="Btn_volver" CssClass="form-control btn btn-block btn-info" runat="server" Text="Volver" OnClick="Btn_volver_Click" />
+                        <asp:Button ID="Btn_volver" CssClass="form-control btn btn-block btn-primary" runat="server" Text="Volver" OnClick="Btn_volver_Click" />
                         <asp:Image ID="ImgBtn_Cerrar" runat="server" Height="16px" ImageUrl="~/img/cerrar.png" ToolTip="Cerrar" Visible="False" Width="16px" />
                     </div>
                 </div>
@@ -47,37 +47,21 @@
      </div>
   
     </div>
-    <div class="container-fluid">
+    <br />
+    <div class="container-fluid rounded border border-secondary">
         <div class="container-fluid bg-light">
                     <div class="row">
             <div class="col-sm-12">
-                <span><h4><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></h4></span> 
-                <span><h4><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></h4></span>
-                <span><h4><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-warning"></asp:Label></h4></span>
-            <asp:Image ID="Div_fam" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="División aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
-            <asp:Image ID="Div_Subcat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="SubCategoría aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
-            <asp:Image ID="Div_Cat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="Categoría aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
             </div>
         </div>
        </div>
     </div>
     <br />
 
-    <div class="container-fluid">
-        <div class="container-fluid bg-light">
-            <div class="row">
-		        <div class="col-md-6">
-			        <h5><asp:LinkButton ID="LinkAct_item" runat="server" CssClass="form-control btn-success" OnClick="LinkAct_item_Click" Visible="False" Width="174px">Activar Producto</asp:LinkButton></h5>
-                    <h5><asp:LinkButton ID="LinkDesAct_item" runat="server" CssClass="form-control btn-danger" OnClick="LinkDesAct_item_Click" Visible="False" Width="174px">Desactivar Producto</asp:LinkButton></h5>
-		        </div>
-		        <div class="col-md-6">
-		        </div>
-	         </div>
-        </div>
-    </div>
-    <br />
-
-    <div class="container-fluid rounded border border-dark">
+    <div class="container-fluid rounded border border-secondary">
             <div class="container-fluid bg-light">
                 <div class="row">
                 <div class="col-md-12">
@@ -87,10 +71,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-1">
                                     <h5><asp:Label ID="lbl_activo" runat="server" CssClass="form-control" Width="26px"></asp:Label></h5>
                                 </div>
                                 <div class ="col-md-6">
+                                    <h5><asp:LinkButton ID="LinkAct_item" runat="server" CssClass="form-control btn-success" OnClick="LinkAct_item_Click" Visible="False" Width="174px">Activar Producto</asp:LinkButton></h5>
+                    <h5><asp:LinkButton ID="LinkDesAct_item" runat="server" CssClass="form-control btn-danger" OnClick="LinkDesAct_item_Click" Visible="False" Width="174px">Desactivar Producto</asp:LinkButton></h5>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +262,8 @@
                             <h5>
                                 <asp:DropDownList ID="LstDivision" CssClass="form-control" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged">
                                 <asp:ListItem Value="0">Seleccione</asp:ListItem>
-                            </asp:DropDownList>
+                                </asp:DropDownList>
+                                <asp:Image ID="Div_fam" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="División aún no se publica en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
                             </h5>
                         </div>
                     </div>
@@ -295,6 +282,7 @@
                             <asp:DropDownList ID="LstCategorias" CssClass="form-control" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged">
                                 <asp:ListItem Value="0">Seleccione</asp:ListItem>
                             </asp:DropDownList>
+                            <asp:Image ID="Div_Subcat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="SubCategoría aún no se publica en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
                         </h5>
                     </div>
                     <div class="col-md-2">
@@ -305,6 +293,7 @@
                             <asp:DropDownList ID="LstSubCategorias" CssClass="form-control" runat="server" AppendDataBoundItems="True">
                                 <asp:ListItem Value="0">Seleccione</asp:ListItem>
                             </asp:DropDownList>
+                            <asp:Image ID="Div_Cat" runat="server" Height="16px" ImageUrl="~/img/warning.png" ToolTip="Categoría aún no se publca en el Sitio... se cargará una vez se suba el producto al Sitio" Visible="False" Width="16px" />
                         </h5>
                     </div>
                 </div>
@@ -383,8 +372,8 @@
         </div>
      <%-- Div Maestro Boostrap --%>
     </div>
-    
-    <div class="container-fluid">
+    <p></p>
+    <div class="container-fluid rounded border border-secondary">
         <div class="container-fluid bg-light">
            <div class="row">
             <div class="col-md-12">
@@ -618,8 +607,8 @@
         </div>
         </div>
     </div>
-    <br />
-    <div class="container-fluid">
+    <p></p>
+    <div class="container-fluid rounded border border-secondary">
         <div class="container-fluid bg-light">
                       <div class="row">
             <div class="col-md-9">
@@ -820,7 +809,7 @@
 
     </div>
     <br />
-    <div class="container-fluid">
+    <div class="container-fluid rounded border border-secondary">
         <div class="container-fluid bg-light">
                     <div class="row">
             <div class="col-md-12">
@@ -930,16 +919,16 @@
 	    </div>
        </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid rounded border border-secondary">
         <div class="container-fluid bg-light">
             <div class="row">
 		        <div class="col-md-12">
-			        <div class="row">
-				        <div class="col-md-6">
-                        <asp:Button ID="Btn_emigrar" CssClass="form-control btn btn-block btn-success" runat="server" Text="Subir/Actualizar Código al Sitio Web" OnClick="Btn_emigrar_Click" />
+			        <div class="row align-content-center">
+				        <div class="col-md-6 align-content-center">
+                        <asp:Button ID="Btn_emigrar" CssClass="form-control  btn-success" runat="server" Text="Subir/Actualizar Código al Sitio Web" OnClick="Btn_emigrar_Click" Width="308px" />
 				    </div>
-				    <div class="col-md-6">
-                        <asp:Button ID="Btn_eliminar" CssClass="form-control btn btn-block btn-danger" runat="server" Text="Eliminar Código del Sitio Web" OnClick="Btn_eliminar_Click" />
+				    <div class="col-md-6 center">
+                        <asp:Button ID="Btn_eliminar" CssClass="form-control  btn-danger" runat="server" Text="Eliminar Código del Sitio Web" OnClick="Btn_eliminar_Click" Width="308px" />
 				    </div>
 			    </div>
 		    </div>

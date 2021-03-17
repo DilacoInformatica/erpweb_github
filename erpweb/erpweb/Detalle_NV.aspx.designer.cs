@@ -40,6 +40,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_volver;
         
         /// <summary>
+        /// Control lbl_ambiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
+        
+        /// <summary>
         /// Control lbl_status.
         /// </summary>
         /// <remarks>
@@ -56,15 +65,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_error;
-        
-        /// <summary>
-        /// Control lbl_id_nv.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_id_nv;
         
         /// <summary>
         /// Control lbl_numero_erp.
@@ -211,15 +211,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_region;
         
         /// <summary>
-        /// Control lbl_transac.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_transac;
-        
-        /// <summary>
         /// Control lbl_contacto.
         /// </summary>
         /// <remarks>
@@ -292,15 +283,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_obs_despacho;
         
         /// <summary>
-        /// Control lista_detalles.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView lista_detalles;
-        
-        /// <summary>
         /// Control Lista_Vendedores.
         /// </summary>
         /// <remarks>
@@ -326,6 +308,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Btn_crearNV;
+        
+        /// <summary>
+        /// Control lista_detalles.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView lista_detalles;
         
         /// <summary>
         /// Control lbl_moneda.
@@ -362,5 +353,23 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_total;
+        
+        /// <summary>
+        /// Control lbl_id_nv.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_id_nv;
+        
+        /// <summary>
+        /// Control lbl_transac.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_transac;
     }
 }

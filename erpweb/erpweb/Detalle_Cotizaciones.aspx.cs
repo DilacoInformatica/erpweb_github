@@ -49,7 +49,10 @@ namespace erpweb
 
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            lbl_ambiente.Text = utiles.retorna_ambiente();
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
 
             Btn_crearCot.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta Cotización Web en el ERP, desea proceder?')";
             Btn_RechazarCot.Attributes["Onclick"] = "return confirm('Ud está a punto de RECHAZAR esta Cotización Web en el ERP, desea proceder?')";

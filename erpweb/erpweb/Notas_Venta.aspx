@@ -7,44 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Notas de Venta generadas en el Sitio Web</title>
     <link href="css/estilos.css" rel="stylesheet" />
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="Content/bootstrap-grid.min.css" rel="stylesheet" />
-    <style type="text/css">
-        .auto-style32 {
-            width: 90px;
-            height: 27px;
-        }
-        .auto-style8 {
-            width: 61px;
-            text-align: center;
-            height: 27px;
-        }
-        .auto-style34 {
-            width: 141px;
-            height: 27px;
-        }
-        .auto-style35 {
-            height: 39px;
-            width: 621px;
-        }
-        .auto-style37 {
-            height: 27px;
-        }
-        .auto-style38 {
-            position: relative;
-            width: 100%;
-            -ms-flex-preferred-size: 0;
-            flex-basis: 0;
-            -ms-flex-positive: 1;
-            flex-grow: 1;
-            max-width: 100%;
-            left: 0px;
-            top: 0px;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        </style>
     <script>
         function valida()
         {
@@ -57,58 +20,96 @@
         }
     </script>
 </head>
-
 <body>
     <form id="form1" runat="server">
-      <table  class="titNoticia">
-            <tr>
-                <td class="auto-style35"><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Notas de Venta generadas en Sitio Web</span></h1>
-                 </td>
-            </tr>
-        </table>
-      
-           <table class="auto-style9">
-            <tr class="BottomTabla">
-                <td colspan="6"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
-            </tr>
-            <tr>
-                <td class="auto-style34">Nota de Venta</td>
-                <td class="auto-style37">
-                    <asp:TextBox ID="txt_nv" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
-                </td>
-                <td class="auto-style32">
-                    Rut Cliente</td>
-                <td class="auto-style32">
-                    <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
-                </td>
-                <td class="auto-style37">
-                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click"/>
-                </td>
-                <td class="auto-style8">
-                    <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
-                </td>
-            </tr>
-            
-        </table>
-             <asp:Label ID="lbl_cantidad" runat="server"></asp:Label>
-             <asp:Label ID="lbl_error" runat="server"></asp:Label>
-    <p>
-        <asp:GridView ID="Lista_notas" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound">
-            <AlternatingRowStyle BackColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EFF3FB" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-        </asp:GridView>
-        <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
-        </p>
-    </div>
+        <div class="container-fluid rounded border border-secondary">
+            <div class="container-fluid bg-light">
+                <div class="row">
+                    <div class="col-md-11">
+                        <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" />Notas de Venta generadas en Sitio Web</h1>
+                    </div>
+                    <div class="col-md-1 float-right">
+                        <asp:ImageButton ID="ImgBtn_Cerrar" CssClass="float-md-right" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container-fluid rounded border border-secondary">
+            <div class="container-fluid bg-light">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><span class="badge badge-primary">Búsqueda de Información</span></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1">
+                        <h4><span class="badge badge-info">Nota de Venta</span> </h4>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txt_nv" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
+                    </div>
+                    <div class="col-1">
+                        <h4><span class="badge badge-info">Rut Cliente</span> </h4>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
+                    </div>
+                     <div class="col-2">
+                         <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container-fluid">
+            <div class="container-fluid bg-light">
+                <div class="row">
+                    <div class="col-md-6">
+                       <h4><asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h4>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-6">
+                        <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <br />
+        <div class="container-fluid rounded border border-secondary">
+            <div class="container-fluid bg-light">
+                <div class="row">
+                    <div class="col-md-12">
+                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound">
+                        <AlternatingRowStyle BackColor="White" />
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid rounded border border-secondary">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
    
 </body>

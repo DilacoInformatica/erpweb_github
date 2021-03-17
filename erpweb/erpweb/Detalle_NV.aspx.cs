@@ -40,6 +40,10 @@ namespace erpweb
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
                 LnkUpdInfoPagoNV.Attributes["Onclick"] = "return confirm('Confirma actualizacion de Información de Pago de la NV?')";
                 Btn_Rechazar.Attributes["Onclick"] = "return confirm('Confirma que rechazará la cotización?')";
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
                 carga_vendedores();
                 if (VerificaexistenciaNVERP(id_nv) == "SI")
                 {
@@ -218,9 +222,9 @@ namespace erpweb
                             lbl_rut_exit.Text = dr.GetString(6);
                             lbl_fono.Text = dr.GetString(8);
                             lbl_email.Text = dr.GetString(9);
-                            lbl_direccion.Text = dr.GetString(16);
-                            lbl_comuna.Text = dr.GetString(17);
-                            lbl_ciudad.Text = dr.GetString(18);
+                            lbl_direccion.Text = dr.GetString(15);
+                            lbl_comuna.Text = dr.GetString(18);
+                            lbl_ciudad.Text = dr.GetString(17);
                             lbl_region.Text = dr.GetString(16);
                             // Despacho
                             lbl_contacto.Text = dr.GetString(29);
@@ -329,12 +333,13 @@ namespace erpweb
                             }
                         }
                     }
+                    lbl_error.Text = "";
 
-                    if (result != "OK")
+                    if (result == "")
                     {
                         lbl_error.Text = "ERROR AL OBTENER N° DE TRANSACCIONN WEBPAY";
                     }
-
+                    
 
                     conn.Close();
                     conn.Dispose();

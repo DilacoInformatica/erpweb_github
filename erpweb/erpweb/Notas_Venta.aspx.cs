@@ -21,6 +21,9 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+
+            lbl_mensaje.Visible = false;
+
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
@@ -78,6 +81,7 @@ namespace erpweb
 
                     if (!dr.HasRows)
                     {
+                        lbl_mensaje.Visible = true;
                         lbl_mensaje.Text = "Sin Resultados";
                     }
                     else
@@ -107,12 +111,12 @@ namespace erpweb
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Center;
-                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Center;

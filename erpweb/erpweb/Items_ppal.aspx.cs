@@ -37,6 +37,10 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
             //Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {

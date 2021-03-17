@@ -112,31 +112,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control Div_fam.
+        /// Control lbl_activo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_fam;
-        
-        /// <summary>
-        /// Control Div_Subcat.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_Subcat;
-        
-        /// <summary>
-        /// Control Div_Cat.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Div_Cat;
+        protected global::System.Web.UI.WebControls.Label lbl_activo;
         
         /// <summary>
         /// Control LinkAct_item.
@@ -155,15 +137,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkDesAct_item;
-        
-        /// <summary>
-        /// Control lbl_activo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_activo;
         
         /// <summary>
         /// Control lbl_web.
@@ -310,6 +283,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstDivision;
         
         /// <summary>
+        /// Control Div_fam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_fam;
+        
+        /// <summary>
         /// Control LstCategorias.
         /// </summary>
         /// <remarks>
@@ -319,6 +301,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstCategorias;
         
         /// <summary>
+        /// Control Div_Subcat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Subcat;
+        
+        /// <summary>
         /// Control LstSubCategorias.
         /// </summary>
         /// <remarks>
@@ -326,6 +317,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategorias;
+        
+        /// <summary>
+        /// Control Div_Cat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Div_Cat;
         
         /// <summary>
         /// Control LstLineaVtas.

@@ -20,6 +20,11 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
+
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor

@@ -7,276 +7,259 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Detalle Nota de Venta</title>
     <link href="css/estilos.css" rel="stylesheet" />
-    
-
-    <style type="text/css">
-        .auto-style1 {
-            width: 1254px;
-        }
-        .auto-style2 {
-            width: 105px;
-        }
-        .auto-style6 {
-            width: 331px;
-            height: 28px;
-        }
-        .auto-style8 {
-            width: 1254px;
-            height: 28px;
-        }
-        .auto-style9 {
-            width: 479px;
-        }
-        .auto-style10 {
-            width: 981px;
-        }
-        .auto-style11 {
-            width: 5230px;
-        }
-        .auto-style14 {
-            width: 981px;
-            text-align: right;
-            background-color: #FFFFCC;
-        }
-        .auto-style15 {
-            height: 24px;
-        }
-        .auto-style16 {
-            height: 16px;
-        }
-        .auto-style17 {
-            width: 331px;
-            height: 16px;
-        }
-        .auto-style18 {
-            height: 15px;
-        }
-        .auto-style19 {
-            width: 331px;
-            height: 4px;
-        }
-        .auto-style21 {
-            height: 28px;
-        }
-        .auto-style22 {
-            height: 12px;
-        }
-        .auto-style23 {
-            width: 331px;
-            height: 12px;
-        }
-        .auto-style24 {
-            text-align: right;
-        }
-        .auto-style25 {
-            width: 205px;
-        }
-        .auto-style26 {
-            margin-left: 169px;
-        }
-    </style>
-    
-
+    <link href="Content/bootstrap.css" rel="stylesheet" />
 </head>
-<body style="width: 1379px; height: 38px">
-    <form id="form1" runat="server" class="auto-style21">
-    <div>
-          <table  class="titNoticia">
-            <tr>
-                <td><h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
-                    &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
-                    </span></h1>
-                 </td>
-            </tr>
-        </table>
-          <asp:Label ID="lbl_status" runat="server"></asp:Label>
-          <asp:Label ID="lbl_error" runat="server"></asp:Label>
-                    <asp:Label ID="lbl_id_nv" runat="server" Visible="False"></asp:Label>
-       <br />
+<body>
+    <form id="form1" runat="server">
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-md-11">
+                    <h1><img alt="" src="img/vineta.gif" /><span class="text-center text-primary">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label></span></h1>
+                </div>
+                <div class="col-md-1">
+                    <asp:Button ID="Btn_volver" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_volver_Click" Text="Volver" style="height: 26px" />
+                </div>
+            </div>
+        </div>
     </div>
-        <table class="auto-style1">
-            <tr class="BottomTabla">
-                <td class="auto-style8" colspan="4"><h4><strong>Cabecera Nota de Venta</strong></h4></td>
-            </tr>
-            <tr>
-                <td class="auto-style16">Numero NV ERP</td>
-                <td class="auto-style17">
-                    <span class="Estilo_titulo"><strong>
-                    <asp:Label ID="lbl_numero_erp" runat="server"></asp:Label>
-                    </strong> </span>
-                </td>
-                <td class="auto-style17">
-                    Fecha</td>
-                <td class="auto-style17">
-                    <asp:Label ID="lbl_fecha" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>N° OC</td>
-                <td class="auto-style19">
-                    <strong>
-                    <asp:Label ID="lbl_n_oc" runat="server"></asp:Label>
-                    </strong>
-                </td>
-                <td class="auto-style19">
-                    N° Transaccion WebPay</td>
-                <td class="auto-style19">
-                    <strong>
-                    <asp:Label ID="lbl_transac_pago" runat="server"></asp:Label>
-                    &nbsp;<asp:LinkButton ID="LnkUpdInfoPagoNV" runat="server" OnClick="LnkUpdInfoPagoNV_Click" Visible="False">Actualizar Información</asp:LinkButton>
-                    </strong>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style22">Tipo Facturación</td>
-                <td class="auto-style23">
-                     <strong>
-                     <asp:Label ID="lbl_tipo_facturacion" runat="server"></asp:Label>
-                     </strong>
-                </td>
-                <td class="auto-style23">
-                    </td>
-                <td class="auto-style23">
-                    </td>
-            </tr>
-            <tr class="BottomTabla">
-                <td class="auto-style15" colspan="4"><h4 class="auto-style37"><strong>Información Cliente:</strong></h4></td>
-            </tr>
-            <tr>
-                <td>Cliente</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_cliente" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    Existe en ERP</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_existe" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>Rut</td>
-                <td class="auto-style6">
-                    <asp:Label ID="lbl_rut" runat="server"></asp:Label>
-                    <asp:Label ID="lbl_rut_exit" runat="server" Visible="False"></asp:Label>
-                </td>
-                <td class="auto-style6">
-                    &nbsp;</td>
-                <td class="auto-style6">
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="auto-style9">Teléfono</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_fono" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    Email</td>
-                <td class="aauto-style8">
-                    <asp:Label ID="lbl_email" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>Dirección</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_direccion" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td>Comuna</td>
-                <td class="auto-style6">
-                    <asp:Label ID="lbl_comuna" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style6">
-                    Ciudad</td>
-                <td class="auto-style6">
-                    <asp:Label ID="lbl_ciudad" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>Región</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_region" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_transac" runat="server" Visible="False"></asp:Label>
-                </td>
-            </tr>
-            <tr class="BottomTabla"">
-                <td colspan="4"><h4><strong>Información de Despacho:</strong></h4></td>
-            </tr>
-            <tr>
-                <td class="auto-style2">Contacto</td>
-                <td>
-                    <asp:Label ID="lbl_contacto" runat="server"></asp:Label>
-                </td>
-                <td>
-                    &nbsp;</td>
-                <td>
-                    &nbsp;</td>
-                
-            </tr>
-            <tr>
-                <td class="auto-style8">Teléfono</td>
-                <td class="auto-style18">
-                    <asp:Label ID="lbl_fono_despacho" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style18">
-                    Email</td>
-                <td class="auto-style18">
-                    <asp:Label ID="lbl_email_contacto" runat="server"></asp:Label>
-                </td>
-               
-            </tr>
-            <tr>
-                <td>Dirección</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_direccion_despacho" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td >Comuna</td>
-                <td class="auto-style15">
-                    <asp:Label ID="lbl_comuna_despacho" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style15">
-                    Ciudad</td>
-                <td class="auto-style15">
-                    <asp:Label ID="lbl_ciudad_despacho" runat="server"></asp:Label>
-                </td>
-             
-            </tr>
-            <tr>
-                <td>Región</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_region_despacho" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td>Observaciones</td>
-                <td class="auto-style8">
-                    <asp:Label ID="lbl_obs_despacho" runat="server"></asp:Label>
-                </td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-                <td class="auto-style8">
-                    &nbsp;</td>
-            </tr>
-        </table>
-        <asp:GridView ID="lista_detalles" runat="server" Caption="Detalle de la Nota de Venta" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1265px" ShowFooter="True">
+    <br />
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container-fluid bg-light">
+                    <div class="row">
+            <div class="col-sm-12">
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            </div>
+        </div>
+       </div>
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <di class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2><span class="badge badge-primary">Cabecera Nota de Venta</span></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">N° NV ERP</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_numero_erp" CssClass="form-control" runat="server" Width="227px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Fecha</span></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><asp:Label ID="lbl_fecha" runat="server" CssClass="form-control" Width="229px"></asp:Label></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">N° OC</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                           <h4><asp:Label ID="lbl_n_oc" runat="server" CssClass="form-control" Width="232px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">N° WebPay</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_transac_pago" runat="server" CssClass="form-control" Width="232px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <asp:LinkButton ID="LnkUpdInfoPagoNV" CssClass="form-control" runat="server" OnClick="LnkUpdInfoPagoNV_Click" Visible="False">Actualizar Información</asp:LinkButton>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Tipo Facturación</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_tipo_facturacion" runat="server"  CssClass="form-control" Width="235px"></asp:Label></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2><span class="badge badge-primary">Información Cliente</span></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Cliente</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_cliente" runat="server" CssClass="form-control"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Existe en ERP</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_existe" runat="server" CssClass="form-control"></asp:Label></h4>
+                        </div>
+                    </div>
+                       <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Rut</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_rut" runat="server" CssClass="form-control" Width="225px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><asp:Label ID="lbl_rut_exit" runat="server" CssClass="form-control" Width="181px" Visible="false"></asp:Label></h4>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Teléfono</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_fono" runat="server" CssClass="form-control" Width="225px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Email</span></h4>
+                        </div>
+                       <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_email" runat="server" CssClass="form-control" Width="225px"></asp:Label></h4>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Dirección</span></h4>
+                        </div>
+                        <div class="col-md-8">
+                            <h4><asp:Label ID="lbl_direccion" runat="server" CssClass="form-control" Width="605px"></asp:Label></h4>
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Comuna</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_comuna" runat="server" CssClass="form-control" Width="229px"></asp:Label></h4>
+                        </div>
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Ciudad</span></h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4><asp:Label ID="lbl_ciudad" runat="server" CssClass="form-control" Width="229px"></asp:Label></h4>
+                        </div>
+                         <div class="col-md-1">
+                            <h4><span class="badge badge-info">Región</span></h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4><asp:Label ID="lbl_region" runat="server" CssClass="form-control" Width="280px"></asp:Label></h4>
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><span class="badge badge-primary">Información Despacho</span></h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Contacto</span></h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><asp:Label ID="lbl_contacto" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Teléfono</span></h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><asp:Label ID="lbl_fono_despacho" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Email</span></h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><asp:Label ID="lbl_email_contacto" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Dirección</span></h4>
+                    </div>
+                    <div class="col-md-8">
+                        <h4><asp:Label ID="lbl_direccion_despacho" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Comuna</span></h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><asp:Label ID="lbl_comuna_despacho" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Ciudad</span></h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4><asp:Label ID="lbl_ciudad_despacho" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Región</span></h4>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><asp:Label ID="lbl_region_despacho" runat="server" CssClass="form-control" Width="280px"></asp:Label></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <h4><span class="badge badge-info">Observaciones</span></h4>
+                    </div>
+                    <div class="col-md-8">
+                        <h4><asp:Label ID="lbl_obs_despacho" runat="server" CssClass="form-control"></asp:Label></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+     <br />
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <h4><span class="badge badge-info">Vendedor/Emisor</span></h4>
+                        </div>
+                        <div class="col-md-3">
+                                <h5>
+                    <asp:DropDownList ID="Lista_Vendedores" runat="server" AppendDataBoundItems="True">
+                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                    </asp:DropDownList>
+                                </h5>
+                        </div>
+                        <div class="col-md-2">
+                            <h4>
+                                <asp:Button ID="Btn_Rechazar" runat="server" CssClass="btn btn-md btn-danger active btn-block" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar Nota de Venta" Width="259px" />
+                            </h4>
+                        </div>
+                        <div class="col-md-2">
+                            <h4>
+                                <asp:Button ID="Btn_crearNV" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_crearNV_Click" Text="Crear NV en ERP" Width="259px"/>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br />
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-md-12">
+        <asp:GridView ID="lista_detalles" runat="server" CssClass="table table-responsive-md"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1629px" ShowFooter="True">
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -289,60 +272,64 @@
             <SortedDescendingCellStyle BackColor="#E9EBEF" />
             <SortedDescendingHeaderStyle BackColor="#4870BE" />
         </asp:GridView>
-        <br />
-        <br />
-<table class="auto-style1">
-            <tr>
-                <td class="auto-style31">Vendedor/Emisor</td>
-                <td class="auto-style25">
-                    <asp:DropDownList ID="Lista_Vendedores" runat="server" AppendDataBoundItems="True">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-                <td class="auto-style24">
-                    <asp:Button ID="Btn_Rechazar" runat="server" BackColor="Red" CssClass="auto-style26" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar Nota de Venta" Width="190px" />
-                </td>
-                <td class="auto-style24">
-                    <asp:Button ID="Btn_crearNV" runat="server" OnClick="Btn_crearNV_Click" Text="Crear NV en ERP" />
-                </td>
-            </tr>
-        </table>
-        <br />
-&nbsp;<table class="auto-style1">
-            <tr>
-                <td class="auto-style11">
-                    &nbsp;</td>
-                <td class="auto-style10"><strong>Moneda</strong></td>
-                <td class="auto-style14">
-                    <asp:Label ID="lbl_moneda" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style11">
-                    &nbsp;</td>
-                <td class="auto-style10"><strong>Neto</strong></td>
-                <td class="auto-style14">
-                    <asp:Label ID="lbl_neto" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style11">
-                    &nbsp;</td>
-                <td class="auto-style10"><strong>Iva</strong></td>
-                <td class="auto-style14"><asp:Label ID="lbl_tax" runat="server"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    &nbsp;</td>
-                <td class="auto-style10"><strong>Total</strong></td>
-                <td class="auto-style14">
-                    <asp:Label ID="lbl_total" runat="server"></asp:Label>
-                </td>
-            </tr>
-        </table>
-        <br />
-
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+     <br />
+    <div class="container-fluid rounded border border-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1 float-right">
+                            <h4><span class="badge badge-info">Moneda</span></h4>
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <h4><span class="text-md-right"> <asp:Label ID="lbl_moneda" CssClass="form-control" runat="server" Width="150px"></asp:Label></span></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1 float-right">
+                            <h4><span class="badge badge-info">Neto</span></h4>
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <h4><asp:Label ID="lbl_neto" CssClass="form-control" runat="server" Width="150px"></asp:Label></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1 float-right">
+                            <h4><span class="badge badge-info">Iva</span></h4>
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <h4><asp:Label ID="lbl_tax" runat="server" CssClass="form-control" Width="150px"></asp:Label></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1 float-right">
+                            <h4><span class="badge badge-info">Total</span></h4>
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <h4><asp:Label ID="lbl_total" runat="server" CssClass="form-control" Width="150px"></asp:Label></h4>            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-1 float-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:Label ID="lbl_id_nv" runat="server" Visible="False"></asp:Label>
+       <asp:Label ID="lbl_transac" runat="server" Visible="False"></asp:Label>
+     </div>
+     <%-- fin plantilla boostrap --%>
+      
     </form>
 </body>
 </html>
