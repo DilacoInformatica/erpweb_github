@@ -19,8 +19,8 @@
    
 <%-- Maqueta Boostrap --%>
  <div class="container-fluid">
-     <div class="container-fluid bg-light">
-               <div class="row">
+     <div class="container-fluid">
+            <div class="row">
             <div class="col-md-11">
                 <div class="row">
                     <div class="col-md-4">
@@ -77,7 +77,7 @@
     </div>
     <br />
 
-    <div class="container-fluid">
+    <div class="container-fluid rounded border border-dark">
             <div class="container-fluid bg-light">
                 <div class="row">
                 <div class="col-md-12">
