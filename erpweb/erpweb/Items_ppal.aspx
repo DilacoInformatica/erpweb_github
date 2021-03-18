@@ -5,18 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<link href="css/estilos.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <title>Productos</title>
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            display: block;
-            padding-left: 1.25rem;
-            left: 0px;
-            top: 0px;
-        }
-    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,8 +15,7 @@
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                     </asp:ScriptManager>
     <%-- Maqueta Boostrap --%> 
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid .bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -39,26 +28,22 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
-                    <div class="row">
+    <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
             <div class="col-sm-12">
                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
             </div>
-        </div>
        </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid .bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light"">
             <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Por palabra clave</span></h4>
                 </div>
                 <div class="col-md-6">
@@ -66,7 +51,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">División</span></h4>
                 </div>
                  <div class="col-md-2">
@@ -93,7 +78,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Línea de Venta</span></h4>
                 </div>
                  <div class="col-md-2">
@@ -111,7 +96,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Proveedor</span></h4>
                 </div>
                 <div class="col-md-4">
@@ -121,7 +106,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Código</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -135,7 +120,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Sin Categoría</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -155,7 +140,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Sólo Cotización</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -179,12 +164,12 @@
                     <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" CssClass="btn btn-md btn-primary active btn-block" />
                 </div>
             </div>
-        </div>
         <p></p>
+        </div>
+        
     </div>
 <br />
 <div class="container-fluid rounded border border-secondary">
-    <div class="container-fluid .bg-light">
         <div class="row">
             <div class="col-md-2">
                 <h4><span class="badge badge-info">Cantidad Productos</span></h4>
@@ -202,32 +187,30 @@
                     <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" Width="30px"  Height="30px" />
 		    </div>
         </div>
-    </div>
 </div>
 <br />
-<div class="container-fluid rounded border border-secondary">
-    <div class="container-fluid .bg-light">
+<div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="Productos" runat="server" CellPadding="4" CssClass="table table-responsive-md" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True">
-                    <AlternatingRowStyle BackColor="White" />
-                    <Columns>
-                        <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
-                    </Columns>
-                    <EditRowStyle BackColor="#2461BF" />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-
+                    <h6>
+                        <asp:GridView ID="Productos" runat="server" CellPadding="4"  ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True">
+                        <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
+                        </Columns>
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                    </h6>
                 </div>
-            </div>
     </div>
 </div>
 
@@ -236,23 +219,7 @@
         <div class ="container-fluid">
         <div class="row">
              <div class="col-md-12">
-                <h5>
-                   
-               </h5>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-&nbsp;<div id="resultado" style="display:block">
+                         <div id="resultado" style="display:block">
             <asp:GridView ID="GridResultados" runat="server" Caption="Resultados" CellPadding="4" ForeColor="#333333" GridLines="None" Visible="False" ShowFooter="True" ShowHeaderWhenEmpty="True" CssClass="form-control">
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
@@ -298,8 +265,11 @@
                     </asp:GridView>
             <br />
         </div>
-        
-      
+            </div>
+        </div>
+        </div>
+    </div>
+</div>   
     </ContentTemplate>
       
     </asp:UpdatePanel>

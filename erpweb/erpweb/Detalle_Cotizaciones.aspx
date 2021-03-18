@@ -5,47 +5,40 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="css/estilos.css" rel="stylesheet" />
     <title>Detalle Cotización</title>
-    <link href="css/estilos.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-11">
                     <h1><img alt="" src="img/vineta.gif" /><span class="text-center text-primary">Detalle Cotización de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label></span></h1>
                 </div>
                 <div class="col-md-1">
-                    <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" CssClass="btn btn-md btn-primary active btn-block" Text="Volver" style="height: 26px" />
+                    <asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" CssClass="btn btn-md btn-primary active btn-block" Text="Volver"/>
                 </div>
             </div>
-        </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
-                    <div class="row">
+    <div class="container-fluid rounded border border-secondary bg-light">
+          <div class="row">
             <div class="col-sm-12">
                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
             </div>
-        </div>
        </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
                     <h2><span class="badge badge-primary">Cabecera Cotización</span></h2>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">N° Cotización</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -65,7 +58,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Rut</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -82,15 +75,13 @@
                 <div class="col-md-1">
                     <h4><span class="badge badge-info">Usar Info ERP?</span></h4>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <h4><asp:CheckBox ID="Chk_data_existente" runat="server" AutoPostBack="True" Enabled="False" OnCheckedChanged="Chk_data_existente_CheckedChanged" /></h4>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Cliente Particular</span></h4>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <h5><asp:CheckBox ID="Chk_Cli_Particular"  runat="server" AutoPostBack="True" OnCheckedChanged="Chk_Cli_Particular_CheckedChanged" /></h5>
                 </div>
             </div>
@@ -101,31 +92,30 @@
             </div>
 
              <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Empresa</span></h4>
                 </div>
                 <div class="col-md-10">
-                    <h4><asp:Label ID="lbl_empresa" runat="server" CssClass="form-control" Width="931px" Height="36px"></asp:Label></h4>
+                    <h4><asp:Label ID="lbl_empresa" runat="server" CssClass="form-control" Width="1345px" Height="36px"></asp:Label></h4>
                 </div>
             </div>
              <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Nombres</span></h4>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-4">
                     <h4><asp:Label ID="lbl_nombre" runat="server" CssClass="form-control" Width="400px"></asp:Label></h4>
                 </div>
-            </div>
-             <div class="row">
                 <div class="col-md-1">
                     <h4><span class="badge badge-info">Apellidos</span></h4>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-4">
                     <h4><asp:Label ID="lbl_apellidos" runat="server" CssClass="form-control" Width="400px"></asp:Label></h4>
                 </div>
             </div>
+     
              <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Fono</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -145,15 +135,15 @@
                 </div>
             </div>
              <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Dirección</span></h4>
                 </div>
                 <div class="col-md-10">
-                    <h4><asp:Label ID="lbl_direccion" runat="server" CssClass="form-control" Height="47px" Width="933px"></asp:Label></h4>
+                    <h4><asp:Label ID="lbl_direccion" runat="server" CssClass="form-control"  Width="933px"></asp:Label></h4>
                 </div>
             </div>
              <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <h4><span class="badge badge-info">Comuna</span></h4>
                 </div>
                 <div class="col-md-2">
@@ -170,22 +160,20 @@
                     <h4><span class="badge badge-info">Región</span></h4>
                 </div>
                 <div class="col-md-2">
-                    <h5><asp:DropDownList ID="Lst_Region" CssClass="form-control" runat="server" AppendDataBoundItems="True" Height="16px" Width="300px">
+                    <h5><asp:DropDownList ID="Lst_Region" CssClass="form-control" runat="server" AppendDataBoundItems="True"  Width="300px">
                         <asp:ListItem Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList></h5>
                     <asp:Label ID="lbl_region" runat="server"></asp:Label>
                 </div>
             </div>
-        </div>
     </div>
     <br />
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <h4><span class="badge badge-info">Vendedor/Emisor</span></h4>
                         </div>
                         <div class="col-md-3">
@@ -204,37 +192,33 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container-fluid bg-light">
-            <div class="row">
-                <div class="col-md-12">
-                     <asp:GridView ID="lista_detalles" runat="server" CssClass="table table-responsive-md" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1706px" ShowFooter="True" OnRowDataBound="lista_detalles_RowDataBound">
-                    <AlternatingRowStyle BackColor="White" />
-                    <EditRowStyle BackColor="#2461BF" />
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-                </div>
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <div class="row">
+            <div class="col-md-12">
+                    <asp:GridView ID="lista_detalles" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1799px" ShowFooter="True" OnRowDataBound="lista_detalles_RowDataBound">
+                <AlternatingRowStyle BackColor="White" />
+                <EditRowStyle BackColor="#2461BF" />
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#EFF3FB" />
+                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                </asp:GridView>
             </div>
         </div>
     </div>
     <br />
-    <div class="container-fluid rounded border border-secondary">
-        <div class="container">
+    <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
                             <h4><span class="badge badge-info">Moneda</span></h4>
                         </div>
@@ -243,16 +227,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
                             <h4><span class="badge badge-info">Neto</span></h4>
                         </div>
-                        <div class="col-md-1 float-right">
+                        <div class="col-md-1">
                             <h4><asp:Label ID="lbl_neto" CssClass="form-control" runat="server" Width="150px"></asp:Label></h4>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
                             <h4><span class="badge badge-info">Iva</span></h4>
                         </div>
@@ -261,7 +245,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
                             <h4><span class="badge badge-info">Total</span></h4>
                         </div>
@@ -270,7 +254,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-10"></div>
+                        <div class="col-md-9"></div>
                         <div class="col-md-1 float-right"></div>
                         <div class="col-md-1 float-right">    
                             <h4><span class="badge badge-danger">Valores de Referencia</span></h4>      
@@ -280,7 +264,7 @@
             </div>
         </div>
          <br />
-    </div>
+
   <%-- final boostrap --%>
         <asp:Label ID="lbl_id_cli" runat="server" Visible="False"></asp:Label>
         <asp:Label ID="lbl_id_con" runat="server" Visible="False"></asp:Label>

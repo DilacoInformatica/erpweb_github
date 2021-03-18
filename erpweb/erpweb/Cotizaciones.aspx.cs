@@ -61,7 +61,7 @@ namespace erpweb
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@v_Cotizac_Num", null);
+                        command.Parameters.AddWithValue("@v_Cotizac_Num", DBNull.Value);
                         command.Parameters["@v_Cotizac_Num"].Direction = ParameterDirection.Input;
                     }
                     if (txt_rut.Text != "")
@@ -71,7 +71,7 @@ namespace erpweb
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@v_rut", null);
+                        command.Parameters.AddWithValue("@v_rut", DBNull.Value);
                         command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
                     }
 

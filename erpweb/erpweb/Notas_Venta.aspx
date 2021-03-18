@@ -6,7 +6,6 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Notas de Venta generadas en el Sitio Web</title>
-    <link href="css/estilos.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <script>
         function valida()
@@ -22,8 +21,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container-fluid rounded border border-secondary">
-            <div class="container-fluid bg-light">
+        <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-11">
                         <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" />Notas de Venta generadas en Sitio Web</h1>
@@ -33,11 +31,9 @@
                     </div>
                     <p></p>
                 </div>
-            </div>
         </div>
         <br />
-        <div class="container-fluid rounded border border-secondary">
-            <div class="container-fluid bg-light">
+        <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
                         <h3><span class="badge badge-primary">Búsqueda de Información</span></h3>
@@ -60,11 +56,9 @@
                          <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
                     </div>
                 </div>
-            </div>
         </div>
         <br />
-        <div class="container-fluid">
-            <div class="container-fluid bg-light">
+        <div class="container-fluid bg-light">
                 <div class="row">
                     <div class="col-md-6">
                        <h4><asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h4>
@@ -75,15 +69,13 @@
                         <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></h4>
                     </div>
                 </div>
-            </div>
         </div>
         
         <br />
-        <div class="container-fluid rounded border border-secondary">
-            <div class="container-fluid bg-light">
+        <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound">
+                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1780px">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -98,17 +90,14 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
         </div>
 
-        <div class="container-fluid rounded border border-secondary">
-            <div class="container-fluid">
+        <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
                         <h4><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h4>
                     </div>
                 </div>
-            </div>
         </div>
     </form>
    

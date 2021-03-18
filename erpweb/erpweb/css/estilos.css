@@ -1,13 +1,4 @@
-﻿body {
-	SCROLLBAR-BASE-COLOR: #DADEF1;
-	font-family:Verdana, Geneva, sans-serif;
-	font-size: 11px;
-	margin:0;
-    padding:0;
-    height:100%;
-    border:none;
-	background-image: url(../img/back_pags2.gif);
-   }
+﻿
 input[type=button], input[type=submit] {
 	cursor:pointer;
     margin-left: 0px;
@@ -43,8 +34,9 @@ html,form {
 	font-size: 11px;
 	margin:0;
     padding:0;
-    height:1529px;
-    }
+    height:1342px;
+    width: 1907px;
+}
 
 table {	
 	border-collapse: collapse; 

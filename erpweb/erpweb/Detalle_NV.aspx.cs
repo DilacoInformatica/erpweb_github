@@ -35,6 +35,11 @@ namespace erpweb
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+
+            lbl_neto.Style.Add("text-align", "right");
+            lbl_tax.Style.Add("text-align", "right");
+            lbl_total.Style.Add("text-align", "right");
+
             if (!this.IsPostBack)
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";
@@ -227,7 +232,7 @@ namespace erpweb
                             lbl_ciudad.Text = dr.GetString(17);
                             lbl_region.Text = dr.GetString(16);
                             // Despacho
-                            lbl_contacto.Text = dr.GetString(29);
+                            lbl_contacto.Text = dr.GetString(34);
                             lbl_email_contacto.Text = dr.GetString(25);
                             lbl_direccion_despacho.Text = dr.GetString(20);
                             lbl_comuna_despacho.Text = dr.GetString(23);

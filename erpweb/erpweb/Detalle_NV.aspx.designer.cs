@@ -121,15 +121,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_tipo_facturacion;
         
         /// <summary>
-        /// Control lbl_cliente.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_cliente;
-        
-        /// <summary>
         /// Control lbl_existe.
         /// </summary>
         /// <remarks>
@@ -155,6 +146,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_rut_exit;
+        
+        /// <summary>
+        /// Control lbl_cliente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_cliente;
         
         /// <summary>
         /// Control lbl_fono.

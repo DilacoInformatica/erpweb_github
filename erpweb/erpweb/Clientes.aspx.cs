@@ -15,10 +15,16 @@ namespace erpweb
         string Sserver = "";
         string SMysql = "";
         Cls_Utilitarios utiles = new Cls_Utilitarios();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
+
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";
@@ -32,39 +38,55 @@ namespace erpweb
         void lista_clientes_web()
         {
             String queryString = "";
-            queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
-            queryString = queryString + "tbl_clientes.Rut, ";
-            queryString = queryString + "tbl_clientes.Dv_Rut, ";
-            queryString = queryString + "tbl_clientes.Razon_Social, ";
-            queryString = queryString + "tbl_clientes.Telefonos, ";
-            queryString = queryString + "IFNULL(tbl_clientes.Telefonos2,'') Telefonos2, ";
-            queryString = queryString + "tbl_clientes.Direccion, ";
-            queryString = queryString + "tbl_clientes.Ciudad, ";
-            queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region, ";
-            queryString = queryString + "tbl_clientes.Giro, ";
-            queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
-            queryString = queryString + "tbl_clientes.Email, ";
-            queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp  ";
-            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
+            queryString = "lista_clientes";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
                 {
                     conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    if (txt_idw.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_id", DBNull.Value);
+                        command.Parameters["@v_id"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_id", Convert.ToInt32(txt_idw.Text));
+                        command.Parameters["@v_id"].Direction = ParameterDirection.Input;
+                    }
+
+                    if (txt_rutw.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_rut", DBNull.Value);
+                        command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_rut", Convert.ToInt32(txt_rutw.Text));
+                        command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+                    }
+
+                    if(txt_razonw.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_razon", DBNull.Value);
+                        command.Parameters["@v_razon"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_razon", txt_razonw.Text);
+                        command.Parameters["@v_razon"].Direction = ParameterDirection.Input;
+                    }
+
                     DataSet ds = new DataSet();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(Context.Server.HtmlDecode(queryString), conn);
-                    adapter.Fill(ds);
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
 
-
-
-                    lista_clientes.DataSource = ds;
+                    lista_clientes.DataSource = dr;
                     lista_clientes.DataBind();
-                    //Productos.DataMember = "tbl_items";
-
 
                     conn.Close();
                     conn.Dispose();
@@ -72,7 +94,7 @@ namespace erpweb
                 }
                 catch (Exception ex)
                 {
-                    lbl_error.Text = ex.Message + queryString;
+                    lbl_error.Text = ex.Message + ' ' + queryString;
                     conn.Close();
                     conn.Dispose();
                 }
@@ -157,6 +179,7 @@ namespace erpweb
             Page.Validate();
             if (Page.IsValid)
             {
+                lbl_resultados.Text = "";
                 queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut 'Dv', Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
                 queryString = queryString + "FROM dbo.tbl_Clientes cl ";
                 queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Sucursales_Clientes sc ON cl.ID_Cliente = sc.Id_Cliente  and sc.Sucursal_Principal = 1 ";
@@ -178,7 +201,7 @@ namespace erpweb
                 }
                 if (txt_razon.Text != "")
                 {
-                    queryString = queryString + "and cl.Razon_Social like '%" + txt_razon.Text + "%'";
+                    queryString = queryString + "and UPPER(cl.Razon_Social) like '%" + txt_razon.Text.ToUpper() + "%'";
                 }
 
                 try
@@ -281,67 +304,7 @@ namespace erpweb
 
         protected void Btn_buscarw_Click(object sender, EventArgs e)
         {
-            String queryString = "";
-            lbl_error.Text = "";
-            queryString = "SELECT tbl_clientes.ID_Cliente Id, ";
-            queryString = queryString + "tbl_clientes.Rut, ";
-            queryString = queryString + "tbl_clientes.Dv_Rut, ";
-            queryString = queryString + "tbl_clientes.Razon_Social, ";
-            queryString = queryString + "tbl_clientes.Telefonos, ";
-            queryString = queryString + "tbl_clientes.Telefonos2, ";
-            queryString = queryString + "tbl_clientes.Direccion, ";
-            queryString = queryString + "tbl_clientes.Ciudad, ";
-            queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region 'Región', ";
-            queryString = queryString + "tbl_clientes.Giro, ";
-            queryString = queryString + "tbl_clientes.URL, ";
-            queryString = queryString + "tbl_clientes.Email, ";
-            queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "tbl_clientes.cliente_erp ";
-            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
-            queryString = queryString + "WHERE 1 = 1 ";
-
-            if (txt_idw.Text != "")
-            {
-                queryString = queryString + "and id_cliente = " + txt_idw.Text;
-            }
-            if (txt_rutw.Text != "")
-            {
-                queryString = queryString + "and rut = " + txt_rutw.Text;
-            }
-            if (txt_razonw.Text != "")
-            {
-                queryString = queryString + "and Razon_Social like '%" + txt_razonw.Text + "%'";
-            }
-
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
-            {
-                try
-                {
-                    conn.Open();
-                    DataSet ds = new DataSet();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(queryString, conn);
-                    adapter.Fill(ds);
-
-
-
-                    lista_clientes.DataSource = ds;
-                    lista_clientes.DataBind();
-                    //Productos.DataMember = "tbl_items";
-
-
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
+            lista_clientes_web();
         }
 
 

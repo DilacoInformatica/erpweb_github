@@ -36,6 +36,10 @@ namespace erpweb
             num_cotizacion = Convert.ToInt32(Request.QueryString["cot"].ToString());
             ubicacion = Request.QueryString["ubicacion"].ToString();
             tipo = Request.QueryString["tipo"].ToString();
+
+            lbl_neto.Style.Add("text-align", "right");
+            lbl_tax.Style.Add("text-align", "right");
+            lbl_total.Style.Add("text-align", "right");
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
 
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
