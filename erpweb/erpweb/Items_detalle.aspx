@@ -231,6 +231,17 @@
         </div>
          <%-- Separación de Tabs --%>
         <div class="row">
+            <div class="col-md-2"><h5><span class="badge badge-info">Stock</span> </h5>
+            </div>
+            <div class="col-md-2"><h5><asp:Label ID="lbl_stock" runat="server" CssClass="form-control" Width="131px"></asp:Label></h5>
+            </div>
+            <div class="col-md-2"><h5><span class="badge badge-info">Stock_critico</span></h5>
+            </div>
+            <div class="col-md-2"><h5><asp:Label ID="lbl_stock_critico" runat="server" CssClass="form-control" Width="131px"></asp:Label></h5>
+            </div>
+        </div>
+         <%-- Separación de Tabs --%>
+        <div class="row">
             <div class="col-md-2"><h5><span class="badge badge-info">Características</span> </h5>
                     <asp:ImageButton ID="ImgHTmlCar" CssClass="form-control" runat="server" Height="35px" ImageUrl="~/img/html.png" OnClick="ImgHTmlCar_Click" ViewStateMode="Enabled" Visible="False" Width="41px" />
                     <asp:ImageButton ID="ImgVerCar" CssClass="form-control"  runat="server" Height="35px" ImageUrl="~/img/vista.png" OnClick="ImgVerCar_Click" Visible="False" Width="41px" />

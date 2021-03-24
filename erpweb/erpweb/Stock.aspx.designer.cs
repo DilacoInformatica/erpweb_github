@@ -22,6 +22,33 @@ namespace erpweb {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// Control Btn_volver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Btn_volver;
+        
+        /// <summary>
+        /// Control lbl_ambiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
+        
+        /// <summary>
+        /// Control lbl_status.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_status;
+        
+        /// <summary>
         /// Control lbl_error.
         /// </summary>
         /// <remarks>
@@ -31,49 +58,31 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control lbl_producto.
+        /// Control txt_codigo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_producto;
+        protected global::System.Web.UI.WebControls.TextBox txt_codigo;
         
         /// <summary>
-        /// Control lbl_descripcion.
+        /// Control LstLineaVtas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_descripcion;
+        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
         
         /// <summary>
-        /// Control lbl_stock.
+        /// Control Btn_buscar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_stock;
-        
-        /// <summary>
-        /// Control lbl_id_item.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_id_item;
-        
-        /// <summary>
-        /// Control txt_stock.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_stock;
+        protected global::System.Web.UI.WebControls.Button Btn_buscar;
         
         /// <summary>
         /// Control btn_actualizar.
@@ -85,13 +94,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button btn_actualizar;
         
         /// <summary>
-        /// Control lbl_status.
+        /// Control Chk_desactiva_cods.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_status;
+        protected global::System.Web.UI.WebControls.CheckBox Chk_desactiva_cods;
         
         /// <summary>
         /// Control Grilla.

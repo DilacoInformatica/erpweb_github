@@ -36,7 +36,7 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }
             else
@@ -1160,6 +1160,9 @@ namespace erpweb
             carga_contrl_lista("select ID_Categoria, Nombre from tbl_categorias where Activo = 1 and Id_Familia = " + valor + " order by nombre", LstCategorias, "tbl_categorias", "ID_Categoria", "Nombre");
         }
 
-       
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
+        }
     }
 }

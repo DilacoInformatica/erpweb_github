@@ -5,232 +5,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-     <link href="css/estilos.css" rel="stylesheet" />
     <title>Publicar precios especiales a Clientes en el Sitio Web</title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+  
     <style type="text/css">
-
-        .auto-style2 {
-            width: 100%;
-            height: 238px;
-            overflow: scroll;
+        .auto-style1 {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: none;
+            border: 1px solid #ced4da;
+            background-color: #fff;
         }
-        .auto-style3 {
-            width: 17px;
-            height: 20px;
-        }
-        .nuevoEstilo1 {
-            font-family: Arial;
-        }
-        .auto-style7 {
-            width: 160px;
-        }
-        .auto-style8 {
-            width: 63px;
-        }
-        .auto-style9 {
-            width: 1449px;
-        }
-        .auto-style10 {
-            width: 1449px;
-        }
-        .auto-style11 {
-            width: 136px;
-        }
-        .auto-style13 {
-            width: 136px;
-            height: 15px;
-        }
-        .auto-style14 {
-            width: 147px;
-            height: 15px;
-        }
-        .auto-style15 {
-            height: 15px;
-        }
-        .auto-style16 {
-            height: 15px;
-            width: 279px;
-        }
-        .auto-style17 {
-            width: 279px;
-        }
-        .auto-style18 {
-            height: 15px;
-            width: 1280px;
-        }
-        .auto-style19 {
-            width: 1280px;
-        }
-        .auto-style22 {
-            height: 15px;
-            width: 462px;
-        }
-        .auto-style23 {
-            width: 462px;
-        }
-        .auto-style24 {
-            height: 15px;
-            width: 80px;
-        }
-        .auto-style26 {
-            height: 15px;
-            width: 1112px;
-        }
-        .auto-style27 {
-            width: 1112px;
-        }
-        .auto-style28 {
-            width: 80px;
-        }
-        .auto-style29 {
-            width: 100%;
-            height: 234px;
-            overflow: scroll;
-        }
-        .auto-style30 {
-            width: 147px;
-        }
-        .auto-style31 {
-            width: 152px;
-        }
-        .auto-style32 {
-            width: 90px;
-        }
-        .auto-style33 {
-            height: 783px;
-        }
-        </style>
+    </style>
+  
 </head>
 <body>
-    <form id="form1" runat="server" class="auto-style33">
-    <div>
-    
-       <h1>
-           <em>
-           <img alt="" class="auto-style3" src="img/vineta.gif" /><span class="Estilo_titulo">Publicar precios especiales a Clientes ERP en Sitio WEB</span></h1>
-        <table class="auto-style9">
-            <tr class="BottomTabla">
-                <td colspan="7"><strong>Búsqueda de Clientes con Precios Especiales</strong></td>
-            </tr>
-            <tr>
-                <td>Id</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
-                </td>
-                <td>
-                    Rut</td>
-                <td class="auto-style31">
-                    <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" Height="17px" Width="128px"></asp:TextBox>
-                </td>
-                <td class="auto-style32">
-                    Razón Social</td>
-                <td>
-                    <asp:TextBox ID="txt_razonw" runat="server" Width="753px" BackColor="#FFFFCC"></asp:TextBox>
-                </td>
-                <td class="auto-style8">
-                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" OnClick="Btn_buscarw_Click" Width="91px"/>
-                </td>
-            </tr>
-            
-        </table>
-        </div>
-        <br />
-        <div class="auto-style2">
-
-
-        <asp:GridView ID="lista" runat="server" Caption="Clientes con Productos con precios especiales en el ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1449px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="lista_SelectedIndexChanged">
-            <AlternatingRowStyle BackColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#EFF3FB" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#F5F7FB" />
-            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-            <SortedDescendingCellStyle BackColor="#E9EBEF" />
-            <SortedDescendingHeaderStyle BackColor="#4870BE" />
-        </asp:GridView>
-
-
-        </div>
-        <p><strong>Cliente Seleccionado</strong></p>
-        <table class="auto-style10">
-            <tr class="BottomTabla">
-                <td class="auto-style13">
-                    Id</td>
-                <td class="auto-style14">
-                    Rut</td>
-                <td class="auto-style26">
-                    Razón Social</td>
-                <td class="auto-style15">
-                    Teléfono</td>
-                <td class="auto-style24">
-                    Teléfono2</td>
-                <td class="auto-style18">
-                    <br />
-                    Dirección</td>
-                <td class="auto-style22">
-                    Ciudad</td>
-                <td class="auto-style16">
-                    Comuna</td>
-                <td class="auto-style15">
-                    Región</td>
-                <td class="auto-style15">
-                    Email</td>
-            </tr>
-            <tr>
-                <td class="auto-style11">
-                   <strong><asp:Label ID="lbl_id" runat="server"></asp:Label></strong> 
-                </td>
-                <td class="auto-style30">
-                    <strong><asp:Label ID="lbl_rut" runat="server"></asp:Label>
-                        <asp:Label ID="lbl_dv" runat="server" Visible="False"></asp:Label>
-
-                    </strong> 
-                </td>
-                <td class="auto-style27">
-                    <strong><asp:Label ID="lbl_razon" runat="server"></asp:Label></strong> 
-                </td>
-                <td>
-                    <strong><asp:Label ID="lbl_fono" runat="server"></asp:Label></strong>
-                </td>
-                <td class="auto-style28">
-                    <strong><asp:Label ID="lbl_fono2" runat="server"></asp:Label></strong>
-                </td>
-                <td class="auto-style19">
-                    <strong><asp:Label ID="lbl_direccion" runat="server"></asp:Label></strong>
-                </td>
-                <td class="auto-style23">
-                    <strong><asp:Label ID="lbl_ciudad" runat="server"></asp:Label></strong>
-                </td>
-                <td class="auto-style17">
-                    <strong><asp:Label ID="lbl_comuna" runat="server"></asp:Label></strong>
-                </td>
-                <td>
-                    <strong><asp:Label ID="lbl_región" runat="server"></asp:Label></strong>
-                </td>
-                <td>
-                    <strong><asp:Label ID="lbl_email" runat="server"></asp:Label></strong>
-                </td>
-            </tr>
-        </table>
-        <br />
-        <div class="auto-style29">
-
-
-            <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1449px" Caption="Productos con precios especiales asociados al Cliente">
+    <form id="form1" runat="server">
+     <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-md-11">
+                <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;"/>Publicar precios especiales a Clientes ERP en Sitio WEB</h1>
+            </div>
+            <div class="col-md-1 float-right">
+                 <asp:LinkButton ID="Btn_volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_volver_Click">Volver</asp:LinkButton>
+            </div>
+            <p></p>
+          </div>
+     </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-sm-12">
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            </div>
+       </div>
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
+        <div class="row">
+            <div class="col-md-1">
+                <h4><span class="badge badge-info">id</span></h4>
+            </div>
+            <div class="col-md-1">
+                <h4><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox></h4>
+            </div>
+                <div class="col-md-1">
+                <h4><span class="badge badge-info">Rut</span></h4>
+            </div>
+                <div class="col-md-1">
+                <h4><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h4>
+            </div>
+            <div class="col-md-1">
+                <h4><span class="badge badge-info">Razón Social</span></h4>
+            </div>
+            <div class="col-md-2">
+                <h4><asp:TextBox ID="txt_razonw" runat="server" Width="200px"  CssClass="auto-style1" BackColor="#FFFFCC"></asp:TextBox></h4>
+            </div>
+            <div class="col-md-3">
+                <h4><asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_buscarw_Click" Width="91px"/></h4>
+            </div>
+          </div>
+     </div>
+     <br />
+     <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+             <div class="col-md-12">
+                <asp:GridView ID="lista" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1900px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="lista_SelectedIndexChanged" ShowFooter="True">
                 <AlternatingRowStyle BackColor="White" />
-                <Columns>
-                    <asp:TemplateField>
-                        <EditItemTemplate>
-                            <asp:CheckBox ID="CheckBox1" runat="server" />
-                        </EditItemTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="Chk_selecciona" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -241,14 +90,104 @@
                 <SortedAscendingHeaderStyle BackColor="#6D95E1" />
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
-            </asp:GridView>
-
-
+                </asp:GridView>
+             </div>
+         </div>
+     </div>
+    <br />
+        <div class="container-fluid rounded border border-secondary bg-light">
+            <div class="row">
+                <div class="col-xs-1">
+                    <h6><span class="badge badge-info">ID</span></h6>
+                    <h6><span><asp:Label ID="lbl_id" CssClass="form-check-label" runat="server" Width="136px"></asp:Label></span></h6>
+                </div>
+                 <div class="col-md-1">
+                     <h6><span class="badge badge-info">Rut</span></h6>
+                     <h6><span><asp:Label ID="lbl_rut" runat="server"></asp:Label>
+                        <asp:Label ID="lbl_dv" runat="server" CssClass="form-check-label" Visible="False"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-1">
+                     <h6><span class="badge badge-info">Razón Social</span></h6>
+                     <h6><span><asp:Label ID="lbl_razon"  CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-1">
+                     <h6><span class="badge badge-info">Teléfono</span></h6>
+                     <h6><span><asp:Label ID="lbl_fono"  CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                 <div class="col-md-1">
+                     <h6><span class="badge badge-info">Teléfono2</span></h6>
+                     <h6><span><asp:Label ID="lbl_fono2" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-3">
+                     <h6><span class="badge badge-info">Dirección</span></h6>
+                     <h6><span><asp:Label ID="lbl_direccion" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-1">
+                     <h6><span class="badge badge-info">Ciudad</span></h6>
+                     <h6><span><asp:Label ID="lbl_ciudad" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                 <div class="col-md-1">
+                     <h6><span class="badge badge-info">Comuna</span></h6>
+                     <h6><span><asp:Label ID="lbl_comuna" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                 <div class="col-md-1">
+                     <h6><span class="badge badge-info">Región</span></h6>
+                     <h6><span><asp:Label ID="lbl_región" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+                 <div class="col-md-1">
+                     <h6><span class="badge badge-info">Email</span></h6>
+                     <h6><span><asp:Label ID="lbl_email" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                </div>
+            </div>
         </div>
-        <asp:Button ID="Btn_cargar" runat="server" OnClick="Btn_cargar_Click" Text="Cargar Cliente y Productos Seleccionado(s) al Sitio Web" />
-        <asp:Label ID="lbl_status" runat="server"></asp:Label>
-        <asp:Label ID="lbl_error" runat="server"></asp:Label>
-        </em>
+        <br />
+        <div class="container-fluid rounded border border-secondary bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <asp:Button ID="Btn_cargar" runat="server" OnClick="Btn_cargar_Click" CssClass="btn btn-md btn-success active" Text="Cargar Cliente y Productos Seleccionado(s) al Sitio Web" />
+                </div>
+            </div>
+            <p></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1900px" ShowFooter="True">
+                        <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:TemplateField>
+                                <EditItemTemplate>
+                                    <asp:CheckBox ID="CheckBox1" runat="server" />
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="Chk_selecciona" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+            
+
+
+ 
+        
+
+
+     
     </form>
 </body>
 </html>

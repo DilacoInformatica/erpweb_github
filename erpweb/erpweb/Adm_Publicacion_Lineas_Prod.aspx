@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Adm_Publicacion_Lineas_Prod..aspx.cs" Inherits="erpweb.Adm_Publicacion_Lineas_Prod__" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Adm_Publicacion_Lineas_Prod.aspx.cs" Inherits="erpweb.Adm_Publicacion_Lineas_Prod__" %>
 
 <!DOCTYPE html>
 
@@ -6,15 +6,24 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administrador Líneas de Venta en Sitio Web</title>
-     <link href="css/estilos.css" rel="stylesheet" />
      <link href="Content/bootstrap.css" rel="stylesheet" />
      </head>
 <body>
     <form id="form1" runat="server">
+        <div class="container-fluid rounded border border-secondary bg-light">
+            <div class="row">
+                <div class="col-md-11">
+                    <h1 class="text-center text-primary">
+                        <img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Administración Líneas de Ventas en Sitio Web</h1>
+                </div>
+                <div class="col-md-1 float-right">
+                    <asp:LinkButton ID="Btn_Volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_Volver_Click">Volver</asp:LinkButton>
+                </div>
+                <p></p>
+            </div>
+        </div>
 <div class="container-fluid">
-    <h1 class="text-center text-info"><img alt="" src="img/vineta.gif" class="auto-style1" />
-				Administración Líneas de Ventas en Sitio Web
-			</h1>
+
 	<div class="row bg-light text-white">
 		<div class="col-md-9">
 			<h3 class="text-left text-primary">

@@ -116,5 +116,10 @@ namespace erpweb
             GridViewRow row = Lista_cotizacion.SelectedRow;
             Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + row.Cells[12].Text + "&tipo=" + row.Cells[13].Text);
         }
+
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
+        }
     }
 }

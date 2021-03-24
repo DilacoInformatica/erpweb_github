@@ -24,10 +24,10 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-11">
-                        <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" />Notas de Venta generadas en Sitio Web</h1>
+                        <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Notas de Venta generadas en Sitio Web</h1>
                     </div>
                     <div class="col-md-1 float-right">
-                        <asp:ImageButton ID="ImgBtn_Cerrar" CssClass="float-md-right" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
+                        <asp:LinkButton ID="Btn_Volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_Volver_Click">Volver</asp:LinkButton>
                     </div>
                     <p></p>
                 </div>
@@ -36,7 +36,7 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <h3><span class="badge badge-primary">Búsqueda de Información</span></h3>
+                        <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
                     </div>
                 </div>
                 <div class="row">

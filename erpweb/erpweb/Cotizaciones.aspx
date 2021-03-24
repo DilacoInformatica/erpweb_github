@@ -13,10 +13,10 @@
     <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-11">
-                        <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" />Cotizaciones generadas en Sitio Web</h1>
+                        <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Cotizaciones generadas en Sitio Web</h1>
                     </div>
                     <div class="col-md-1 float-right">
-                        <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
+                        <asp:LinkButton ID="Btn_volver" runat="server" CssClass="btn btn-outline-success" OnClick="LinkButton2_Click" Width="133px">Volver</asp:LinkButton>
                     </div>
                     <p></p>
             </div>

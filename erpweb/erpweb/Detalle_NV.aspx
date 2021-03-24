@@ -13,7 +13,7 @@
     <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-11">
-                    <h1><img alt="" src="img/vineta.gif" /><span class="text-center text-primary">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label></span></h1>
+                    <h1><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" /><span class="text-center text-primary">Detalle Nota de Venta WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label></span></h1>
                 </div>
                 <div class="col-md-1">
                     <asp:Button ID="Btn_volver" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_volver_Click" Text="Volver" />

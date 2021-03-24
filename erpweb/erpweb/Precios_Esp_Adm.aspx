@@ -5,27 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Administración clientes y precios especiales en sitio web</title>
-    <link href="css/estilos.css" rel="stylesheet" />
-    <style type="text/css">
-        .auto-style1 {
-            width: 93px;
-        }
-        .auto-style2 {
-            height: 24px;
-        }
-
-        .auto-style3 {
-            width: 100%;
-            height: 777px;
-            overflow: scroll;
-        }
-
-        .auto-style4 {
-            height: 825px;
-        }
-
-    </style>
+    <title>Administración Clientes y precios especiales en sitio web</title>
+   <link href="Content/bootstrap.css" rel="stylesheet" />
+  
 </head>
 <body>
     <form id="form1" runat="server" class="auto-style4">

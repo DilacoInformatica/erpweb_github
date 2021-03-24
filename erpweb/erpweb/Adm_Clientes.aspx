@@ -5,52 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="css/estilos.css" rel="stylesheet" />
-    <title>Clientes</title>
-    <style type="text/css">
-        .nuevoEstilo1 {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        .nuevoEstilo2 {
-            font-family: Arial;
-        }
-        .auto-style7 {
-            width: 160px;
-        }
-        .auto-style8 {
-            width: 63px;
-            text-align: center;
-        }
-        .auto-style10 {
-            width: 85%;
-        }
-        .auto-style11 {
-            width: 69px;
-        }
-        .auto-style12 {
-            height: 101%;
-        }
-        .auto-style13 {
-            margin-bottom: 0px;
-        }
-        .auto-style14 {
-            width: 121px;
-        }
-        .auto-style15 {
-            width: 6px;
-        }
-        .auto-style16 {
-            height: 24px;
-        }
-        .auto-style17 {
-            width: 100%;
-            height: 321px;
-            overflow: scroll;
-        }
-        .auto-style18 {
-            font-size: smaller;
-        }
-        </style>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <title>Administración Clientes</title>
     <script>
         function valida()
         {
@@ -62,111 +18,142 @@
             }
         }
     </script>
+ 
 </head>
-<body style="height: 875px">
-    <form id="form1" runat="server" class="auto-style12">
-    <div>
-        <h1><img alt=""  src="img/vineta.gif" /><span class="nuevoEstilo2">Administración de Clientes Sitio Web <span class="auto-style18">(Usuario Conectado:</span><asp:Label ID="lbl_usuario" runat="server" CssClass="auto-style18"></asp:Label>
-            )</span></h1>
+<body>
+    <form id="form1" runat="server">
+    <div class="container-fluid rounded border border-secondary bg-light">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Administración de Clientes Sitio Web</h1> 
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <asp:LinkButton ID="Btn_volver" runat="server" CssClass="btn btn-outline-success" OnClick="LinkButton2_Click" Width="133px">Volver</asp:LinkButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-sm-12">
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            </div>
+       </div>
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <h4><span class="badge badge-primary">Búsqueda de Información Sitio Web</span></h4>
+        <div class="row">
+            <div class="col-md-1"><h4><span class="badge badge-info">ID</span></h4>
+                <h4><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="89px" CssClass="form-control"></asp:TextBox></h4>
+            </div>
+            <div class="col-md-1"><h4><span class="badge badge-info">Rut</span></h4>
+                <h4><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="145px" CssClass="form-control"></asp:TextBox></h4>
+            </div>
+            <div class="col-md-3"><h4><span class="badge badge-info">Razón Social</span></h4>
+                <h4><asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox></h4>
+            </div>
+            <div class="col-md-2"><h4><asp:Button ID="Btn_buscarw" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="162px"/></h4></div>
+            <div class="col-md-2"><h4><asp:Button ID="Btn_autorizar" runat="server" CssClass="btn btn-success" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s) en ERP" /></h4></div>
+            <div class="col-md-2"><h4><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-danger" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="242px" /></h4></div>
         </div>
-        <table class="auto-style10">
-            <tr class="BottomTabla">
-                <td colspan="11" class="auto-style16">Búsqueda de Clientes en Sitio Web         (<asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
-                    )</tr>
-            <tr>
-                <td>Id</td>
-                <td>&nbsp;</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="68px"></asp:TextBox>
-                </td>
-                <td>
-                    Rut</td>
-                <td>
-                    <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" Height="17px" Width="128px"></asp:TextBox>
-                </td>
-                <td>
-                    Razón Social</td>
-                <td>
-                    <asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="auto-style13"></asp:TextBox>
-                </td>
-                <td class="auto-style14">
-                    <asp:Button ID="Btn_buscarw" runat="server" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="115px"/>
-                </td>
-                <td class="auto-style15">
-                    <asp:Button ID="Btn_autorizar" runat="server" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s) en ERP" />
-                </td>
-                <td class="auto-style8">
-        <asp:Button ID="Btn_eliminaCLIWEB" runat="server" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="242px" />
-                </td>
-                <td class="auto-style8">
-                    <asp:ImageButton ID="ImgBtn_Cerrar" runat="server" Height="25px" ImageUrl="~/img/cerrar.png" Width="25px" />
-                </td>
-            </tr>
-            
-        </table>
-        <asp:Label ID="lbl_cantidad" runat="server"></asp:Label>
-        <asp:Label ID="lbl_error" runat="server"></asp:Label>
-        <br />
-        <br />
-        <div class="auto-style17">
-            <asp:GridView ID="lista_clientes" runat="server" Caption="Clientes Activos en el Sitio Web" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1700px" AllowSorting="True" OnSorting="lista_clientes_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True" EmptyDataText="No hay resultados">
-                <AlternatingRowStyle BackColor="White" BorderStyle="None" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="Chk_elimina" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <div class="row">
+            <div class="col-md-12">
+                <asp:GridView ID="lista_clientes" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1700px" ShowFooter="True" AutoGenerateColumns="False">
+                    <AlternatingRowStyle BackColor="White" />
+                    <Columns>
+                        <asp:TemplateField>
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                            </EditItemTemplate>
+                            <ItemTemplate>
+                                <asp:CheckBox ID="CheckBox1" runat="server" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="ID" HeaderText="ID" />
+                        <asp:BoundField DataField="Rut" HeaderText="Rut" />
+                        <asp:BoundField DataField="Dv_rut" HeaderText="DV" />
+                        <asp:BoundField DataField="Razon_Social" HeaderText="Razón Social" />
+                        <asp:BoundField DataField="Telefonos" HeaderText="Teléfono" />
+                        <asp:BoundField DataField="Telefonos2" HeaderText="Teléfono2" />
+                        <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+                        <asp:BoundField DataField="Ciudad" HeaderText="Ciudad" />
+                        <asp:BoundField DataField="Comuna" HeaderText="Comuna" />
+                        <asp:BoundField DataField="Id_region" HeaderText="Región" />
+                        <asp:BoundField DataField="Pais" HeaderText="País" />
+                        <asp:BoundField DataField="Email" HeaderText="Email" />
+                        <asp:BoundField DataField="Giro" HeaderText="Giro" />
+                        <asp:BoundField DataField="leido_erp" HeaderText="En ERP" />
+                         <asp:BoundField DataField="cliente_erp" HeaderText="Cliente ERP" />
+                    </Columns>
+                    <EditRowStyle BackColor="#2461BF" />
+                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                    <RowStyle BackColor="#EFF3FB" />
+                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                    <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                    <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                    <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                    <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
-            <br />
-            <asp:Label ID="lbl_mensaje" runat="server"></asp:Label>
+            </div>
         </div>
-        <asp:Label ID="lbl_status" runat="server"></asp:Label>
-        <br />
-        <br />
-        <br />
-        <table class="auto-style10">
-            <tr class="BottomTabla">
-                <td colspan="8">Búsqueda de Clientes en ERP</td>
-            </tr>
-            <tr>
-                <td>Id</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="txt_id" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
-                </td>
-                <td>
-                    Rut</td>
-                <td>
-                    <asp:TextBox ID="txt_rut" runat="server" BackColor="#FFFFCC" Height="17px" Width="128px"></asp:TextBox>
-                </td>
-                <td>
-                    Razón Social</td>
-                <td>
-                    <asp:TextBox ID="txt_razon" runat="server" Width="375px" BackColor="#FFFFCC"></asp:TextBox>
-                </td>
-                <td>
-                    <asp:Button ID="Btn_buscar" runat="server" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="115px" />
-                </td>
-                <td class="auto-style11">
-                    <asp:Button ID="Btn_cargarCliERP" runat="server" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Width="242px" />
-     
-                </td>
-            </tr>
-            </table>
-        <br />
-        <div class="auto-style17">
-            <asp:GridView ID="ClientesERP" runat="server" Caption="Clientes ERP" CellPadding="4" ForeColor="#333333" GridLines="None" Height="144px" Width="1700px" AllowSorting="True" OnSorting="ClientesERP_Sorting" ShowFooter="True">
+        <div class="row">
+            <div class="col-md-12">
+                <h4><span><asp:Label ID="lbl_cantidad" CssClass="badge badge-success" runat="server" Width="747px"></asp:Label></span></h4>
+            </div>
+        </div>
+    </div>
+    <br />
+      <div class="container-fluid rounded border border-secondary bg-light">
+          <div class="row">
+              <div class="col-md-12">
+                  <asp:GridView ID="GrdErrores" runat="server" Visible ="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+                      <AlternatingRowStyle BackColor="White" />
+                      <EditRowStyle BackColor="#2461BF" />
+                      <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                      <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                      <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                      <RowStyle BackColor="#EFF3FB" />
+                      <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                      <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                      <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                      <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                      <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                  </asp:GridView>
+              </div>
+          </div>
+      </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <h4><span class="badge badge-primary">Búsqueda de Información ERP</span></h4>
+        <div class="row">
+           <div class="col-md-1">
+               <h4><span class="badge badge-info">ID</span></h4>
+               <h4><asp:TextBox ID="txt_id" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="89px"></asp:TextBox></h4></div>
+           <div class="col-md-1"><h4><span class="badge badge-info">Rut</span></h4>
+               <h4><asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" BackColor="#FFFFCC"  Width="145px"></asp:TextBox></h4></div>
+           <div class="col-md-3"><h4><span class="badge badge-info">Razón Social</span></h4>
+               <h4><asp:TextBox ID="txt_razon" runat="server" CssClass="form-control" Width="340px" BackColor="#FFFFCC"></asp:TextBox></h4></div>
+            <div class="col-md-3"><h4><asp:Button ID="Btn_buscar" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="136px" /></h4></div>
+            <div class="col-md-3"><h4><asp:Button ID="Btn_cargarCliERP" runat="server" CssClass="btn btn-success" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Width="242px" /></h4></div>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+        <div class="row">
+            <div class="col-md-12">
+               <asp:GridView ID="ClientesERP" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1700px" ShowFooter="True">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>
@@ -186,15 +173,14 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
             </asp:GridView>
-            <asp:Label ID="lbl_resultados" runat="server"></asp:Label>
+            </div>
         </div>
-     
+        <div class="row">
+            <div class="col-md-6">
+                <asp:Label ID="lbl_resultados" CssClass="badge badge-success" runat="server"></asp:Label>
+            </div>
+        </div>
+    </div>
     </form>
 </body>
 </html>
-<script>
-    function salir() {
-        if (confirm('Cerrar página, Seguro desea proceder?'))
-        { window.close(); }
-    }
-</script>

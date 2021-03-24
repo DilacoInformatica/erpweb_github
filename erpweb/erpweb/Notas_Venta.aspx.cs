@@ -20,7 +20,7 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            /*ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";*/
 
             lbl_mensaje.Visible = false;
 
@@ -61,7 +61,7 @@ namespace erpweb
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@v_Nota_vta", null);
+                        command.Parameters.AddWithValue("@v_Nota_vta", DBNull.Value);
                         command.Parameters["@v_Nota_vta"].Direction = ParameterDirection.Input;
                     }
                     if (txt_rut.Text != "")
@@ -71,7 +71,7 @@ namespace erpweb
                     }
                     else
                     {
-                        command.Parameters.AddWithValue("@v_rut", null);
+                        command.Parameters.AddWithValue("@v_rut", DBNull.Value);
                         command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
                     }
 
@@ -138,6 +138,11 @@ namespace erpweb
         {
             GridViewRow row = Lista_notas.SelectedRow;
             Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text + "&usuario=" + usuario);
+        }
+
+        protected void Btn_Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
         }
     }
 }

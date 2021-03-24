@@ -22,6 +22,10 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
             if (!this.IsPostBack)
             {
                 carga_clientes();
@@ -32,7 +36,7 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "Select rr.id_cliente ";
+            queryString = "Select top 10 rr.id_cliente id ";
             queryString = queryString + ",rr.rut 'Rut' ";
             queryString = queryString + ",rr.dv_rut 'dv' ";
             queryString = queryString + ",rr.razon_social 'Razón Social' ";
@@ -364,6 +368,11 @@ namespace erpweb
         protected void Btn_nuevo_Click(object sender, EventArgs e)
         {
             Response.Redirect("Precios_Esp_Pub");
+        }
+
+        protected void Btn_volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
         }
     }
 }

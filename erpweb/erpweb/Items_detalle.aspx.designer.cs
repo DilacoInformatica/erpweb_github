@@ -373,6 +373,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_codigoprov;
         
         /// <summary>
+        /// Control lbl_stock.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_stock;
+        
+        /// <summary>
+        /// Control lbl_stock_critico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_stock_critico;
+        
+        /// <summary>
         /// Control ImgHTmlCar.
         /// </summary>
         /// <remarks>

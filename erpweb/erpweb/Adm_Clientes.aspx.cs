@@ -29,9 +29,13 @@ namespace erpweb
             SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
-            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
-            lbl_ambiente.Text = utiles.retorna_ambiente();
+            Btn_cargarCliERP.Attributes["Onclick"] = "return confirm('Desea Cargar estos clientes al Sitio Web... Desea Proceder?')";
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
@@ -43,64 +47,9 @@ namespace erpweb
 
             iniciales_user = utiles.obtiene_nombre_usuario(Convert.ToInt32(usuario), Sserver);
 
-            lbl_usuario.Text = iniciales_user;
+           // lbl_usuario.Text = iniciales_user;
 
-
-            if (!this.IsPostBack)
-            {
-                lista_clientes_web();
-            }
-        }
-
-        void lista_clientes_web()
-        {
-            string queryString = "";
-            queryString = "SELECT IFNULL(tbl_clientes.ID_Cliente,0) Id, ";
-            queryString = queryString + "tbl_clientes.Rut, ";
-            queryString = queryString + "tbl_clientes.Dv_Rut, ";
-            queryString = queryString + "tbl_clientes.Razon_Social, ";
-            queryString = queryString + "tbl_clientes.Telefonos, ";
-            queryString = queryString + "IFNULL(tbl_clientes.Telefonos2,'') Telefonos2, ";
-            queryString = queryString + "tbl_clientes.Direccion, ";
-            queryString = queryString + "tbl_clientes.Ciudad, ";
-            queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region 'Región', ";
-            queryString = queryString + "IFNULL(tbl_clientes.Giro,'') Giro, ";
-            queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
-            queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
-            queryString = queryString + "if(ifnull(tbl_clientes.leido_erp,0) = 0,'N','S') leido_erp, ";
-            queryString = queryString + "if(ifnull(tbl_clientes.cliente_erp,0) = 0,'N','S') cliente_erp, ";
-            queryString = queryString + "(select count(1) from tbl_contactos_clientes where rut_cliente = tbl_clientes.rut) contactos ";
-            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes WHERE nombre is null ";
-
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
-            {
-                try
-                {
-                    conn.Open();
-                    DataSet ds = new DataSet();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(Context.Server.HtmlDecode(queryString), conn);
-                    adapter.Fill(ds);
-
-
-
-                    lista_clientes.DataSource = ds;
-                    lista_clientes.DataBind();
-                    //Productos.DataMember = "tbl_items";
-
-                    lbl_cantidad.Text = "Cantidad de Registros: " + Convert.ToString(lista_clientes.Rows.Count);
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message + queryString;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
+            consulta_clientes_web(1);
         }
 
         void insert_cliente(int id, int rut, string dv, string razon, string fono, string fono2, string direccion, string comuna, string ciudad, int region, string email)
@@ -164,7 +113,7 @@ namespace erpweb
                     lbl_error.Text = "";
 
                     lbl_status.Text = "Clientes insertados correctamente";
-                    lista_clientes_web();
+                    consulta_clientes_web(2);
                 }
                 catch (Exception ex)
                 {
@@ -589,7 +538,9 @@ namespace erpweb
                     }
                 }
                 // recargamos los clientes web
-                lista_clientes_web();
+                ClientesERP.DataSource = "";
+                ClientesERP.DataBind();
+                consulta_clientes_web(2);
             }
         }
 
@@ -607,7 +558,7 @@ namespace erpweb
             {
                 foreach (GridViewRow row in lista_clientes.Rows)
                 {
-                    CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
+                    CheckBox check = row.FindControl("CheckBox1") as CheckBox;
 
                     if (check.Checked)
                     {
@@ -617,7 +568,7 @@ namespace erpweb
                             using (MySqlConnection conn = new MySqlConnection(SMysql))
                             {
 
-                                query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE Rut = " + Convert.ToInt32(row.Cells[2].Text) + " and razon_social = '" + row.Cells[4].Text + "'";
+                             //   query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE Rut = " + Convert.ToInt32(row.Cells[2].Text) + " and razon_social = '" + row.Cells[4].Text + "'";
                                 try
                                 {
 
@@ -658,7 +609,7 @@ namespace erpweb
                                     lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";
                                     lista_clientes.DataSource = null;
                                     lista_clientes.DataBind();
-                                    lista_clientes_web();
+                                    consulta_clientes_web(2);
                                 }
                                 catch (Exception ex)
                                 {
@@ -677,39 +628,15 @@ namespace erpweb
 
         protected void Btn_buscarw_Click(object sender, EventArgs e)
         {
-            String queryString = "";
-            lbl_error.Text = "";
-            queryString = "SELECT IFNULL(tbl_clientes.ID_Cliente,0) Id, ";
-            queryString = queryString + "tbl_clientes.Rut, ";
-            queryString = queryString + "tbl_clientes.Dv_Rut, ";
-            queryString = queryString + "tbl_clientes.Razon_Social, ";
-            queryString = queryString + "tbl_clientes.Telefonos, ";
-            queryString = queryString + "IFNULL(tbl_clientes.Telefonos2,'') Telefonos2, ";
-            queryString = queryString + "tbl_clientes.Direccion, ";
-            queryString = queryString + "tbl_clientes.Ciudad, ";
-            queryString = queryString + "tbl_clientes.Comuna, ";
-            queryString = queryString + "tbl_clientes.Id_region, ";
-            queryString = queryString + "tbl_clientes.Giro, ";
-            queryString = queryString + "IFNULL(tbl_clientes.URL,'') URL, ";
-            queryString = queryString + "IFNULL(tbl_clientes.Email,'') Email, ";
-            queryString = queryString + "tbl_clientes.leido_erp, ";
-            queryString = queryString + "IFNULL(tbl_clientes.cliente_erp,0) cliente_erp,  ";
-            queryString = queryString + "(select count(1) from tbl_contactos_clientes where id_cliente = tbl_clientes.id_cliente) contactos ";
-            queryString = queryString + "FROM dilacocl_dilacoweb.tbl_clientes ";
-            queryString = queryString + "WHERE 1 = 1 ";
+            GrdErrores.DataSource = "";
+            GrdErrores.Visible = false;
+            consulta_clientes_web(1);
+        }
 
-            if (txt_idw.Text != "")
-            {
-                queryString = queryString + "and id_cliente = " + txt_idw.Text;
-            }
-            if (txt_rutw.Text != "")
-            {
-                queryString = queryString + "and rut = " + txt_rutw.Text;
-            }
-            if (txt_razonw.Text != "")
-            {
-                queryString = queryString + "and Razon_Social like '%" + txt_razonw.Text + "%'";
-            }
+        void consulta_clientes_web (int busca)
+        {
+            String queryString = "lista_clientes_web";
+            lbl_error.Text = "";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
@@ -717,15 +644,71 @@ namespace erpweb
                 {
                     conn.Open();
                     DataSet ds = new DataSet();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(queryString, conn);
-                    adapter.Fill(ds);
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    
+
+                    if (txt_idw.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_id_cliente", DBNull.Value);
+                        command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_id_cliente", txt_idw.Text);
+                        command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+                    } 
+
+                    if (txt_rutw.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_rut", DBNull.Value);
+                        command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_rut", txt_rutw.Text);
+                        command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+                    }
+
+                    if (txt_razonw.Text ==  "")
+                    {
+                        command.Parameters.AddWithValue("@v_razon_social", DBNull.Value);
+                        command.Parameters["@v_razon_social"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_razon_social", txt_razonw.Text);
+                        command.Parameters["@v_razon_social"].Direction = ParameterDirection.Input;
+                    }
 
 
+                    command.Parameters.AddWithValue("@v_tipo_busca", busca);
+                    command.Parameters["@v_tipo_busca"].Direction = ParameterDirection.Input;
+                    
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
 
-                    lista_clientes.DataSource = ds;
-                    lista_clientes.DataBind();
-                    //Productos.DataMember = "tbl_items";
+                    lbl_status.Text = "";
+                    if (!dr.HasRows)
+                    {
+                        lbl_status  .Visible = true;
+                        lbl_status.Text = "Sin Resultados";
+                    }
+                    else
+                    {
+                       lista_clientes.DataSource = dr;
+                       lista_clientes.DataBind();
+
+                        if (busca == 1)
+                        {
+                            lbl_cantidad.Text = "Cantidad de Clientes pendientes de Aceptar: " + Convert.ToString(lista_clientes.Rows.Count);
+                        }
+                        else
+                        {
+                            lbl_cantidad.Text = "Cantidad de Clientes: " + Convert.ToString(lista_clientes.Rows.Count);
+                        }
+                        
+                    }
 
 
                     conn.Close();
@@ -740,6 +723,8 @@ namespace erpweb
                 }
             }
         }
+
+
 
         protected void CheckAll(object sender, EventArgs e)
         {
@@ -753,144 +738,45 @@ namespace erpweb
             //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
         }
 
-        protected void lista_clientes_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id"); //0
-            dt.Columns.Add("Rut");
-            dt.Columns.Add("Dv_Rut");
-            dt.Columns.Add("Razon_Social");
-            dt.Columns.Add("Telefonos");
-            dt.Columns.Add("Telefonos2");
-            dt.Columns.Add("Direccion"); // 6
-            dt.Columns.Add("Ciudad");
-            dt.Columns.Add("Comuna");
-            dt.Columns.Add("Id_region");
-            dt.Columns.Add("Giro");
-            dt.Columns.Add("URL");
-            dt.Columns.Add("Email");
-            dt.Columns.Add("leido_erp");
-            dt.Columns.Add("cliente_erp");
-            dt.Columns.Add("contactos");
-            // 12
-
-            foreach (GridViewRow gvr in lista_clientes.Rows)
-            {
-                dt.Rows.Add(
-                Context.Server.HtmlDecode(gvr.Cells[1].Text),
-                Context.Server.HtmlDecode(gvr.Cells[2].Text),
-                Context.Server.HtmlDecode(gvr.Cells[3].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[4].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[5].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[6].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[7].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[8].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[9].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[10].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[11].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[12].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[13].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[14].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[15].Text.Replace("&nbsp;", "")),
-                Context.Server.HtmlDecode(gvr.Cells[16].Text.Replace("&nbsp;", "")));
-            }
-
-            if (dt != null)
-            {
-                DataView dataView = new DataView(dt);
-                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
-
-                lista_clientes.DataSource = dataView;
-                lista_clientes.DataBind();
-            }
-        }
-
-      
-
-        protected void ClientesERP_Sorting(object sender, GridViewSortEventArgs e)
-        {
-
-
-            /* queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut 'Dv', Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
-                queryString = queryString + "FROM dbo.tbl_Clientes cl ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Sucursales_Clientes sc ON cl.ID_Cliente = sc.Id_Cliente  and sc.Sucursal_Principal = 1 ";
-                queryString = queryString + "left join dbo.tbl_Riesgo ON cl.Id_Riesgo = tbl_Riesgo.Id_Riesgo ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Vendedor_cliente ON cl.ID_Cliente = tbl_Vendedor_cliente.id_Cliente ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.vis_clientes_lv vc on vc.id_cliente = cl.ID_Cliente ";
-                queryString = queryString + "LEFT OUTER JOIN tbl_Regiones rr on rr.ID_Region = sc.Id_Region ";
-                queryString = queryString + "WHERE(cl.Es_Cliente = 1) ";
-                queryString = queryString + "and isnull(cl.Activo, 0) = 1 ";
-                queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
-    ClientesERP */ 
-
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id"); //0
-            dt.Columns.Add("Rut");
-            dt.Columns.Add("DV");
-            dt.Columns.Add("Razón Social");
-            dt.Columns.Add("Teléfono");
-            dt.Columns.Add("Teléfono2");
-            dt.Columns.Add("Dirección"); // 6
-            dt.Columns.Add("Comuna");
-            dt.Columns.Add("Ciudad");
-            dt.Columns.Add("Region");
-            dt.Columns.Add("Email");
-  
-            // 12
-
-            foreach (GridViewRow gvr in ClientesERP.Rows)
-            {
-                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text,
-                gvr.Cells[3].Text.Replace("&nbsp;", ""), gvr.Cells[4].Text.Replace("&nbsp;", ""), gvr.Cells[5].Text.Replace("&nbsp;", ""),
-                gvr.Cells[6].Text.Replace("&nbsp;", ""), gvr.Cells[7].Text.Replace("&nbsp;", ""), gvr.Cells[8].Text.Replace("&nbsp;", ""),
-                gvr.Cells[9].Text.Replace("&nbsp;", ""), gvr.Cells[10].Text.Replace("&nbsp;", ""));
-            }
-
-
-
-            if (dt != null)
-            {
-                DataView dataView = new DataView(dt);
-                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
-
-                ClientesERP.DataSource = dataView;
-                ClientesERP.DataBind();
-            }
-        }
-
-        private string ConvertSortDirectionToSql(SortDirection sortDirection)
-        {
-            string newSortDirection = String.Empty;
-
-            switch (sortDirection)
-            {
-                case SortDirection.Ascending:
-                    newSortDirection = "ASC";
-                    break;
-
-                case SortDirection.Descending:
-                    newSortDirection = "DESC";
-                    break;
-            }
-
-            return newSortDirection;
-        }
-
+     
         protected void Btn_autorizar_Click(object sender, EventArgs e)
         {
+            DataTable dt = new DataTable();
+            DataColumn rutcli = dt.Columns.Add("Rut", typeof(Int32));
+            DataColumn razoncli = dt.Columns.Add("razon", typeof(string));
+            DataColumn errorcli = dt.Columns.Add("error", typeof(string));
+
             Page.Validate();
             if (Page.IsValid)
             {
+                GrdErrores.DataSource = "";
+                GrdErrores.Visible = false;
+
                 foreach (GridViewRow row in lista_clientes.Rows)
                 {
-                    CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
+                   // CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
+                    CheckBox check = (CheckBox)row.FindControl("CheckBox1");
 
                     if (check.Checked)
                     {
                      //   lbl_mensaje.Text = row.Cells[1].Text;
                         if (row.Cells[1].Text == "0")
                         {
-                            inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[2].Text));
+                            inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[1].Text), 
+                                                   Convert.ToInt32(row.Cells[2].Text),
+                                                   Convert.ToString(row.Cells[3].Text),
+                                                   Context.Server.HtmlDecode(Convert.ToString(row.Cells[4].Text)),
+                                                   Convert.ToString(row.Cells[5].Text),
+                                                   Convert.ToString(row.Cells[6].Text),
+                                                   Context.Server.HtmlDecode(Convert.ToString(row.Cells[7].Text)),
+                                                   Convert.ToString(row.Cells[8].Text),
+                                                   Convert.ToString(row.Cells[9].Text),
+                                                   Convert.ToInt32(row.Cells[10].Text),
+                                                   Convert.ToString(row.Cells[11].Text),
+                                                   Convert.ToString(row.Cells[12].Text),
+                                                   Convert.ToString(row.Cells[13].Text),
+                                                   dt
+                                                  );
                         }
                         else
                         {
@@ -899,59 +785,80 @@ namespace erpweb
                         
                     }
                 }
+
+                GrdErrores.DataSource = dt;
+                GrdErrores.DataBind();
+                GrdErrores.Visible = true;
+
             }
         }
 
-        protected void inserta_cliente_en_ERP(int rut)
+
+ 
+
+        protected void inserta_cliente_en_ERP(int id, int rut, string dv, string razon_social, string telefono, string telefono2, string direccion, string ciudad, string comuna, int id_region, string pais, string email, string giro , DataTable dt  )
         {
-            // creamos el cliente en el ERP para analisis de información
-            String queryString = "";
+            // Revisamos la información antes de grabarla.. si encontramos errores los grabamos en una grilla especial
+            Boolean swc = true;
+           
 
-            queryString = "SELECT Rut, "; // 0
-            queryString = queryString + "Dv_Rut, "; //1
-            queryString = queryString + "Razon_Social, "; // 2
-            queryString = queryString + "IFNULL(Telefonos,''), "; //3
-            queryString = queryString + "IFNULL(Telefonos2,''), "; //4
-            queryString = queryString + "Direccion, "; // 5
-            queryString = queryString + "Ciudad, "; //6
-            queryString = queryString + "Comuna, ";//7
-            queryString = queryString + "Id_region, "; //8
-            queryString = queryString + "IFNULL(Giro,''), "; //9
-            queryString = queryString + "IFNULL(URL,''), "; //10
-            queryString = queryString + "Email, "; //11
-            queryString = queryString + "IFNULL(leido_erp,0), ";// 12
-            queryString = queryString + "IFNULL(cliente_erp,0) "; //13
-            queryString = queryString + "FROM tbl_clientes where Rut = " + rut;
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            if (rut == 0)
             {
-                try
-                {
-                    conn.Open();
-                    MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.ExecuteNonQuery();
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                    MySqlDataReader dr = command.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        if (!dr.IsDBNull(0))
-                        {
-
-                            insert_cliente_en_ERP(Convert.ToInt32(dr.GetString(0)), dr.GetString(1), dr.GetString(2), dr.GetString(3), dr.GetString(4), dr.GetString(5), dr.GetString(6), dr.GetString(7), Convert.ToInt32(dr.GetString(8)), dr.GetString(9), dr.GetString(10), dr.GetString(11));
-                        }
-                    }
-
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                    conn.Close();
-                    conn.Dispose();
-                }
+                inserta_errores(rut, razon_social, "Debe informar Rut para insertar",dt);
+                swc = false;
             }
+            if (dv == "")
+            {
+                inserta_errores(rut, razon_social, "Debe informar Rut para insertar", dt);
+                swc = false;
+            }
+            if (telefono == "" && telefono2 == "" && email == "")
+            {
+                inserta_errores(rut, razon_social, "Debe informar algun medio de conmunicación", dt);
+                swc = false;
+            }
+            if (pais != "CHILE")
+            {
+                inserta_errores(rut, razon_social, "Clientes Extranjeros no se crean en el ERP", dt);
+                swc = false;
+            }
+
+            if (ciudad == "")
+            {
+                inserta_errores(rut, razon_social, "No se informa Ciudad", dt);
+                swc = false;
+            }
+
+            if (comuna == "")
+            {
+                inserta_errores(rut, razon_social, "No se informa Comuna", dt);
+                swc = false;
+            }
+            if (id_region == 0)
+            {
+                inserta_errores(rut, razon_social, "No se informa Región del cliente", dt);
+                swc = false;
+            }
+
+            if (swc)
+            {
+                insert_cliente_en_ERP(rut, dv, razon_social, telefono, telefono2, direccion, ciudad, comuna, id_region, giro, "", email);
+            }
+
+        }
+
+
+        void inserta_errores(int rut, string razon_social, string error, DataTable dt)
+        {
+            
+
+            DataRow row = dt.NewRow();
+            row["Rut"] = rut;
+            row["razon"] = razon_social;
+            row["error"] = error;
+            dt.Rows.Add(row);
+            dt.AcceptChanges();
+
         }
 
         void insert_cliente_en_ERP(int rut, string dv, string razon_social, string telefonos, string telefonos2, string direccion, string ciudad, string comuna, int Id_region, string giro, string url, string email)
@@ -1306,7 +1213,9 @@ namespace erpweb
             }
         }
 
-
-
+        protected void LinkButton2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PPal.aspx");
+        }
     }
 }

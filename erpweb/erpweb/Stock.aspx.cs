@@ -11,58 +11,116 @@ namespace erpweb
 {
     public partial class Stock : System.Web.UI.Page
     {
-        //string Sserver = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-        String Sserver = @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-        string SMysql = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Local
-       //string SMysql = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;"; // Conexion Server Local
+        string Sserver = "";
+        string SMysql = "";
+        ClsFTP ftp = new ClsFTP();
+        Cls_Utilitarios utiles = new Cls_Utilitarios();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
+
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
+
             if (!this.IsPostBack)
             {
-                btn_actualizar.Attributes["Onclick"] = "return confirm('Actualizar Stock del Producto?')";
+                carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta ,' ', nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by replace(Cod_Linea_Venta, 'GRUPO ', '')", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                btn_actualizar.Attributes["Onclick"] = "return confirm('Está a punto de actualizar el Stock para estos productos, Desea Continuar?')";
                 muestra_productos();
+            }
+        }
+
+        void carga_contrl_lista(string sql, DropDownList lista, string tabla, string llave, string Campo)
+        {
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                connection.Open();
+                //SqlCommand command = new SqlCommand(sql, connection);
+                SqlDataAdapter reader = new SqlDataAdapter(sql, connection);
+                DataSet dr = new DataSet();
+                reader.Fill(dr, tabla);
+                lista.DataSource = dr;
+                lista.DataValueField = llave;
+                lista.DataTextField = Campo;
+                lista.DataBind();
+
+                connection.Close();
+                connection.Dispose();
             }
         }
 
         void muestra_productos()
         {
-            String queryString = "";
-
-            queryString = "select st.id_item Id, codigo 'Codigo', descripcion 'Descripcion', if(it.prodpedido=0,'NO','SI') 'A pedido', round(st.Stock,4) Stock, if(round(st.Stock,4) <=  '5', 'Crítico','Normal') Estado   from ";
-            queryString = queryString + "tbl_items it, tbl_stock st ";
-            queryString = queryString + "where it.Id_Item = st.Id_Item ";
-
+            String queryString = "Lista_Prod_Stock";
+            Chk_desactiva_cods.Checked = false;
+            lbl_error.Text = "";
+            lbl_status.Text = "";
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
                 {
                     conn.Open();
-                    DataSet ds = new DataSet();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter();
-                    adapter.SelectCommand = new MySqlCommand(queryString, conn);
-                    adapter.Fill(ds);
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    if (ds.Tables[0].Rows.Count == 0)
+                    if (txt_codigo.Text == "")
+                    {
+                        command.Parameters.AddWithValue("@v_codigo", DBNull.Value);
+                        command.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+                    }
+
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_codigo", txt_codigo.Text);
+                        command.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+                    }
+
+                    if (LstLineaVtas.SelectedItem.Value.ToString() == "0")
+                    {
+                        command.Parameters.AddWithValue("@v_id_linea_vta", DBNull.Value);
+                        command.Parameters["@v_id_linea_vta"].Direction = ParameterDirection.Input;
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@v_id_linea_vta", LstLineaVtas.SelectedItem.Value.ToString());
+                        command.Parameters["@v_id_linea_vta"].Direction = ParameterDirection.Input;
+                    }
+
+
+                    //var result = command.ExecuteNonQuery();
+
+                    DataSet ds = new DataSet();
+                    DataTable table = new DataTable();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+
+                    ///MySqlDataReader dr = command.ExecuteReader();
+                    mysqlDAdp.Fill(table);
+
+                    if (table.Rows.Count == 0)
                     {
                         lbl_mensaje.Text = "Sin Resultados";
                     }
                     else
                     {
-                        Grilla.DataSource = ds;
+                        Grilla.DataSource = table;
                         Grilla.DataBind();
                     }
 
-                    //Productos.DataMember = "tbl_items";
-
+                    lbl_mensaje.Text = "Cantidad de Registros" + Grilla.Rows.Count.ToString();
                     conn.Close();
                     conn.Dispose();
 
                 }
                 catch (Exception ex)
                 {
-                    lbl_error.Text = ex.Message;
+
                     conn.Close();
                     conn.Dispose();
+                    lbl_error.Text = ex.Message ;
                 }
             }
         }
@@ -70,81 +128,225 @@ namespace erpweb
         protected void Grilla_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Grilla.SelectedRow;
-            lbl_id_item.Text = row.Cells[1].Text;
-            lbl_producto.Text = row.Cells[2].Text;
-            lbl_descripcion.Text = row.Cells[3].Text;
-            lbl_stock.Text = row.Cells[5].Text;
-        }
-
-        protected void txt_stock_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                // Convert the text to a Double and determine if it is a negative number.
-                if (double.Parse(txt_stock.Text) < 0)
-                {
-                    // If the number is negative, display it in Red.
-                    txt_stock.ForeColor = Color.Red;
-                }
-                else
-                {
-                    // If the number is not negative, display it in Black.
-                    txt_stock.ForeColor = Color.Black;
-                }
-            }
-            catch
-            {
-                // If there is an error, display the text using the system colors.
-                txt_stock.ForeColor = SystemColors.ControlText;
-                txt_stock.ForeColor = Color.Red;
-                txt_stock.Text = "";
-            }
         }
 
         protected void btn_actualizar_Click(object sender, EventArgs e)
         {
             string query = "";
+            string stock = "";
+            int id_item = 0;
             Page.Validate();
             if (Page.IsValid)
             {
-                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                try
                 {
-                    try
+                    for (int i = 0; i < Grilla.Rows.Count; i++)
                     {
-                        conn.Open();
-                        query = "Actualiza_Stock";
-                        MySqlCommand command = new MySqlCommand(query, conn);
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@v_id_item", lbl_id_item.Text);
-                        command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
-                        command.Parameters.AddWithValue("@v_stock", txt_stock.Text.Replace(",","."));
-                        command.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+                        GridViewRow row = Grilla.Rows[i];
+                        id_item = Convert.ToInt32(row.Cells[0].Text);
+                        stock = consulta_stock_erp(id_item);
+                        actualiza_stock_web(id_item, Convert.ToDouble(stock));
 
-                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                        MySqlDataReader dr = command.ExecuteReader();
-
-                        while (dr.Read())
+                        if (Chk_desactiva_cods.Checked && row.Cells[3].Text == "NO")
                         {
-                            if (!dr.IsDBNull(0))
-                            {
-                                lbl_status.Text = dr.GetString(0);
-                            }
+                            desmarca_prod_vta(id_item);
                         }
-
-                        conn.Close();
-                        conn.Dispose();
-                        lbl_error.Text = "";
-
-                        lbl_status.Text = "Producto eliminado correctamente de la Web";
-                    }
-                    catch (Exception ex)
-                    {
-                        lbl_error.Text = ex.Message + query;
-                        conn.Close();
-                        conn.Dispose();
+                        // the rest o your code
                     }
                 }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+
+
             }
+        }
+
+        public string consulta_stock_erp(int id_item)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_item", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@id_item", id_item);
+                    cmd.Parameters["@id_item"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                result = Convert.ToString(rdr.GetDouble(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    result = ex.Message;
+                    return result;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+        }
+
+
+        void desmarca_prod_vta(int id_item)
+        {
+            string result = "";
+            using (MySqlConnection connection = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand("Desmarca_prod", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter param = new MySqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_id_item", id_item);
+                    cmd.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    using (MySqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    lbl_status.Text = "Producto(s) actualizado(s) y desmarcado()";
+
+                    muestra_productos();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
+        void actualiza_stock_web(int id_item, double stock)
+        {
+            string result = "";
+            using (MySqlConnection connection = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand("Act_Stock", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter param = new MySqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_id_item", id_item);
+                    cmd.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_stock", stock);
+                    cmd.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+
+                    using (MySqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    lbl_status.Text = "Producto(s) actualizado(s)";
+
+                    muestra_productos();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        protected void Btn_buscar_Click(object sender, EventArgs e)
+        {
+            Grilla.DataSource = "";
+            muestra_productos();
+        }
+
+        protected void Grilla_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label stock = e.Row.FindControl("lbl_stock") as Label;
+                Label stock_critico = e.Row.FindControl("lbl_stock_critico") as Label;
+
+                
+                if (Convert.ToDouble(stock.Text) > Convert.ToDouble(stock_critico.Text))
+                {
+                    stock_critico.CssClass = "badge badge-primary";
+                }
+
+
+                if (Convert.ToDouble(stock.Text)  == Convert.ToDouble(stock_critico.Text))
+                {
+                    stock_critico.CssClass = "badge badge-warning";
+                }
+
+                if (Convert.ToDouble(stock.Text) == Convert.ToDouble(stock_critico.Text) && Convert.ToDouble(stock.Text) <= 0)
+                {
+                    stock_critico.CssClass = "badge badge-danger";
+                }
+
+                if (Convert.ToDouble(stock.Text) < Convert.ToDouble(stock_critico.Text))
+                {
+                    stock_critico.CssClass = "badge badge-danger";
+                }
+
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+            }
+        }
+
+        protected void Btn_volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
         }
     }
 }

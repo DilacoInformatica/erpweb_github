@@ -20,10 +20,10 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-11">
-                            <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" />Productos Web</h1> 
+                            <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Productos Web</h1> 
                         </div>
                         <div class="col-md-1 float-right">
-                            <asp:ImageButton ID="ImgBtn_Cerrar" CssClass="float-md-right" AlternateText="Cerrar" runat="server" ImageUrl="~/img/cerrar.png" Width="30px" Height="30px" />
+                            <asp:LinkButton ID="LinkButton2" runat="server" CssClass="btn btn-outline-success" OnClick="LinkButton2_Click" Width="133px">Volver</asp:LinkButton>
                         </div>
                     </div>
                 </div>

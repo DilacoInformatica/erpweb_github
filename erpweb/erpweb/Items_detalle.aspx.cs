@@ -144,6 +144,8 @@ namespace erpweb
             string ruta_local = "";
             string extension = "";
             string nuevo_nom = "";
+
+            lbl_status.Text = "";
             query = "SELECT iw.Id_Item "; // 0
             query = query + ",iw.Codigo "; // 1
             query = query + " ,isnull(iw.habilitado_venta,0) "; // 2
@@ -504,6 +506,42 @@ namespace erpweb
                         txt_alt3.Text = reader[37].ToString();
                         txt_multiplo.Text = reader[52].ToString();
 
+                        lbl_stock.Text = consulta_stock_erp(id_item);
+
+                        if (lbl_web.Text == "SI") {
+                            actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
+                            lbl_stock_critico.Text = consulta_stock_critico_web(id_item);
+
+                            if (Convert.ToInt32(lbl_stock.Text) > Convert.ToInt32(lbl_stock_critico.Text))
+                            {
+                                lbl_stock.CssClass = "label label-primary";
+                                lbl_stock_critico.CssClass = "label label-primary";
+
+                            }
+
+
+                            if (Convert.ToInt32(lbl_stock.Text) == Convert.ToInt32(lbl_stock_critico.Text))
+                            {
+                                lbl_stock.CssClass = "label label-primary";
+                                lbl_stock_critico.CssClass = "label label-warning";
+                                lbl_status.Text = "Stock de Producto llegando a Niveles Críticos";
+                            }
+
+
+                            if (Convert.ToInt32(lbl_stock.Text) < Convert.ToInt32(lbl_stock_critico.Text))
+                            {
+                                lbl_stock.CssClass = "label label-primary";
+                                lbl_stock.CssClass = "label label-danger";
+                                lbl_status.Text = "Stock de Producto sobrepasó nivel mínimo";
+                            }
+                        }
+                        else
+                        {
+                            lbl_stock_critico.Text = "0";
+                            lbl_stock.CssClass = "label label-info";
+                            lbl_stock_critico.CssClass = "label label-info";
+                        }
+
                         if (lbl_fotog.Text.Trim() != "")
                         {
                             archivo2 = Path.Combine(ruta_alterna, lbl_fotog.Text.Trim());
@@ -800,6 +838,50 @@ namespace erpweb
            
         }
 
+
+        public string consulta_stock_critico_web (int id_item)
+        {
+            string query = "";
+            string result = "";
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    query = "consulta_stock_critico";
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    //var result = command.ExecuteNonQuery();
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            result = Convert.ToString(dr.GetDouble(0));
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    
+                    conn.Close();
+                    conn.Dispose();
+                    return ex.Message + query;
+                }
+            }
+        }
         void elimna_item()
         {
             string query = "";
@@ -1070,6 +1152,8 @@ namespace erpweb
 
                         marca_producto_publicado(id_item, "I");
 
+                        actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
+
                         validamysql(id_item);
 
                         // Si el producto fue grabado correctamente, cargamos los archivos en el servidor
@@ -1175,6 +1259,95 @@ namespace erpweb
                 }
             }
            
+        }
+
+        public string consulta_stock_erp(int id_item)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_item", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@id_item", id_item);
+                    cmd.Parameters["@id_item"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                result = Convert.ToString(rdr.GetDouble(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    result = ex.Message;
+                    return result;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+        }
+
+        void actualiza_stock_web (int id_item,double stock)
+        {
+            string result = "";
+            using (MySqlConnection connection = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand("Act_Stock", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    MySqlParameter param = new MySqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_id_item", id_item);
+                    cmd.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_stock", stock);
+                    cmd.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+
+                    using (MySqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
 
         void Carga_familia_mysql(string rama, int familia, int categoria, int subcategoria)

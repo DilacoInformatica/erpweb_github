@@ -137,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Adm_division_ventas.aspx" />
-    <Content Include="Adm_Publicacion_Lineas_Prod..aspx" />
+    <Content Include="Adm_Publicacion_Lineas_Prod.aspx" />
     <Content Include="Clientes.aspx" />
     <Content Include="Contacto_Sitio.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -190,7 +190,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Ppal.aspx" />
     <None Include="scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Precios_Esp_Adm.aspx" />
     <Content Include="Precios_Esp_Pub.aspx" />
@@ -309,12 +309,12 @@
     <Compile Include="Adm_division_ventas.aspx.designer.cs">
       <DependentUpon>Adm_division_ventas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Adm_Publicacion_Lineas_Prod..aspx.cs">
-      <DependentUpon>Adm_Publicacion_Lineas_Prod..aspx</DependentUpon>
+    <Compile Include="Adm_Publicacion_Lineas_Prod.aspx.cs">
+      <DependentUpon>Adm_Publicacion_Lineas_Prod.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Adm_Publicacion_Lineas_Prod..aspx.designer.cs">
-      <DependentUpon>Adm_Publicacion_Lineas_Prod..aspx</DependentUpon>
+    <Compile Include="Adm_Publicacion_Lineas_Prod.aspx.designer.cs">
+      <DependentUpon>Adm_Publicacion_Lineas_Prod.aspx</DependentUpon>
     </Compile>
     <Compile Include="Clientes.aspx.cs">
       <DependentUpon>Clientes.aspx</DependentUpon>
@@ -417,12 +417,12 @@
     <Compile Include="Stock.aspx.designer.cs">
       <DependentUpon>Stock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Ppal.aspx.cs">
+      <DependentUpon>Ppal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Ppal.aspx.designer.cs">
+      <DependentUpon>Ppal.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

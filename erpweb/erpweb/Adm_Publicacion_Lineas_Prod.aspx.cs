@@ -1030,5 +1030,10 @@ namespace erpweb
                 procesar_busqueda();
             }
         }
+
+        protected void Btn_Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PPal.aspx");
+        }
     }
 }
