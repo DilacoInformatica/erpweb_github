@@ -34,15 +34,24 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Btn_Grabar.Attributes["Onclick"] = "return confirm('Desea grabar cambios, estos pueden afectar a toda la rama de la familia involucrada?')";
-           
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+
+            if (Session["Usuario"].ToString() == "")
             {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+                Response.Redirect("Ppal.aspx");
             }
             else
             {
-                usuario = Request.QueryString["usuario"].ToString();
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), " 	OPC_009_09", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
             }
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
+
             if (!this.IsPostBack)
             {
 

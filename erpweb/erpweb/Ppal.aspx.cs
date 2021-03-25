@@ -32,6 +32,7 @@ namespace erpweb
                 id_usuario = 141;
             }
             consulta_usuario_conectado(id_usuario);
+            Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
         }
 
 

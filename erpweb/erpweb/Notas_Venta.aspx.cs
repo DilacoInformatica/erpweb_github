@@ -24,14 +24,22 @@ namespace erpweb
 
             lbl_mensaje.Visible = false;
 
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            if (Session["Usuario"].ToString() == "")
             {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+                Response.Redirect("Ppal.aspx");
             }
             else
             {
-                usuario = Request.QueryString["usuario"].ToString();
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_08", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
             }
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
             if (!this.IsPostBack)
             {
                 Btn_buscar.Attributes["Onclick"] = "return valida()";

@@ -21,7 +21,7 @@
                             <h4><a class="nav-link" href="Items_ppal.aspx">Productos</a></h4>
                         </li>
                         <li class="nav-item">
-                            <h4><a class="nav-link" href="Items_ppal.aspx">Clientes</a></h4>
+                            <h4><a class="nav-link" href="Adm_Clientes.aspx">Clientes</a></h4>
                         </li>
                         <li class="nav-item">
                             <h4><a class="nav-link" href="stock.aspx">Existencias</a></h4>
@@ -34,6 +34,9 @@
                         </li>
                         <li class="nav-item">
                             <h4><a class="nav-link" href="Cotizaciones.aspx">Cotizaciones</a></h4>
+                        </li>
+                        <li class="nav-item">
+                            <h4><a class="nav-link" href="Precios_Esp_Adm.aspx">Precios Especiales</a></h4>
                         </li>
                         <li>
                             <h4><span class="nav-link"><asp:LinkButton ID="Btn_Salir" CssClass="btn btn-outline-success" runat="server">Salir</asp:LinkButton></span></h4>

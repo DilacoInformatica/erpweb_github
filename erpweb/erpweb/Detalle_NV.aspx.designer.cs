@@ -283,6 +283,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_obs_despacho;
         
         /// <summary>
+        /// Control RadBtnNV.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadBtnNV;
+        
+        /// <summary>
+        /// Control RadNVDesp.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadNVDesp;
+        
+        /// <summary>
         /// Control Lista_Vendedores.
         /// </summary>
         /// <remarks>

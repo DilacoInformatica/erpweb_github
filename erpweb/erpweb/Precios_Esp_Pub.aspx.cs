@@ -372,7 +372,7 @@ namespace erpweb
 
         protected void Btn_volver_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Ppal.aspx");
+            Response.Redirect("Precios_Esp_Adm.aspx");
         }
     }
 }

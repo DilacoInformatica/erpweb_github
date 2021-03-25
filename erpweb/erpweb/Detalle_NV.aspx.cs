@@ -32,7 +32,7 @@ namespace erpweb
         {
 
             id_nv = Convert.ToInt32(Request.QueryString["nv"].ToString());
-            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+           // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
 
@@ -59,6 +59,7 @@ namespace erpweb
                 muestra_info_nv(id_nv);
             }
         }
+
 
         public string VerificaexistenciaNVERP(int id_nv)
         {
@@ -583,6 +584,7 @@ namespace erpweb
             int v_id_nta_vta = 0;
             int v_id_item_nta_vta = 0;
             string v_email = "";
+            int tipo = 0;
             Page.Validate();
             if (Page.IsValid)
             {
@@ -612,9 +614,18 @@ namespace erpweb
                         else
                         {
 
-                            v_id_contacto = 54328; // busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
-                            v_id_cliente = 18909; // busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
+                            v_id_contacto = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "C");
+                            v_id_cliente = busca_info_cliente(Convert.ToInt32(lbl_rut_exit.Text), "I");
 
+                            if (RadBtnNV.Checked)
+                            {
+                                tipo = 1;
+                            }
+
+                            if (RadNVDesp.Checked)
+                            {
+                                tipo = 2;
+                            }
 
                             
                           if (lbl_tipo_facturacion.Text == "Factura Electrónica")
@@ -790,6 +801,12 @@ namespace erpweb
                                 v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
                                 utiles.enviar_correo("Nv Web asignada", "Nv Web " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                                 Btn_crearNV.Enabled = false;
+
+                                // Si se indica despacho automático...llamamos al procedimiento que generará el despacho automático 
+                                if (RadNVDesp.Checked)
+                                {
+
+                                }
                             }
                             // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
                         }

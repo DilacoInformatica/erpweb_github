@@ -151,6 +151,7 @@
     <Content Include="Detalle_Contacto.aspx" />
     <Content Include="Detalle_Cotizaciones.aspx" />
     <Content Include="Detalle_NV.aspx" />
+    <Content Include="ErrorAcceso.html" />
     <Content Include="img\adjuntarTH.gif" />
     <Content Include="img\adjuntarTH_off.gif" />
     <Content Include="img\cancela.gif" />

@@ -20,19 +20,24 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            if (Session["Usuario"].ToString() == "")
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_03", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
+ 
+            }
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }
             else
             { lbl_ambiente.Text = "Ambiente Producción"; }
-
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
-            {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
-            }
-            else
-            {
-                usuario = Request.QueryString["usuario"].ToString();
-            }
+          
             //Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
             if (!this.IsPostBack)
             {

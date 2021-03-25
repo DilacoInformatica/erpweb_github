@@ -27,6 +27,18 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
+            if (Session["Usuario"].ToString() == "")
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
+            }
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
@@ -36,16 +48,8 @@ namespace erpweb
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }
             else
             { lbl_ambiente.Text = "Ambiente Producción"; }
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
-            {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
-            }
-            else
-            {
-                usuario = Request.QueryString["usuario"].ToString();
-            }
 
-            iniciales_user = utiles.obtiene_nombre_usuario(Convert.ToInt32(usuario), Sserver);
+            
 
            // lbl_usuario.Text = iniciales_user;
 

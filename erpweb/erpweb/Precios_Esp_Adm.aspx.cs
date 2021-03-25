@@ -20,6 +20,23 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
+            if (Session["Usuario"].ToString() == "")
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
+            }
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Ambiente Producción"; }
+
             if (!this.IsPostBack)
             {
                 Btn_Eliminar.Attributes["Onclick"] = "return confirm('Desea eliminar infromación de Precios Especiales para cliente?')";
@@ -31,7 +48,7 @@ namespace erpweb
         {
             String queryString = "";
             lbl_mensaje.Text = "";
-            queryString = "select cl.id_cliente ID_Cliente, cl.rut + '-' + cl.Dv_Rut Rut, cl.razon_social 'Razón Social', pe.id_item, pe.codigo 'Código', pe.descripcion 'Descripción', mn.Sigla Moneda, pe.precio_lista 'Precio Lista', pe.precio 'Precio' ";
+            queryString = "select cl.id_cliente ID_Cliente, cl.rut + '-' + cl.Dv_Rut Rut, cl.razon_social 'Razón Social', pe.id_item ID_Item,  pe.codigo 'Código', pe.descripcion 'Descripción', mn.Sigla Moneda, pe.precio_lista 'Precio Lista', pe.precio 'Precio' ";
             queryString = queryString + "from tbl_clientes cl, tbl_precios_especiales pe, tbl_Monedas mn ";
             queryString = queryString + "where cl.ID_Cliente = pe.ID_Cliente ";
             queryString = queryString + "and pe.id_moneda = mn.ID_Moneda ";
@@ -49,7 +66,7 @@ namespace erpweb
                 queryString = queryString + "and cl.Razon_Social like '%" + txt_razonw.Text + "%'";
             }
 
-            queryString = queryString + " order by ID_Cliente ";
+            queryString = queryString + " order by cl.ID_Cliente ";
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
@@ -94,6 +111,7 @@ namespace erpweb
 
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
+            lbl_status.Text = "";
             carga_clientes();
         }
 
@@ -139,7 +157,7 @@ namespace erpweb
                                 conn.Dispose();
                                 lbl_error.Text = "";
 
-                                lbl_status.Text = "Producto eliminado correctamente de la Web";
+                                lbl_status.Text = "Producto(s) eliminado(s) correctamente de la Web";
                             }
                             catch (Exception ex)
                             {
@@ -152,6 +170,11 @@ namespace erpweb
                 }
                 carga_clientes();
             }
+        }
+
+        protected void Btn_volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
         }
     }
 }

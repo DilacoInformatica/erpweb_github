@@ -22,9 +22,21 @@
                 <p></p>
             </div>
         </div>
-<div class="container-fluid">
+            <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-sm-12">
+                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            </div>
+       </div>
+    </div>
+    <br />
 
-	<div class="row bg-light text-white">
+    <div class="container-fluid rounded border border-secondary bg-light ">
+	<div class="row">
 		<div class="col-md-9">
 			<h3 class="text-left text-primary">
 				Búsqueda de Información
@@ -33,30 +45,30 @@
 				<div class="col-md-3">
 					 <h3><span class="badge badge-success">División</span></h3>
                          <div class="dropdown">
-                             <h4>
+                             <h5>
                          <asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivivion_SelectedIndexChanged">
                          <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                          </asp:DropDownList></h4>
+                          </asp:DropDownList></h5>
                      </div>
 				</div>
 				<div class="col-md-3">
 					 <h3><span class="badge badge-success">Catergoría</span></h3>
                          <div class="dropdown">
-                             <h4>
+                             <h5>
                         <asp:DropDownList ID="LstCategoria" runat="server" AppendDataBoundItems="True" AutoPostBack="True" CssClass="auto-style29" OnSelectedIndexChanged="LstCategoria_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                    </asp:DropDownList></h4>
+                    </asp:DropDownList></h5>
                      </div>
                      
 				</div>
 				<div class="col-md-3">
 					 <h3><span class="badge badge-success">Subcategoria</span></h3>
                           <div class="dropdown">
-                             <h4>
+                             <h5>
                          <asp:DropDownList ID="LstSubCategoria" runat="server" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
-                     </h4>
+                     </h5>
                      </div>
 				</div>
                  <div class="col-md-1">
@@ -72,9 +84,7 @@
 	</div>
 </div>
 <br />
-<h3><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></h3>
-<br />
-    <div class="container-fluid">
+    <div class="container-fluid rounded border border-secondary bg-light">
 	<div class="row">
 		<div class="col-md-6">
 			<h3 class="text-center text-info">
@@ -155,7 +165,7 @@
 </div>
 <br />
         
-<div class="container-fluid">
+<div class="container-fluid rounded border border-secondary bg-light">
 	<div class="row">
 		<div class="col-md-12 d-flex justify-content-center">
             <h5>

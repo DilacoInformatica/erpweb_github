@@ -37,6 +37,18 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
+            if (Session["Usuario"].ToString() == "")
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02",Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+                lbl_conectado.Text = Session["Usuario"].ToString();
+            }
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }
             else

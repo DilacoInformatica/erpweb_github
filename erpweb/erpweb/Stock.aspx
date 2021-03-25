@@ -25,7 +25,8 @@
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-sm-12">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
                 <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
             </div>
@@ -36,15 +37,16 @@
          <div class="row">
               <div class="col-md-12"><h4><span class="badge badge-primary">Búsqueda de Información</span></h4></div>
              <div class="col-md-1"><h4><span class="badge badge-info">Código</span> </h4></div>
-             <div class="col-md-2"><asp:TextBox ID="txt_codigo" runat="server" Width="163px"></asp:TextBox></div>
+             <div class="col-md-2"><asp:TextBox ID="txt_codigo" runat="server" Width="163px" CssClass="form-control"></asp:TextBox></div>
              <div class="col-md-1"><h4><span class="badge badge-info">Línea de Ventas</span> </h4></div>
-             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True"  Width="439px">
+             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control"  Width="439px">
                                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                          </asp:DropDownList></h5>
              </div>
          </div>
          <div class="row">
-             <div class="col-md-12"><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/></div>
+             <div class="col-md-12">
+                 <h4><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/></h4></div>
          </div>
          <p></p>
      </div>
@@ -52,7 +54,7 @@
         <div class="container-fluid rounded border border-secondary bg-ligh">
             <div class="row">
                 <div class ="col-md-3">
-                    <asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-md btn-primary"  Text="Actualizar Stock" OnClick="btn_actualizar_Click" />
+                    <h4><asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-md btn-primary"  Text="Actualizar Stock" OnClick="btn_actualizar_Click" /></h4>
                 </div>
                  <div class ="col-md-1">
                     <h4><span class="badge badge-warning"><asp:CheckBox ID="Chk_desactiva_cods" runat="server" Text="Desmarcar opción Ventas para productos con Stock en cero?" TextAlign="Left" /></span></h4>
@@ -64,6 +66,7 @@
      <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-12">
+                <h5>
                  <asp:GridView ID="Grilla" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1408px" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True" ShowHeader="true" ShowHeaderWhenEmpty="True">
                 <AlternatingRowStyle BackColor="White" />
                      <Columns>
@@ -93,6 +96,7 @@
                 <SortedDescendingCellStyle BackColor="#E9EBEF" />
                 <SortedDescendingHeaderStyle BackColor="#4870BE" />
                 </asp:GridView>
+               </h5>
             </div>
             <div class="col-md-3">
                 <span><asp:Label ID="lbl_mensaje" runat="server" CssClass="form-control"></asp:Label></span>

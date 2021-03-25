@@ -228,6 +228,49 @@ namespace erpweb
             }
         }
 
+        public string obtiene_acceso_pagina(string usuario, string opcion, string conexion)
+        {
+            string sql = "";
+            string salida = "";
+
+            sql = "select[dbo].[acceso_web]('" + usuario + "', '" + opcion + "')";
+
+            using (SqlConnection connection = new SqlConnection(conexion))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                salida = rdr.GetString(0);
+                            }
+                        }
+                    }
+                    connection.Close();
+                    connection.Dispose();
+                    return salida;
+                }
+                catch (Exception ex)
+                {
+
+                    connection.Close();
+                    connection.Dispose();
+                    return ex.Message.ToString();
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
+                }
+
+            }
+        }
+
         public string obtiene_nombre_usuario(int v_id_usuario, string conexion)
         {
             string sql = "";

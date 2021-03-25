@@ -27,6 +27,7 @@
                         <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Notas de Venta generadas en Sitio Web</h1>
                     </div>
                     <div class="col-md-1 float-right">
+
                         <asp:LinkButton ID="Btn_Volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_Volver_Click">Volver</asp:LinkButton>
                     </div>
                     <p></p>
@@ -57,25 +58,33 @@
                     </div>
                 </div>
         </div>
-        <br />
-        <div class="container-fluid bg-light">
+           <br />
+    <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-md-12">
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
+                </h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            </div>
+       </div>
+    </div>
+    <br />
+        <br />        <div class="container-fluid bg-light">
                 <div class="row">
                     <div class="col-md-6">
-                       <h4><asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h4>
+                       <h4><asp:Label ID="lbl_cantidad" runat="server" CssClass="badge badge-primary"></asp:Label></h4>
                     </div>
                 </div>
-                 <div class="row">
-                    <div class="col-md-6">
-                        <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></h4>
-                    </div>
-                </div>
+                
         </div>
         
         <br />
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1780px">
+                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1900px">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
