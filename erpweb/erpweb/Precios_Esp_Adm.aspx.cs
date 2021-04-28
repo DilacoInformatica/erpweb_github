@@ -20,7 +20,8 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            if (Session["Usuario"].ToString() == "")
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
                 Response.Redirect("Ppal.aspx");
             }

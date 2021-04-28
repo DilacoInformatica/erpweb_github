@@ -42,15 +42,18 @@ namespace erpweb
             lbl_total.Style.Add("text-align", "right");
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
 
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
-                usuario = 2; // mi usuarios por default mientras no nos conectemos al servidor
+                Response.Redirect("Ppal.aspx");
             }
             else
             {
-                usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_03", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
             }
-
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             if (utiles.retorna_ambiente() == "D")

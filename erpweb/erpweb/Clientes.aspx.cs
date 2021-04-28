@@ -276,6 +276,25 @@ namespace erpweb
             Response.Redirect("Item.aspx?id_item=" + row.Cells[1].Text);
         }
 
+      
+        protected void Btn_buscarw_Click(object sender, EventArgs e)
+        {
+            lista_clientes_web();
+        }
+
+
+        protected void CheckAll(object sender, EventArgs e)
+        {
+            CheckBox chckheader = (CheckBox)lista_clientes.HeaderRow.FindControl("Chck_todos");
+            //selecciona_todos(chckheader, "Chck_todos", lista_clientes, "Chk_elimina");
+        }
+
+        protected void CheckAll2(object sender, EventArgs e)
+        {
+            CheckBox chckheader = (CheckBox)ClientesERP.HeaderRow.FindControl("Chck_todoserp");
+            //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
+        }
+
         protected void Btn_eliminaCLIWEB_Click(object sender, EventArgs e)
         {
             string query = "";
@@ -312,46 +331,28 @@ namespace erpweb
                     }
                 }
                 // recargamos los clientes web
-              //  lista_clientes_web();
+                //  lista_clientes_web();
             }
         }
 
-        protected void Btn_buscarw_Click(object sender, EventArgs e)
-        {
-            lista_clientes_web();
-        }
+        /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
+         {
+            // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);
+             foreach (GridViewRow row in grilla.Rows)
+             {
+                 //CheckBox chckrw = (CheckBox)row.FindControl("Chk_elimina");
+                 CheckBox check = row.FindControl(buscador) as CheckBox;
+                 if (cabecera.Checked)
+                 {
+                     check.Checked = true;
+                 }
+                 else
+                 {
+                     check.Checked = false;
+                 }
 
-
-        protected void CheckAll(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)lista_clientes.HeaderRow.FindControl("Chck_todos");
-            //selecciona_todos(chckheader, "Chck_todos", lista_clientes, "Chk_elimina");
-        }
-
-        protected void CheckAll2(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)ClientesERP.HeaderRow.FindControl("Chck_todoserp");
-            //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
-        }
-
-       /* void selecciona_todos (CheckBox cabecera, string ejecutor, GridView grilla, string buscador)
-        {
-           // cabecera = (CheckBox)ClientesERP.HeaderRow.FindControl(ejecutor);
-            foreach (GridViewRow row in grilla.Rows)
-            {
-                //CheckBox chckrw = (CheckBox)row.FindControl("Chk_elimina");
-                CheckBox check = row.FindControl(buscador) as CheckBox;
-                if (cabecera.Checked)
-                {
-                    check.Checked = true;
-                }
-                else
-                {
-                    check.Checked = false;
-                }
-
-            }
-        }*/
+             }
+         }*/
 
     }
 }

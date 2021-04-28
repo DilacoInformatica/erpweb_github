@@ -35,8 +35,19 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+            }
 
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());

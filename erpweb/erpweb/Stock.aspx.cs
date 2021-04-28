@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using System.Web.UI.HtmlControls;
+
 namespace erpweb
 {
     public partial class Stock : System.Web.UI.Page
@@ -18,7 +20,8 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Usuario"].ToString() == "")
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
             {
                 Response.Redirect("Ppal.aspx");
             }
@@ -45,8 +48,11 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta ,' ', nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by replace(Cod_Linea_Venta, 'GRUPO ', '')", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
+                carga_contrl_lista("select ID_Bodega, Nombre_Bodega from tbl_Bodegas where Activo = 1", ListBodEntrada, "tbl_Bodegas", "ID_Bodega", "Nombre_Bodega");
                 btn_actualizar.Attributes["Onclick"] = "return confirm('Está a punto de actualizar el Stock para estos productos, Desea Continuar?')";
                 muestra_productos();
+                HtmlGenericControl theDiv = new HtmlGenericControl("consola");
+                theDiv.Attributes["style"] = "display:none";
             }
         }
 
@@ -72,7 +78,8 @@ namespace erpweb
         void muestra_productos()
         {
             String queryString = "Lista_Prod_Stock";
-            Chk_desactiva_cods.Checked = false;
+            //  Chk_desactiva_cods.Checked = false;
+            Chk_desactiva_cods.Visible = false;
             lbl_error.Text = "";
             lbl_status.Text = "";
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -144,6 +151,9 @@ namespace erpweb
         protected void Grilla_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Grilla.SelectedRow;
+            lbl_id.Text = row.Cells[1].Text;
+            lbl_codigo.Text = row.Cells[2].Text;
+            lbl_fecha.Text = DateTime.Now.ToString();
         }
 
         protected void btn_actualizar_Click(object sender, EventArgs e)
@@ -163,10 +173,10 @@ namespace erpweb
                         stock = consulta_stock_erp(id_item);
                         actualiza_stock_web(id_item, Convert.ToDouble(stock));
 
-                        if (Chk_desactiva_cods.Checked && row.Cells[3].Text == "NO")
-                        {
-                            desmarca_prod_vta(id_item);
-                        }
+                        //if (Chk_desactiva_cods.Checked && row.Cells[3].Text == "NO")
+                       // {
+                       //     desmarca_prod_vta(id_item);
+                       // }
                         // the rest o your code
                     }
                 }
@@ -330,39 +340,89 @@ namespace erpweb
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label stock = e.Row.FindControl("lbl_stock") as Label;
-                Label stock_critico = e.Row.FindControl("lbl_stock_critico") as Label;
 
-                
-                if (Convert.ToDouble(stock.Text) > Convert.ToDouble(stock_critico.Text))
+                if (Convert.ToDouble(stock.Text) <= 0 )
                 {
-                    stock_critico.CssClass = "badge badge-primary";
+                    stock.CssClass = "badge badge-danger";
                 }
 
-
-                if (Convert.ToDouble(stock.Text)  == Convert.ToDouble(stock_critico.Text))
-                {
-                    stock_critico.CssClass = "badge badge-warning";
-                }
-
-                if (Convert.ToDouble(stock.Text) == Convert.ToDouble(stock_critico.Text) && Convert.ToDouble(stock.Text) <= 0)
-                {
-                    stock_critico.CssClass = "badge badge-danger";
-                }
-
-                if (Convert.ToDouble(stock.Text) < Convert.ToDouble(stock_critico.Text))
-                {
-                    stock_critico.CssClass = "badge badge-danger";
-                }
-
-                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 
         protected void Btn_volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Ppal.aspx");
+        }
+
+        protected void ListBodEntrada_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int valor = ListBodEntrada.SelectedIndex;
+            carga_contrl_lista("select ID_Bodega, Nombre_Bodega from tbl_Bodegas where Activo = 1 and id_bodega not in ("+ valor +")", ListBodSalida, "tbl_Bodegas", "ID_Bodega", "Nombre_Bodega");
+        }
+
+        protected void btn_genera_mov_stock_Click(object sender, EventArgs e)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_administra_inventario_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_codigo", lbl_codigo.Text);
+                    cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_cantidad",Convert.ToDouble(txt_cantidad.Text));
+                    cmd.Parameters["@v_cantidad"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_bodega_in", ListBodEntrada.SelectedValue);
+                    cmd.Parameters["@v_id_bodega_in"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_bodega_out", ListBodSalida.SelectedValue);
+                    cmd.Parameters["@v_id_bodega_out"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                lbl_status.Text = Convert.ToString(rdr.GetString(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    string mensaje = lbl_status.Text;
+
+                    // actualizamos el Stock en el Sitio Web
+                    if (mensaje.IndexOf("N° Interno", 0) > 0)
+                    {
+                        actualiza_stock_web(Convert.ToInt32(lbl_id.Text), Convert.ToDouble(txt_cantidad.Text));
+                    }
+    
+                }
+                catch (Exception ex)
+                {
+                    lbl_status.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
         }
     }
 }

@@ -190,7 +190,7 @@
                         <h5><span class="badge badge-info">Email</span></h5>
                     </div>
                     <div class="col-md-2">
-                        <h5><asp:Label ID="lbl_email_contacto" runat="server" CssClass="form-control"></asp:Label></h5>
+                        <h5><asp:Label ID="lbl_email_contacto" runat="server" CssClass="auto-style1" Width="725px"></asp:Label></h5>
                     </div>
                 </div>
                 <div class="row">
@@ -206,7 +206,7 @@
                         <h5><span class="badge badge-info">Comuna</span></h5>
                     </div>
                     <div class="col-md-2">
-                        <h5><asp:Label ID="lbl_comuna_despacho" runat="server" CssClass="form-control"></asp:Label></h5>
+                        <h5><asp:Label ID="lbl_comuna_despacho" runat="server" CssClass="auto-style1" Width="722px"></asp:Label></h5>
                     </div>
                     <div class="col-md-1">
                         <h5><span class="badge badge-info">Ciudad</span></h5>

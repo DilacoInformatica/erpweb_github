@@ -24,7 +24,8 @@ namespace erpweb
 
             lbl_mensaje.Visible = false;
 
-            if (Session["Usuario"].ToString() == "")
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
                 Response.Redirect("Ppal.aspx");
             }
@@ -36,6 +37,7 @@ namespace erpweb
                 }
                 lbl_conectado.Text = Session["Usuario"].ToString();
             }
+
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }
             else

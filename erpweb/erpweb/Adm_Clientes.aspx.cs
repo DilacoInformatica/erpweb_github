@@ -27,18 +27,20 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
-            if (Session["Usuario"].ToString() == "")
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
                 Response.Redirect("Ppal.aspx");
             }
             else
             {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02", Sserver) == "NO")
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_05", Sserver) == "NO")
                 {
                     Response.Redirect("ErrorAcceso.html");
                 }
                 lbl_conectado.Text = Session["Usuario"].ToString();
             }
+
             Btn_buscar.Attributes["Onclick"] = "return valida()";
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
@@ -53,7 +55,10 @@ namespace erpweb
 
            // lbl_usuario.Text = iniciales_user;
 
-            consulta_clientes_web(1);
+            if (!Page.IsPostBack)
+            {
+                consulta_clientes_web(2);
+            }
         }
 
         void insert_cliente(int id, int rut, string dv, string razon, string fono, string fono2, string direccion, string comuna, string ciudad, int region, string email)
@@ -562,8 +567,9 @@ namespace erpweb
             {
                 foreach (GridViewRow row in lista_clientes.Rows)
                 {
-                    CheckBox check = row.FindControl("CheckBox1") as CheckBox;
+                    CheckBox check = row.FindControl("ChkSelected") as CheckBox;
 
+       
                     if (check.Checked)
                     {
 
@@ -759,7 +765,7 @@ namespace erpweb
                 foreach (GridViewRow row in lista_clientes.Rows)
                 {
                    // CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
-                    CheckBox check = (CheckBox)row.FindControl("CheckBox1");
+                    CheckBox check = (CheckBox)row.FindControl("ChkSelected");
 
                     if (check.Checked)
                     {
@@ -821,7 +827,7 @@ namespace erpweb
                 inserta_errores(rut, razon_social, "Debe informar algun medio de conmunicación", dt);
                 swc = false;
             }
-            if (pais != "CHILE")
+            if (pais.ToUpper() != "CHILE")
             {
                 inserta_errores(rut, razon_social, "Clientes Extranjeros no se crean en el ERP", dt);
                 swc = false;
@@ -1165,7 +1171,7 @@ namespace erpweb
 
             query = "update dilacocl_dilacoweb.tbl_clientes ";
             query = query + " set id_cliente = " + id_cliente;
-            query = query + " , leido_erp = 1 ";
+            query = query + " , leido_erp = 1, cliente_erp = 1 ";
             query = query + " where rut = " + rut;
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -1192,7 +1198,7 @@ namespace erpweb
             query = "update tbl_contactos_clientes ";
             query = query + " set id_cliente = " + id_cliente;
             query = query + " ,id_contacto= " + id_contacto;
-            query = query + ", leido_erp = 1, cliente_erp = 1, Activo = 1 ";
+            query = query + ", leido_erp = 1, Activo = 1 ";
             query = query + " where rut_cliente  =" + rut;
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))

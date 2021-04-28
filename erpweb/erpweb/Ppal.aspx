@@ -7,41 +7,58 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Menú Principal</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+    function salir() {
+        if (confirm('Cerrar página?'))
+        { window.close(); }
+    }
+</script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <header>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav">
-                        <li class="nav-item">
-                            <h4><a class="nav-link active" href="Ppal.aspx">Inicio</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Items_ppal.aspx">Productos</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Adm_Clientes.aspx">Clientes</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="stock.aspx">Existencias</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Líneas de Venta</a>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Notas_Venta.aspx">Notas de Venta</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Cotizaciones.aspx">Cotizaciones</a></h4>
-                        </li>
-                        <li class="nav-item">
-                            <h4><a class="nav-link" href="Precios_Esp_Adm.aspx">Precios Especiales</a></h4>
-                        </li>
-                        <li>
-                            <h4><span class="nav-link"><asp:LinkButton ID="Btn_Salir" CssClass="btn btn-outline-success" runat="server">Salir</asp:LinkButton></span></h4>
-                        </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link active" href="Ppal.aspx">Inicio</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Items_ppal.aspx">Productos</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Adm_Clientes.aspx">Clientes</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="stock.aspx">Stock</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Líneas de Venta</a>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Notas_Venta.aspx">Notas de Venta</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Cotizaciones.aspx">Cotizaciones</a></h4>
+                    </li>
+                    <li class="nav-item">
+                        <h4><a class="nav-link" href="Precios_Esp_Adm.aspx">Precios Especiales</a></h4>
+                    </li>
+                    <li>
+                        <h4><span class="nav-link"><a class="nav-link" href="#" onclick="return salir();">Salir</a></span></h4>
+                    </li>
                     </ul>
+               </div>
+            </div>
+        </div>
+    </header>
+    <main>
+  
+    <form id="form1" runat="server">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
                     <br />
                     <br />
                     <h1 class="text-center text-primary">Menú Administración Erp-Sitio Web</h1>
@@ -50,23 +67,51 @@
                         </h2>
                         <p>
                             Estás en el ambiente de&nbsp;<asp:Label ID="lbl_ambiente" runat="server" Text=""></asp:Label>
-                           <h4>Hola , 
-                               <asp:Label ID="lbl_nombre" runat="server" Text=""></asp:Label>
-&nbsp;estás en el menú principal del Administrador de Información de ERP y Sitio Web de Dilaco. Revisa tus accesos en la parte superior del Navegador, si no tienes acceso solicitalo con el área de Informática.</h4></p>
-                        
-                        <h4><p><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></p></h4>
+                           <h4>Hola , <asp:Label ID="lbl_nombre" runat="server" Text=""></asp:Label>
+&nbsp;estás en el menú principal del Administrador de Información de ERP y Sitio Web de Dilaco. Revisa tus accesos en la parte superior del Navegador, si no tienes acceso solicitalo con el área de Informática.</h4>
+                        <h4>&nbsp;<p><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></p></h4>
                     </div>
-                    <p>Departamento de TI</p>
+                    <br />
+                    <div class="container">
+                                <div class="row">
+                                    <div class="col-md-7 col-center">
+                                        <span class="text-primary">Productos sin Stock</span>
+                                        <asp:GridView ID="GrdProdSinStock" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1088px" CaptionAlign="Top" AutoGenerateColumns="False" OnRowDataBound="GrdProdSinStock_RowDataBound">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <asp:BoundField DataField="codigo" HeaderText="Código" />
+                                                <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
+                                                <asp:BoundField DataField="stock" HeaderText="Stock" />
+                                            </Columns>
+                                            <EditRowStyle BackColor="#2461BF" />
+                                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#EFF3FB" />
+                                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                                            <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                                            <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                                            <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div>
 
     </form>
+    </main>
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="label label-primary">Departamento Informática</span>
+                </div>
+            </div>
+        </div>
+
+     </footer>
 </body>
 </html>
-<script>
-    function salir() {
-        if (confirm('Cerrar página?'))
-        { window.close(); }
-    }
-</script>

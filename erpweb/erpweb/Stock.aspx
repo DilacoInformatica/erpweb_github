@@ -7,9 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Stock de Productos en la Web</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.js"></script>
+    <script src="scripts/jquery-3.5.1.min.js"></script>
+    <script src="scripts/popper.js"></script>
+
 </head>
+
 <body>
     <form id="form1" runat="server">
+     <asp:scriptmanager runat="server"></asp:scriptmanager>
+     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
      <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-11">
@@ -41,14 +49,10 @@
              <div class="col-md-1"><h4><span class="badge badge-info">Línea de Ventas</span> </h4></div>
              <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control"  Width="439px">
                                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                                         </asp:DropDownList></h5>
-             </div>
+                                         </asp:DropDownList></h5></div>
+             <div class="col-md-1"> <h4><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/></h4></div>
+             
          </div>
-         <div class="row">
-             <div class="col-md-12">
-                 <h4><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/></h4></div>
-         </div>
-         <p></p>
      </div>
      <br />
         <div class="container-fluid rounded border border-secondary bg-ligh">
@@ -65,54 +69,77 @@
      <br />
      <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
-            <div class="col-md-12">
-                <h5>
-                 <asp:GridView ID="Grilla" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1408px" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True" ShowHeader="true" ShowHeaderWhenEmpty="True">
-                <AlternatingRowStyle BackColor="White" />
-                     <Columns>
-                         <asp:BoundField DataField="ID" HeaderText="ID" />
-                         <asp:BoundField DataField="Codigo" HeaderText="Código" />
-                         <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                         <asp:BoundField DataField="pedido" HeaderText="A pedido" />
-                         <asp:TemplateField HeaderText="Stock">
-                             <ItemTemplate>
-                                 <asp:Label ID="lbl_stock" runat="server" Text='<%# Bind("stock") %>'></asp:Label>
-                             </ItemTemplate>
-                         </asp:TemplateField>
-                         <asp:TemplateField HeaderText="Stock Critico">
-                             <ItemTemplate>
-                                 <asp:Label ID="lbl_stock_critico" runat="server" Text='<%# Bind("stock_critico") %>'></asp:Label>
-                             </ItemTemplate>
-                         </asp:TemplateField>
-                     </Columns>
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                </asp:GridView>
-               </h5>
+            <div class="col-md-12 col-center overflow-auto" style="max-width: 2000px; max-height: 400px;">
+                      <h5>
+                         <asp:GridView ID="Grilla" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1604px" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True" ShowHeaderWhenEmpty="True" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Grilla_SelectedIndexChanged">
+                        <AlternatingRowStyle BackColor="White" />
+                             <Columns>
+                                 <asp:BoundField DataField="ID" HeaderText="ID" />
+                                 <asp:BoundField DataField="Codigo" HeaderText="Código" />
+                                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                 <asp:TemplateField HeaderText="Stock">
+                                     <ItemTemplate>
+                                         <asp:Label ID="lbl_stock" runat="server" Text='<%# Bind("stock") %>'></asp:Label>
+                                     </ItemTemplate>
+                                 </asp:TemplateField>
+                                 <asp:BoundField DataField="vendidos" HeaderText="Vendidos" />
+                             </Columns>
+                        <EditRowStyle BackColor="#2461BF" />
+                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                        <RowStyle BackColor="#EFF3FB" />
+                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                        </asp:GridView>
+                     </h5>
             </div>
             <div class="col-md-3">
                 <span><asp:Label ID="lbl_mensaje" runat="server" CssClass="form-control"></asp:Label></span>
             </div>
         </div>
      </div>
-
-
-    <div>
-        <h1>&nbsp;</h1></div>
-        <br />
-        <br />
-                    
-        <br />
-        
-        
+    <br />
+    <div class="container-fluid rounded border border-secondary bg-light" id="consola" style="v">
+        <div class="row">
+            <div class="col-md-12">
+                 <div class="col-md-12"><h4><span class="badge badge-primary">Actualiza Stock Producto</span></h4></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"><h4><span class="badge badge-primary">Código:</span></h4></div>
+            <div class="col-md-3"><h4><asp:Label ID="lbl_codigo" CssClass="form-control badge badge-success text-white" runat="server" Width="113px"></asp:Label><span class="badge badge-primary">
+                <asp:Label ID="lbl_id" runat="server" Visible="False"></asp:Label>
+                </span></h4></div>
+            <div class="col-md-1"><h4><span class="badge badge-primary">Fecha:</span></h4></div>
+            <div class="col-md-3"><h4><asp:Label ID="lbl_fecha" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label></h4></div>
+        </div>
+         <div class="row">
+            <div class="col-md-1"><h4><span class="badge badge-primary">Bodega Entrada:</span></h4></div>
+            <div class="col-md-3"><asp:DropDownList ID="ListBodEntrada" runat="server" CssClass="form-control" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ListBodEntrada_SelectedIndexChanged">
+                <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                </asp:DropDownList></div>
+            <div class="col-md-1"><h4><span class="badge badge-primary">Bodega Salida:</span></h4></div>
+            <div class="col-md-3"><asp:DropDownList ID="ListBodSalida" CssClass="form-control" runat="server" AppendDataBoundItems="True">
+                <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                </asp:DropDownList></div>
+        </div>
+         <div class="row">
+            <div class="col-md-1"><h4><span class="badge badge-primary">Cantidad:</span></h4></div>
+            <div class="col-md-3">
+                <asp:TextBox ID="txt_cantidad" CssClass="form-control" runat="server" Width="111px"></asp:TextBox>
+             </div>
+            <div class="col-md-3">
+                <asp:Button ID="btn_genera_mov_stock" runat="server" Text="Generar Movimiento" CssClass="btn btn-md btn-success" OnClick="btn_genera_mov_stock_Click" Width="169px" />
+             </div>
+        </div>
+    </div>
+ </ContentTemplate>
+     </asp:UpdatePanel>
     </form>
+   
 </body>
 </html>

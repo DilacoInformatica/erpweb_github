@@ -10,7 +10,7 @@
 namespace erpweb {
     
     
-    public partial class WebForm1 {
+    public partial class Stock_Masivo {
         
         /// <summary>
         /// Control form1.
@@ -22,39 +22,48 @@ namespace erpweb {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Control lbl_ambiente.
+        /// Control Btn_volver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
+        protected global::System.Web.UI.WebControls.LinkButton Btn_volver;
         
         /// <summary>
-        /// Control lbl_nombre.
+        /// Control LstLineasVenta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_nombre;
+        protected global::System.Web.UI.WebControls.DropDownList LstLineasVenta;
         
         /// <summary>
-        /// Control lbl_error.
+        /// Control btn_buscar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_error;
+        protected global::System.Web.UI.WebControls.Button btn_buscar;
         
         /// <summary>
-        /// Control GrdProdSinStock.
+        /// Control GridView1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GrdProdSinStock;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// Control btn_procesar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_procesar;
     }
 }

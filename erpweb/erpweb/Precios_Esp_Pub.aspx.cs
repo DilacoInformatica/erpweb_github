@@ -19,6 +19,19 @@ namespace erpweb
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+            }
+
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";

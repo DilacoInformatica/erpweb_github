@@ -73,11 +73,8 @@
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:TemplateField>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                            </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:CheckBox ID="CheckBox1" runat="server" />
+                                <asp:CheckBox ID="ChkSelected" runat="server" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="ID" HeaderText="ID" />

@@ -22,15 +22,20 @@ namespace erpweb
         int id_subcategoria = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
+                Response.Redirect("Ppal.aspx");
             }
             else
             {
-                usuario = Request.QueryString["usuario"].ToString();
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_10", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+               /// lbl_conectado.Text = Session["Usuario"].ToString();
             }
             if (!this.IsPostBack)
             {

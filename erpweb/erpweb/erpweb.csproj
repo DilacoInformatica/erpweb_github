@@ -300,6 +300,7 @@
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Stock.aspx" />
+    <Content Include="Stock_Masivo.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +425,13 @@
     </Compile>
     <Compile Include="Ppal.aspx.designer.cs">
       <DependentUpon>Ppal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Stock_Masivo.aspx.cs">
+      <DependentUpon>Stock_Masivo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Stock_Masivo.aspx.designer.cs">
+      <DependentUpon>Stock_Masivo.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

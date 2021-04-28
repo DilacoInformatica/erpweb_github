@@ -40,6 +40,19 @@ namespace erpweb
             lbl_tax.Style.Add("text-align", "right");
             lbl_total.Style.Add("text-align", "right");
 
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            {
+                Response.Redirect("Ppal.aspx");
+            }
+            else
+            {
+                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_08", Sserver) == "NO")
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+            }
+
             if (!this.IsPostBack)
             {
                 Btn_crearNV.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta NV Web en el ERP, desea proceder?')";

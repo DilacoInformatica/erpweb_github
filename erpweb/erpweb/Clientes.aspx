@@ -92,7 +92,7 @@
     <div class="container-fluid rounded border border-secondary">
             <div class ="row">
                 <div class="col-md-6">
-                    <h5><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-md btn-primary active btn-danger" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="376px" /></h5>
+                    <h5><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-md btn-primary active btn-danger" Text="Eliminar Cliente(s) del Sitio Web" Width="376px" OnClick="Btn_eliminaCLIWEB_Click" /></h5>
                 </div>
             </div>
     </div>
