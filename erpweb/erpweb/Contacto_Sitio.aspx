@@ -7,19 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Contactos Sitio Web</title>
     <link href="css/estilos.css" rel="stylesheet" />
-    <style type="text/css">
-
-        .auto-style35 {
-            height: 39px;
-            width: 621px;
-        }
-        .auto-style34 {
-            width: 141px;
-        }
-        .auto-style32 {
-            width: 90px;
-        }
-        </style>
     <script>
         function valida()
         {

@@ -166,6 +166,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_fecha;
         
         /// <summary>
+        /// Control ListBodSalida.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ListBodSalida;
+        
+        /// <summary>
         /// Control ListBodEntrada.
         /// </summary>
         /// <remarks>
@@ -175,13 +184,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList ListBodEntrada;
         
         /// <summary>
-        /// Control ListBodSalida.
+        /// Control lbl_stock_erp.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ListBodSalida;
+        protected global::System.Web.UI.WebControls.Label lbl_stock_erp;
         
         /// <summary>
         /// Control txt_cantidad.

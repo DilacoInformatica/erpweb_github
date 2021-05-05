@@ -11,6 +11,21 @@
     <script src="scripts/jquery-3.5.1.min.js"></script>
     <script src="scripts/popper.js"></script>
 
+    <style type="text/css">
+        .auto-style1 {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: none;
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -58,7 +73,7 @@
         <div class="container-fluid rounded border border-secondary bg-ligh">
             <div class="row">
                 <div class ="col-md-3">
-                    <h4><asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-md btn-primary"  Text="Actualizar Stock" OnClick="btn_actualizar_Click" /></h4>
+                    <h4><asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-md btn-primary"  Text="Generar cambio masivo de Stock" OnClick="btn_actualizar_Click" /></h4>
                 </div>
                  <div class ="col-md-1">
                     <h4><span class="badge badge-warning"><asp:CheckBox ID="Chk_desactiva_cods" runat="server" Text="Desmarcar opción Ventas para productos con Stock en cero?" TextAlign="Left" /></span></h4>
@@ -69,7 +84,7 @@
      <br />
      <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
-            <div class="col-md-12 col-center overflow-auto" style="max-width: 2000px; max-height: 400px;">
+            <div class="col-md-12 col-center overflow-auto" style="max-width: 2000px; max-height: 450px;">
                       <h5>
                          <asp:GridView ID="Grilla" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1604px" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True" ShowHeaderWhenEmpty="True" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Grilla_SelectedIndexChanged">
                         <AlternatingRowStyle BackColor="White" />
@@ -111,29 +126,41 @@
         </div>
         <div class="row">
             <div class="col-md-1"><h4><span class="badge badge-primary">Código:</span></h4></div>
-            <div class="col-md-3"><h4><asp:Label ID="lbl_codigo" CssClass="form-control badge badge-success text-white" runat="server" Width="113px"></asp:Label><span class="badge badge-primary">
+            <div class="col-md-1"><h4><asp:Label ID="lbl_codigo" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label>
                 <asp:Label ID="lbl_id" runat="server" Visible="False"></asp:Label>
-                </span></h4></div>
+               </h4></div>
             <div class="col-md-1"><h4><span class="badge badge-primary">Fecha:</span></h4></div>
-            <div class="col-md-3"><h4><asp:Label ID="lbl_fecha" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label></h4></div>
+            <div class="col-md-1"><h4><asp:Label ID="lbl_fecha" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label></h4></div>
         </div>
          <div class="row">
-            <div class="col-md-1"><h4><span class="badge badge-primary">Bodega Entrada:</span></h4></div>
-            <div class="col-md-3"><asp:DropDownList ID="ListBodEntrada" runat="server" CssClass="form-control" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="ListBodEntrada_SelectedIndexChanged">
-                <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                </asp:DropDownList></div>
             <div class="col-md-1"><h4><span class="badge badge-primary">Bodega Salida:</span></h4></div>
-            <div class="col-md-3"><asp:DropDownList ID="ListBodSalida" CssClass="form-control" runat="server" AppendDataBoundItems="True">
-                <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                </asp:DropDownList></div>
-        </div>
-         <div class="row">
-            <div class="col-md-1"><h4><span class="badge badge-primary">Cantidad:</span></h4></div>
-            <div class="col-md-3">
-                <asp:TextBox ID="txt_cantidad" CssClass="form-control" runat="server" Width="111px"></asp:TextBox>
+            <div class="col-md-2">
+                <asp:DropDownList ID="ListBodSalida" runat="server" AppendDataBoundItems="True" CssClass="form-control" OnSelectedIndexChanged="ListBodSalida_SelectedIndexChanged" AutoPostBack="True">
+                    <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="col-md-1"><h4><span class="badge badge-primary">Bodega Entrada:</span></h4></div>
+            <div class="col-md-2">
+                <asp:DropDownList ID="ListBodEntrada" runat="server" AppendDataBoundItems="True" CssClass="form-control" OnSelectedIndexChanged="ListBodEntrada_SelectedIndexChanged">
+                    <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                </asp:DropDownList>
+            </div>
+            <div class="col-md-1"><h4><span class="badge badge-primary">Stock en ERP:</span></h4></div>
+            <div class="col-md-1">
+                <span>
+                <asp:Label ID="lbl_stock_erp" runat="server" Text=""></asp:Label>
+                </span>
              </div>
-            <div class="col-md-3">
-                <asp:Button ID="btn_genera_mov_stock" runat="server" Text="Generar Movimiento" CssClass="btn btn-md btn-success" OnClick="btn_genera_mov_stock_Click" Width="169px" />
+             <div class="col-md-1">
+                 <h4><span class="badge badge-primary">Cantidad:</span></h4>
+             </div>
+             <div class="col-md-1">
+                 <h4><span>
+                     <asp:TextBox ID="txt_cantidad" runat="server" CssClass="form-control" Width="42px"></asp:TextBox>
+                     </span></h4>
+             </div>
+            <div class="col-md-1">
+                <asp:Button ID="btn_genera_mov_stock" runat="server" Text="Generar" CssClass="btn btn-md btn-success" OnClick="btn_genera_mov_stock_Click" Width="169px" />
              </div>
         </div>
     </div>
