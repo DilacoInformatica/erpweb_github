@@ -28,17 +28,38 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_05", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
-            }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_05", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
             }
 
             Btn_buscar.Attributes["Onclick"] = "return valida()";
@@ -46,12 +67,7 @@ namespace erpweb
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
             Btn_cargarCliERP.Attributes["Onclick"] = "return confirm('Desea Cargar estos clientes al Sitio Web... Desea Proceder?')";
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
-
-            
+  
 
            // lbl_usuario.Text = iniciales_user;
 

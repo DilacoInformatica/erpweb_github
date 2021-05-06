@@ -7,20 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Detalle Nota de Venta</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <style type="text/css">
-        .auto-style1 {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #495057;
-            background-clip: padding-box;
-            border-radius: 0.25rem;
-            transition: none;
-            border: 1px solid #ced4da;
-            background-color: #fff;
-        }
-    </style>
     </head>
 <body>
     <form id="form1" runat="server">
@@ -37,13 +23,19 @@
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
            <div class="row">
-            <div class="col-sm-12">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            <div class="col-md-4">
+                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
+                </h6>
+             </div>
+             <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+             </div>
+             <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
             </div>
-        </div>
-    </div>
+      </div>
+     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
@@ -236,7 +228,7 @@
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
              <div class="col-md-12">
-                <h4><span class="badge badge-primary">Generar NV de Venta</span></h4>
+                <h6><span class="badge badge-primary">Generar NV de Venta</span></h6>
             </div>
         </div>
         <div class="row">
@@ -268,12 +260,12 @@
                                 </h5>
                         </div>
                         <div class="col-md-2">
-                            <h4><asp:Button ID="Btn_Rechazar" runat="server" CssClass="btn btn-md btn-danger active btn-block" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar Nota de Venta" Width="259px" /></h4>
+                            <h6><asp:Button ID="Btn_Rechazar" runat="server" CssClass="btn btn-md btn-danger active btn-block" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar NV" Width="200px" /></h6>
                         </div>
                         <div class="col-md-2">
-                            <h4><asp:Button ID="Btn_crearNV" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_crearNV_Click" Text="Crear NV en ERP" Width="259px"/>
+                            <h6><asp:Button ID="Btn_crearNV" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_crearNV_Click" Text="Crear NV" Width="200px"/>
                                 
-                            </h4>
+                            </h6>
 
                         </div>
                     </div>
@@ -284,8 +276,15 @@
     <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
-        <asp:GridView ID="lista_detalles" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1781px" ShowFooter="True">
+        <asp:GridView ID="lista_detalles" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1503px" ShowFooter="True" AutoGenerateColumns="False">
             <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:BoundField DataField="Item" HeaderText="Item" />
+                <asp:BoundField DataField="codigo" HeaderText="Código" />
+                <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
+                <asp:BoundField DataField="cantidad" HeaderText="Cantidad" />
+                <asp:BoundField DataField="Valor_Unitario" HeaderText="Precio Unitario" />
+            </Columns>
             <EditRowStyle BackColor="#2461BF" />
             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -308,37 +307,37 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h4><span class="badge badge-info">Moneda</span></h4>
+                            <h6><span class="badge badge-info">Moneda</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
-                            <h4><span class="text-md-right"> <asp:Label ID="lbl_moneda" CssClass="form-control" runat="server" Width="150px"></asp:Label></span></h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-1 float-right">
-                            <h4><span class="badge badge-info">Neto</span></h4>
-                        </div>
-                        <div class="col-md-1 float-right">
-                            <h4><asp:Label ID="lbl_neto" CssClass="form-control" runat="server" Width="150px"></asp:Label></h4>
+                            <h6><span class="text-md-right"> <asp:Label ID="lbl_moneda" CssClass="form-control" runat="server" Width="150px"></asp:Label></span></h6>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h4><span class="badge badge-info">Iva</span></h4>
+                            <h6><span class="badge badge-info">Neto</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
-                            <h4><asp:Label ID="lbl_tax" runat="server" CssClass="form-control" Width="150px"></asp:Label></h4>
+                            <h6><asp:Label ID="lbl_neto" CssClass="form-control" runat="server" Width="150px"></asp:Label></h6>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h4><span class="badge badge-info">Total</span></h4>
+                            <h6><span class="badge badge-info">Iva</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
-                            <h4><asp:Label ID="lbl_total" runat="server" CssClass="form-control" Width="150px"></asp:Label></h4>            
+                            <h6><asp:Label ID="lbl_tax" runat="server" CssClass="form-control" Width="150px"></asp:Label></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-1 float-right">
+                            <h6><span class="badge badge-info">Total</span></h6>
+                        </div>
+                        <div class="col-md-1 float-right">
+                            <h6><asp:Label ID="lbl_total" runat="server" CssClass="form-control" Width="150px"></asp:Label></h6>            
                         </div>
                     </div>
                     <div class="row">

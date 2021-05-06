@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-10">
                             <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Administración de Clientes Sitio Web</h1> 
                         </div>
                         <div class="col-md-1 float-right">
@@ -39,37 +39,41 @@
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
-            <div class="col-sm-12">
-                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            <div class="col-md-3">
+                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
             </div>
-       </div>
-    </div>
+             <div class="col-md-3">
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+            </div>
+             <div class="col-md-3">
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+            </div>
+          </div>
+     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
-        <h4><span class="badge badge-primary">Búsqueda de Información Sitio Web</span></h4>
+        <h6><span class="badge badge-primary">Búsqueda de Información Sitio Web</span></h6>
         <div class="row">
-            <div class="col-md-1"><h4><span class="badge badge-info">ID</span></h4>
-                <h4><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="89px" CssClass="form-control"></asp:TextBox></h4>
+            <div class="col-md-1"><h6><span class="badge badge-info">ID</span></h6>
+                <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="89px" CssClass="form-control"></asp:TextBox></h6>
             </div>
-            <div class="col-md-1"><h4><span class="badge badge-info">Rut</span></h4>
-                <h4><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="145px" CssClass="form-control"></asp:TextBox></h4>
+            <div class="col-md-2"><h6><span class="badge badge-info">Rut</span></h6>
+                <h6><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="145px" CssClass="form-control"></asp:TextBox></h6>
             </div>
-            <div class="col-md-3"><h4><span class="badge badge-info">Razón Social</span></h4>
-                <h4><asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox></h4>
+            <div class="col-md-3"><h6><span class="badge badge-info">Razón Social</span></h6>
+                <h6><asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox></h6>
             </div>
-            <div class="col-md-2"><h4><asp:Button ID="Btn_buscarw" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="162px"/></h4></div>
-            <div class="col-md-2"><h4><asp:Button ID="Btn_autorizar" runat="server" CssClass="btn btn-success" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s) en ERP" /></h4></div>
-            <div class="col-md-2"><h4><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-danger" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) del Sitio Web" Width="242px" /></h4></div>
+            <div class="col-md-2"><h6><asp:Button ID="Btn_buscarw" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="162px"/></h6></div>
+            <div class="col-md-2"><h6><asp:Button ID="Btn_autorizar" runat="server" CssClass="btn btn-success" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s) en ERP" /></h6></div>
+            <div class="col-md-2"><h6><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-danger" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) Sitio Web" Width="242px" /></h6></div>
         </div>
     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-12">
-                <asp:GridView ID="lista_clientes" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1700px" ShowFooter="True" AutoGenerateColumns="False">
+                <asp:GridView ID="lista_clientes" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1417px" ShowFooter="True" AutoGenerateColumns="False">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:TemplateField>
@@ -108,7 +112,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h4><span><asp:Label ID="lbl_cantidad" CssClass="badge badge-success" runat="server" Width="747px"></asp:Label></span></h4>
+                <h6><span><asp:Label ID="lbl_cantidad" CssClass="badge badge-success" runat="server" Width="747px"></asp:Label></span></h6>
             </div>
         </div>
     </div>
@@ -134,17 +138,17 @@
       </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
-        <h4><span class="badge badge-primary">Búsqueda de Información ERP</span></h4>
+        <h6><span class="badge badge-primary">Búsqueda de Información ERP</span></h6>
         <div class="row">
            <div class="col-md-1">
-               <h4><span class="badge badge-info">ID</span></h4>
-               <h4><asp:TextBox ID="txt_id" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="89px"></asp:TextBox></h4></div>
-           <div class="col-md-1"><h4><span class="badge badge-info">Rut</span></h4>
-               <h4><asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" BackColor="#FFFFCC"  Width="145px"></asp:TextBox></h4></div>
-           <div class="col-md-3"><h4><span class="badge badge-info">Razón Social</span></h4>
-               <h4><asp:TextBox ID="txt_razon" runat="server" CssClass="form-control" Width="340px" BackColor="#FFFFCC"></asp:TextBox></h4></div>
-            <div class="col-md-3"><h4><asp:Button ID="Btn_buscar" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="136px" /></h4></div>
-            <div class="col-md-3"><h4><asp:Button ID="Btn_cargarCliERP" runat="server" CssClass="btn btn-success" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Width="242px" /></h4></div>
+               <h6><span class="badge badge-info">ID</span></h6>
+               <h6><asp:TextBox ID="txt_id" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="89px"></asp:TextBox></h6></div>
+           <div class="col-md-2"><h6><span class="badge badge-info">Rut</span></h6>
+               <h6><asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" BackColor="#FFFFCC"  Width="145px"></asp:TextBox></h6></div>
+           <div class="col-md-3"><h6><span class="badge badge-info">Razón Social</span></h6>
+               <h6><asp:TextBox ID="txt_razon" runat="server" CssClass="form-control" Width="340px" BackColor="#FFFFCC"></asp:TextBox></h6></div>
+            <div class="col-md-3"><h6><asp:Button ID="Btn_buscar" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="136px" /></h6></div>
+            <div class="col-md-3"><h6><asp:Button ID="Btn_cargarCliERP" runat="server" CssClass="btn btn-success" Text="Cargar Cliente(s) al Sitio Web" OnClick="Btn_cargarCliERP_Click" Width="242px" /></h6></div>
         </div>
     </div>
     <br />

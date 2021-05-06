@@ -37,7 +37,7 @@ namespace erpweb
         {
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            if (Session["Usuario"].ToString() == "")
             {
                 Response.Redirect("Ppal.aspx");
             }
@@ -47,6 +47,7 @@ namespace erpweb
                 {
                     Response.Redirect("ErrorAcceso.html");
                 }
+                lbl_conectado.Text = Session["Usuario"].ToString();
             }
 
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
@@ -88,8 +89,8 @@ namespace erpweb
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas... Producto se desactivará y no podrá modificarlo')";
-                LinkAct_item.Attributes["Onclick"] = "return confirm('Desea Activar nuevamente el Producto?')";
-               LinkDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
+                ImgBtnAct_item.Attributes["Onclick"] = "return confirm('Desea Activar nuevamente el Producto?')";
+                ImgBtnDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
                 Btn_eliminar_todo.Attributes["Onclick"] = "return confirm('Producto se eliminará en la ficha Web del ERP y del Sitio... Desea Continuar?')";
                 //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
@@ -231,7 +232,8 @@ namespace erpweb
                         if (reader.GetBoolean(49))
                         {
                             lbl_activo.Text = "SI";
-                            LinkDesAct_item.Visible = true;
+                            ImgBtnDesAct_item.Visible = true;
+                            
                         }
                         else
                         {
@@ -240,7 +242,7 @@ namespace erpweb
                             //lbl_status.Text = "Producto desactivado en el ERP... no se puede realizar ninguna acción sobre él hasta que se active nuevamente";
                             lbl_status.Text = "Producto no publicado en Sitio Web.";
                             lbl_status.ForeColor = Color.Red;
-                            LinkAct_item.Visible = true;
+                            ImgBtnAct_item.Visible = true;
                         }
 
 
@@ -520,7 +522,7 @@ namespace erpweb
                         lbl_stock.Text = consulta_stock_erp(id_item);
 
                         if (lbl_web.Text == "SI") {
-                            actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
+                         //   actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
                             lbl_stock_critico.Text = consulta_stock_critico_web(id_item);
 
                             if (Convert.ToInt32(lbl_stock.Text) > Convert.ToInt32(lbl_stock_critico.Text))
@@ -1163,7 +1165,7 @@ namespace erpweb
 
                         marca_producto_publicado(id_item, "I");
 
-                        actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
+                       // actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
 
                         validamysql(id_item);
 
@@ -1317,7 +1319,7 @@ namespace erpweb
             }
         }
 
-        void actualiza_stock_web (int id_item,double stock)
+        void actualiza_stock_web (int id_item,double stock, int id_bodega)
         {
             string result = "";
             using (MySqlConnection connection = new MySqlConnection(SMysql))
@@ -1335,6 +1337,9 @@ namespace erpweb
 
                     cmd.Parameters.AddWithValue("@v_stock", stock);
                     cmd.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_bodega", id_bodega);
+                    cmd.Parameters["@v_id_bodega"].Direction = ParameterDirection.Input;
 
                     using (MySqlDataReader rdr = cmd.ExecuteReader())
                     {
@@ -2464,7 +2469,7 @@ namespace erpweb
                 if (lbl_activo.Text == "NO")
                 {
                     activa_item();
-                    LinkAct_item.Visible = false;
+                    ImgBtnAct_item.Visible = false;
                     muestra_info(id_item);
                     lbl_status.Text = "Producto activado... Visible en el Sitio Web";
                 }
@@ -2550,7 +2555,7 @@ namespace erpweb
                 if (lbl_activo.Text == "SI")
                 {
                     desactiva_producto();
-                    LinkDesAct_item.Visible = false;
+                    ImgBtnDesAct_item.Visible = false;
                     muestra_info(id_item);
                    // elimna_item();
                     lbl_status.Text = "Código desactivado y deja de estar publicado en el Sitio Web";
@@ -2754,5 +2759,35 @@ namespace erpweb
             }
         }
 
+        protected void ImgBtnAct_item_Click(object sender, ImageClickEventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                if (lbl_activo.Text == "NO")
+                {
+                    activa_item();
+                    ImgBtnAct_item.Visible = false;
+                    muestra_info(id_item);
+                    lbl_status.Text = "Producto activado... Visible en el Sitio Web";
+                }
+            }
+        }
+
+        protected void ImgBtnDesAct_item_Click(object sender, ImageClickEventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                if (lbl_activo.Text == "SI")
+                {
+                    desactiva_producto();
+                    ImgBtnDesAct_item.Visible = false;
+                    muestra_info(id_item);
+                    // elimna_item();
+                    lbl_status.Text = "Código desactivado y deja de estar publicado en el Sitio Web";
+                }
+            }
+        }
     }
  }

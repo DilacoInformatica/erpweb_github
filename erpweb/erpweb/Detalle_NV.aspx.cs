@@ -41,16 +41,38 @@ namespace erpweb
             lbl_total.Style.Add("text-align", "right");
 
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_08", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
-            }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_08", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
             }
 
             if (!this.IsPostBack)
@@ -380,7 +402,7 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "select dn.item Item, it.codigo 'Código', it.descripcion 'Descripción' , dn.cantidad 'Cantidad', dn.Valor_Unitario 'Precio Unitario' ";
+            queryString = "select dn.item Item, it.codigo , it.descripcion  , dn.cantidad , dn.Valor_Unitario ";
             queryString = queryString + "from tbl_items_nv dn inner join tbl_items it on it.id_item = dn.id_item ";
             queryString = queryString + "where dn.Id_Nta_Vta = " + id_nv;
 

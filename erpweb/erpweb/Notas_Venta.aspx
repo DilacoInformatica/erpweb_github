@@ -23,7 +23,7 @@
     <form id="form1" runat="server">
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-10">
                         <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Notas de Venta generadas en Sitio Web</h1>
                     </div>
                     <div class="col-md-1 float-right">
@@ -34,21 +34,37 @@
                 </div>
         </div>
         <br />
+         <div class="container-fluid rounded border border-secondary bg-light">
+         <div class="row">
+            <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
+                </h6>
+            </div>
+            <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+            </div>
+            <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+            </div>
+       </div>
+    </div>
+    <br />
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
+                        <h6><span class="badge badge-primary">Búsqueda de Información</span></h6>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-1">
-                        <h4><span class="badge badge-info">Nota de Venta</span> </h4>
+                    <div class="col-2">
+                        <h6><span class="badge badge-info">Nota de Venta</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_nv" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
-                    <div class="col-1">
-                        <h4><span class="badge badge-info">Rut Cliente</span> </h4>
+                    <div class="col-2">
+                        <h6><span class="badge badge-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
@@ -58,23 +74,11 @@
                     </div>
                 </div>
         </div>
-           <br />
-    <div class="container-fluid rounded border border-secondary bg-light">
-         <div class="row">
-            <div class="col-md-12">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
-                </h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
-            </div>
-       </div>
-    </div>
-    <br />
+        
         <br />        <div class="container-fluid bg-light">
                 <div class="row">
                     <div class="col-md-6">
-                       <h4><asp:Label ID="lbl_cantidad" runat="server" CssClass="badge badge-primary"></asp:Label></h4>
+                       <h6><asp:Label ID="lbl_cantidad" runat="server" CssClass="badge badge-primary"></asp:Label></h6>
                     </div>
                 </div>
                 
@@ -84,7 +88,7 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1900px">
+                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1467px">
                         <AlternatingRowStyle BackColor="White" />
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -104,7 +108,7 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h4>
+                        <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h6>
                     </div>
                 </div>
         </div>

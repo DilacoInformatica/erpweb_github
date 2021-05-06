@@ -21,23 +21,39 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_03", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_03", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
-            }
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
-          
             //Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
             if (!this.IsPostBack)
             {

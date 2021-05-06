@@ -22,14 +22,19 @@
           </div>
      </div>
     <br />
-    <div class="container-fluid rounded border border-secondary bg-light">
-         <div class="row">
-            <div class="col-sm-12">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+        <div class="container-fluid rounded border border-secondary bg-light">
+        <div class="row">
+            <div class="col-md-4">
+                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
             </div>
-       </div>
+            <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+            </div>
+            <div class="col-md-4">
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+            </div>
+        </div>
     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
@@ -62,8 +67,21 @@
      <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
              <div class="col-md-12">
-                <asp:GridView ID="lista" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1900px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="lista_SelectedIndexChanged" ShowFooter="True">
+                <asp:GridView ID="lista" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1768px" AutoGenerateSelectButton="True" OnSelectedIndexChanged="lista_SelectedIndexChanged" ShowFooter="True" AutoGenerateColumns="False">
                 <AlternatingRowStyle BackColor="White" />
+                    <Columns>
+                        <asp:BoundField DataField="id_cliente" HeaderText="ID" />
+                        <asp:BoundField DataField="rut" HeaderText="Rut" />
+                        <asp:BoundField DataField="dv_rut" HeaderText="DV" />
+                        <asp:BoundField DataField="razon_social" HeaderText="Razón Social" />
+                        <asp:BoundField DataField="telefono" HeaderText="Teléfono" />
+                        <asp:BoundField DataField="telefono2" HeaderText="Teléfono2" />
+                        <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                        <asp:BoundField DataField="comuna" HeaderText="Comuna" />
+                        <asp:BoundField DataField="ciudad" HeaderText="Ciudad" />
+                        <asp:BoundField DataField="id_region" HeaderText="Región" />
+                        <asp:BoundField DataField="email" HeaderText="Email" />
+                    </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                 <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -134,17 +152,24 @@
             <p></p>
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1900px" ShowFooter="True">
+                    <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1400px" ShowFooter="True" AutoGenerateColumns="False">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:TemplateField>
-                                <EditItemTemplate>
-                                    <asp:CheckBox ID="CheckBox1" runat="server" />
-                                </EditItemTemplate>
                                 <ItemTemplate>
                                     <asp:CheckBox ID="Chk_selecciona" runat="server" />
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:BoundField DataField="id" HeaderText="Id" />
+                            <asp:BoundField DataField="rut" HeaderText="Rut" />
+                            <asp:BoundField DataField="dv_rut" HeaderText="DV" />
+                            <asp:BoundField DataField="razon_social" HeaderText="Razón Social" />
+                            <asp:BoundField DataField="telefono" HeaderText="Teléfono" />
+                            <asp:BoundField DataField="telefono2" HeaderText="Teléfono2" />
+                            <asp:BoundField DataField="direccion" HeaderText="Dirección" />
+                            <asp:BoundField DataField="comuna" HeaderText="Comuna" />
+                            <asp:BoundField DataField="ciudad" HeaderText="Ciudad" />
+                            <asp:BoundField DataField="email" HeaderText="Email" />
                         </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

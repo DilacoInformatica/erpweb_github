@@ -21,6 +21,18 @@
             padding-left: 15px;
             padding-right: 15px;
         }
+        .auto-style2 {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: none;
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
         </style>
 </head>
 <body>
@@ -36,38 +48,44 @@
           </div>
      </div>
      <br />
-         <div class="container-fluid rounded border border-secondary bg-light">
-        <div class="row">
-            <div class="col-sm-12">
-                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+        <div class="container-fluid rounded border border-secondary bg-light">
+            <div class="row">
+                <div class="col-md-3">
+                    <h6><span>
+                        <asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span>
+                        <asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-3">
+                    <h6><span>
+                        <asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                </div>
+                <div class="col-md-3">
+                    <h6><span>
+                        <asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                </div>
             </div>
         </div>
-    </div>
     <br />
      <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-12">
-                <div class="jumbotron">
-                    <h2>En esta pantalla Ud podrá generar actualizaciones masivas de Stock de productos que están publicados en la Web, seleccione Línea de Ventas o genere un sólo proceso... 
-                    Consulte con el numero Interno en el ERP el resultado una vez finalizado el procedimiento.</h2>
-                </div>
+                    <h6>En esta pantalla Ud podrá generar actualizaciones masivas de Stock de productos que están publicados en la Web, seleccione Línea de Ventas o genere un sólo proceso... 
+                    Consulte con el numero Interno en el ERP el resultado una vez finalizado el procedimiento.</h6>
             </div>
          </div>
      </div>
       <br />
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
-                <div class="auto-style1">
-                    <h2><span class="badge badge-pill badge-primary">Búsqueda de Información</span></h2>
+                <div class="col-md-12">
+                    <h4><span class="badge badge-pill badge-primary">Búsqueda de Información</span></h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    <h4>
-                        <label class="badge badge-pill badge-success">Desde:</label></h4>
+                    <h6>
+                        <label class="badge badge-pill badge-success">Desde:</label></h6>
                 </div>
                 <div class="col-md-2">
                     <asp:DropDownList ID="ListBodSalida" CssClass="form-control" runat="server" AppendDataBoundItems="True">
@@ -75,8 +93,8 @@
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-1">
-                    <h4>
-                        <label class="badge badge-pill badge-success">Hasta:</label></h4>
+                    <h6>
+                        <label class="badge badge-pill badge-success">Hasta:</label></h6>
                 </div>
                 <div class="col-md-2">
                     <asp:DropDownList ID="ListBodEntrada" runat="server" CssClass="form-control" AppendDataBoundItems="True" AutoPostBack="True">
@@ -84,11 +102,11 @@
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
-                    <h4>
-                        <label class="badge badge-pill badge-success">Línea de Ventas:</label></h4>
+                    <h6>
+                        <label class="badge badge-pill badge-success">Línea de Ventas:</label></h6>
                 </div>
                 <div class="col-md-3">
-                    <asp:DropDownList ID="LstLineasVenta" CssClass="form-control" runat="server" AppendDataBoundItems="True">
+                    <asp:DropDownList ID="LstLineasVenta" CssClass="auto-style2" runat="server" AppendDataBoundItems="True" Width="233px">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </div>
@@ -102,15 +120,12 @@
         <div class="row">
             <div class="col-md-12">
 
-                <asp:GridView ID="Grilla_items" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1800px" AutoGenerateColumns="False" OnRowDataBound="Grilla_items_RowDataBound" OnSelectedIndexChanged="Grilla_items_SelectedIndexChanged">
+                <asp:GridView ID="Grilla_items" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1425px" AutoGenerateColumns="False" OnRowDataBound="Grilla_items_RowDataBound" OnSelectedIndexChanged="Grilla_items_SelectedIndexChanged">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
                         <asp:BoundField HeaderText="Código" DataField="codigo" />
                         <asp:BoundField HeaderText="Descripción" DataField="descripcion" />
-                        <asp:BoundField HeaderText="Línea de Ventas" DataField="linea" />
-                        <asp:BoundField HeaderText="Bodega Entrada" DataField="Bodega_entrada" />
                         <asp:BoundField HeaderText="Stock Bod Entrada" DataField="Stock_bodega_entrada" />
-                        <asp:BoundField HeaderText="Bodega Salida" DataField="Bodega_salida" />
                         <asp:BoundField HeaderText="Stock Bod Salida" DataField="Stock_bodega_salida" />
                         <asp:TemplateField HeaderText="% de Prod a mover">
                             <ItemTemplate>

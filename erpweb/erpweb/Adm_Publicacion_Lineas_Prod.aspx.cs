@@ -31,26 +31,38 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
-            Btn_Grabar.Attributes["Onclick"] = "return confirm('Desea grabar cambios, estos pueden afectar a toda la rama de la familia involucrada?')";
+            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_09", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
 
-            if (Session["Usuario"].ToString() == "")
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), " 	OPC_009_09", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
-            }
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
 
             if (!this.IsPostBack)
             {
@@ -236,8 +248,8 @@ namespace erpweb
                                     Txt_Id_ERP.Text = Convert.ToString(rdr.GetInt32(0));
                                     Txt_Cod_ERP.Text = rdr.GetString(1);
                                     Txt_Desc_ERP.Text = rdr.GetString(2);
-                                    Txt_Orden_ERP.Text = Convert.ToString(rdr.GetInt32(4));
-                                    if (Convert.ToString(rdr.GetBoolean(5)) == "True") { Chk_Activo_ERP.Checked = true; } else { Chk_Activo_ERP.Checked = false; }
+                                    Txt_Orden_ERP.Text = rdr.GetInt32(3).ToString();
+                                    if (Convert.ToString(rdr.GetBoolean(4)) == "True") { Chk_Activo_ERP.Checked = true; } else { Chk_Activo_ERP.Checked = false; }
                                     if (consulta_estado_publicacion("F", id_familia, 0, 0) == 0) {Chk_En_Sitio_ERP.Checked = false;} else { Chk_En_Sitio_ERP.Checked = true; }
                                 }
                             }
@@ -635,7 +647,7 @@ namespace erpweb
                     publicado.Checked = true;
                 }
 
-                txt_etiqueta_web.Text = consulta_etiqueta_web(Convert.ToInt32(Txt_Id_ERP.Text), Convert.ToInt32(drv["ID_Categoria"]), Convert.ToInt32(drv["ID_SubCategoria"]), "S");
+                txt_etiqueta_web.Text = consulta_etiqueta_web(Convert.ToInt32(Txt_Id_ERP.Text), Convert.ToInt32(lbl_cat.Text), Convert.ToInt32(drv["ID_SubCategoria"]), "S");
 
                 e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;

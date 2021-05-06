@@ -49,6 +49,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_ambiente;
         
         /// <summary>
+        /// Control lbl_conectado.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_conectado;
+        
+        /// <summary>
         /// Control lbl_status.
         /// </summary>
         /// <remarks>

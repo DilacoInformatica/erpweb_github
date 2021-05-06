@@ -20,16 +20,38 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
-            }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
             }
 
             Sserver = utiles.verifica_ambiente("SSERVER");
@@ -49,16 +71,16 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "Select top 10 rr.id_cliente id ";
-            queryString = queryString + ",rr.rut 'Rut' ";
-            queryString = queryString + ",rr.dv_rut 'dv' ";
-            queryString = queryString + ",rr.razon_social 'Razón Social' ";
-            queryString = queryString + ",rr.telefono 'Teléfono' ";
-            queryString = queryString + ",rr.telefono2 'Teléfono2' ";
-            queryString = queryString + ",rr.direccion 'Dirección' ";
-            queryString = queryString + ",rr.comuna 'Comuna' ";
-            queryString = queryString + ",rr.ciudad 'Ciudad' ";
-            queryString = queryString + ",rr.id_region 'Region' ";
+            queryString = "Select top 10 rr.id_cliente";
+            queryString = queryString + ",rr.rut ";
+            queryString = queryString + ",rr.dv_rut ";
+            queryString = queryString + ",rr.razon_social ";
+            queryString = queryString + ",rr.telefono ";
+            queryString = queryString + ",rr.telefono2 ";
+            queryString = queryString + ",rr.direccion  ";
+            queryString = queryString + ",rr.comuna ";
+            queryString = queryString + ",rr.ciudad ";
+            queryString = queryString + ",rr.id_region ";
             queryString = queryString + ",rr.Email ";
             queryString = queryString + "FROM( ";
             queryString = queryString + "SELECT distinct cl.id_cliente, Rut, Dv_Rut, Razon_Social, Telefono, Telefono2, sc.Direccion, sc.Comuna, sc.Ciudad, sc.Id_Region, cl.email ";
@@ -304,7 +326,7 @@ namespace erpweb
             lbl_comuna.Text = Context.Server.HtmlDecode(row.Cells[8].Text);
             lbl_ciudad.Text = Context.Server.HtmlDecode(row.Cells[9].Text);
             lbl_región.Text = row.Cells[10].Text;
-            lbl_email.Text = Context.Server.HtmlDecode(row.Cells[11].Text);
+            lbl_email.Text = Context.Server.HtmlDecode(row.Cells[10].Text);
         }
 
         void carga_productos_asociados(string id_cliente)
@@ -387,5 +409,6 @@ namespace erpweb
         {
             Response.Redirect("Precios_Esp_Adm.aspx");
         }
+
     }
 }

@@ -21,22 +21,39 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_04", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
-            }
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
 
             if (!this.IsPostBack)
             {
@@ -49,7 +66,7 @@ namespace erpweb
         {
             String queryString = "";
             lbl_mensaje.Text = "";
-            queryString = "select cl.id_cliente ID_Cliente, cl.rut + '-' + cl.Dv_Rut Rut, cl.razon_social 'Razón Social', pe.id_item ID_Item,  pe.codigo 'Código', pe.descripcion 'Descripción', mn.Sigla Moneda, pe.precio_lista 'Precio Lista', pe.precio 'Precio' ";
+            queryString = "select cl.id_cliente, cl.rut + '-' + cl.Dv_Rut Rut, SUBSTRING(cl.razon_social,1,30) razon_social , pe.id_item ID_Item,  pe.codigo, SUBSTRING(pe.descripcion,1,30) descripcion, mn.Sigla Moneda, pe.precio_lista , pe.precio ";
             queryString = queryString + "from tbl_clientes cl, tbl_precios_especiales pe, tbl_Monedas mn ";
             queryString = queryString + "where cl.ID_Cliente = pe.ID_Cliente ";
             queryString = queryString + "and pe.id_moneda = mn.ID_Moneda ";

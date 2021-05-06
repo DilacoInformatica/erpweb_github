@@ -24,11 +24,15 @@
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
           <div class="row">
-            <div class="col-sm-12">
-                                 <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+            <div class="col-md-12">
+                   <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+            </div>
+            <div class="col-md-12">
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+            </div>
+            <div class="col-md-12">
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
             </div>
         </div>
     </div>
@@ -40,19 +44,19 @@
                 </div>
             </div>
             <div class="row">
-                    <div class="col-1">
-                        <h4><span class="badge badge-info">Cotización</span> </h4>
+                    <div class="col-md-1">
+                        <h6><span class="badge badge-info">Cotización</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_cotizacion" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
-                    <div class="col-1">
-                        <h4><span class="badge badge-info">Rut Cliente</span> </h4>
+                    <div class="col-md-1">
+                        <h6><span class="badge badge-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                     </div>
-                     <div class="col-2">
+                     <div class="col-md-2">
                          <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
                     </div>
             </div>
@@ -61,7 +65,7 @@
    <div class="container-fluid bg-light">
             <div class="row">
                     <div class="col-md-6">
-                       <h4><asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h4>
+                       <h6><asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h6>
                     </div>
                 </div>
                  <div class="row">
@@ -93,7 +97,7 @@
       <div class="container-fluid rounded">
             <div class="row">
                 <div class="col-md-12">
-                    <h4><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h4>
+                    <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h6>
                 </div>
             </div>
         </div>

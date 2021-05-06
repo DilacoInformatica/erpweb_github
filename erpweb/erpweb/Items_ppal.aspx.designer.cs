@@ -94,6 +94,24 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_palabra_clave;
         
         /// <summary>
+        /// Control txt_codigo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_codigo;
+        
+        /// <summary>
+        /// Control txt_codprov.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_codprov;
+        
+        /// <summary>
         /// Control LstDivision.
         /// </summary>
         /// <remarks>
@@ -146,24 +164,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList LstProveedores;
-        
-        /// <summary>
-        /// Control txt_codigo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_codigo;
-        
-        /// <summary>
-        /// Control txt_codprov.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_codprov;
         
         /// <summary>
         /// Control chk_sin_cat.

@@ -21,31 +21,31 @@
                 <div class="col-md-12">
                     <ul class="nav">
                     <li class="nav-item">
-                        <h4><a class="nav-link active" href="Ppal.aspx">Inicio</a></h4>
+                        <h6><a class="nav-link active" href="Ppal.aspx">Inicio</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Items_ppal.aspx">Productos</a></h4>
+                        <h6><a class="nav-link" href="Items_ppal.aspx">Productos</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Adm_Clientes.aspx">Clientes</a></h4>
+                        <h6><a class="nav-link" href="Adm_Clientes.aspx">Clientes</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="stock.aspx">Stock</a></h4>
+                        <h6><a class="nav-link" href="stock.aspx">Stock</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Líneas de Venta</a>
+                        <h6><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Líneas de Venta</a>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Notas_Venta.aspx">Notas de Venta</a></h4>
+                        <h6><a class="nav-link" href="Notas_Venta.aspx">Notas de Venta</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Cotizaciones.aspx">Cotizaciones</a></h4>
+                        <h6><a class="nav-link" href="Cotizaciones.aspx">Cotizaciones</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h4><a class="nav-link" href="Precios_Esp_Adm.aspx">Precios Especiales</a></h4>
+                        <h6><a class="nav-link" href="Precios_Esp_Adm.aspx">Precios Especiales</a></h6>
                     </li>
                     <li>
-                        <h4><span class="nav-link"><a class="nav-link" href="#" onclick="return salir();">Salir</a></span></h4>
+                        <h6><span class="nav-link"><a class="nav-link" href="#" onclick="return salir();">Salir</a></span></h6>
                     </li>
                     </ul>
                </div>
@@ -75,7 +75,6 @@
                     <div class="container">
                                 <div class="row">
                                     <div class="col-md-7 col-center">
-                                        <span class="text-primary">Productos sin Stock</span>
                                         <asp:GridView ID="GrdProdSinStock" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" Width="1088px" CaptionAlign="Top" AutoGenerateColumns="False" OnRowDataBound="GrdProdSinStock_RowDataBound">
                                             <AlternatingRowStyle BackColor="White" />
                                             <Columns>

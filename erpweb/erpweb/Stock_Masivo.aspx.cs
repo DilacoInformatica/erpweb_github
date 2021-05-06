@@ -21,29 +21,41 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_10", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
+
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
+
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_10", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
-            }
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
 
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+ 
 
             if (!this.IsPostBack)
             {
@@ -169,9 +181,9 @@ namespace erpweb
                 e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+               // e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+               // e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+              //  e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 
@@ -234,7 +246,7 @@ namespace erpweb
                                 txt_cantidadd_a_mover.Text = Convert.ToString(v_cantidad);
                                 crea_det_mov_interbodegas(row.Cells[0].Text, v_cantidad, v_id_mst);
                                 v_id_item = retorna_id_producto(row.Cells[0].Text.Trim());
-                                actualiza_stock_web(v_id_item, v_cantidad);
+                                actualiza_stock_web(v_id_item, v_cantidad, Convert.ToInt32(ListBodSalida.SelectedValue));
                             }
                         }
                         lbl_status.Text = "Proceso terminado correctamente, puede revisarlo en el ERP con el numero Interno N° " + v_id_mst;
@@ -251,7 +263,7 @@ namespace erpweb
             btn_procesar.Visible = false;
         }
 
-        void actualiza_stock_web(int id_item, double stock)
+        void actualiza_stock_web(int id_item, double stock, int id_bodega)
         {
             string result = "";
             using (MySqlConnection connection = new MySqlConnection(SMysql))
@@ -269,6 +281,9 @@ namespace erpweb
 
                     cmd.Parameters.AddWithValue("@v_stock", stock);
                     cmd.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_bodega", id_bodega);
+                    cmd.Parameters["@v_id_bodega"].Direction = ParameterDirection.Input;
 
                     using (MySqlDataReader rdr = cmd.ExecuteReader())
                     {
