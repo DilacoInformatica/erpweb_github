@@ -24,15 +24,15 @@
     <div class="container-fluid rounded border border-secondary bg-light">
            <div class="row">
             <div class="col-md-4">
-                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                 <h5<span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
                     <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
-                </h6>
+                </h5>
              </div>
              <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
              </div>
              <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark"></asp:Label></span></h5>
             </div>
       </div>
      </div>

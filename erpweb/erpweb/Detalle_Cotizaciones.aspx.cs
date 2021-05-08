@@ -636,8 +636,9 @@ namespace erpweb
                     lbl_status.Text = "Cotización creada correctamente en el ERP, aparecerá en el Home del usuario a quien fue asignada";
                     v_email = utiles.obtiene_email_usuario(Convert.ToInt32(Lista_Vendedores.SelectedItem.Value.ToString()), Sserver);
                     utiles.actualiza_historial_nv(v_id_cotizacion, usuario, "Se crea Cotización Web", Sserver, "COT");
-                    utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
-                    Btn_crearCot.Enabled = false;
+                //utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
+                utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", "saranda@dilaco.com");
+                Btn_crearCot.Enabled = false;
                 }
                 // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
         }

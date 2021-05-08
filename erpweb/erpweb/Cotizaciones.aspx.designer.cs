@@ -85,6 +85,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_rut;
         
         /// <summary>
+        /// Control LstEstados.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LstEstados;
+        
+        /// <summary>
         /// Control Btn_buscar.
         /// </summary>
         /// <remarks>

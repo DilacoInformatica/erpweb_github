@@ -333,8 +333,8 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "Select x.Id_Item Id, x.Codigo 'Código', x.Descripcion 'Descripción', x.prodpedido 'Prod a pedido', x.visible, x.cotizaciones, x.ventas, ";
-            queryString = queryString + " (select sigla from tbl_monedas where id_moneda = x.id_moneda) 'Moneda' , x.precio_lista 'Precio Lista', x.Precio ";
+            queryString = "Select x.Id_Item Id, x.Codigo, x.Descripcion, x.prodpedido, x.visible, x.cotizaciones, x.ventas, ";
+            queryString = queryString + " (select sigla from tbl_monedas where id_moneda = x.id_moneda) moneda , x.precio_lista, x.Precio ";
             queryString = queryString + "FROM( ";
             queryString = queryString + "select tbl_Descuentos_Unitarios.Id_Cliente, ";
             queryString = queryString + "tbl_items.Id_Item, ";

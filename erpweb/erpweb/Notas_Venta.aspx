@@ -37,15 +37,15 @@
          <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
                     <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
-                </h6>
+                </h5>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h5<span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark"></asp:Label></span></h5>
             </div>
        </div>
     </div>
@@ -57,17 +57,23 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-1">
                         <h6><span class="badge badge-info">Nota de Venta</span> </h6>
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txt_nv" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
+                        <asp:TextBox ID="txt_nv" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
-                    <div class="col-2">
+                    <div class="col-1">
                         <h6><span class="badge badge-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
+                        <asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
+                    </div>
+                    <div class="col-md-1">
+                        <h6><span class="badge badge-info">Estado NV</span> </h6>
+                    </div>
+                     <div class="col-md-2">
+                        <h6><asp:DropDownList ID="LstEstadoNV" Width="296px" CssClass="form-control" runat="server"></asp:DropDownList></h6>
                     </div>
                      <div class="col-2">
                          <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
@@ -88,8 +94,28 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1467px">
+                        <asp:GridView ID="Lista_notas" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" Width="1467px" AutoGenerateColumns="False">
                         <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:BoundField DataField="Nta_vta_num" HeaderText="Nota Venta" />
+                                <asp:BoundField DataField="fecha" HeaderText="Fecha" />
+                                <asp:BoundField DataField="Id_cliente" HeaderText="Id Cliente" />
+                                <asp:BoundField DataField="rut" HeaderText="Rut" />
+                                <asp:BoundField DataField="Razon_Social" HeaderText="Cliente" />
+                                <asp:BoundField DataField="neto" HeaderText="Neto" />
+                                <asp:BoundField DataField="Tax_venta" HeaderText="IVA" />
+                                <asp:BoundField DataField="Suma_total" HeaderText="Total" />
+                                <asp:BoundField DataField="No_transaccion_web" HeaderText="N° Transac. Webpay" />
+                                <asp:BoundField DataField="Status_SitioWeb" HeaderText="Estado" />
+                                <asp:TemplateField HeaderText="N° NV ERP">
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemTemplate>
+                                        <asp:Label ID="lbl_num_nv_erp" runat="server"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                            </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                         <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

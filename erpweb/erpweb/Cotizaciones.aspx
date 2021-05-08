@@ -48,13 +48,21 @@
                         <h6><span class="badge badge-info">Cotización</span> </h6>
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txt_cotizacion" runat="server" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
+                        <asp:TextBox ID="txt_cotizacion" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
                     <div class="col-md-1">
                         <h6><span class="badge badge-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
-                        <asp:TextBox ID="txt_rut" runat="server" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
+                        <asp:TextBox ID="txt_rut" runat="server" Width="121px" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox>
+                    </div>
+                    <div class="col-md-1">
+                        <h6><span class="badge badge-info">Estado Cotización</span> </h6>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><asp:DropDownList ID="LstEstados" runat="server" CssClass="form-control" Width="296px" AppendDataBoundItems="True">
+                            <asp:ListItem Selected="True">Seleccione</asp:ListItem>
+                            </asp:DropDownList></h6>
                     </div>
                      <div class="col-md-2">
                          <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
@@ -77,8 +85,30 @@
       <div class="container-fluid border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="Lista_cotizacion" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_cotizacion_SelectedIndexChanged" Width="1776px">
+                    <asp:GridView ID="Lista_cotizacion" CssClass="table table-responsive-md" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" ShowFooter="True" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_cotizacion_SelectedIndexChanged" Width="1791px" AutoGenerateColumns="False" OnRowDataBound="Lista_cotizacion_RowDataBound">
                     <AlternatingRowStyle BackColor="White" />
+                        <Columns>
+                            <asp:BoundField DataField="Id_cotizacion" HeaderText="Id" />
+                            <asp:BoundField DataField="Cotizac_Num" HeaderText="Cotización" />
+                            <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
+                            <asp:BoundField DataField="ERP" HeaderText="Cliente ERP" />
+                            <asp:BoundField DataField="Empresa" HeaderText="Empresa" />
+                            <asp:BoundField DataField="Rut" HeaderText="Rut" />
+                            <asp:BoundField DataField="Dv" HeaderText="Dv" />
+                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                            <asp:BoundField DataField="Apellido" HeaderText="Apellidos" />
+                            <asp:BoundField DataField="Pais" HeaderText="País" />
+                            <asp:BoundField DataField="tipo_cot" HeaderText="Tipo Cot" />
+                            <asp:BoundField DataField="Estado" HeaderText="Estado" />
+                            <asp:TemplateField HeaderText="N° Cot ERP">
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_num_cot_erp" runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

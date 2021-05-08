@@ -99,7 +99,7 @@
     <br />
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
-                <div class="col-xs-1">
+                <div class="col-md-1">
                     <h6><span class="badge badge-info">ID</span></h6>
                     <h6><span><asp:Label ID="lbl_id" CssClass="form-check-label" runat="server" Width="136px"></asp:Label></span></h6>
                 </div>
@@ -108,37 +108,18 @@
                      <h6><span><asp:Label ID="lbl_rut" runat="server"></asp:Label>
                         <asp:Label ID="lbl_dv" runat="server" CssClass="form-check-label" Visible="False"></asp:Label></span></h6>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-6">
                      <h6><span class="badge badge-info">Razón Social</span></h6>
                      <h6><span><asp:Label ID="lbl_razon"  CssClass="form-check-label" runat="server"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-info">Teléfono</span></h6>
-                     <h6><span><asp:Label ID="lbl_fono"  CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                 <div class="col-md-1">
-                     <h6><span class="badge badge-info">Teléfono2</span></h6>
-                     <h6><span><asp:Label ID="lbl_fono2" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                <div class="col-md-3">
-                     <h6><span class="badge badge-info">Dirección</span></h6>
-                     <h6><span><asp:Label ID="lbl_direccion" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                <div class="col-md-1">
-                     <h6><span class="badge badge-info">Ciudad</span></h6>
-                     <h6><span><asp:Label ID="lbl_ciudad" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                 <div class="col-md-1">
-                     <h6><span class="badge badge-info">Comuna</span></h6>
-                     <h6><span><asp:Label ID="lbl_comuna" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                 <div class="col-md-1">
-                     <h6><span class="badge badge-info">Región</span></h6>
-                     <h6><span><asp:Label ID="lbl_región" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
-                </div>
-                 <div class="col-md-1">
-                     <h6><span class="badge badge-info">Email</span></h6>
-                     <h6><span><asp:Label ID="lbl_email" CssClass="form-check-label" runat="server"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_fono"  CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_fono2" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_direccion" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_ciudad" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_comuna" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_región" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
+                     <h6><span><asp:Label ID="lbl_email" CssClass="form-check-label" runat="server" Visible="false"></asp:Label></span></h6>
                 </div>
             </div>
         </div>
@@ -161,15 +142,15 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:BoundField DataField="id" HeaderText="Id" />
-                            <asp:BoundField DataField="rut" HeaderText="Rut" />
-                            <asp:BoundField DataField="dv_rut" HeaderText="DV" />
-                            <asp:BoundField DataField="razon_social" HeaderText="Razón Social" />
-                            <asp:BoundField DataField="telefono" HeaderText="Teléfono" />
-                            <asp:BoundField DataField="telefono2" HeaderText="Teléfono2" />
-                            <asp:BoundField DataField="direccion" HeaderText="Dirección" />
-                            <asp:BoundField DataField="comuna" HeaderText="Comuna" />
-                            <asp:BoundField DataField="ciudad" HeaderText="Ciudad" />
-                            <asp:BoundField DataField="email" HeaderText="Email" />
+                            <asp:BoundField DataField="codigo" HeaderText="Código" />
+                            <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
+                            <asp:BoundField DataField="prodpedido" HeaderText="Prod a Pedido" />
+                            <asp:BoundField DataField="visible" HeaderText="Visible" />
+                            <asp:BoundField DataField="cotizaciones" HeaderText="Cotizaciones" />
+                            <asp:BoundField DataField="ventas" HeaderText="Ventas" />
+                            <asp:BoundField DataField="moneda" HeaderText="Moneda" />
+                            <asp:BoundField DataField="precio_lista" HeaderText="Precio Lista" />
+                            <asp:BoundField DataField="precio" HeaderText="Precio" />
                         </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
