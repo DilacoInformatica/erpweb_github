@@ -41,22 +41,22 @@
         <h6><span class="badge badge-primary">Búsqueda de Información</span></h6>
         <div class="row">
             <div class="col-md-1">
-                <h6><span class="badge badge-info">id</span></h6>
+                <h5><span class="badge badge-info">id</span></h5>
             </div>
             <div class="col-md-1">
                 <asp:TextBox ID="txt_idw" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
             </div>
              <div class="col-md-1">
-                 <h6><span class="badge badge-info">Rut</span></h6>
+                 <h5><span class="badge badge-info">Rut</span></h5>
             </div>
              <div class="col-md-1">
                  <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox>
             </div>
             <div class="col-md-1">
-                 <h6><span class="badge badge-info">Razón Socials</span></h6>
+                 <h5><span class="badge badge-info">Razón Socials</span></h5>
             </div>
             <div class="col-md-3">
-                 <h6><asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h6>
+                 <h5><asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h5>
             </div>
            <div class="col-md-2">
                <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="89px" CssClass="btn btn-md btn-primary active" OnClick="Btn_buscar_Click" />

@@ -7,20 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <title>Detalle de Producto</title>
-    <style type="text/css">
-        .auto-style1 {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #495057;
-            background-clip: padding-box;
-            border-radius: 0.25rem;
-            transition: none;
-            border: 1px solid #ced4da;
-            background-color: #fff;
-        }
-        </style>
     </head>
 <body>
 <form id="form1" runat="server" enctype="multipart/form-data" class="auto-style78">
@@ -57,20 +43,20 @@
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
-            <div class="col-md-3">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
+            <div class="col-md-4">
+                <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h5>
             </div>
-            <div class="col-md-3">
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
+            <div class="col-md-4">
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
             </div>
-             <div class="col-md-3">
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+             <div class="col-md-4">
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h5>
             </div>
         </div>
     </div>
     <br />
-    <div class="container-fluid bg-light">
+    <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-2">
                 <div class="row">
@@ -118,11 +104,15 @@
                 </div>
                 </div>
          </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h5><span class="badge badge-info input-group-prepend">Descripción</span></h5>
             <h5>
                 <asp:TextBox ID="txt_descripcion" runat="server" Width="857px" CssClass="form-control"></asp:TextBox></h5>
         </div>
+        <div class="col-md-2">
+            <h5><span class="badge badge-info">Unidad de Venta</span></h5>
+            <h5><asp:Label ID="lbl_unidad" runat="server" CssClass="form-control" Width="131px"></asp:Label></h5>
+       </div>
     </div>
         <%-- Separación de Tabs --%>
         <div class="row">
@@ -140,10 +130,7 @@
                     <asp:ListItem Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList></h5>
             </div>
-            <div class="col-md-2">
-                <h5><span class="badge badge-info">Unidad de Venta</span></h5>
-                <h5><asp:Label ID="lbl_unidad" runat="server" CssClass="form-control" Width="131px"></asp:Label></h5>
-            </div>
+           
             <div class="col-md-2">
                 <h5><span class="badge badge-info">Precio Lista</span></h5>
                 <h5><asp:TextBox ID="txt_precio_lista" runat="server" CssClass="form-control"></asp:TextBox></h5>
@@ -153,17 +140,9 @@
                 <h5><asp:TextBox ID="txt_precio" runat="server" CssClass="form-control" AutoPostBack="True" OnTextChanged="txt_precio_TextChanged"></asp:TextBox></h5>
             </div>
 		</div>
-      
-        <%-- Separación de Tabs --%>
-        <div class="row">
-            <div class="col-md-10">
-                <h5><span class="badge badge-info input-group-prepend">Proveedor</span></h5>
-                <h5><asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="800px" CssClass="form-control text-left"></asp:TextBox></h5>
-            </div>
-        </div>
          <%-- Separación de Tabs --%>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="row">
                     <div class="col-md-2">
                          <h5>
@@ -177,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="row">
                     <div class="col-md-2">
                          <h5>
@@ -191,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="row">
                     <div class="col-md-3">
                          <h5>
@@ -205,28 +184,29 @@
                     </div>
                 </div>
             </div>
-             <div class="col-md-3">
-                <h5><span class="badge badge-info">Línea de Ventas</span></h5>
-                <h5><asp:DropDownList ID="LstLineaVtas" CssClass="auto-style1" runat="server" AppendDataBoundItems="True" Width="300px"></asp:DropDownList></h5>
+             <div class="col-md-2">
+                <h5><span class="badge badge-info">Línea de Ventas</span>
+                <asp:DropDownList ID="LstLineaVtas" CssClass="form-control" runat="server" AppendDataBoundItems="True" Width="300px"></asp:DropDownList></h5>
+            </div>
+              <div class="col-md-2">
+                <h5><span class="badge badge-info text-left">Presentación</span>
+                <asp:TextBox ID="txt_unidad" runat="server" Width="193px" CssClass="form-control"></asp:TextBox></h5>
             </div>
         </div>
          <%-- Separación de Tabs --%>
         <div class="row">
-            <div class="col-md-2">
-                <h5><span class="badge badge-info text-left">Presentación</span></h5>
-                <h5><asp:TextBox ID="txt_unidad" runat="server" Width="193px" CssClass="auto-style1"></asp:TextBox></h5>
-            </div>
+          
             <div class="col-md-2">
                 <h5><span class="badge badge-info text-left">Multiplo</span></h5>
                 <h5><asp:TextBox ID="txt_multiplo" runat="server" Width="27px" CssClass="form-control"></asp:TextBox></h5>
             </div>
             <div class="col-md-2">
                 <h5><span class="badge badge-info">Marca</span> </h5>
-                <h5><asp:TextBox ID="txt_marca" runat="server" Width="204px" CssClass="auto-style1"></asp:TextBox></h5>
+                <h5><asp:TextBox ID="txt_marca" runat="server" Width="204px" CssClass="form-control"></asp:TextBox></h5>
             </div>
               <div class="col-md-2">
                 <h5><span class="badge badge-info">Cod. Prov</span></h5>
-                <h5><asp:TextBox ID="txt_codigoprov" runat="server" Width="104px" CssClass="auto-style1"></asp:TextBox></h5>
+                <h5><asp:TextBox ID="txt_codigoprov" runat="server" Width="104px" CssClass="form-control"></asp:TextBox></h5>
             </div>
             <div class="col-md-2">
                 <h5><span class="badge badge-info">Stock</span> </h5>
@@ -237,7 +217,15 @@
                 <h5><asp:Label ID="lbl_stock_critico" runat="server" CssClass="form-control" Width="131px"></asp:Label></h5>
             </div>
         </div>
-          <div class="row">
+         <%-- Separación de Tabs --%>
+        <div class="row">
+            <div class="col-md-10">
+                <h5><span class="badge badge-info input-group-prepend">Proveedor</span></h5>
+                <h5><asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="800px" CssClass="form-control text-left"></asp:TextBox></h5>
+            </div>
+        </div>
+        <%-- Separación de Tabs --%>
+        <div class="row">
             <div class="col-md-10">
                 <h5><span class="badge badge-info input-group-prepend">Texto Destacado</span></h5>
                 <h5><asp:TextBox ID="txt_texto_destacado" runat="server" TextMode="MultiLine" Columns="2" Width="1285px" CssClass="form-control"></asp:TextBox></h5>
@@ -247,7 +235,7 @@
         <div class="row">
             <div class="col-md-10">
                 <h5><span class="badge badge-info">Características</span> </h5>
-                <h5><asp:TextBox ID="txt_caracteristicas" runat="server"  TextMode="MultiLine" Columns="2" Width="1285px" CssClass="form-control input-lg"></asp:TextBox></h5>
+                <h5><asp:TextBox ID="txt_caracteristicas" runat="server"  TextMode="MultiLine" Columns="2" Width="1285px" CssClass="form-control input-lg" Height="94px"></asp:TextBox></h5>
                 <h5><asp:Label ID="lbl_caracteristicas" runat="server" BorderStyle="Groove"  Width="1285px" CssClass="form-control input-lg"></asp:Label></h5>
             </div>
             <div class ="col-md-2">
@@ -551,7 +539,7 @@
                         <h4><asp:ImageButton ID="borra_acc3" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_acc3_Click" Width="14px" /></h4>
                     </div>
                     <div class="col-md-1">
-                        <h4><asp:ImageButton ID="ImgBtnAc3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc3_Click" style="width: 13px" CssClass="form-control" /></h4>
+                        <h4><asp:ImageButton ID="ImgBtnAc3" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnAc3_Click" Width="14px" CssClass="form-control" /></h4>
                     </div>
                     <div class="col-md-4">
                         <h5><asp:DropDownList ID="LstProdDispAc3" runat="server" Visible="False" CssClass="form-control">
@@ -569,10 +557,10 @@
                         <h4><asp:TextBox ID="txt_rep1" runat="server" Enabled="False" CssClass="form-control" Width="123px"></asp:TextBox></h4>
                     </div>
                     <div class="col-md-1">
-                        <h4><asp:ImageButton ID="borra_rep1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep1_Click" style="width: 16px" /></h4>
+                        <h4><asp:ImageButton ID="borra_rep1" runat="server" ImageUrl="~/img/cancela.gif" OnClick="borra_rep1_Click" Width="14px" /></h4>
                     </div>
                     <div class="col-md-1">
-                        <h4><asp:ImageButton ID="ImgBtnRe1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe1_Click" style="width: 13px" CssClass="form-control" /></h4>
+                        <h4><asp:ImageButton ID="ImgBtnRe1" runat="server" ImageUrl="~/img/ver.gif" OnClick="ImgBtnRe1_Click" Width="14px" CssClass="form-control" /></h4>
                     </div>
                     <div class="col-md-4">
                         <h5><asp:DropDownList ID="LstProdDispRe1" runat="server" Visible="False" CssClass="form-control">
@@ -699,7 +687,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <h4><span class="badge badge-info">Categoría 1</span></h4>
-                        <h5><asp:DropDownList ID="LstCategorias1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias1_SelectedIndexChanged" AppendDataBoundItems="True" CssClass="auto-style1" Width="284px">
+                        <h5><asp:DropDownList ID="LstCategorias1" runat="server" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias1_SelectedIndexChanged" AppendDataBoundItems="True" CssClass="form-control" Width="284px">
                               <asp:ListItem Value="0">Seleccione</asp:ListItem>
                           </asp:DropDownList></h5>
                     </div>

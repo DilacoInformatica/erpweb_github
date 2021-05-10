@@ -18,6 +18,19 @@
             }
         }
     </script>
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            -ms-flex: 0 0 8.333333%;
+            flex: 0 0 8.333333%;
+            max-width: 8.333333%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -69,7 +82,7 @@
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                     </div>
-                    <div class="col-md-1">
+                    <div class="auto-style1">
                         <h6><span class="badge badge-info">Estado NV</span> </h6>
                     </div>
                      <div class="col-md-2">

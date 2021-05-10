@@ -7,6 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Publicar precios especiales a Clientes en el Sitio Web</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-clip: padding-box;
+            border-radius: 0.25rem;
+            transition: none;
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,14 +39,14 @@
         <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-4">
-                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark" Height="16px"></asp:Label></span></h5>
             </div>
         </div>
     </div>
@@ -44,22 +58,22 @@
                 <h4><span class="badge badge-info">id</span></h4>
             </div>
             <div class="col-md-1">
-                <h4><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></h4>
+                <h5><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></h5>
             </div>
                 <div class="col-md-1">
-                <h4><span class="badge badge-info">Rut</span></h4>
+                <h5><span class="badge badge-info">Rut</span></h5>
             </div>
                 <div class="col-md-1">
-                <h4><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h4>
+                <h5><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h5>
             </div>
             <div class="col-md-1">
                 <h4><span class="badge badge-info">Razón Social</span></h4>
             </div>
             <div class="col-md-2">
-                <h4><asp:TextBox ID="txt_razonw" runat="server" Width="200px"  CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox></h4>
+                <h5><asp:TextBox ID="txt_razonw" runat="server" Width="240px"  CssClass="auto-style1" BackColor="#FFFFCC"></asp:TextBox></h5>
             </div>
             <div class="col-md-3">
-                <h4><asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_buscarw_Click" Width="91px"/></h4>
+                <h5><asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_buscarw_Click" Width="91px"/></h5>
             </div>
           </div>
      </div>
@@ -127,13 +141,16 @@
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-6">
-                    <asp:Button ID="Btn_cargar" runat="server" OnClick="Btn_cargar_Click" CssClass="btn btn-md btn-success active" Text="Cargar Cliente y Productos Seleccionado(s) al Sitio Web" Width="445px" />
+                    <asp:Button ID="Btn_cargar" runat="server" OnClick="Btn_cargar_Click" CssClass="btn btn-md btn-success active" Text="Cargar Cliente y Productos Seleccionado(s) al Sitio Web" Width="445px" Height="31px" />
+                </div>
+                <div class="col-md-2">
+                    <h4><span class="badge badge-info">Producto(s) que no se puedan seleccionar, es porque ya están publicados en el Sitio Web</span></h4>
                 </div>
             </div>
             <p></p>
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1400px" ShowFooter="True" AutoGenerateColumns="False">
+                    <asp:GridView ID="List_ProdEsp" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1205px" ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="List_ProdEsp_RowDataBound">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:TemplateField>

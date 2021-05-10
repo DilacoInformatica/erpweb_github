@@ -44,10 +44,6 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "Ambiente Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
-
             }
             catch
             {
@@ -151,89 +147,98 @@ namespace erpweb
             Page.Validate();
             if (Page.IsValid)
             {
-                // Recorremos la grilla con los clientes del ERP que estén seleccionados
-                 insert_cliente(Convert.ToInt32(lbl_id.Text), Convert.ToInt32(lbl_rut.Text), lbl_dv.Text, lbl_razon.Text, lbl_fono.Text, lbl_fono2.Text, lbl_direccion.Text, lbl_comuna.Text, lbl_ciudad.Text, Convert.ToInt32(lbl_región.Text), lbl_email.Text);
 
-                foreach (GridViewRow row in List_ProdEsp.Rows)
+                if (List_ProdEsp.Rows.Count == 0)
                 {
-                    CheckBox check = row.FindControl("Chk_selecciona") as CheckBox;
-
-                    if (check.Checked)
+                    lbl_error.Text = "Debe seleccionar un Cliente para asignar precioes especiales";
+                }
+                else
+                {
+                    insert_cliente(Convert.ToInt32(lbl_id.Text), Convert.ToInt32(lbl_rut.Text), lbl_dv.Text, lbl_razon.Text, lbl_fono.Text, lbl_fono2.Text, lbl_direccion.Text, lbl_comuna.Text, lbl_ciudad.Text, Convert.ToInt32(lbl_región.Text), lbl_email.Text);
+                    // Recorremos la grilla con los clientes del ERP que estén seleccionados
+                    foreach (GridViewRow row in List_ProdEsp.Rows)
                     {
-                        using (MySqlConnection conn = new MySqlConnection(SMysql))
+                        CheckBox check = row.FindControl("Chk_selecciona") as CheckBox;
+
+                        if (check.Checked)
                         {
-                            try
+                            using (MySqlConnection conn = new MySqlConnection(SMysql))
                             {
-                                conn.Open();
-                                query = "inserta_precios_especiales";
-                                MySqlCommand command = new MySqlCommand(query, conn);
-                                command.CommandType = CommandType.StoredProcedure;
-
-                                command.Parameters.AddWithValue("@v_id", row.Cells[1].Text);
-                                command.Parameters["@v_id"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_id_cliente", lbl_id.Text);
-                                command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_codigo", row.Cells[2].Text);
-                                command.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_descripcion", Context.Server.HtmlDecode(row.Cells[3].Text));
-                                command.Parameters["@v_descripcion"].Direction = ParameterDirection.Input;
-
-                                if (row.Cells[4].Text == "S") { v_visible = 1; } else { v_visible = 0; }
-                                command.Parameters.AddWithValue("@v_visible", v_visible);
-                                command.Parameters["@v_visible"].Direction = ParameterDirection.Input;
-
-                                if (row.Cells[5].Text == "S") { v_prodpedido = 1; } else { v_prodpedido = 0; }
-                                command.Parameters.AddWithValue("@v_prodpedido", v_prodpedido);
-                                command.Parameters["@v_prodpedido"].Direction = ParameterDirection.Input;
-
-                                if (row.Cells[6].Text == "S") { v_venta = 1; } else { v_venta = 0; }
-                                command.Parameters.AddWithValue("@v_venta", v_venta);
-                                command.Parameters["@v_venta"].Direction = ParameterDirection.Input;
-
-                                if (row.Cells[7].Text == "S") { v_cotizaciones = 1; } else { v_cotizaciones = 0; }
-                                command.Parameters.AddWithValue("@v_cotizaciones", v_cotizaciones);
-                                command.Parameters["@v_cotizaciones"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_sigla", Context.Server.HtmlDecode(row.Cells[8].Text));
-                                command.Parameters["@v_sigla"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_precio_lista", row.Cells[9].Text.Replace(",", "."));
-                                command.Parameters["@v_precio_lista"].Direction = ParameterDirection.Input;
-
-                                command.Parameters.AddWithValue("@v_precio", row.Cells[10].Text.Replace(",","."));
-                                command.Parameters["@v_precio"].Direction = ParameterDirection.Input;
-
-                                MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                                MySqlDataReader dr = command.ExecuteReader();
-
-                                while (dr.Read())
+                                try
                                 {
-                                    if (!dr.IsDBNull(0))
+                                    conn.Open();
+                                    query = "inserta_precios_especiales";
+                                    MySqlCommand command = new MySqlCommand(query, conn);
+                                    command.CommandType = CommandType.StoredProcedure;
+
+                                    command.Parameters.AddWithValue("@v_id", row.Cells[1].Text);
+                                    command.Parameters["@v_id"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_id_cliente", lbl_id.Text);
+                                    command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_codigo", row.Cells[2].Text);
+                                    command.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_descripcion", Context.Server.HtmlDecode(row.Cells[3].Text));
+                                    command.Parameters["@v_descripcion"].Direction = ParameterDirection.Input;
+
+                                    if (row.Cells[4].Text == "S") { v_visible = 1; } else { v_visible = 0; }
+                                    command.Parameters.AddWithValue("@v_visible", v_visible);
+                                    command.Parameters["@v_visible"].Direction = ParameterDirection.Input;
+
+                                    if (row.Cells[5].Text == "S") { v_prodpedido = 1; } else { v_prodpedido = 0; }
+                                    command.Parameters.AddWithValue("@v_prodpedido", v_prodpedido);
+                                    command.Parameters["@v_prodpedido"].Direction = ParameterDirection.Input;
+
+                                    if (row.Cells[6].Text == "S") { v_venta = 1; } else { v_venta = 0; }
+                                    command.Parameters.AddWithValue("@v_venta", v_venta);
+                                    command.Parameters["@v_venta"].Direction = ParameterDirection.Input;
+
+                                    if (row.Cells[7].Text == "S") { v_cotizaciones = 1; } else { v_cotizaciones = 0; }
+                                    command.Parameters.AddWithValue("@v_cotizaciones", v_cotizaciones);
+                                    command.Parameters["@v_cotizaciones"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_sigla", Context.Server.HtmlDecode(row.Cells[8].Text));
+                                    command.Parameters["@v_sigla"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_precio_lista", row.Cells[9].Text.Replace(",", "."));
+                                    command.Parameters["@v_precio_lista"].Direction = ParameterDirection.Input;
+
+                                    command.Parameters.AddWithValue("@v_precio", row.Cells[10].Text.Replace(",", "."));
+                                    command.Parameters["@v_precio"].Direction = ParameterDirection.Input;
+
+                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                                    MySqlDataReader dr = command.ExecuteReader();
+
+                                    while (dr.Read())
                                     {
-                                        lbl_status.Text = dr.GetString(0);
+                                        if (!dr.IsDBNull(0))
+                                        {
+                                            lbl_status.Text = dr.GetString(0);
+                                        }
                                     }
+
+                                    conn.Close();
+                                    conn.Dispose();
+                                    lbl_error.Text = "";
+
+                                    lbl_status.Text = "Clientes insertados correctamente";
                                 }
-
-                                conn.Close();
-                                conn.Dispose();
-                                lbl_error.Text = "";
-
-                                lbl_status.Text = "Clientes insertados correctamente";
+                                catch (Exception ex)
+                                {
+                                    lbl_error.Text = "ERROR " + ex.Message + query;
+                                    lbl_error.BackColor = Color.Red;
+                                    conn.Close();
+                                    conn.Dispose();
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                lbl_error.Text = "ERROR "+  ex.Message + query;
-                                lbl_error.BackColor = Color.Red;
-                                conn.Close();
-                                conn.Dispose();
-                            }
+
                         }
-
                     }
                 }
+                
+                
             }
         }
 
@@ -326,7 +331,7 @@ namespace erpweb
             lbl_comuna.Text = Context.Server.HtmlDecode(row.Cells[8].Text);
             lbl_ciudad.Text = Context.Server.HtmlDecode(row.Cells[9].Text);
             lbl_región.Text = row.Cells[10].Text;
-            lbl_email.Text = Context.Server.HtmlDecode(row.Cells[10].Text);
+            lbl_email.Text = Context.Server.HtmlDecode(row.Cells[11].Text);
         }
 
         void carga_productos_asociados(string id_cliente)
@@ -339,7 +344,7 @@ namespace erpweb
             queryString = queryString + "select tbl_Descuentos_Unitarios.Id_Cliente, ";
             queryString = queryString + "tbl_items.Id_Item, ";
             queryString = queryString + "Codigo, ";
-            queryString = queryString + "replace(replace(replace(Descripcion, char(9), ''), char(10), ''), char(13), '') Descripcion, ";
+            queryString = queryString + "replace(replace(replace(SUBSTRING(Descripcion,1,40), char(9), ''), char(10), ''), char(13), '') Descripcion, ";
             queryString = queryString + "'S' prodpedido, ";
             queryString = queryString + "'N' visible, ";
             queryString = queryString + "'N' cotizaciones, ";
@@ -410,5 +415,77 @@ namespace erpweb
             Response.Redirect("Precios_Esp_Adm.aspx");
         }
 
+        protected void List_ProdEsp_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                CheckBox Chk_selecciona = e.Row.FindControl("Chk_selecciona") as CheckBox;
+
+
+                if ( lbl_id.Text != "" )
+                {
+                    if (Verifica_item_descuento(Convert.ToInt32(e.Row.Cells[1].Text), Convert.ToInt32(lbl_id.Text)) == 1)
+                    {
+                        Chk_selecciona.Checked = false;
+                        Chk_selecciona.Enabled = false;
+                    }
+                }
+               
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[10].HorizontalAlign = HorizontalAlign.Right;
+              
+                // e.Row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
+            }
+        }
+        public int Verifica_item_descuento(int id_item, int id_cliente)
+        {
+            int valor = 0;
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand("valida_item_descto_web", conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_id_cliente", id_cliente);
+                    command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            valor = dr.GetInt32(0);
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+                    return valor;
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                    return 0;
+                }
+            }
+        }
     }
 }

@@ -211,6 +211,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_descripcion;
         
         /// <summary>
+        /// Control lbl_unidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_unidad;
+        
+        /// <summary>
         /// Control chck_venta.
         /// </summary>
         /// <remarks>
@@ -238,15 +247,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstMonedas;
         
         /// <summary>
-        /// Control lbl_unidad.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_unidad;
-        
-        /// <summary>
         /// Control txt_precio_lista.
         /// </summary>
         /// <remarks>
@@ -263,15 +263,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_precio;
-        
-        /// <summary>
-        /// Control txt_proveedor.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_proveedor;
         
         /// <summary>
         /// Control LstDivision.
@@ -389,6 +380,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_stock_critico;
+        
+        /// <summary>
+        /// Control txt_proveedor.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_proveedor;
         
         /// <summary>
         /// Control txt_texto_destacado.

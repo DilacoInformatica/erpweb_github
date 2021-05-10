@@ -20,12 +20,7 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Producción"; }
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+
             if (!String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 id_usuario = Convert.ToInt32(Request.QueryString["usuario"]);
@@ -34,7 +29,33 @@ namespace erpweb
             {
                 id_usuario = 141;
             }
+
             consulta_usuario_conectado(id_usuario);
+            Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
+
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("ErrorAcceso.html");
+                }
+            }
+            catch
+            {
+                Response.Redirect("ErrorAcceso.html");
+            }
+
+
+
+
+            
+
+            if (utiles.retorna_ambiente() == "D")
+            { lbl_ambiente.Text = "Desarrollo"; }
+            else
+            { lbl_ambiente.Text = "Producción"; }
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
             GrdProdSinStock.Visible = false;
             consulta_productos_sin_stock();
