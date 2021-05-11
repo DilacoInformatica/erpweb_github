@@ -111,7 +111,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h6><span class="badge badge-info">Proveedor</span></h6>
-                    <h4><asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True"  CssClass="form-control" Width="800px">
+                    <h4><asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True"  CssClass="auto-style1" Width="739px" Height="20px">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                         </asp:DropDownList></h4>
                 </div>
@@ -147,7 +147,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" CssClass="btn btn-md btn-primary active btn-block" />
+                    <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" CssClass="btn btn-primary btn-responsive btninter" />
                 </div>
             </div>
         <p></p>

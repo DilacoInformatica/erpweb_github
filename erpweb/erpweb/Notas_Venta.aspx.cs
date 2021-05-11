@@ -156,6 +156,54 @@ namespace erpweb
 
                 lbl_num_nv_erp.Text = busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[1].Text), "NV");
 
+                System.Web.UI.WebControls.Image img_estado = e.Row.FindControl("img_estado") as System.Web.UI.WebControls.Image;
+
+                string valor = e.Row.Cells[10].Text.Substring(0,20);
+
+                if (valor == "NV Ingresada al Siti")
+                {
+                    img_estado.ImageUrl = "~/img/nuevo.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
+
+                if (valor == "NV Ingresada a ERP")
+                {
+                    img_estado.ImageUrl = "~/img/asignado.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
+                if (valor == "NV en Proceso de Des")
+                {
+                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
+                if (valor == "Productos Listos par")
+                {
+                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
+                if (valor == " Se emite Documento E")
+                {
+                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+                
+
+                if (valor == "Entrega de Productos")
+                {
+                    img_estado.ImageUrl = "~/img/entrega.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
+                if (valor == "Rechaza ")
+                {
+                    img_estado.ImageUrl = "~/img/Rechazo.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
+                }
+
 
                 e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;

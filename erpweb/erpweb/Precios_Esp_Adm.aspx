@@ -7,6 +7,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Clientes y precios especiales en sitio web</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            -ms-flex: 0 0 8.333333%;
+            flex: 0 0 8.333333%;
+            max-width: 8.333333%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" class="auto-style4">
@@ -40,29 +53,23 @@
     <div class="container-fluid rounded border border-secondary bg-light">
         <h6><span class="badge badge-primary">Búsqueda de Información</span></h6>
         <div class="row">
-            <div class="col-md-1">
-                <h5><span class="badge badge-info">id</span></h5>
+            <div class="col-md-2">
+                <h5><span class="badge badge-info">id</span>
+                <asp:TextBox ID="txt_idw" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox></h5>
             </div>
-            <div class="col-md-1">
-                <asp:TextBox ID="txt_idw" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
-            </div>
-             <div class="col-md-1">
-                 <h5><span class="badge badge-info">Rut</span></h5>
-            </div>
-             <div class="col-md-1">
-                 <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox>
-            </div>
-            <div class="col-md-1">
-                 <h5><span class="badge badge-info">Razón Socials</span></h5>
+             <div class="col-md-2">
+                 <h5><span class="badge badge-info">Rut</span>
+                 <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h5>
             </div>
             <div class="col-md-3">
-                 <h5><asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h5>
+                <h5><span class="badge badge-info">Razón Social</span>
+                 <asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h5>
             </div>
-           <div class="col-md-2">
-               <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="89px" CssClass="btn btn-md btn-primary active" OnClick="Btn_buscar_Click" />
+           <div class="col-md-1">
+               <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="89px" CssClass="btn btn-primary btn-responsive btninter" OnClick="Btn_buscar_Click" />
             </div>
-            <div class="col-md-2">
-                <asp:Button ID="Btn_Nuevo" runat="server" Text="Nuevo" Width="89px" OnClick="Btn_Nuevo_Click" CssClass="btn btn-md btn-success active" />
+            <div class="auto-style1">
+                <asp:Button ID="Btn_Nuevo" runat="server" Text="Nuevo" Width="89px" OnClick="Btn_Nuevo_Click" CssClass="btn btn-success btn-responsive btninter" />
             </div>
         </div>
     </div>
@@ -76,7 +83,7 @@
         <p></p>
         <div class="row">
             <div class="col-md-12">
-                 <asp:GridView ID="Grilla" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1634px" ShowFooter="True" AutoGenerateColumns="False">
+                 <asp:GridView ID="Grilla" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1388px" ShowFooter="True" AutoGenerateColumns="False">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
                     <asp:TemplateField>

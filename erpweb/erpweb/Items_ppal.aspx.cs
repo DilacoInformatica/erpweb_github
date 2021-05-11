@@ -34,36 +34,38 @@ namespace erpweb
        
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            try
+            {
+                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                {
+                    Response.Redirect("Ppal.aspx");
+                }
+                else
+                {
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02", Sserver) == "NO")
+                    {
+                        Response.Redirect("ErrorAcceso.html");
+                    }
+                    lbl_conectado.Text = Session["Usuario"].ToString();
+                }
 
-            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+                if (utiles.retorna_ambiente() == "D")
+                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                else
+                { lbl_ambiente.Text = "Ambiente Producción"; }
+
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+            }
+            catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-            else
-            {
-                if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_02", Sserver) == "NO")
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-                lbl_conectado.Text = Session["Usuario"].ToString();
-            }
 
-            if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-            else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
-            //Btn_Transpaso_Masivo.Attributes["Onclick"] = "return confirm('Ud está a punto de realizar un transpaso masivo de productos a la página Web, Seguro desea proceder?')";
-            if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
-            {
-                usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor
-            }
-            else
-            {
-                usuario = Request.QueryString["usuario"].ToString();
-            }
             ruta_alterna = utiles.retorna_ruta();
 
             if (!this.IsPostBack)
@@ -138,15 +140,15 @@ namespace erpweb
                     master_queryString = master_queryString + " substring(tbl_items_web.descripcion, 0, 30) 'Descripción', ";
                    // master_queryString = master_queryString + "substring(tbl_items_web.Marca,0,20) 'Marca' , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.visible, 0) = 0, 'N', 'S') 'Visible', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'Prod a Pedido', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.prodpedido, 0) = 0, 'N', 'S') 'A Pedido', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.ventas, 0) = 0, 'N', 'S') 'Venta', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.cotizaciones, 0) = 0, 'N', 'S') 'Cotizacion', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Manual_Tecnico,'') = '','N','S') 'Manual técnico' , ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.cotizaciones, 0) = 0, 'N', 'S') 'Cotización', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Manual_Tecnico,'') = '','N','S') 'M. Técnico' , ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Presentacion_Producto,'') = '','N', 'S')'Presentación', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto,'') = '','N', 'S') 'Foto', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto_Grande,'') = '','N','S') 'Foto Grande', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Foto_Grande,'') = '','N','S') 'F. Grande', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.video,'') = '','N','S') 'Video', ";
-                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N','S') 'Hoja Seguridad', ";
+                    master_queryString = master_queryString + "IIF(isnull(tbl_items_web.Hoja_de_Seguridad,'') = '','N','S') 'H. Seguridad', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.publicado_sitio,0) = 0,'N','S') 'Publicado', ";
                     master_queryString = master_queryString + "IIF(isnull(tbl_items_web.activo,0) = 0,'N','S') 'Activo' ";
                     master_queryString = master_queryString + "from tbl_items_web with(nolock) inner join tbl_items on tbl_items.ID_Item = tbl_items_web.Id_Item  ";

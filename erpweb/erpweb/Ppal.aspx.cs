@@ -20,7 +20,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
             if (!String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 id_usuario = Convert.ToInt32(Request.QueryString["usuario"]);
@@ -54,8 +55,7 @@ namespace erpweb
             { lbl_ambiente.Text = "Desarrollo"; }
             else
             { lbl_ambiente.Text = "Producción"; }
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+           
             Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
             GrdProdSinStock.Visible = false;
             consulta_productos_sin_stock();

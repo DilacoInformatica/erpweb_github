@@ -37,6 +37,10 @@ namespace erpweb
         {
             Page.Form.Attributes.Add("enctype", "multipart/form-data");
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+
+            id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
+            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -70,17 +74,7 @@ namespace erpweb
             {
                 Response.Redirect("Ppal.aspx");
             }
-
-
-
-
-
-
-
-
-
-            id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
-            usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
+           
             if (String.IsNullOrEmpty(Request.QueryString["modo"]))
             {
                 modo = "W"; // mi usuarios por default mientras no nos conectemos al servidor

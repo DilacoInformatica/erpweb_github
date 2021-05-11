@@ -10,6 +10,19 @@
     <script src="scripts/bootstrap.js"></script>
     <script src="scripts/jquery-3.5.1.min.js"></script>
     <script src="scripts/popper.js"></script>
+    <style type="text/css">
+        .auto-style1 {
+            position: relative;
+            width: 100%;
+            top: 0px;
+            left: 0px;
+            -ms-flex: 0 0 8.333333%;
+            flex: 0 0 8.333333%;
+            max-width: 8.333333%;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,12 +63,12 @@
              <div class="col-md-1"><h6><span class="badge badge-info">Código</span> </h6></div>
              <div class="col-md-2"><asp:TextBox ID="txt_codigo" runat="server" Width="163px" CssClass="form-control"></asp:TextBox></div>
              <div class="col-md-1"><h6><span class="badge badge-info">Línea de Ventas</span> </h6></div>
-             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="auto-style1"  Width="362px" >
+             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control"  Width="362px" >
                                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                          </asp:DropDownList></h5></div>
-             <div class="col-md-1"> <h6><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/></h6></div>
+             <div class="col-md-1"> <h6><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-info btn-responsive btninter"/></h6></div>
               <div class ="col-md-2">
-                    <h6><asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-md btn-success"  Text="Generar cambio masivo de Stock" OnClick="btn_actualizar_Click" /></h6>
+                    <h6><asp:Button ID="btn_actualizar" runat="server" CssClass="btn btn-success btn-responsive btninter"  Text="Generar cambio masivo de Stock" OnClick="btn_actualizar_Click" /></h6>
                     <asp:CheckBox ID="Chk_desactiva_cods" runat="server" Text="Desmarcar opción Ventas para productos con Stock en cero?" TextAlign="Left" />
                 </div>
          </div>
@@ -64,7 +77,7 @@
             <div class="container-fluid rounded border border-secondary bg-light" id="consola" style="v">
         <div class="row">
             <div class="col-md-12">
-                 <div class="col-md-12"><h6><span class="badge badge-primary">Actualiza Stock Producto</span></h6></div>
+                 <h6><span class="badge badge-primary">Actualiza Stock Producto</span></h6>
             </div>
         </div>
         <div class="row">
@@ -89,7 +102,7 @@
                 </asp:DropDownList>
             </div>
             <div class="col-md-1"><h6><span class="badge badge-primary">Stock en ERP:</span></h6></div>
-            <div class="col-md-1">
+            <div class="auto-style1">
                 <span>
                 <asp:Label ID="lbl_stock_erp" runat="server" Text=""></asp:Label>
                 </span>
@@ -103,7 +116,7 @@
                      </span></h6>
              </div>
             <div class="col-md-1">
-                <asp:Button ID="btn_genera_mov_stock" runat="server" Text="Generar" CssClass="btn btn-md btn-success" OnClick="btn_genera_mov_stock_Click" Width="169px" />
+                <h6><asp:Button ID="btn_genera_mov_stock" runat="server" Text="Generar" CssClass="btn btn-success btn-responsive btninter" OnClick="btn_genera_mov_stock_Click" Width="169px" /></h6>
              </div>
         </div>
     </div>

@@ -8,38 +8,13 @@
     <title>Actualización Masiva de Items (Stock)</title>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <script src="scripts/bootstrap.js"></script>
-    </style>
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            width: 100%;
-            top: 0px;
-            left: -1px;
-            -ms-flex: 0 0 100%;
-            flex: 0 0 100%;
-            max-width: 100%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .auto-style2 {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #495057;
-            background-clip: padding-box;
-            border-radius: 0.25rem;
-            transition: none;
-            border: 1px solid #ced4da;
-            background-color: #fff;
-        }
-        </style>
+  
 </head>
 <body>
     <form id="form1" runat="server">
      <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-10">
                 <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;"/>Actualización de Stock Productos Web</h1>
             </div>
             <div class="col-md-1 float-right">
@@ -111,7 +86,7 @@
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-1">
-                    <asp:Button CssClass="btn btn-md btn-primary active" ID="btn_buscar" runat="server" Text="Buscar" OnClick="btn_buscar_Click" />
+                    <asp:Button CssClass="btn btn-info btn-responsive btninter" ID="btn_buscar" runat="server" Text="Buscar" OnClick="btn_buscar_Click" />
                 </div>
             </div>
         </div>

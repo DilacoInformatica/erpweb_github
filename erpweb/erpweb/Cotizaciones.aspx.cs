@@ -8,6 +8,7 @@ using System.Data;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Text;
+using Microsoft.VisualBasic;
 namespace erpweb
 {
     public partial class Cotizaciones : System.Web.UI.Page
@@ -20,7 +21,7 @@ namespace erpweb
         {
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            //Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -179,6 +180,35 @@ namespace erpweb
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                 Label lbl_num_cot_erp = e.Row.FindControl("lbl_num_cot_erp") as Label;
+               // DataRowView drv = (DataRowView)e.Row.DataItem;
+
+                System.Web.UI.WebControls.Image img_estado = e.Row.FindControl("img_estado") as System.Web.UI.WebControls.Image;
+
+                string valor = e.Row.Cells[13].Text.Substring(0,8);
+
+                if (valor == "Ingresad")
+                {
+                    img_estado.ImageUrl = "~/img/nuevo.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                }
+
+                if (valor == "Asignada")
+                {
+                    img_estado.ImageUrl = "~/img/asignado.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                }
+
+                if  (valor == "Aceptada")
+                {
+                    img_estado.ImageUrl = "~/img/Apruebo.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                }
+
+                if (valor == "Rechaza ")
+                {
+                    img_estado.ImageUrl = "~/img/Rechazo.png";
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                }
 
                 lbl_num_cot_erp.Text = busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[2].Text), "CO");
 
@@ -194,9 +224,9 @@ namespace erpweb
                 e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[10].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[11].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[11].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[12].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
+               // e.Row.Cells[13].HorizontalAlign = HorizontalAlign.Right;
                // e.Row.Cells[14].HorizontalAlign = HorizontalAlign.Right;
             }
         }

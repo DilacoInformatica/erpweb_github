@@ -319,15 +319,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Image Div_Subcat;
         
         /// <summary>
-        /// Control LstLineaVtas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
-        
-        /// <summary>
         /// Control txt_unidad.
         /// </summary>
         /// <remarks>
@@ -335,6 +326,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_unidad;
+        
+        /// <summary>
+        /// Control LstLineaVtas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
         
         /// <summary>
         /// Control txt_multiplo.

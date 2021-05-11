@@ -18,18 +18,8 @@
             }
         }
     </script>
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            width: 100%;
-            top: 0px;
-            left: 0px;
-            -ms-flex: 0 0 8.333333%;
-            flex: 0 0 8.333333%;
-            max-width: 8.333333%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
+   <style type="text/css">
+        .ColumnaOculta {display:none;}
     </style>
 </head>
 <body>
@@ -119,11 +109,13 @@
                                 <asp:BoundField DataField="Tax_venta" HeaderText="IVA" />
                                 <asp:BoundField DataField="Suma_total" HeaderText="Total" />
                                 <asp:BoundField DataField="No_transaccion_web" HeaderText="N° Transac. Webpay" />
-                                <asp:BoundField DataField="Status_SitioWeb" HeaderText="Estado" />
+                                <asp:BoundField DataField="Status_SitioWeb" HeaderText="Estado" ItemStyle-CssClass="ColumnaOculta"  HeaderStyle-CssClass="ColumnaOculta" />
+                                <asp:TemplateField HeaderText="Estado">
+                                    <ItemTemplate>
+                                        <asp:Image ID="img_estado" runat="server" Height="36px" Width="36px" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="N° NV ERP">
-                                    <EditItemTemplate>
-                                        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-                                    </EditItemTemplate>
                                     <ItemTemplate>
                                         <asp:Label ID="lbl_num_nv_erp" runat="server"></asp:Label>
                                     </ItemTemplate>
