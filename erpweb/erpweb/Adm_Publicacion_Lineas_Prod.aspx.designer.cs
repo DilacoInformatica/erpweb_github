@@ -94,6 +94,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.DropDownList LstSubCategoria;
         
         /// <summary>
+        /// Control Chk_Activos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox Chk_Activos;
+        
+        /// <summary>
         /// Control Btn_Buscar.
         /// </summary>
         /// <remarks>

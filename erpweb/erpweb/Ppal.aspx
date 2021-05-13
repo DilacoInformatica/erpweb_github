@@ -33,7 +33,7 @@
                         <h6><a class="nav-link" href="stock.aspx">Stock</a></h6>
                     </li>
                     <li class="nav-item">
-                        <h6><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Líneas de Venta</a>
+                        <h6><a class="nav-link" href="Adm_Publicacion_Lineas_Prod.aspx">Adm Categrías y SubCategorías</a>
                     </li>
                     <li class="nav-item">
                         <h6><a class="nav-link" href="Notas_Venta.aspx">Notas de Venta</a></h6>
@@ -61,7 +61,7 @@
 
                     <br />
                     <br />
-                    <h1 class="text-center text-primary">Menú Administración Erp-Sitio Web</h1>
+                    <h1 class="text-center text-primary">Menú Administración ERP-Sitio Web</h1>
                     <div class="jumbotron">
                         <h2>Bienvenido!
                         </h2>

@@ -171,6 +171,7 @@
     <Content Include="img\Rechazo.png" />
     <Content Include="img\vista.png" />
     <Content Include="img\warning.png" />
+    <Content Include="Index.aspx" />
     <Content Include="Lista_exportacion_items_web.aspx" />
     <Content Include="Maqueta.html" />
     <Content Include="Notas_Venta.aspx" />
@@ -371,6 +372,13 @@
     </Compile>
     <Compile Include="Detalle_NV.aspx.designer.cs">
       <DependentUpon>Detalle_NV.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Items_detalle.aspx.cs">
       <DependentUpon>Items_detalle.aspx</DependentUpon>

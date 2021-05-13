@@ -8,7 +8,7 @@
     <title>Administrador Líneas de Venta en Sitio Web</title>
      <link href="Content/bootstrap.css" rel="stylesheet" />
      <style type="text/css">
-         .auto-style1 {
+         .auto-style4 {
              position: relative;
              left: 0px;
              top: 0px;
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <h1 class="text-center text-primary">
-                        <img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Administración Líneas de Ventas en Sitio Web</h1>
+                        <img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Administración Categorías y Subcategorías</h1>
                 </div>
                 <div class="col-md-1 float-right">
                     <asp:LinkButton ID="Btn_Volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_Volver_Click">Volver</asp:LinkButton>
@@ -49,16 +49,16 @@
 				Búsqueda de Información
 			</h3>
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-md-2">
 					 <h4><span class="badge badge-success">División</span></h4>
-                         <div class="auto-style1">
+                         <div class="dropdown">
                              <h5>
                          <asp:DropDownList ID="LstDivision" CssClass="form-control" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivivion_SelectedIndexChanged">
                          <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                           </asp:DropDownList></h5>
                      </div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					 <h4><span class="badge badge-success">Catergoría</span></h4>
                          <div class="dropdown">
                              <h5>
@@ -68,9 +68,9 @@
                      </div>
                      
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					 <h4><span class="badge badge-success">Subcategoria</span></h4>
-                          <div class="dropdown">
+                          <div class="auto-style4">
                              <h4>
                          <asp:DropDownList ID="LstSubCategoria" CssClass="form-control" runat="server" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
@@ -78,6 +78,10 @@
                      </h4>
                      </div>
 				</div>
+                <div class="col-md-2">
+                    <h4><span class="badge badge-success">Ver Inactivos</span></h4>
+                    <asp:CheckBox ID="Chk_Activos" runat="server" Width="288px" CssClass="form-check"/>
+                </div>
                  <div class="col-md-1">
                     <asp:Button ID="Btn_Buscar" runat="server" OnClick="Btn_Buscar_Click" Text="Buscar" CssClass="btn btn-primary" />
                 </div>
@@ -176,16 +180,17 @@
 	<div class="row">
 		<div class="col-md-12 d-flex justify-content-center">
             <h5>
-             <asp:GridView ID="GrdCategoriasERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="1303px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
+             <asp:GridView ID="GrdCategoriasERP" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Height="189px" ShowFooter="True" Width="1303px" AutoGenerateColumns="False" OnRowDataBound="GrdCategoriasERP_RowDataBound" OnSelectedIndexChanged="GrdCategoriasERP_SelectedIndexChanged">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
+                                <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
                                 <asp:BoundField DataField="ID_Categoria" HeaderText="ID"  >
                                 <ControlStyle CssClass="form-control" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="codigo" HeaderText="Código" >
                                 <ControlStyle CssClass="form-control" />
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Nombre" HeaderText="Nombre Categría" >
+                                <asp:BoundField DataField="Nombre" HeaderText="Categría" >
                                 <ControlStyle CssClass="form-control" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Orden" HeaderText="Orden" >
@@ -230,7 +235,7 @@
                             <Columns>
                                 <asp:BoundField DataField="ID_SubCategoria" HeaderText="ID" >
                                 </asp:BoundField>
-                                <asp:BoundField DataField="Nombre" HeaderText="Nombre Categoría"  >
+                                <asp:BoundField DataField="Nombre" HeaderText="SubCategoría"  >
                                 <ControlStyle CssClass="form-control" />
                                 </asp:BoundField>
                                 <asp:BoundField DataField="Orden" HeaderText="Orden" >

@@ -34,7 +34,8 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
-                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
+                lbl_ambiente.Text = Convert.ToString(Session["Usuario"]);
+                if (Convert.ToString(Session["id_usuario"]) == "" || Session["Usuario"].ToString() == string.Empty)
                 {
                     Response.Redirect("Ppal.aspx");
                 }
@@ -119,12 +120,19 @@ namespace erpweb
         protected void Btn_Buscar_Click(object sender, EventArgs e)
         {
             lbl_error.Text = "";
+            GrdCategoriasERP.SelectedIndex = -1;
+            //rebind to gridview
+
+            GrdSubCatERP.Visible = false;
+
             procesar_busqueda();
-          
+           //GrdSubCatERP.Visible = false;
+            
         }
 
         void procesar_busqueda()
         {
+            int indicador = 0;
             string categoria = "";
             string subcategoria = "";
             string famila = "";
@@ -148,9 +156,6 @@ namespace erpweb
                  GrdCategoriasWEB.Columns.Clear();
                  GrdSubCatWEB.Columns.Clear();*/
 
-
-
-
                 famila = LstDivision.SelectedValue.ToString();
                 categoria = LstCategoria.SelectedValue.ToString();
                 subcategoria = LstSubCategoria.SelectedValue.ToString();
@@ -165,16 +170,20 @@ namespace erpweb
                 
                 if (subcategoria == "") { v_subcategoria = 0; } else { v_subcategoria = Convert.ToInt32(LstSubCategoria.SelectedValue.ToString()); }
 
+
+                if (Chk_Activos.Checked)
+                { indicador = 0; }
+                else { indicador = 1; }
                 // FAMILIAS
-                Lista_division_erp("F", v_famila, v_categoria, v_subcategoria, null);
+                Lista_division_erp("F", v_famila, v_categoria, v_subcategoria, null, indicador);
                 lista_division_web("F", v_famila, v_categoria, v_subcategoria, null);
 
                 // CATEGORIAS
 
-                Lista_division_erp("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasERP);
+                Lista_division_erp("C", v_famila, v_categoria, v_subcategoria, GrdCategoriasERP, indicador);
 
                 if(v_categoria == 0 && lbl_cat.Text != "") { v_categoria = Convert.ToInt32(lbl_cat.Text); }
-                Lista_division_erp("S", v_famila, v_categoria, v_subcategoria, GrdSubCatERP);
+                Lista_division_erp("S", v_famila, v_categoria, v_subcategoria, GrdSubCatERP, indicador);
 
                 //lista_info_categorias_web(v_famila, v_categoria);
 
@@ -183,7 +192,7 @@ namespace erpweb
         }
 
 
-        void Lista_division_erp(string rama, int id_familia, int categoria, int subcategoria, GridView grilla)
+        void Lista_division_erp(string rama, int id_familia, int categoria, int subcategoria, GridView grilla, int indicador)
         {
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -222,6 +231,9 @@ namespace erpweb
                         cmd.Parameters.AddWithValue("@v_subcat", LstSubCategoria.SelectedValue.ToString());
                         cmd.Parameters["@v_subcat"].Direction = ParameterDirection.Input;
                     }
+                    
+                    cmd.Parameters.AddWithValue("@v_visibles", indicador);
+                    cmd.Parameters["@v_visibles"].Direction = ParameterDirection.Input;
 
                     DataSet ds = new DataSet();
 
@@ -373,21 +385,7 @@ namespace erpweb
             }
         }
 
-
-        protected void Btn_Ac_Div_Click(object sender, EventArgs e)
-        {
-            Page.Validate();
-
-
-
-            if (Page.IsValid)
-            {
-
-
-            }
-        }
-
-    
+   
        
         protected void GridDivWeb_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -612,10 +610,16 @@ namespace erpweb
 
         protected void GrdCategoriasERP_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int indicador = 1;
             GridViewRow row = GrdCategoriasERP.SelectedRow;
             lbl_cat.Text = "";
             lbl_cat.Text = row.Cells[1].Text;
-            Lista_division_erp("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(row.Cells[1].Text), 0, GrdSubCatERP);
+
+            if (Chk_Activos.Checked)
+            { indicador = 0; } else { indicador = 1; }
+
+            Lista_division_erp("S", Convert.ToInt32(LstDivision.SelectedValue.ToString()), Convert.ToInt32(row.Cells[1].Text), 0, GrdSubCatERP, indicador);
+            GrdSubCatERP.Visible = true;
             //  
         }
 
@@ -627,7 +631,7 @@ namespace erpweb
                 CheckBox Chk_visible = e.Row.FindControl("Chk_activo") as CheckBox;
                 TextBox txt_etiqueta_web = e.Row.FindControl("txt_etiqueta_web") as TextBox;
 
-                if (Convert.ToBoolean(drv["Activo"]))
+                if (Chk_visible.Checked)
                 {
                     Chk_visible.Checked = true;
                 }
@@ -1049,6 +1053,7 @@ namespace erpweb
             {
                 actualiza_informacion();
                 procesar_busqueda();
+                lbl_status.Text = "Cambios realizados";
             }
         }
 

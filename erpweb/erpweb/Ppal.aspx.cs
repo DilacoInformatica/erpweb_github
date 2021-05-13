@@ -15,6 +15,7 @@ namespace erpweb
         int id_usuario = 0;
         string Sserver = "";
         string SMysql = "";
+
         Cls_Utilitarios utiles = new Cls_Utilitarios();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -22,41 +23,28 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            if (!String.IsNullOrEmpty(Request.QueryString["usuario"]))
+
+
+            if ( Convert.ToString(Session["id_usuario"]) != "")
             {
-                id_usuario = Convert.ToInt32(Request.QueryString["usuario"]);
+                consulta_usuario_conectado(Convert.ToInt32(Session["id_usuario"]));
+                id_usuario = Convert.ToInt32(Convert.ToString(Session["id_usuario"]));
             }
             else
             {
-                id_usuario = 141;
-            }
-
-            consulta_usuario_conectado(id_usuario);
-            Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
-
-            try
-            {
-                if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
-                {
-                    Response.Redirect("ErrorAcceso.html");
-                }
-            }
-            catch
-            {
+                lbl_ambiente.Text = Convert.ToString(Session["id_usuario"]);
                 Response.Redirect("ErrorAcceso.html");
             }
+               
+            Session["Usuario"] =  utiles.obtiene_nombre_usuario(id_usuario, Sserver);
 
-
-
-
-            
 
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Desarrollo"; }
             else
             { lbl_ambiente.Text = "Producción"; }
            
-            Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
+           // Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
             GrdProdSinStock.Visible = false;
             consulta_productos_sin_stock();
         }

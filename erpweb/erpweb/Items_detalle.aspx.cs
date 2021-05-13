@@ -2053,6 +2053,29 @@ namespace erpweb
                         // ejecutamos la función que creará el historial de modificaciones
                         utiles.actualiza_historial_nv(id_item, usuario, "Precio Item Web cambia de " + Convert.ToString(v_precio) + " a " + Convert.ToString(txt_precio.Text), Sserver, "ITEM");
                     }
+
+                    
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    connection.Close();
+                    connection.Dispose();
+                }
+            }
+
+            // Actualizamos tabla tbl_items
+            query = "update tbl_Items set Id_Categoria = " + LstCategorias.SelectedValue.ToString() + ", Id_Linea_Venta= " + LstLineaVtas.SelectedValue.ToString() + ", Id_SubCategoria = " + LstSubCategorias.SelectedValue.ToString() + " where ID_Item = " + id_item;
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                    connection.Dispose();
                 }
                 catch (Exception ex)
                 {

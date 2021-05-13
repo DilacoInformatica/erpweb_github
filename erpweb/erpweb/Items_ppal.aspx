@@ -7,27 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <title>Productos</title>
-    <style type="text/css">
-        .auto-style1 {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #495057;
-            background-clip: padding-box;
-            border-radius: 0.25rem;
-            transition: none;
-            border: 1px solid #ced4da;
-            background-color: #fff;
-        }
-    </style>
-</head>
+    </head>
 <body>
-    <form id="form1" runat="server">
+    
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <asp:ScriptManager ID="ScriptManager1" runat="server">
                     </asp:ScriptManager>
+    <form id="form1" runat="server">
     <%-- Maqueta Boostrap --%> 
     <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
@@ -111,7 +98,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h6><span class="badge badge-info">Proveedor</span></h6>
-                    <h4><asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True"  CssClass="auto-style1" Width="739px" Height="20px">
+                    <h4><asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True"  CssClass="form-control" Width="739px" >
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                         </asp:DropDownList></h4>
                 </div>
@@ -155,6 +142,7 @@
         
     </div>
 <br />
+
 <div class="container-fluid rounded border border-secondary">
         <div class="row">
             <div class="col-md-2">
@@ -175,11 +163,12 @@
         </div>
 </div>
 <br />
+
 <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
                     <h6>
-                        <asp:GridView ID="Productos" runat="server" CellPadding="4"  ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" OnSorting="Productos_Sorting" ShowFooter="True" ShowHeaderWhenEmpty="True">
+                        <asp:GridView ID="Productos" runat="server" CellPadding="4"  ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" ShowFooter="True" ShowHeaderWhenEmpty="True">
                         <AlternatingRowStyle BackColor="White" />
                         <Columns>
                             <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
@@ -200,66 +189,9 @@
     </div>
 </div>
 
-<div class="container-fluid rounded border border-secondary">
-    <div class="container-fluid .bg-light">
-        <div class ="container-fluid">
-        <div class="row">
-             <div class="col-md-12">
-                         <div id="resultado" style="display:block">
-            <asp:GridView ID="GridResultados" runat="server" Caption="Resultados" CellPadding="4" ForeColor="#333333" GridLines="None" Visible="False" ShowFooter="True" ShowHeaderWhenEmpty="True" CssClass="form-control">
-                <AlternatingRowStyle BackColor="White" />
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-            </asp:GridView>
-                    <asp:GridView ID="LstProductos" runat="server" AutoGenerateColumns="False" CellPadding="4" CssClass="table table-responsive-md" ForeColor="#333333" GridLines="None" Width="772px">
-                        <AlternatingRowStyle BackColor="White" />
-                        <Columns>
-                            <asp:TemplateField ShowHeader="False">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Select" Text="Ver"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="Código" />
-                            <asp:BoundField HeaderText="Descripción" />
-                            <asp:BoundField HeaderText="Letra" />
-                            <asp:CheckBoxField HeaderText="A Pedido" />
-                            <asp:CheckBoxField HeaderText="Venta" />
-                            <asp:CheckBoxField HeaderText="Cotizacion" />
-                            <asp:BoundField HeaderText="Marca" />
-                            <asp:BoundField HeaderText="Pro" />
-                            <asp:BoundField />
-                            <asp:CheckBoxField HeaderText="Publicado Sitio" />
-                        </Columns>
-                        <EditRowStyle BackColor="#2461BF" />
-                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#EFF3FB" />
-                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                    </asp:GridView>
-            <br />
-        </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>   
-    </ContentTemplate>
-      
-    </asp:UpdatePanel>
     </form>
+      </ContentTemplate>
+    </asp:UpdatePanel>               
 </body>
 </html>
 

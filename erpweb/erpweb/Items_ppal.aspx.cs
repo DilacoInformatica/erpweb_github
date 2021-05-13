@@ -28,6 +28,7 @@ namespace erpweb
         string user = "dev@dilaco.com";
         string password = "4ydlrvyKUX8}";
         string usuario = "";
+        string id_usuario = "";
         HttpContext context = HttpContext.Current;
 
         DataTable lista_errores = new DataTable();
@@ -47,6 +48,8 @@ namespace erpweb
                         Response.Redirect("ErrorAcceso.html");
                     }
                     lbl_conectado.Text = Session["Usuario"].ToString();
+                    usuario = Session["Usuario"].ToString();
+                    id_usuario = Session["id_usuario"].ToString();
                 }
 
                 if (utiles.retorna_ambiente() == "D")
@@ -361,7 +364,8 @@ namespace erpweb
 
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
-            GridResultados.Visible = false;
+            //GridResultados.Visible = false;
+           // LstProductos.Visible = false;
             carga_productos(txt_codigo.Text);
             context.Session["SQL"] = master_queryString;
             //if (txt_codigo.Text == "")
@@ -377,7 +381,7 @@ namespace erpweb
         protected void Productos_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Productos.SelectedRow;
-            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text + "&usuario="+ usuario +"&modo='W'");
+            Response.Redirect("Items_detalle.aspx?id_item="+ row.Cells[1].Text + "&usuario="+ id_usuario + "&modo='W'");
         }
 
         protected void Excel_Click(object sender, ImageClickEventArgs e)
@@ -1099,63 +1103,6 @@ namespace erpweb
             control.Attributes["style"] = "none"; 
         }
 
-        protected void Productos_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Id"); //0
-            dt.Columns.Add("Código");
-            dt.Columns.Add("Descripción");
-            dt.Columns.Add("Visible");
-            dt.Columns.Add("Prod a Pedido");
-            dt.Columns.Add("Venta"); // 6
-            dt.Columns.Add("Marca");
-            dt.Columns.Add("Manual técnico");
-            dt.Columns.Add("Presentación");
-            dt.Columns.Add("Foto");
-            dt.Columns.Add("Foto Grande");
-            dt.Columns.Add("Video");
-            dt.Columns.Add("Hoja Seguridad"); // 12
-            dt.Columns.Add("Publicado");
-
-            foreach (GridViewRow gvr in Productos.Rows)
-            {
-                dt.Rows.Add(gvr.Cells[1].Text, gvr.Cells[2].Text,
-                gvr.Cells[3].Text, gvr.Cells[4].Text, gvr.Cells[5].Text,
-                gvr.Cells[6].Text, gvr.Cells[7].Text, gvr.Cells[8].Text,
-                gvr.Cells[9].Text, gvr.Cells[10].Text, gvr.Cells[11].Text,
-                gvr.Cells[12].Text, gvr.Cells[13].Text, gvr.Cells[14].Text);
-            }
-
-
-
-            if (dt != null)
-            {
-                DataView dataView = new DataView(dt);
-                dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
-
-                Productos.DataSource = dataView;
-                Productos.DataBind();
-            }
-        }
-
-        private string ConvertSortDirectionToSql(SortDirection sortDirection)
-        {
-            string newSortDirection = String.Empty;
-
-            switch (sortDirection)
-            {
-                case SortDirection.Ascending:
-                    newSortDirection = "ASC";
-                    break;
-
-                case SortDirection.Descending:
-                    newSortDirection = "DESC";
-                    break;
-            }
-
-            return newSortDirection;
-        }
-
         protected void LstCategorias_SelectedIndexChanged(object sender, EventArgs e)
         {
             string valor = LstCategorias.SelectedValue.ToString();
@@ -1178,6 +1125,7 @@ namespace erpweb
 
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
+            Session.Remove("SQL");
             Response.Redirect("Ppal.aspx");
         }
     }

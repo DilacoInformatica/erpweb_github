@@ -38,10 +38,10 @@
                         <h3 class="text-primary">Edición de Artículo (Web)</h3>
                     </div>
                     <div class="col-md-2">
-                        <asp:Button ID="BtnGrabar" CssClass="form-control btn btn-block btn-primary" runat="server" Text="Subir/Actualizar Código" OnClick="BtnGrabar_Click" />
+                        <asp:Button ID="BtnGrabar" CssClass="form-control btn btn-block btn-primary" runat="server" Text="Actualizar Código ERP" OnClick="BtnGrabar_Click" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Button ID="Btn_act_superior" CssClass="form-control btn btn-block btn-success" runat="server" Text="Subir/Actualizar Código" OnClick="Btn_act_superior_Click" />
+                        <asp:Button ID="Btn_act_superior" CssClass="form-control btn btn-block btn-success" runat="server" Text="Subir/Actualizar Sitio Web" OnClick="Btn_act_superior_Click" />
                     </div>
                     <div class="col-md-2">
                         <asp:Button ID="Btn_eliminar_todo" CssClass="form-control btn btn-block btn-danger" runat="server" Text="Eliminar" OnClick="Btn_eliminar_todo_Click" />
