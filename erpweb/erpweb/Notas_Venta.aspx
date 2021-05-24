@@ -6,7 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Notas de Venta generadas en el Sitio Web</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
+        <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
     <script>
         function valida()
         {
@@ -40,15 +41,15 @@
          <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
+                <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span>
                 </h5>
             </div>
             <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h5<span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark"></asp:Label></span></h5>
+                <h5<span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-dark"></asp:Label></span></h5>
             </div>
        </div>
     </div>
@@ -56,27 +57,27 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <h6><span class="badge badge-primary">Búsqueda de Información</span></h6>
+                        <h6><span class="badge bg-primary">Búsqueda de Información</span></h6>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-1">
-                        <h6><span class="badge badge-info">Nota de Venta</span> </h6>
+                        <h6><span class="badge bg-info">Nota de Venta</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_nv" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
                     <div class="col-1">
-                        <h6><span class="badge badge-info">Rut Cliente</span> </h6>
+                        <h6><span class="badge bg-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" Width="121px" BackColor="#FFFFCC"></asp:TextBox>
                     </div>
-                    <div class="auto-style1">
-                        <h6><span class="badge badge-info">Estado NV</span> </h6>
+                    <div class="col-md-2">
+                        <h6><span class="badge bg-info">Estado NV</span> </h6>
                     </div>
                      <div class="col-md-2">
-                        <h6><asp:DropDownList ID="LstEstadoNV" Width="296px" CssClass="form-control" runat="server"></asp:DropDownList></h6>
+                        <h6><asp:DropDownList ID="LstEstadoNV" Width="296px" CssClass="form-select" runat="server"></asp:DropDownList></h6>
                     </div>
                      <div class="col-2">
                          <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-md btn-primary active btn-block"/>
@@ -87,7 +88,7 @@
         <br />        <div class="container-fluid bg-light">
                 <div class="row">
                     <div class="col-md-6">
-                       <h6><asp:Label ID="lbl_cantidad" runat="server" CssClass="badge badge-primary"></asp:Label></h6>
+                       <h6><asp:Label ID="lbl_cantidad" runat="server" CssClass="badge bg-primary"></asp:Label></h6>
                     </div>
                 </div>
                 
@@ -139,7 +140,7 @@
         <div class="container-fluid rounded border border-secondary bg-light">
                 <div class="row">
                     <div class="col-md-12">
-                        <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h6>
+                        <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label></h6>
                     </div>
                 </div>
         </div>

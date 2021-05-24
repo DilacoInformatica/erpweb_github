@@ -566,15 +566,15 @@ namespace erpweb
 
         public int busca_info_cliente(int rut, string busco)
         {
-            string sql = "select ID_Contacto_cliente from tbl_Contactos_Cliente where id_cliente = (select id_cliente from tbl_clientes where rut =  " + rut + ") and Contacto_Principal = 1";
+            string sql = "select ID_Contacto_cliente from tbl_Contactos_Cliente where id_cliente = (select max(id_cliente) from tbl_clientes where rut =  " + rut + ") and Contacto_Principal = 1";
 
             if (busco == "C")
             {
-                sql = "select ID_Contacto_cliente from tbl_Contactos_Cliente where id_cliente = (select id_cliente from tbl_clientes where rut =  " + rut + ") and Contacto_Principal = 1";
+                sql = "select ID_Contacto_cliente from tbl_Contactos_Cliente where id_cliente = (select max(id_cliente) from tbl_clientes where rut =  " + rut + ") and Contacto_Principal = 1";
             }
             if (busco == "I")
             {
-                sql = "select id_cliente from tbl_clientes where rut = " + rut;
+                sql = "select max(id_cliente from tbl_clientes where rut = " + rut;
             }
 
             int result = 0;
@@ -1100,7 +1100,7 @@ namespace erpweb
 
                         conn.Close();
                         conn.Dispose();
-                        Btn_Rechazar.Enabled = true;
+                        Btn_Rechazar.Enabled = false;
                     }
                     catch (Exception ex)
                     {

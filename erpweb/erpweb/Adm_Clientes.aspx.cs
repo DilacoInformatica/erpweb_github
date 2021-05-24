@@ -66,14 +66,14 @@ namespace erpweb
             Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
-            Btn_cargarCliERP.Attributes["Onclick"] = "return confirm('Desea Cargar estos clientes al Sitio Web... Desea Proceder?')";
+           // Btn_cargarCliERP.Attributes["Onclick"] = "return confirm('Desea Cargar estos clientes al Sitio Web... Desea Proceder?')";
   
 
            // lbl_usuario.Text = iniciales_user;
 
             if (!Page.IsPostBack)
             {
-                consulta_clientes_web(2);
+                consulta_clientes_web(1);
             }
         }
 
@@ -500,10 +500,10 @@ namespace erpweb
                 queryString = queryString + "and isnull(cl.Activo, 0) = 1 ";
                 //queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
 
-                if (txt_id.Text != "")
-                {
-                    queryString = queryString + "and cl.id_cliente = " + txt_id.Text;
-                }
+                //if (txt_id.Text != "")
+                //{
+                //    queryString = queryString + "and cl.id_cliente = " + txt_id.Text;
+                //}
                 if (txt_rut.Text != "")
                 {
                     queryString = queryString + "and cl.rut = " + txt_rut.Text;
@@ -531,7 +531,7 @@ namespace erpweb
 
                             ClientesERP.DataSource = dr;
                             ClientesERP.DataBind();
-                            Btn_cargarCliERP.Visible = true;
+                         //   Btn_cargarCliERP.Visible = true;
                         }
 
                         connection.Close();
@@ -581,9 +581,9 @@ namespace erpweb
             Page.Validate();
             if (Page.IsValid)
             {
-                foreach (GridViewRow row in lista_clientes.Rows)
+                foreach (GridViewRow row in ClientesERP.Rows)
                 {
-                    CheckBox check = row.FindControl("ChkSelected") as CheckBox;
+                    CheckBox check = row.FindControl("check_selcli") as CheckBox;
 
        
                     if (check.Checked)
@@ -593,18 +593,8 @@ namespace erpweb
                         {
                             using (MySqlConnection conn = new MySqlConnection(SMysql))
                             {
-
-                             //   query = "DELETE FROM dilacocl_dilacoweb.tbl_clientes WHERE Rut = " + Convert.ToInt32(row.Cells[2].Text) + " and razon_social = '" + row.Cells[4].Text + "'";
                                 try
                                 {
-
-                                    /* conn.Open();
-                                     MySqlCommand command = new MySqlCommand(query, conn);
-                                     command.ExecuteNonQuery();
-                                     conn.Close();
-                                     conn.Dispose();
-                                     lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";*/
-
 
                                     conn.Open();
                                     query = "elimina_cliente";
@@ -656,6 +646,7 @@ namespace erpweb
         {
             GrdErrores.DataSource = "";
             GrdErrores.Visible = false;
+          //  consulta_clientes_web(1);
             consulta_clientes_web(1);
         }
 
@@ -1124,7 +1115,7 @@ namespace erpweb
                     cmd.Parameters.AddWithValue("@v_nombre", Nombre);
                     cmd.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
 
-                    cmd.Parameters.AddWithValue("@v_apellido", Nombre);
+                    cmd.Parameters.AddWithValue("@v_apellido", apellido);
                     cmd.Parameters["@v_apellido"].Direction = ParameterDirection.Input;
 
                     cmd.Parameters.AddWithValue("@v_telefonos", telefono);

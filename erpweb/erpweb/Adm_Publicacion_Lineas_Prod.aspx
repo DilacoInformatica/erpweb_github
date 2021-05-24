@@ -6,14 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administrador Líneas de Venta en Sitio Web</title>
-     <link href="Content/bootstrap.css" rel="stylesheet" />
-     <style type="text/css">
-         .auto-style4 {
-             position: relative;
-             left: 0px;
-             top: 0px;
-         }
-     </style>
+        <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
      </head>
 <body>
     <form id="form1" runat="server">
@@ -33,10 +27,10 @@
     <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-12">
-                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h5>
-                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
-                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h5>
+                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h5>
             </div>
        </div>
     </div>
@@ -50,36 +44,36 @@
 			</h3>
 			<div class="row">
 				<div class="col-md-2">
-					 <h4><span class="badge badge-success">División</span></h4>
+					 <h4><span class="badge bg-success">División</span></h4>
                          <div class="dropdown">
                              <h5>
-                         <asp:DropDownList ID="LstDivision" CssClass="form-control" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivivion_SelectedIndexChanged">
+                         <asp:DropDownList ID="LstDivision" CssClass="form-select" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivivion_SelectedIndexChanged">
                          <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                           </asp:DropDownList></h5>
                      </div>
 				</div>
 				<div class="col-md-2">
-					 <h4><span class="badge badge-success">Catergoría</span></h4>
+					 <h4><span class="badge bg-success">Catergoría</span></h4>
                          <div class="dropdown">
                              <h5>
-                        <asp:DropDownList ID="LstCategoria" runat="server" AppendDataBoundItems="True" AutoPostBack="True" CssClass="form-control" OnSelectedIndexChanged="LstCategoria_SelectedIndexChanged">
+                        <asp:DropDownList ID="LstCategoria" runat="server" AppendDataBoundItems="True" AutoPostBack="True" CssClass="form-select" OnSelectedIndexChanged="LstCategoria_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList></h5>
                      </div>
                      
 				</div>
 				<div class="col-md-2">
-					 <h4><span class="badge badge-success">Subcategoria</span></h4>
+					 <h4><span class="badge bg-success">Subcategoria</span></h4>
                           <div class="auto-style4">
-                             <h4>
-                         <asp:DropDownList ID="LstSubCategoria" CssClass="form-control" runat="server" AppendDataBoundItems="True">
+                             <h5>
+                         <asp:DropDownList ID="LstSubCategoria" CssClass="form-select" runat="server" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
-                     </h4>
+                     </h5>
                      </div>
 				</div>
                 <div class="col-md-2">
-                    <h4><span class="badge badge-success">Ver Inactivos</span></h4>
+                    <h4><span class="badge bg-success">Ver Inactivos</span></h4>
                     <asp:CheckBox ID="Chk_Activos" runat="server" Width="288px" CssClass="form-check"/>
                 </div>
                  <div class="col-md-1">
@@ -103,32 +97,32 @@
 			</h3>
 			<div class="row">
 				<div class="col-md-1"> 
-                    <h6><span class="badge badge-default">ID:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Id_ERP" runat="server" Width="41px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
+                    <h6><span class="badge bg-info">ID:</span></h6>
+                    <span><asp:TextBox ID="Txt_Id_ERP" runat="server" Width="41px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
 				</div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-default">Código:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Cod_ERP" runat="server" Enabled="False" CssClass="form-control"  Width="57px"></asp:TextBox></span>  
+                     <h6><span class="badge bg-info">Código:</span></h6>
+                    <span"><asp:TextBox ID="Txt_Cod_ERP" runat="server" Enabled="False" CssClass="form-control"  Width="57px"></asp:TextBox></span>  
 				</div>
 				<div class="col-md-4">
-                     <h6><span class="badge badge-default">Descripción:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Desc_ERP" runat="server" Width="234px" Enabled="False" CssClass="form-control"></asp:TextBox></span>  
+                     <h6><span class="badge bg-info">Descripción:</span></h6>
+                    <span><asp:TextBox ID="Txt_Desc_ERP" runat="server" Width="234px" Enabled="False" CssClass="form-control"></asp:TextBox></span>  
 				</div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-default">Orden:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Orden_ERP" runat="server" Width="57px" CssClass="form-control" Enabled="False"></asp:TextBox>
+                     <h6><span class="badge bg-info">Orden:</span></h6>
+                    <span><asp:TextBox ID="Txt_Orden_ERP" runat="server" Width="57px" CssClass="form-control" Enabled="False"></asp:TextBox>
                                 </span>  
 				</div>
                  <div class="col-md-1">
-                     <h6><span class="badge badge-default">Activo:</span></h6>
+                     <h6><span class="badge bg-info">Activo:</span></h6>
                      <div class="row justify-content-center">
-                        <span class="badge badge-default"><asp:CheckBox ID="Chk_Activo_ERP" runat="server" CssClass="form-control" AutoPostBack="True" OnCheckedChanged="Chk_Activo_ERP_CheckedChanged" /></span>
+                        <span><asp:CheckBox ID="Chk_Activo_ERP" runat="server" CssClass="form-control" AutoPostBack="True" OnCheckedChanged="Chk_Activo_ERP_CheckedChanged" /></span>
                      </div>       
 				</div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-default">En Sitio:</span></h6>
+                     <h6><span class="badge bg-info">En Sitio:</span></h6>
                     <div class="row justify-content-center">
-                        <span class="badge badge-default"><asp:CheckBox ID="Chk_En_Sitio_ERP" runat="server" CssClass="form-control" /></span> 
+                        <span><asp:CheckBox ID="Chk_En_Sitio_ERP" runat="server" CssClass="form-control" /></span> 
                     </div>
 				</div>
 			</div>
@@ -138,36 +132,36 @@
 				WEB</h3>
 			<div class="row">
 				<div class="col-md-1"> 
-                    <h6><span class="badge badge-default">ID:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Id_WEB" runat="server" Width="50px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
+                    <h6><span class="badge bg-info">ID:</span></h6>
+                    <span><asp:TextBox ID="Txt_Id_WEB" runat="server" Width="50px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
 				</div>
                 <div class="col-md-1"> 
-                    <h6><span class="badge badge-default">Código:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Cod_WEB" runat="server" Width="57px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
+                    <h6><span class="badge bg-info">Código:</span></h6>
+                    <span><asp:TextBox ID="Txt_Cod_WEB" runat="server" Width="57px" Enabled="False" CssClass="form-control"></asp:TextBox></span>         
 				</div>
 				<div class="col-md-4">
-                     <h6><span class="badge badge-default">Descripción:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Desc_WEB" runat="server" Width="200px" Enabled="False" CssClass="form-control"></asp:TextBox></span>  
+                     <h6><span class="badge bg-info">Descripción:</span></h6>
+                    <span><asp:TextBox ID="Txt_Desc_WEB" runat="server" Width="200px" Enabled="False" CssClass="form-control"></asp:TextBox></span>  
 				</div>
                 <div class="col-md-3">
-                     <h6><span class="badge badge-default">Etiqueta:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Label_WEB" runat="server" Width="200px" CssClass="form-control"></asp:TextBox></span>  
+                     <h6><span class="badge bg-info">Etiqueta:</span></h6>
+                    <span><asp:TextBox ID="Txt_Label_WEB" runat="server" Width="200px" CssClass="form-control"></asp:TextBox></span>  
 				</div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-default">Orden:</span></h6>
-                    <span class="badge badge-default"><asp:TextBox ID="Txt_Orden_WEB" runat="server" Width="53px" CssClass="form-control" Enabled="False"></asp:TextBox>
+                     <h6><span class="badge bg-info">Orden:</span></h6>
+                    <span><asp:TextBox ID="Txt_Orden_WEB" runat="server" Width="53px" CssClass="form-control" Enabled="False"></asp:TextBox>
                                 </span>  
 				</div>
                  <div class="col-md-1">
-                     <h6><span class="badge badge-default">Activo:</span></h6>
+                     <h6><span class="badge bg-info">Activo:</span></h6>
                      <div class="row justify-content-center">
-                        <span class="badge badge-default"><asp:CheckBox ID="Chk_Activo_WEB" runat="server" CssClass="form-control" Enabled="False" /></span>
+                        <span><asp:CheckBox ID="Chk_Activo_WEB" runat="server" CssClass="form-control" Enabled="False" /></span>
                      </div>       
 				</div>
                 <div class="col-md-1">
-                     <h6><span class="badge badge-default">Publicar:</span></h6>
+                     <h6><span class="badge bg-info">Publicar:</span></h6>
                     <div class="row justify-content-center">
-                        <span class="badge badge-default"><asp:CheckBox ID="Chk_Publicado_Web" runat="server" CssClass="form-control" AutoPostBack="True" OnCheckedChanged="Chk_Publicado_Web_CheckedChanged" /></span> 
+                        <span><asp:CheckBox ID="Chk_Publicado_Web" runat="server" CssClass="form-control" AutoPostBack="True" OnCheckedChanged="Chk_Publicado_Web_CheckedChanged" /></span> 
                     </div>
 				</div>
 			</div>

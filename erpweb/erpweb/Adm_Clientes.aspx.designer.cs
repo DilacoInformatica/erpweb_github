@@ -112,15 +112,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_autorizar;
         
         /// <summary>
-        /// Control Btn_eliminaCLIWEB.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_eliminaCLIWEB;
-        
-        /// <summary>
         /// Control lista_clientes.
         /// </summary>
         /// <remarks>
@@ -146,15 +137,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GrdErrores;
-        
-        /// <summary>
-        /// Control txt_id.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_id;
         
         /// <summary>
         /// Control txt_rut.
@@ -184,13 +166,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Button Btn_buscar;
         
         /// <summary>
-        /// Control Btn_cargarCliERP.
+        /// Control Btn_eliminaCLIWEB.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_cargarCliERP;
+        protected global::System.Web.UI.WebControls.Button Btn_eliminaCLIWEB;
         
         /// <summary>
         /// Control ClientesERP.

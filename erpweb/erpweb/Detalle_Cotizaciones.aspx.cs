@@ -41,7 +41,9 @@ namespace erpweb
             lbl_tax.Style.Add("text-align", "right");
             lbl_total.Style.Add("text-align", "right");
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
-
+            Sserver = utiles.verifica_ambiente("SSERVER");
+            SMysql = utiles.verifica_ambiente("MYSQL");
+            
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
@@ -67,9 +69,7 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "Ambiente Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
+  
 
             }
             catch
@@ -87,6 +87,7 @@ namespace erpweb
                 if (VerificaexistenciaCotERP(num_cotizacion) == "SI")
                 {
                     Btn_crearCot.Enabled = false;
+                    Btn_RechazarCot.Enabled = false;
                     lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
                     lbl_error.ForeColor = Color.Red;
                 }

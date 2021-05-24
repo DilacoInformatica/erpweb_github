@@ -5,14 +5,20 @@
     <title>Error Acceso</title>
 	<meta charset="utf-8" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
+    <script type="text/javascript">
+    function salir() {
+        if (confirm('Cerrar página?'))
+        { window.close(); }
+    }
+    </script>
 </head>
 <body>
     <div class="container-fluid rounded border border-secondary bg-light">
-        <h1 class="text-center"><span class="badge badge-danger text-center">Ud no tiene acceso a esa página, consulte con su Administrador de Sistemas</span> </h1>
-
+        <h1 class="text-center"><span class="badge bg-danger text-center">Ud no tiene acceso a esa página, consulte con su Administrador de Sistemas</span> </h1>
+        <h4>Puede haber terminado el tiempo de sesión activa... Consulte con su Administrador</h4>
         <br />
         <br />
-        <a href="Index.aspx">Volver al inicio</a>
+        <a href="#" onclick="window.close();">Salir</a>
     </div>
 </body>
 </html>

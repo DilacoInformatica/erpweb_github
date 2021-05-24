@@ -37,10 +37,10 @@
     <div class="container-fluid rounded border border-secondary">
                     <div class="row">
             <div class="col-sm-12">
-                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h4>
-                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h4>
+                <h4><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h4>
             </div>
         </div>
     </div>
@@ -48,15 +48,15 @@
     <div class="container-fluid rounded border border-secondary">
             <div class="row">
                 <div class="col-md-6">
-                    <h4><span class="badge badge-primary">Búsqueda de Clientes en Sitio Web</span></h4>
+                    <h4><span class="badge bg-primary">Búsqueda de Clientes en Sitio Web</span></h4>
                 </div>
             </div>
             <div class="row">
-                <div class ="col-md-1"><h4><span class="badge badge-info">ID</span></h4></div>
+                <div class ="col-md-1"><h4><span class="badge bg-info">ID</span></h4></div>
                 <div class ="col-md-2"><h4><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></h4></div>
-                <div class ="col-md-1"><h4><span class="badge badge-info">Rut</span></h4></div>
+                <div class ="col-md-1"><h4><span class="badge bg-info">Rut</span></h4></div>
                 <div class ="col-md-2"><h4><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="127px" CssClass="form-control"></asp:TextBox></h4></div>
-                <div class ="col-md-1"><h4><span class="badge badge-info">Razón Social</span></h4></div>
+                <div class ="col-md-1"><h4><span class="badge bg-info">Razón Social</span></h4></div>
                 <div class ="col-md-2"><h4><asp:TextBox ID="txt_razonw" runat="server" Width="337px" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox></h4></div>
                 <div class ="col-md-2"><h4><asp:Button ID="Btn_buscarw" runat="server" Text="Buscar" OnClick="Btn_buscarw_Click" Width="80px" CssClass="btn btn-md btn-primary active btn-block float-md-right"/></h4></div>
             </div>
@@ -100,22 +100,22 @@
         <div class="container-fluid rounded border border-secondary">
             <div class="row">
                 <div class="col-md-6">
-                    <h4><span class="badge badge-primary">Búsqueda de Clientes en ERP</span></h4>
+                    <h4><span class="badge bg-primary">Búsqueda de Clientes en ERP</span></h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    <h4><span class="badge badge-info">ID</span></h4>
+                    <h4><span class="badge bg-info">ID</span></h4>
                 </div>
                 <div class="col-md-2">
                     <asp:TextBox ID="txt_id" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></div>
                 <div class="col-md-1">
-                    <h4><span class="badge badge-info">Rut</span></h4>
+                    <h4><span class="badge bg-info">Rut</span></h4>
                 </div>
                 <div class="col-md-2">
                     <asp:TextBox ID="txt_rut" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></div>
                 <div class="col-md-1">
-                    <h4><span class="badge badge-info">Razón Social</span></h4>
+                    <h4><span class="badge bg-info">Razón Social</span></h4>
                 </div>
                 <div class="col-md-2">
                     <h4>
@@ -158,7 +158,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h4><asp:Label ID="lbl_resultados" CssClass="badge badge-warning" runat="server" Width="314px"></asp:Label></h4>
+                <h4><asp:Label ID="lbl_resultados" CssClass="badge bg-warning" runat="server" Width="314px"></asp:Label></h4>
             </div>
         </div>
     </div>

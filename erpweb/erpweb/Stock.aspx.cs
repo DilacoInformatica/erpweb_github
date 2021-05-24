@@ -330,7 +330,7 @@ namespace erpweb
 
                 if (Convert.ToDouble(stock.Text) <= 0 )
                 {
-                    stock.CssClass = "badge badge-danger";
+                    stock.CssClass = "badge bg-danger";
                 }
 
                 e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;

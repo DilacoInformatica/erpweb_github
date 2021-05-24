@@ -6,7 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Cotizaciones</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
+           <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
     <style type="text/css">
         .ColumnaOculta {display:none;}
     </style>
@@ -28,14 +29,14 @@
     <div class="container-fluid rounded border border-secondary bg-light">
           <div class="row">
             <div class="col-md-12">
-                   <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                   <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
             </div>
             <div class="col-md-12">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
             </div>
             <div class="col-md-12">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
             </div>
         </div>
     </div>
@@ -43,27 +44,27 @@
     <div class="container-fluid rounded border border-secondary bg-ligh">
             <div class="row">
                 <div class="col-md-12">
-                    <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
+                    <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
                 </div>
             </div>
             <div class="row">
                     <div class="col-md-1">
-                        <h6><span class="badge badge-info">Cotización</span> </h6>
+                        <h6><span class="badge bg-info">Cotización</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_cotizacion" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox>
                     </div>
                     <div class="col-md-1">
-                        <h6><span class="badge badge-info">Rut Cliente</span> </h6>
+                        <h6><span class="badge bg-info">Rut Cliente</span> </h6>
                     </div>
                     <div class="col-md-2">
                         <asp:TextBox ID="txt_rut" runat="server" Width="121px" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox>
                     </div>
                     <div class="col-md-1">
-                        <h6><span class="badge badge-info">Estado Cotización</span> </h6>
+                        <h6><span class="badge bg-info">Estado Cotización</span> </h6>
                     </div>
-                    <div class="auto-style1">
-                        <h6><asp:DropDownList ID="LstEstados" runat="server" CssClass="form-control" Width="296px" AppendDataBoundItems="True">
+                    <div class="col-md-2">
+                        <h6><asp:DropDownList ID="LstEstados" runat="server" CssClass="form-select" Width="296px" AppendDataBoundItems="True">
                             <asp:ListItem Selected="True">Seleccione</asp:ListItem>
                             </asp:DropDownList></h6>
                     </div>
@@ -106,7 +107,7 @@
                                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Estado") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <ItemTemplate>
-                                    <asp:Image ID="img_estado" runat="server" CssClass="form-control" Height="36px" Width="36px" />
+                                    <asp:Image ID="img_estado" runat="server" CssClass="form-control" Height="40px" Width="40px" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="N° Cot ERP">
@@ -117,7 +118,12 @@
                                     <asp:Label ID="lbl_num_cot_erp" runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField DataField="estado" Visible="true" ItemStyle-CssClass="ColumnaOculta" HeaderStyle-CssClass="ColumnaOculta" HeaderText="Cliente ERP" />
+                            <asp:BoundField DataField="estado" Visible="true" ItemStyle-CssClass="ColumnaOculta" HeaderStyle-CssClass="ColumnaOculta" HeaderText="Cliente ERP" >
+<HeaderStyle CssClass="ColumnaOculta"></HeaderStyle>
+
+<ItemStyle CssClass="ColumnaOculta"></ItemStyle>
+                            </asp:BoundField>
+                            <asp:BoundField DataField="tipo_cot" HeaderText="Tipo" />
                         </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -137,7 +143,7 @@
       <div class="container-fluid rounded">
             <div class="row">
                 <div class="col-md-12">
-                    <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge badge-warning"></asp:Label></h6>
+                    <h6><asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label></h6>
                 </div>
             </div>
         </div>

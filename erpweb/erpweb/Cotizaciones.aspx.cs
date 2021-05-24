@@ -167,7 +167,18 @@ namespace erpweb
         protected void Lista_cotizacion_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = Lista_cotizacion.SelectedRow;
-            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + row.Cells[11].Text + "&tipo=" + row.Cells[12].Text);
+            string ubicacion = "";
+
+            if (row.Cells[10].Text.ToUpper() == "CHILE")
+            {
+                ubicacion = "N";
+            }
+            else
+            {
+                ubicacion = "E";
+
+            }
+            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + ubicacion + "&tipo=" + row.Cells[14].Text);
         }
 
         protected void LinkButton2_Click(object sender, EventArgs e)

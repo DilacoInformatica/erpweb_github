@@ -6,7 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Detalle Nota de Venta</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
     </head>
 <body>
     <form id="form1" runat="server">
@@ -24,15 +25,15 @@
     <div class="container-fluid rounded border border-secondary bg-light">
            <div class="row">
             <div class="col-md-4">
-                 <h5<span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span>
+                 <h5<span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span>
                 </h5>
              </div>
              <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h5>
              </div>
              <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-dark"></asp:Label></span></h5>
             </div>
       </div>
      </div>
@@ -42,30 +43,30 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><span class="badge badge-primary">Cabecera Nota de Venta</span></h3>
+                            <h3><span class="badge bg-primary">Cabecera Nota de Venta</span></h3>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">N° NV ERP</span></h5>
+                            <h5><span class="badge bg-info">N° NV ERP</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_numero_erp" CssClass="form-control" runat="server" Width="227px"></asp:Label></h5>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Fecha</span></h5>
+                            <h5><span class="badge bg-info">Fecha</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_fecha" runat="server" CssClass="form-control" Width="229px"></asp:Label></h5>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">N° OC</span></h5>
+                            <h5><span class="badge bg-info">N° OC</span></h5>
                         </div>
                         <div class="col-md-2">
                            <h5><asp:Label ID="lbl_n_oc" runat="server" CssClass="form-control" Width="100px"></asp:Label></h5>
                         </div>
                          <div class="col-md-1">
-                            <h5><span class="badge badge-info">N° WebPay</span></h5>
+                            <h5><span class="badge bg-info">N° WebPay</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_transac_pago" runat="server" CssClass="form-control" Width="232px"></asp:Label></h5>
@@ -76,7 +77,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Documento</span></h5>
+                            <h5><span class="badge bg-info">Documento</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_tipo_facturacion" runat="server"  CssClass="form-control" Width="235px"></asp:Label></h5>
@@ -84,12 +85,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h3><span class="badge badge-primary">Información Cliente</span></h3>
+                            <h3><span class="badge bg-primary">Información Cliente</span></h3>
                         </div>
                     </div>
                     <div class="row">
                          <div class="col-md-1">
-                            <h5><span class="badge badge-info">Existe en ERP</span></h5>
+                            <h5><span class="badge bg-info">Existe en ERP</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_existe" runat="server" CssClass="form-control" Width="43px"></asp:Label></h5>
@@ -100,26 +101,26 @@
                     </div>
                     <div class="row">
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Rut</span></h5>
+                            <h5><span class="badge bg-info">Rut</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_rut" runat="server" CssClass="form-control" Width="225px"></asp:Label></h5>
                             <asp:Label ID="lbl_rut_exit" runat="server" CssClass="form-control" Width="181px" Visible="false"></asp:Label>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Cliente</span></h5>
+                            <h5><span class="badge bg-info">Cliente</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_cliente" runat="server" CssClass="form-control" Width="299px"></asp:Label></h5>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Teléfono</span></h5>
+                            <h5><span class="badge bg-info">Teléfono</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_fono" runat="server" CssClass="form-control" Width="225px"></asp:Label></h5>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Email</span></h5>
+                            <h5><span class="badge bg-info">Email</span></h5>
                         </div>
                        <div class="col-md-2">
                             <h5><asp:Label ID="lbl_email" runat="server" CssClass="form-control" Width="225px"></asp:Label></h5>
@@ -131,7 +132,7 @@
                     </div>
                      <div class="row">
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Dirección</span></h5>
+                            <h5><span class="badge bg-info">Dirección</span></h5>
                         </div>
                         <div class="col-md-8">
                             <h5><asp:Label ID="lbl_direccion" runat="server" CssClass="form-control" Width="729px"></asp:Label></h5>
@@ -139,19 +140,19 @@
                     </div>
                      <div class="row">
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Comuna</span></h5>
+                            <h5><span class="badge bg-info">Comuna</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_comuna" runat="server" CssClass="form-control" Width="229px"></asp:Label></h5>
                         </div>
                         <div class="col-md-1">
-                            <h5><span class="badge badge-info">Ciudad</span></h5>
+                            <h5><span class="badge bg-info">Ciudad</span></h5>
                         </div>
                         <div class="col-md-2">
                             <h5><asp:Label ID="lbl_ciudad" runat="server" CssClass="form-control" Width="229px"></asp:Label></h5>
                         </div>
                          <div class="col-md-1">
-                            <h5><span class="badge badge-info">Región</span></h5>
+                            <h5><span class="badge bg-info">Región</span></h5>
                         </div>
                         <div class="col-md-4">
                             <h5><asp:Label ID="lbl_region" runat="server" CssClass="form-control" Width="280px"></asp:Label></h5>
@@ -160,12 +161,12 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h3><span class="badge badge-primary">Información Despacho</span></h3>
+                        <h3><span class="badge bg-primary">Información Despacho</span></h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Contacto</span></h5>
+                        <h5><span class="badge bg-info">Contacto</span></h5>
                     </div>
                     <div class="col-md-2">
                         <h5><asp:Label ID="lbl_contacto" runat="server" CssClass="form-control" Width="346px"></asp:Label></h5>
@@ -173,13 +174,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Teléfono</span></h5>
+                        <h5><span class="badge bg-info">Teléfono</span></h5>
                     </div>
                     <div class="col-md-2">
                         <h5><asp:Label ID="lbl_fono_despacho" runat="server" CssClass="form-control"></asp:Label></h5>
                     </div>
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Email</span></h5>
+                        <h5><span class="badge bg-info">Email</span></h5>
                     </div>
                     <div class="col-md-2">
                         <h5><asp:Label ID="lbl_email_contacto" runat="server" CssClass="auto-style1" Width="725px"></asp:Label></h5>
@@ -187,7 +188,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Dirección</span></h5>
+                        <h5><span class="badge bg-info">Dirección</span></h5>
                     </div>
                     <div class="col-md-8">
                         <h5><asp:Label ID="lbl_direccion_despacho" runat="server" CssClass="form-control" Width="729px"></asp:Label></h5>
@@ -195,19 +196,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Comuna</span></h5>
+                        <h5><span class="badge bg-info">Comuna</span></h5>
                     </div>
                     <div class="col-md-2">
                         <h5><asp:Label ID="lbl_comuna_despacho" runat="server" CssClass="auto-style1" Width="722px"></asp:Label></h5>
                     </div>
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Ciudad</span></h5>
+                        <h5><span class="badge bg-info">Ciudad</span></h5>
                     </div>
                     <div class="col-md-2">
                         <h5><asp:Label ID="lbl_ciudad_despacho" runat="server" CssClass="form-control"></asp:Label></h5>
                     </div>
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Región</span></h5>
+                        <h5><span class="badge bg-info">Región</span></h5>
                     </div>
                     <div class="col-md-4">
                         <h5><asp:Label ID="lbl_region_despacho" runat="server" CssClass="form-control" Width="280px"></asp:Label></h5>
@@ -215,7 +216,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-1">
-                        <h5><span class="badge badge-info">Observaciones</span></h5>
+                        <h5><span class="badge bg-info">Observaciones</span></h5>
                     </div>
                     <div class="col-md-8">
                         <h5><asp:Label ID="lbl_obs_despacho" runat="server" CssClass="form-control"></asp:Label></h5>
@@ -228,18 +229,18 @@
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
              <div class="col-md-12">
-                <h6><span class="badge badge-primary">Generar NV de Venta</span></h6>
+                <h6><span class="badge bg-primary">Generar NV de Venta</span></h6>
             </div>
         </div>
         <div class="row">
              <div class="col-md-10">
                  <div class="form-check form-check-inline">
                      <asp:RadioButton ID="RadBtnNV" CssClass="form-check-input" runat="server" Text="" GroupName="N1" Checked="True" />
-                     <h5><label class="form-check-label" for="RadBtnNV"><span class="badge badge-info">Sólo Nota de Venta</span></label></h5>
+                     <h5><label class="form-check-label" for="RadBtnNV"><span class="badge bg-info">Sólo Nota de Venta</span></label></h5>
                  </div>
                  <div class="form-check form-check-inline">
                      <asp:RadioButton ID="RadNVDesp" CssClass="form-check-input" runat="server" Text="" GroupName="N1" />
-                     <h5><label class="form-check-label" for="RadNVDesp"><span class="badge badge-info">Nota de Venta y Despacho</span></label></h5>
+                     <h5><label class="form-check-label" for="RadNVDesp"><span class="badge bg-info">Nota de Venta y Despacho</span></label></h5>
                  </div>         
             </div>
         </div>
@@ -250,7 +251,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-2">
-                            <h5><span class="badge badge-info">Vendedor/Emisor</span></h5>
+                            <h5><span class="badge bg-info">Vendedor/Emisor</span></h5>
                         </div>
                         <div class="col-md-3">
                                 <h5>
@@ -260,7 +261,7 @@
                                 </h5>
                         </div>
                         <div class="col-md-2">
-                            <h6><asp:Button ID="Btn_Rechazar" runat="server" CssClass="btn btn-md btn-danger active btn-block" Enabled="False" OnClick="Btn_Rechazar_Click" Text="Rechazar NV" Width="200px" /></h6>
+                            <h6><asp:Button ID="Btn_Rechazar" runat="server" CssClass="btn btn-md btn-danger active btn-block" OnClick="Btn_Rechazar_Click" Text="Rechazar NV" Width="200px" /></h6>
                         </div>
                         <div class="col-md-2">
                             <h6><asp:Button ID="Btn_crearNV" runat="server" CssClass="btn btn-md btn-primary active btn-block" OnClick="Btn_crearNV_Click" Text="Crear NV" Width="200px"/>
@@ -307,7 +308,7 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h6><span class="badge badge-info">Moneda</span></h6>
+                            <h6><span class="badge bg-info">Moneda</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
                             <h6><span class="text-md-right"> <asp:Label ID="lbl_moneda" CssClass="form-control" runat="server" Width="150px"></asp:Label></span></h6>
@@ -316,7 +317,7 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h6><span class="badge badge-info">Neto</span></h6>
+                            <h6><span class="badge bg-info">Neto</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
                             <h6><asp:Label ID="lbl_neto" CssClass="form-control" runat="server" Width="150px"></asp:Label></h6>
@@ -325,7 +326,7 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h6><span class="badge badge-info">Iva</span></h6>
+                            <h6><span class="badge bg-info">Iva</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
                             <h6><asp:Label ID="lbl_tax" runat="server" CssClass="form-control" Width="150px"></asp:Label></h6>
@@ -334,7 +335,7 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1 float-right">
-                            <h6><span class="badge badge-info">Total</span></h6>
+                            <h6><span class="badge bg-info">Total</span></h6>
                         </div>
                         <div class="col-md-1 float-right">
                             <h6><asp:Label ID="lbl_total" runat="server" CssClass="form-control" Width="150px"></asp:Label></h6>            

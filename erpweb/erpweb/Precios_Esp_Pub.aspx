@@ -6,7 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Publicar precios especiales a Clientes en el Sitio Web</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
+     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,35 +26,35 @@
         <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-4">
-                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h5>
+                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h5>
             </div>
             <div class="col-md-4">
-                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger text-dark" Height="16px"></asp:Label></span></h5>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-dark" Height="16px"></asp:Label></span></h5>
             </div>
         </div>
     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
-        <h4><span class="badge badge-primary">Búsqueda de Información</span></h4>
+        <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
         <div class="row">
             <div class="col-md-1">
-                <h4><span class="badge badge-info">id</span></h4>
+                <h4><span class="badge bg-info">id</span></h4>
             </div>
             <div class="col-md-1">
                 <h5><asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="127px" CssClass="form-control"></asp:TextBox></h5>
             </div>
                 <div class="col-md-1">
-                <h5><span class="badge badge-info">Rut</span></h5>
+                <h5><span class="badge bg-info">Rut</span></h5>
             </div>
                 <div class="col-md-1">
                 <h5><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h5>
             </div>
             <div class="col-md-1">
-                <h4><span class="badge badge-info">Razón Social</span></h4>
+                <h4><span class="badge bg-info">Razón Social</span></h4>
             </div>
             <div class="col-md-2">
                 <h5><asp:TextBox ID="txt_razonw" runat="server" Width="240px"  CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox></h5>
@@ -100,16 +101,16 @@
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-1">
-                    <h6><span class="badge badge-info">ID</span></h6>
+                    <h6><span class="badge bg-info">ID</span></h6>
                     <h6><span><asp:Label ID="lbl_id" CssClass="form-check-label" runat="server" Width="136px"></asp:Label></span></h6>
                 </div>
                  <div class="col-md-1">
-                     <h6><span class="badge badge-info">Rut</span></h6>
+                     <h6><span class="badge bg-info">Rut</span></h6>
                      <h6><span><asp:Label ID="lbl_rut" runat="server"></asp:Label>
                         <asp:Label ID="lbl_dv" runat="server" CssClass="form-check-label" Visible="False"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-6">
-                     <h6><span class="badge badge-info">Razón Social</span></h6>
+                     <h6><span class="badge bg-info">Razón Social</span></h6>
                      <h6><span><asp:Label ID="lbl_razon"  CssClass="form-check-label" runat="server"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-1">
@@ -130,7 +131,7 @@
                     <asp:Button ID="Btn_cargar" runat="server" OnClick="Btn_cargar_Click" CssClass="btn btn-md btn-success active" Text="Cargar Cliente y Productos Seleccionado(s) al Sitio Web" Width="445px" Height="31px" />
                 </div>
                 <div class="col-md-2">
-                    <h4><span class="badge badge-info">Producto(s) que no se puedan seleccionar, es porque ya están publicados en el Sitio Web</span></h4>
+                    <h4><span class="badge bg-info">Producto(s) que no se puedan seleccionar, es porque ya están publicados en el Sitio Web</span></h4>
                 </div>
             </div>
             <p></p>

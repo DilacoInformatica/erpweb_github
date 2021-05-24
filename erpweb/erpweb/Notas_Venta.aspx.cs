@@ -175,19 +175,19 @@ namespace erpweb
 
                 if (valor == "NV en Proceso de Des")
                 {
-                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ImageUrl = "~/img/despacho.png";
                     img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
                 }
 
                 if (valor == "Productos Listos par")
                 {
-                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ImageUrl = "~/img/despacho.png";
                     img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
                 }
 
-                if (valor == " Se emite Documento E")
+                if (valor == "Se emite Documento E")
                 {
-                    img_estado.ImageUrl = "~/img/desapcho.png";
+                    img_estado.ImageUrl = "~/img/factura.png";
                     img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[10].Text);
                 }
                 

@@ -10,19 +10,6 @@
     <script src="scripts/bootstrap.js"></script>
     <script src="scripts/jquery-3.5.1.min.js"></script>
     <script src="scripts/popper.js"></script>
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            width: 100%;
-            top: 0px;
-            left: 0px;
-            -ms-flex: 0 0 8.333333%;
-            flex: 0 0 8.333333%;
-            max-width: 8.333333%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-    </style>
 </head>
 
 <body>
@@ -45,25 +32,25 @@
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-4">
-                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
             </div>
         </div>
     </div>
     <br />
      <div class="container-fluid rounded border border-secondary bg-light" >
          <div class="row">
-              <div class="col-md-12"><h6><span class="badge badge-primary">Búsqueda de Información</span></h6></div>
-             <div class="col-md-1"><h6><span class="badge badge-info">Código</span> </h6></div>
+              <div class="col-md-12"><h6><span class="badge bg-primary">Búsqueda de Información</span></h6></div>
+             <div class="col-md-1"><h6><span class="badge bg-info">Código</span> </h6></div>
              <div class="col-md-2"><asp:TextBox ID="txt_codigo" runat="server" Width="163px" CssClass="form-control"></asp:TextBox></div>
-             <div class="col-md-1"><h6><span class="badge badge-info">Línea de Ventas</span> </h6></div>
-             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-control"  Width="362px" >
+             <div class="col-md-1"><h6><span class="badge bg-info">Línea de Ventas</span> </h6></div>
+             <div class="col-md-3"><h5><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select"  Width="362px" >
                                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                          </asp:DropDownList></h5></div>
              <div class="col-md-1"> <h6><asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" OnClick="Btn_buscar_Click" CssClass="btn btn-info btn-responsive btninter"/></h6></div>
@@ -77,38 +64,38 @@
             <div class="container-fluid rounded border border-secondary bg-light" id="consola" style="v">
         <div class="row">
             <div class="col-md-12">
-                 <h6><span class="badge badge-primary">Actualiza Stock Producto</span></h6>
+                 <h6><span class="badge bg-primary">Actualiza Stock Producto</span></h6>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-1"><h6><span class="badge badge-primary">Código:</span></h6></div>
-            <div class="col-md-1"><h6><asp:Label ID="lbl_codigo" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label>
+            <div class="col-md-1"><h6><span class="badge bg-primary">Código:</span></h6></div>
+            <div class="col-md-1"><h6><asp:Label ID="lbl_codigo" CssClass="form-control badge bg-success text-whit" runat="server" Width="113px"></asp:Label>
                 <asp:Label ID="lbl_id" runat="server" Visible="False"></asp:Label>
                </h6></div>
-            <div class="col-md-1"><h6><span class="badge badge-primary">Fecha:</span></h6></div>
-            <div class="col-md-1"><h6><asp:Label ID="lbl_fecha" CssClass="form-control badge badge-success text-whit" runat="server" Width="113px"></asp:Label></h6></div>
+            <div class="col-md-1"><h6><span class="badge bg-primary">Fecha:</span></h6></div>
+            <div class="col-md-1"><h6><asp:Label ID="lbl_fecha" CssClass="form-control badge bg-success text-whit" runat="server" Width="113px"></asp:Label></h6></div>
         </div>
          <div class="row">
-            <div class="col-md-1"><h6><span class="badge badge-primary">Bodega Salida:</span></h6></div>
+            <div class="col-md-1"><h6><span class="badge bg-primary">Bodega Salida:</span></h6></div>
             <div class="col-md-2">
-                <asp:DropDownList ID="ListBodSalida" runat="server" AppendDataBoundItems="True" CssClass="form-control" OnSelectedIndexChanged="ListBodSalida_SelectedIndexChanged" AutoPostBack="True">
+                <asp:DropDownList ID="ListBodSalida" runat="server" AppendDataBoundItems="True" CssClass="form-select" OnSelectedIndexChanged="ListBodSalida_SelectedIndexChanged" AutoPostBack="True">
                     <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                 </asp:DropDownList>
             </div>
-            <div class="col-md-1"><h6><span class="badge badge-primary">Bodega Entrada:</span></h6></div>
+            <div class="col-md-1"><h6><span class="badge bg-primary">Bodega Entrada:</span></h6></div>
             <div class="col-md-2">
-                <asp:DropDownList ID="ListBodEntrada" runat="server" AppendDataBoundItems="True" CssClass="form-control" OnSelectedIndexChanged="ListBodEntrada_SelectedIndexChanged">
+                <asp:DropDownList ID="ListBodEntrada" runat="server" AppendDataBoundItems="True" CssClass="form-select" OnSelectedIndexChanged="ListBodEntrada_SelectedIndexChanged">
                     <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                 </asp:DropDownList>
             </div>
-            <div class="col-md-1"><h6><span class="badge badge-primary">Stock en ERP:</span></h6></div>
-            <div class="auto-style1">
+            <div class="col-md-1"><h6><span class="badge bg-primary">Stock en ERP:</span></h6></div>
+            <div class="col-md-1">
                 <span>
-                <asp:Label ID="lbl_stock_erp" runat="server" Text=""></asp:Label>
+                <asp:Label CssClass="form-control" ID="lbl_stock_erp" runat="server" Text="" Width="50px"></asp:Label>
                 </span>
              </div>
              <div class="col-md-1">
-                 <h6><span class="badge badge-primary">Cantidad:</span></h6>
+                 <h6><span class="badge bg-primary">Cantidad:</span></h6>
              </div>
              <div class="col-md-1">
                  <h6><span>

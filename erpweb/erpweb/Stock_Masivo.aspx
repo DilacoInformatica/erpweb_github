@@ -6,7 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Actualización Masiva de Items (Stock)</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
+     <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
     <script src="scripts/bootstrap.js"></script>
   
 </head>
@@ -27,17 +28,17 @@
             <div class="row">
                 <div class="col-md-3">
                     <h6><span>
-                        <asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
+                        <asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
                     <span>
-                        <asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                        <asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-3">
                     <h6><span>
-                        <asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-3">
                     <h6><span>
-                        <asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
                 </div>
             </div>
         </div>
@@ -54,34 +55,34 @@
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">
                 <div class="col-md-12">
-                    <h4><span class="badge badge-pill badge-primary">Búsqueda de Información</span></h4>
+                    <h4><span class="badge bg-pill badge-primary">Búsqueda de Información</span></h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
                     <h6>
-                        <label class="badge badge-pill badge-success">Desde:</label></h6>
+                        <label class="badge bg-pill bg-success">Desde:</label></h6>
                 </div>
                 <div class="col-md-2">
-                    <asp:DropDownList ID="ListBodSalida" CssClass="form-control" runat="server" AppendDataBoundItems="True">
+                    <asp:DropDownList ID="ListBodSalida" CssClass="form-select" runat="server" AppendDataBoundItems="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-1">
                     <h6>
-                        <label class="badge badge-pill badge-success">Hasta:</label></h6>
+                        <label class="badge bg-pill bg-success">Hasta:</label></h6>
                 </div>
                 <div class="col-md-2">
-                    <asp:DropDownList ID="ListBodEntrada" runat="server" CssClass="form-control" AppendDataBoundItems="True" AutoPostBack="True">
+                    <asp:DropDownList ID="ListBodEntrada" runat="server" CssClass="form-select" AppendDataBoundItems="True" AutoPostBack="True">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
                     <h6>
-                        <label class="badge badge-pill badge-success">Línea de Ventas:</label></h6>
+                        <label class="badge bg-pill bg-success">Línea de Ventas:</label></h6>
                 </div>
                 <div class="col-md-3">
-                    <asp:DropDownList ID="LstLineasVenta" CssClass="auto-style2" runat="server" AppendDataBoundItems="True" Width="233px">
+                    <asp:DropDownList ID="LstLineasVenta" CssClass="form-select" runat="server" AppendDataBoundItems="True" Width="233px">
                         <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                     </asp:DropDownList>
                 </div>

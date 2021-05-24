@@ -6,20 +6,9 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administración Clientes y precios especiales en sitio web</title>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            width: 100%;
-            top: 0px;
-            left: 0px;
-            -ms-flex: 0 0 8.333333%;
-            flex: 0 0 8.333333%;
-            max-width: 8.333333%;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-    </style>
+         <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
+
 </head>
 <body>
     <form id="form1" runat="server" class="auto-style4">
@@ -38,31 +27,31 @@
         <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-4">
-                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge badge-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge badge-primary"></asp:Label></span></h6>
+                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge badge-warning"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
             </div>
             <div class="col-md-4">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge badge-danger"></asp:Label></span></h6>
+                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
             </div>
         </div>
     </div>
     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
-        <h6><span class="badge badge-primary">Búsqueda de Información</span></h6>
+        <h6><span class="badge bg-primary">Búsqueda de Información</span></h6>
         <div class="row">
             <div class="col-md-2">
-                <h5><span class="badge badge-info">id</span>
+                <h5><span class="badge bg-info">id</span>
                 <asp:TextBox ID="txt_idw" runat="server" CssClass="form-control" BackColor="#FFFFCC" Width="127px"></asp:TextBox></h5>
             </div>
              <div class="col-md-2">
-                 <h5><span class="badge badge-info">Rut</span>
+                 <h5><span class="badge bg-info">Rut</span>
                  <asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="128px"></asp:TextBox></h5>
             </div>
             <div class="col-md-3">
-                <h5><span class="badge badge-info">Razón Social</span>
+                <h5><span class="badge bg-info">Razón Social</span>
                  <asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h5>
             </div>
            <div class="col-md-1">
@@ -122,7 +111,7 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h5><asp:Label ID="lbl_mensaje" CssClass="badge badge-success" runat="server"></asp:Label></h5>
+                <h5><asp:Label ID="lbl_mensaje" CssClass="badge bg-success" runat="server"></asp:Label></h5>
             </div>
         </div>
     </div>
