@@ -12,7 +12,7 @@ namespace erpweb
 {
     public class Cls_Utilitarios
     {
-        int ambiente =1; // Indica el ambiente dónde debe conectarse el sistema
+        int ambiente =2; // Indica el ambiente dónde debe conectarse el sistema
 
         string correo_envia = "informatica@dilaco.com";
         string correo_recibe = "sebastian.aranda.o@gmail.com";
@@ -313,6 +313,53 @@ namespace erpweb
             }
         }
 
+
+        public string obtengo_valor_regla(string valor, string conexion)
+        {
+            string result = "";
+
+ 
+                using (SqlConnection connection = new SqlConnection(conexion))
+                {
+                    try
+                    {
+                        connection.Open();
+                        SqlCommand cmd = new SqlCommand("web_consulta_parametros_web", connection);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlParameter param = new SqlParameter();
+                        // Parámetros
+                        cmd.Parameters.AddWithValue("@v_valor", valor);
+                        cmd.Parameters["@v_valor"].Direction = ParameterDirection.Input;
+
+                        using (SqlDataReader rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                if (!rdr.IsDBNull(0))
+                                {
+                                    //rescatamos los valores segun lo que utilizaremos
+                                    valor = Convert.ToString(rdr.GetString(0));
+                                }
+                            }
+                        }
+
+                        connection.Close();
+                        connection.Dispose();
+
+                      return valor;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return "Error " + ex.Message;
+                    }
+                    finally
+                    {
+                        connection.Close();
+                        
+                    }
+                }
+        }
 
     }
 }

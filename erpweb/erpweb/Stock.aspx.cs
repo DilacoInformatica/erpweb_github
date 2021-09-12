@@ -333,10 +333,14 @@ namespace erpweb
                     stock.CssClass = "badge bg-danger";
                 }
 
-                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[3].HorizontalAlign = HorizontalAlign.Left;
-                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
+                e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 

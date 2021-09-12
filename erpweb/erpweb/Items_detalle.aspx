@@ -221,6 +221,11 @@
         </div>
          <%-- Separación de Tabs --%>
         <div class="row">
+            <div class="col-md-12">
+                <h5><asp:Label ID="lbl_aviso_informacion" runat="server" CssClass="form-label" Width="131px"></asp:Label></h5>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-10">
                 <h5><span class="badge bg-info input-group-prepend">Proveedor</span></h5>
                 <h5><asp:TextBox ID="txt_proveedor" runat="server" Enabled="False" Width="800px" CssClass="form-control text-left"></asp:TextBox></h5>

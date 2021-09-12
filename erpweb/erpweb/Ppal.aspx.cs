@@ -47,6 +47,46 @@ namespace erpweb
            // Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
             GrdProdSinStock.Visible = false;
             consulta_productos_sin_stock();
+            consulta_productos_fec_vig_vencida();
+        }
+
+
+        void consulta_productos_fec_vig_vencida()
+        {
+            String queryString = "lista_productos_fv_vencida";
+            lbl_error.Text = "";
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    DataSet ds = new DataSet();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        GrdProdSinFVPE.Visible = true;
+                        GrdProdSinFVPE.DataSource = dr;
+                        GrdProdSinFVPE.DataBind();
+                    }
+
+
+                    conn.Close();
+                    conn.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
         }
 
         void consulta_productos_sin_stock()
@@ -136,6 +176,17 @@ namespace erpweb
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
                
+                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
+                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
+                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Right;
+            }
+        }
+
+        protected void GrdProdSinFVPE_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+
                 e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
                 e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
                 e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Right;

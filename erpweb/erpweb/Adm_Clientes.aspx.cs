@@ -28,6 +28,7 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
             SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -62,10 +63,8 @@ namespace erpweb
                 Response.Redirect("Ppal.aspx");
             }
 
-            Btn_buscar.Attributes["Onclick"] = "return valida()";
-            Btn_eliminaCLIWEB.Attributes["Onclick"] = "return confirm('Desea Eliminar Cliente(s) que hoy están registrados en el Sitio Web? Clientes seguirán ingresados en el ERP')";
             //ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
-            Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
+            //Btn_autorizar.Attributes["Onclick"] = "return confirm('Al autorizar Clientes en el ERP, permitirá que puedan crear Cotizaciones y NV... Desea Proceder?')";
            // Btn_cargarCliERP.Attributes["Onclick"] = "return confirm('Desea Cargar estos clientes al Sitio Web... Desea Proceder?')";
   
 
@@ -77,77 +76,7 @@ namespace erpweb
             }
         }
 
-        void insert_cliente(int id, int rut, string dv, string razon, string fono, string fono2, string direccion, string comuna, string ciudad, int region, string email)
-        {
-            string query = "";
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
-            {
-                try
-                {
-                    conn.Open();
-                    query = "inserta_cliente";
-                    MySqlCommand command = new MySqlCommand(query, conn);
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.AddWithValue("@v_id", id);
-                    command.Parameters["@v_id"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_rut", rut);
-                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_dv", dv);
-                    command.Parameters["@v_dv"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_razon", razon.Replace(",", ".").Replace("&nbsp;", "").Replace("&#209;", "Ñ"));
-                    command.Parameters["@v_razon"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_fono", fono.Replace("&nbsp;", ""));
-                    command.Parameters["@v_fono"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_fono2", fono2.Replace("&nbsp;", ""));
-                    command.Parameters["@v_fono2"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_direccion", direccion.Replace(",", ".").Replace("&nbsp;", ""));
-                    command.Parameters["@v_direccion"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_comuna", comuna.Replace("&nbsp;", ""));
-                    command.Parameters["@v_comuna"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_ciudad", ciudad.Replace("&nbsp;", ""));
-                    command.Parameters["@v_ciudad"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_region", region);
-                    command.Parameters["@v_region"].Direction = ParameterDirection.Input;
-
-                    command.Parameters.AddWithValue("@v_email", email.Replace("&nbsp;", ""));
-                    command.Parameters["@v_email"].Direction = ParameterDirection.Input;
-
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                    MySqlDataReader dr = command.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        if (!dr.IsDBNull(0))
-                        {
-                            lbl_status.Text = dr.GetString(0);
-                        }
-                    }
-
-                    conn.Close();
-                    conn.Dispose();
-                    lbl_error.Text = "";
-
-                    lbl_status.Text = "Clientes insertados correctamente";
-                    consulta_clientes_web(2);
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message + query;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
-        }
+       
 
         void insert_contactos(int id_cliente)
         {
@@ -213,7 +142,7 @@ namespace erpweb
                                                          valor9,
                                                          valor10,
                                                          valor11
-                                                                                                                );
+                                                       );
 
                             }
                         }
@@ -482,170 +411,16 @@ namespace erpweb
                 }
             }
         }
-
-        protected void Btn_buscar_Click(object sender, EventArgs e)
-        {
-            string queryString = "";
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                queryString = "SELECT distinct cl.id_cliente Id, Rut, Dv_Rut 'Dv', Razon_Social 'Razón Social', Telefono 'Teléfono', Telefono2 'Teléfono2', sc.Direccion 'Dirección', sc.Comuna, sc.Ciudad,sc.Id_Region 'Region', cl.email 'Email' ";
-                queryString = queryString + "FROM dbo.tbl_Clientes cl ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Sucursales_Clientes sc ON cl.ID_Cliente = sc.Id_Cliente  and sc.Sucursal_Principal = 1 ";
-                queryString = queryString + "left join dbo.tbl_Riesgo ON cl.Id_Riesgo = tbl_Riesgo.Id_Riesgo ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.tbl_Vendedor_cliente ON cl.ID_Cliente = tbl_Vendedor_cliente.id_Cliente ";
-                queryString = queryString + "LEFT OUTER JOIN dbo.vis_clientes_lv vc on vc.id_cliente = cl.ID_Cliente ";
-                queryString = queryString + "LEFT OUTER JOIN tbl_Regiones rr on rr.ID_Region = sc.Id_Region ";
-                queryString = queryString + "WHERE (cl.Es_Cliente = 1) ";
-                queryString = queryString + "and isnull(cl.Activo, 0) = 1 ";
-                //queryString = queryString + "and cl.ID_Cliente not in (select id_cliente from tbl_Descuentos_Unitarios where Activo = 1) ";
-
-                //if (txt_id.Text != "")
-                //{
-                //    queryString = queryString + "and cl.id_cliente = " + txt_id.Text;
-                //}
-                if (txt_rut.Text != "")
-                {
-                    queryString = queryString + "and cl.rut = " + txt_rut.Text;
-                }
-                if (txt_razon.Text != "")
-                {
-                    queryString = queryString + "and cl.Razon_Social like '%" + txt_razon.Text + "%'";
-                }
-
-                try
-                {
-                    using (SqlConnection connection = new SqlConnection(Sserver))
-                    {
-                        connection.Open();
-                        //SqlCommand command = new SqlCommand(sql, connection);
-                        SqlDataAdapter reader = new SqlDataAdapter(queryString, connection);
-                        DataSet dr = new DataSet();
-                        reader.Fill(dr, "tbl_Clientes");
-                        if (dr.Tables[0].Rows.Count == 0)
-                        {
-                            lbl_resultados.Text = "No se encuentran Clientes";
-                        }
-                        else
-                        {
-
-                            ClientesERP.DataSource = dr;
-                            ClientesERP.DataBind();
-                         //   Btn_cargarCliERP.Visible = true;
-                        }
-
-                        connection.Close();
-                        connection.Dispose();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                }
-            }
-        }
-
-        protected void Btn_cargarCliERP_Click(object sender, EventArgs e)
-        {
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                // Recorremos la grilla con los clientes del ERP que estén seleccionados
-                foreach (GridViewRow row in ClientesERP.Rows)
-                {
-                    CheckBox check = row.FindControl("check_selcli") as CheckBox;
-
-                    if (check.Checked)
-                    {
-                        insert_cliente(Convert.ToInt32(Context.Server.HtmlDecode(row.Cells[1].Text)), Convert.ToInt32(row.Cells[2].Text), Context.Server.HtmlDecode(row.Cells[3].Text), Context.Server.HtmlDecode(row.Cells[4].Text), Context.Server.HtmlDecode(row.Cells[5].Text), Context.Server.HtmlDecode(row.Cells[6].Text), Context.Server.HtmlDecode(row.Cells[7].Text), Context.Server.HtmlDecode(row.Cells[8].Text), Context.Server.HtmlDecode(row.Cells[9].Text), Convert.ToInt32(row.Cells[10].Text), Context.Server.HtmlDecode(row.Cells[11].Text));
-                        insert_contactos(Convert.ToInt32(Context.Server.HtmlDecode(row.Cells[1].Text)));
-                        insert_sucursales(Convert.ToInt32(Context.Server.HtmlDecode(row.Cells[1].Text)));
-                    }
-                }
-                // recargamos los clientes web
-                ClientesERP.DataSource = "";
-                ClientesERP.DataBind();
-                consulta_clientes_web(2);
-            }
-        }
-
+ 
         protected void lista_clientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = lista_clientes.SelectedRow;
             Response.Redirect("Item.aspx?id_item=" + row.Cells[1].Text);
         }
 
-        protected void Btn_eliminaCLIWEB_Click(object sender, EventArgs e)
-        {
-            string query = "";
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                foreach (GridViewRow row in ClientesERP.Rows)
-                {
-                    CheckBox check = row.FindControl("check_selcli") as CheckBox;
-
-       
-                    if (check.Checked)
-                    {
-
-                        if (Convert.ToInt32(row.Cells[2].Text) != 0)
-                        {
-                            using (MySqlConnection conn = new MySqlConnection(SMysql))
-                            {
-                                try
-                                {
-
-                                    conn.Open();
-                                    query = "elimina_cliente";
-                                    MySqlCommand command = new MySqlCommand(query, conn);
-                                    command.CommandType = CommandType.StoredProcedure;
-
-                                    command.Parameters.AddWithValue("@v_rut", Convert.ToInt32(row.Cells[2].Text));
-                                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
-
-                                    command.Parameters.AddWithValue("@v_nombre", row.Cells[4].Text);
-                                    command.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
-
-                                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                                    MySqlDataReader dr = command.ExecuteReader();
-
-                                    while (dr.Read())
-                                    {
-                                        if (!dr.IsDBNull(0))
-                                        {
-                                            lbl_status.Text = dr.GetString(0);
-                                        }
-                                    }
-
-                                    conn.Close();
-                                    conn.Dispose();
-                                    lbl_error.Text = "";
-
-                                    lbl_status.Text = "Cliente(s) eliminado(s) correctamente desde Sitio Web";
-                                    lista_clientes.DataSource = null;
-                                    lista_clientes.DataBind();
-                                    consulta_clientes_web(2);
-                                }
-                                catch (Exception ex)
-                                {
-                                    lbl_error.Text = ex.Message + query;
-                                    conn.Close();
-                                    conn.Dispose();
-                                }
-                            }
-                        }
-                    }
-                }
-                // recargamos los clientes web
-                
-            }
-        }
-
+     
         protected void Btn_buscarw_Click(object sender, EventArgs e)
         {
-            GrdErrores.DataSource = "";
-            GrdErrores.Visible = false;
           //  consulta_clientes_web(1);
             consulta_clientes_web(1);
         }
@@ -718,7 +493,7 @@ namespace erpweb
 
                         if (busca == 1)
                         {
-                            lbl_cantidad.Text = "Cantidad de Clientes pendientes de Aceptar: " + Convert.ToString(lista_clientes.Rows.Count);
+                            lbl_cantidad.Text = "Cantidad de Clientes: " + Convert.ToString(lista_clientes.Rows.Count);
                         }
                         else
                         {
@@ -739,143 +514,6 @@ namespace erpweb
                     conn.Dispose();
                 }
             }
-        }
-
-
-
-        protected void CheckAll(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)lista_clientes.HeaderRow.FindControl("Chck_todos");
-            //selecciona_todos(chckheader, "Chck_todos", lista_clientes, "Chk_elimina");
-        }
-
-        protected void CheckAll2(object sender, EventArgs e)
-        {
-            CheckBox chckheader = (CheckBox)ClientesERP.HeaderRow.FindControl("Chck_todoserp");
-            //selecciona_todos(chckheader, "Chck_todoserp", ClientesERP, "check_selcli");
-        }
-
-     
-        protected void Btn_autorizar_Click(object sender, EventArgs e)
-        {
-            DataTable dt = new DataTable();
-            DataColumn rutcli = dt.Columns.Add("Rut", typeof(Int32));
-            DataColumn razoncli = dt.Columns.Add("razon", typeof(string));
-            DataColumn errorcli = dt.Columns.Add("error", typeof(string));
-
-            Page.Validate();
-            if (Page.IsValid)
-            {
-                GrdErrores.DataSource = "";
-                GrdErrores.Visible = false;
-
-                foreach (GridViewRow row in lista_clientes.Rows)
-                {
-                   // CheckBox check = row.FindControl("Chk_elimina") as CheckBox;
-                    CheckBox check = (CheckBox)row.FindControl("ChkSelected");
-
-                    if (check.Checked)
-                    {
-                     //   lbl_mensaje.Text = row.Cells[1].Text;
-                        if (row.Cells[1].Text == "0")
-                        {
-                            inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[1].Text), 
-                                                   Convert.ToInt32(row.Cells[2].Text),
-                                                   Convert.ToString(row.Cells[3].Text),
-                                                   Context.Server.HtmlDecode(Convert.ToString(row.Cells[4].Text)),
-                                                   Convert.ToString(row.Cells[5].Text),
-                                                   Convert.ToString(row.Cells[6].Text),
-                                                   Context.Server.HtmlDecode(Convert.ToString(row.Cells[7].Text)),
-                                                   Convert.ToString(row.Cells[8].Text),
-                                                   Convert.ToString(row.Cells[9].Text),
-                                                   Convert.ToInt32(row.Cells[10].Text),
-                                                   Convert.ToString(row.Cells[11].Text),
-                                                   Convert.ToString(row.Cells[12].Text),
-                                                   Convert.ToString(row.Cells[13].Text),
-                                                   dt
-                                                  );
-                        }
-                        else
-                        {
-                            lbl_status.Text = "Cliente ya fue ingresado al ERP";
-                        }
-                        
-                    }
-                }
-
-                GrdErrores.DataSource = dt;
-                GrdErrores.DataBind();
-                GrdErrores.Visible = true;
-
-            }
-        }
-
-
- 
-
-        protected void inserta_cliente_en_ERP(int id, int rut, string dv, string razon_social, string telefono, string telefono2, string direccion, string ciudad, string comuna, int id_region, string pais, string email, string giro , DataTable dt  )
-        {
-            // Revisamos la información antes de grabarla.. si encontramos errores los grabamos en una grilla especial
-            Boolean swc = true;
-           
-
-            if (rut == 0)
-            {
-                inserta_errores(rut, razon_social, "Debe informar Rut para insertar",dt);
-                swc = false;
-            }
-            if (dv == "")
-            {
-                inserta_errores(rut, razon_social, "Debe informar Rut para insertar", dt);
-                swc = false;
-            }
-            if (telefono == "" && telefono2 == "" && email == "")
-            {
-                inserta_errores(rut, razon_social, "Debe informar algun medio de conmunicación", dt);
-                swc = false;
-            }
-            if (pais.ToUpper() != "CHILE")
-            {
-                inserta_errores(rut, razon_social, "Clientes Extranjeros no se crean en el ERP", dt);
-                swc = false;
-            }
-
-            if (ciudad == "")
-            {
-                inserta_errores(rut, razon_social, "No se informa Ciudad", dt);
-                swc = false;
-            }
-
-            if (comuna == "")
-            {
-                inserta_errores(rut, razon_social, "No se informa Comuna", dt);
-                swc = false;
-            }
-            if (id_region == 0)
-            {
-                inserta_errores(rut, razon_social, "No se informa Región del cliente", dt);
-                swc = false;
-            }
-
-            if (swc)
-            {
-                insert_cliente_en_ERP(rut, dv, razon_social, telefono, telefono2, direccion, ciudad, comuna, id_region, giro, "", email);
-            }
-
-        }
-
-
-        void inserta_errores(int rut, string razon_social, string error, DataTable dt)
-        {
-            
-
-            DataRow row = dt.NewRow();
-            row["Rut"] = rut;
-            row["razon"] = razon_social;
-            row["error"] = error;
-            dt.Rows.Add(row);
-            dt.AcceptChanges();
-
         }
 
         void insert_cliente_en_ERP(int rut, string dv, string razon_social, string telefonos, string telefonos2, string direccion, string ciudad, string comuna, int Id_region, string giro, string url, string email)
@@ -932,7 +570,7 @@ namespace erpweb
                         {
                             if (!rdr.IsDBNull(0))
                             {
-                                lbl_error.Text = rdr.GetInt32(0).ToString();
+                                //lbl_error.Text = rdr.GetInt32(0).ToString();
                                 v_id_cliente = Convert.ToInt32(rdr.GetInt32(0));
                             }
                         }
@@ -946,12 +584,12 @@ namespace erpweb
                     connection.Close();
                     connection.Dispose();
 
-                    actualiza_cliente_sitio_a_erp(rut, v_id_cliente, Convert.ToInt32(usuario));
-                    activa_cliente_web(rut + '-' +dv, email, razon_social);
+                    actualiza_cliente_sitio_a_erp(rut, v_id_cliente, Convert.ToInt32(Session["id_usuario"].ToString()));
+                    //activa_cliente_web(rut + '-' +dv, email, razon_social);
                 }
                 catch (Exception ex)
                 {
-                    lbl_error.Text = ex.Message;
+                    lbl_error.Text = "Error Proc insert_cliente_en_ERP " + ex.Message;
                 }
                 finally
                 {
@@ -1143,7 +781,7 @@ namespace erpweb
                         {
                             if (!rdr.IsDBNull(0))
                             {
-                                lbl_error.Text = rdr.GetInt32(0).ToString();
+                               // lbl_error.Text = rdr.GetInt32(0).ToString();
                                 v_id_contacto = Convert.ToInt32(rdr.GetInt32(0));
                             }
                         }
@@ -1233,6 +871,239 @@ namespace erpweb
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
             Response.Redirect("PPal.aspx");
+        }
+
+        protected void lista_clientes_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            string envio_correo = "";
+            if (e.CommandName == "apruebo")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = lista_clientes.Rows[index];
+                if (Convert.ToInt32(row.Cells[0].Text) > 0)
+                {
+                    lbl_error.Text = "Cliente " + Context.Server.HtmlDecode(row.Cells[3].Text)  + " ya fue aprobado";
+                }
+                else
+                {
+                    lbl_error.Text = "";
+                    // Procedimiento de creación de cliente
+                    inserta_cliente_en_ERP(Convert.ToInt32(row.Cells[0].Text),  // id
+                                            Convert.ToInt32(row.Cells[1].Text),  // rut
+                                            Context.Server.HtmlDecode(row.Cells[2].Text),  // dv
+                                            Context.Server.HtmlDecode(row.Cells[3].Text), // razon
+                                            Context.Server.HtmlDecode(row.Cells[4].Text), //
+                                            Context.Server.HtmlDecode(row.Cells[5].Text), 
+                                            Context.Server.HtmlDecode(row.Cells[6].Text), 
+                                            Context.Server.HtmlDecode(row.Cells[7].Text), 
+                                            Context.Server.HtmlDecode(row.Cells[8].Text), 
+                                            Convert.ToInt32(row.Cells[9].Text),
+                                            Context.Server.HtmlDecode(row.Cells[10].Text),
+                                            Context.Server.HtmlDecode(row.Cells[11].Text),
+                                            Context.Server.HtmlDecode(row.Cells[12].Text)
+                                            );
+                    // Si la inserción de hizo correctamente... generaremos el correo de aviso de cliente con Precio Especial
+                    if (valida_cliente_precio_especial(Convert.ToInt32(row.Cells[1].Text)) == "S")
+                    {
+                        envio_correo = utiles.obtengo_valor_regla("CORCP", Sserver);
+                        if (envio_correo  != "" && envio_correo.Contains("@"))
+                        {
+                            utiles.enviar_correo("Cliente ERP con Precios Especiales", "Cliente " + Context.Server.HtmlDecode(row.Cells[3].Text) + " , Rut "+ row.Cells[1].Text + "-"+ Context.Server.HtmlDecode(row.Cells[2].Text)  + " ya existe en el ERP como cliente Precio Especial, asigne los valores si es necesario", envio_correo);
+                        }
+                    }
+
+                    consulta_clientes_web(1);
+                }
+            }
+
+            if (e.CommandName == "eliminar")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = lista_clientes.Rows[index];
+                if (Convert.ToInt32(row.Cells[0].Text) > 0)
+                {
+                    lbl_error.Text = "No puede eliminar cliente " + Context.Server.HtmlDecode(row.Cells[3].Text) + ", ya fue aprobado en el ERP";
+                }
+                else
+                {
+                    lbl_error.Text = "";
+                    elimina_cliente(row.Cells[1].Text, Context.Server.HtmlDecode(row.Cells[3].Text));
+                }
+               
+            }
+           // consulta_clientes_web(1);
+        }
+
+        protected void inserta_cliente_en_ERP(int id, int rut, string dv, string razon_social, string telefono, string telefono2, string direccion, string ciudad, string comuna, int id_region, string pais, string email, string giro)
+        {
+            // Revisamos la información antes de grabarla.. si encontramos errores los grabamos en una grilla especial
+            Boolean swc = true;
+
+
+            if (rut == 0)
+            { 
+                lbl_error.Text = "Debe informar Rut para insertar";
+                swc = false;
+            }
+            if (dv == "")
+            {
+                lbl_error.Text = "Debe informar DV para insertar";
+                swc = false;
+            }
+            if (telefono == "" && telefono2 == "" && email == "")
+            {
+                lbl_error.Text = "Debe informar algun medio de conmunicación";
+                swc = false;
+            }
+            if (pais.ToUpper() != "CHILE")
+            {
+                lbl_error.Text = "Clientes Extranjeros no se crean en el ERP";
+                swc = false;
+            }
+
+            if (ciudad == "")
+            {
+                lbl_error.Text = "No se informa Ciudad";
+                swc = false;
+            }
+
+            if (comuna == "")
+            {
+                lbl_error.Text = "No se informa Comuna";
+                swc = false;
+            }
+            if (id_region == 0)
+            {
+                lbl_error.Text = "No se informa Región del cliente";
+                swc = false;
+            }
+
+            if (swc)
+            {
+                insert_cliente_en_ERP(rut, dv, razon_social, telefono, telefono2, direccion, ciudad, comuna, id_region, giro, "", email);
+            }
+
+        }
+
+
+        void elimina_cliente(string rut, string razon)
+        {
+            string query = "";
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+
+                    conn.Open();
+                    query = "elimina_cliente";
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_rut", Convert.ToInt32(rut));
+                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_nombre", razon);
+                    command.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            lbl_status.Text = dr.GetString(0);
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+                    lbl_error.Text = "";
+
+                    lbl_status.Text = "Cliente "+ razon +" eliminado(s) correctamente desde Sitio Web";
+                    lista_clientes.DataSource = null;
+                    lista_clientes.DataBind();
+                    
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
+
+        protected void lista_clientes_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+           
+             if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                DataRowView drv = e.Row.DataItem as DataRowView;
+
+
+                Label lbl_cli_precio_esp = e.Row.FindControl("lbl_cli_precio_esp") as Label;
+
+                int rut = Convert.ToInt32(e.Row.Cells[1].Text);
+
+                if (valida_cliente_precio_especial(rut) == "S")
+                {
+                    lbl_cli_precio_esp.Text = "SI";
+
+                }
+
+                else
+                {
+                    lbl_cli_precio_esp.Text = "NO";
+                }
+            }
+        }
+
+
+        public string valida_cliente_precio_especial(int rut)
+        {
+            string result = "N";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_valida_cli_pre_esp_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_rut", rut);
+                    cmd.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                               // lbl_error.Text = rdr.GetString(0);
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return result;
+
+                    // actualiza_cliente_sitio_a_erp(rut, Convert.ToInt32(usuario));
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return "N";
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
         }
     }
 }

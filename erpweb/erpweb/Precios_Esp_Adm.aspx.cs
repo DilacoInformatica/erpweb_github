@@ -21,6 +21,8 @@ namespace erpweb
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            // ocultamos el botón de agregar nuevos codigos para que sea el ERP el encargado de subir ítems
+            Btn_Nuevo.Visible = false;
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -66,7 +68,9 @@ namespace erpweb
         {
             String queryString = "";
             lbl_mensaje.Text = "";
-            queryString = "select cl.id_cliente, cl.rut + '-' + cl.Dv_Rut Rut, SUBSTRING(cl.razon_social,1,30) razon_social , pe.id_item ID_Item,  pe.codigo, SUBSTRING(pe.descripcion,1,30) descripcion, mn.Sigla Moneda, pe.precio_lista , pe.precio ";
+            queryString = "select cl.id_cliente, cl.rut + '-' + cl.Dv_Rut Rut, SUBSTRING(cl.razon_social,1,30) razon_social , pe.id_item ID_Item,  pe.codigo, SUBSTRING(pe.descripcion,1,30) descripcion, mn.Sigla Moneda, pe.precio_lista , pe.precio, ";
+            queryString = queryString + "IFNULL(pe.fecha_vigencia,IFNULL(pe.fecha_vigencia,DATE_SUB(NOW(),INTERVAL 24 HOUR))) fecha_vigencia, ";
+            queryString = queryString + "IF(DATEDIFF(IFNULL(date(pe.fecha_vigencia),date(DATE_SUB(NOW(),INTERVAL 24 HOUR))),date(NOW())) > 0, 'S','N') Vigente ";
             queryString = queryString + "from tbl_clientes cl, tbl_precios_especiales pe, tbl_Monedas mn ";
             queryString = queryString + "where cl.ID_Cliente = pe.ID_Cliente ";
             queryString = queryString + "and pe.id_moneda = mn.ID_Moneda ";
@@ -151,14 +155,18 @@ namespace erpweb
                             try
                             {
                                 conn.Open();
-                                query = "elimina_precios_especiales";
+                                query = "Del_PreciosEspeciales";
                                 MySqlCommand command = new MySqlCommand(query, conn);
                                 command.CommandType = CommandType.StoredProcedure;
-                                command.Parameters.AddWithValue("@v_id_cliente", row.Cells[1].Text);
-                                command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
 
                                 command.Parameters.AddWithValue("@v_id_item", row.Cells[4].Text);
                                 command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                                command.Parameters.AddWithValue("@v_id_cliente", row.Cells[1].Text);
+                                command.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
+                                command.Parameters.AddWithValue("@v_comando", "E");
+                                command.Parameters["@v_comando"].Direction = ParameterDirection.Input;
 
                                 MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
                                 MySqlDataReader dr = command.ExecuteReader();
@@ -175,7 +183,9 @@ namespace erpweb
                                 conn.Dispose();
                                 lbl_error.Text = "";
 
-                                lbl_status.Text = "Producto(s) eliminado(s) correctamente de la Web";
+                                // Eliminamosel item del ERP
+                                elimina_item_pe_erp(Convert.ToInt32(row.Cells[4].Text), Convert.ToInt32(row.Cells[1].Text));
+                                lbl_status.Text = "Producto(s) eliminado(s) correctamente de la Web y desde el ERP";
                             }
                             catch (Exception ex)
                             {
@@ -189,6 +199,55 @@ namespace erpweb
                 carga_clientes();
             }
         }
+
+        public string elimina_item_pe_erp(int id_item, int id_cliente)
+        {
+            string result = "";
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_elimima_item_pe_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_id_item", id_item);
+                    cmd.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_id_cliente", id_cliente);
+                    cmd.Parameters["@v_id_cliente"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    result = ex.Message;
+                    return result;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+
+            }
+        }
+
 
         protected void Btn_volver_Click(object sender, EventArgs e)
         {

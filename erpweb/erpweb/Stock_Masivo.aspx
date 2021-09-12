@@ -43,14 +43,13 @@
             </div>
         </div>
     <br />
-     <div class="container-fluid rounded border border-secondary bg-light">
-         <div class="row">
-            <div class="col-md-12">
-                    <h6>En esta pantalla Ud podrá generar actualizaciones masivas de Stock de productos que están publicados en la Web, seleccione Línea de Ventas o genere un sólo proceso... 
-                    Consulte con el numero Interno en el ERP el resultado una vez finalizado el procedimiento.</h6>
-            </div>
-         </div>
-     </div>
+
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Atención!</h1>
+            <p class="col-md-8 fs-4">
+            En esta pantalla Ud podrá generar actualizaciones masivas de Stock de productos que están publicados en la Web, seleccione Línea de Ventas o genere un sólo proceso... 
+                    Consulte con el numero Interno en el ERP el resultado una vez finalizado el procedimiento.                    
+        </div>
       <br />
         <div class="container-fluid rounded border border-secondary bg-light">
             <div class="row">

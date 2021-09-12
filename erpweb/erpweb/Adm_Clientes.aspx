@@ -41,14 +41,14 @@
     <div class="container-fluid rounded border border-secondary bg-light">
          <div class="row">
             <div class="col-md-3">
-                 <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
+                 <h5><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
+                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h5>
             </div>
              <div class="col-md-3">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h5>
             </div>
              <div class="col-md-3">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
+                <h5><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h5>
             </div>
           </div>
      </div>
@@ -59,14 +59,17 @@
             <div class="col-md-1"><h6><span class="badge bg-info">ID</span></h6>
                 <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="89px" CssClass="form-control"></asp:TextBox>
            </div>
-            <div class="col-md-1"><h6><span class="badge bg-info">Rut</span></h6>
+            <div class="col-md-1">
+                <h6><span class="badge bg-info">Rut</span></h6>
                 <h6><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="145px" CssClass="form-control"></asp:TextBox></h6>
             </div>
-            <div class="col-md-3"><h6><span class="badge bg-info">Razón Social</span></h6>
+            <div class="col-md-3">
+                <h6><span class="badge bg-info">Razón Social</span></h6>
                 <h6><asp:TextBox ID="txt_razonw" runat="server" Width="340px" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox></h6>
             </div>
-            <div class="col-md-2"><h6><asp:Button ID="Btn_buscarw" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="184px"/></h6></div>
-            <div class="col-md-2"><h6><asp:Button ID="Btn_autorizar" runat="server" CssClass="btn btn-success" OnClick="Btn_autorizar_Click" Text="Autorizar Cliente(s)" Width="186px" /></h6></div>
+            <div class="col-md-2">
+                <h6><span class="badge bg-info"></span></h6>
+                <h6><asp:Button ID="Btn_buscarw" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscarw_Click" Width="184px"/></h6></div>
         </div>
     </div>
     <br />
@@ -74,14 +77,9 @@
         <div class="row">
             <div class="col-md-12">
                 <span>Clientes</span>
-                <asp:GridView ID="lista_clientes" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1417px" ShowFooter="True" AutoGenerateColumns="False">
+                <asp:GridView ID="lista_clientes" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="1800px" ShowFooter="True" AutoGenerateColumns="False" OnRowCommand="lista_clientes_RowCommand" OnRowDataBound="lista_clientes_RowDataBound">
                     <AlternatingRowStyle BackColor="White" />
                     <Columns>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:CheckBox ID="ChkSelected" runat="server" CssClass="form-control" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
                         <asp:BoundField DataField="ID" HeaderText="ID" />
                         <asp:BoundField DataField="Rut" HeaderText="Rut" />
                         <asp:BoundField DataField="Dv_rut" HeaderText="DV" />
@@ -95,6 +93,17 @@
                         <asp:BoundField DataField="Pais" HeaderText="País" />
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Giro" HeaderText="Giro" />
+                        <asp:TemplateField HeaderText="Cliente Precio Esp.">
+                            <ItemTemplate>
+                                <asp:Label ID="lbl_cli_precio_esp" runat="server"></asp:Label>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:ButtonField Text="Aprobar" ControlStyle-CssClass="btn btn-success" CommandName="apruebo" >
+<ControlStyle CssClass="btn btn-success" ForeColor="White"></ControlStyle>
+                        </asp:ButtonField>
+                        <asp:ButtonField Text="Eliminar"  ControlStyle-CssClass="btn btn-danger" CommandName="eliminar" >
+<ControlStyle CssClass="btn btn-danger" ForeColor="White"></ControlStyle>
+                        </asp:ButtonField>
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />
                     <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -118,72 +127,11 @@
             <div class="col-md-12">
                 <h6><span><asp:Label ID="lbl_cantidad" CssClass="badge bg-success" runat="server" Width="747px"></asp:Label></span></h6>
             </div>
+            
         </div>
     </div>
     <br />
-      <div class="container-fluid rounded border border-secondary bg-light">
-          <div class="row">
-              <div class="col-md-12">
-                  <asp:GridView ID="GrdErrores" runat="server" Visible ="False" CellPadding="4" ForeColor="#333333" GridLines="None">
-                      <AlternatingRowStyle BackColor="White" />
-                      <EditRowStyle BackColor="#2461BF" />
-                      <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                      <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                      <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                      <RowStyle BackColor="#EFF3FB" />
-                      <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                      <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                      <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                      <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                      <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                  </asp:GridView>
-              </div>
-          </div>
-      </div>
-    <br />
-    <div class="container-fluid rounded border border-secondary bg-light">
-        <h6><span class="badge bg-primary">Eliminar Clientes de Sitio Web</span></h6>
-        <div class="row">
-           <div class="col-md-2"><h6><span class="badge bg-info">Rut</span></h6>
-               <h6><asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" BackColor="#FFFFCC"  Width="145px"></asp:TextBox></h6></div>
-           <div class="col-md-3"><h6><span class="badge bg-info">Razón Social</span></h6>
-               <h6><asp:TextBox ID="txt_razon" runat="server" CssClass="form-control" Width="340px" BackColor="#FFFFCC"></asp:TextBox></h6></div>
-            <div class="col-md-3"><h6><asp:Button ID="Btn_buscar" runat="server" CssClass="btn btn-primary" Text="Buscar Cliente(s)" OnClick="Btn_buscar_Click" Width="136px" /></h6></div>
-            <div class="col-md-3"><h6><asp:Button ID="Btn_eliminaCLIWEB" runat="server" CssClass="btn btn-danger" OnClick="Btn_eliminaCLIWEB_Click" Text="Eliminar Cliente(s) Sitio Web" Width="185px" /></h6></div>
-        </div>
-    </div>
-    <br />
-    <div class="container-fluid rounded border border-secondary bg-light">
-        <div class="row">
-            <div class="col-md-12">
-               <asp:GridView ID="ClientesERP" runat="server"  CellPadding="4" ForeColor="#333333" GridLines="None" Width="1700px" ShowFooter="True">
-                <AlternatingRowStyle BackColor="White" />
-                <Columns>
-                    <asp:TemplateField>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="check_selcli" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-                <EditRowStyle BackColor="#2461BF" />
-                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                <RowStyle BackColor="#EFF3FB" />
-                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-            </asp:GridView>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <asp:Label ID="lbl_resultados" CssClass="badge bg-success" runat="server"></asp:Label>
-            </div>
-        </div>
-    </div>
+
     </form>
 </body>
 </html>

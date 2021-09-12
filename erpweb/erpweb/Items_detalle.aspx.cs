@@ -180,6 +180,8 @@ namespace erpweb
             string extension = "";
             string nuevo_nom = "";
 
+            string v_correo_operaciones = "";
+
             lbl_status.Text = "";
             query = "SELECT iw.Id_Item "; // 0
             query = query + ",iw.Codigo "; // 1
@@ -542,7 +544,11 @@ namespace erpweb
                         txt_alt3.Text = reader[37].ToString();
                         txt_multiplo.Text = reader[52].ToString();
 
-                        lbl_stock.Text = consulta_stock_erp(id_item);
+                       // lbl_stock.Text = consulta_stock_erp(id_item);
+
+                        lbl_stock.Text = consulta_stock_web(id_item);
+
+                        lbl_aviso_informacion.Text = "";
 
                         if (lbl_web.Text == "SI") {
                          //   actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
@@ -552,6 +558,14 @@ namespace erpweb
                             {
                                 lbl_stock.CssClass = "label label-primary";
                                 lbl_stock_critico.CssClass = "label label-primary";
+
+                                lbl_aviso_informacion.Text = "Stock de producto es menor a su stock crítico, se envía aviso a Operaciones para coorección";
+
+                                v_correo_operaciones = utiles.obtengo_valor_regla("COROP", Sserver);
+
+                                utiles.enviar_correo("Aviso solicita reposición Stock","Estimado: Stock para producto " + txt_codigo.Text.Trim() + " se encuentra bajo Stock crítico, favor reponer ",v_correo_operaciones);
+
+                               // envia_aviso_a_operaciones (txt_codigo.Text,  )
 
                             }
 
@@ -918,6 +932,53 @@ namespace erpweb
                 }
             }
         }
+
+
+        public string consulta_stock_web(int id_item)
+        {
+            string query = "";
+            string result = "";
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    query = "consulta_stock";
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    //var result = command.ExecuteNonQuery();
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            result = Convert.ToString(dr.GetDouble(0));
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return result;
+                }
+                catch (Exception ex)
+                {
+
+                    conn.Close();
+                    conn.Dispose();
+                    return ex.Message + query;
+                }
+            }
+        }
+
+
         void elimna_item()
         {
             string query = "";

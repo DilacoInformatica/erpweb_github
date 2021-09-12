@@ -46,7 +46,7 @@
     <br />
      <div class="container-fluid rounded border border-secondary bg-light" >
          <div class="row">
-              <div class="col-md-12"><h6><span class="badge bg-primary">Búsqueda de Información</span></h6></div>
+             <div class="col-md-12"><h4><span class="badge bg-primary">Búsqueda de Información</span></h4></div>
              <div class="col-md-1"><h6><span class="badge bg-info">Código</span> </h6></div>
              <div class="col-md-2"><asp:TextBox ID="txt_codigo" runat="server" Width="163px" CssClass="form-control"></asp:TextBox></div>
              <div class="col-md-1"><h6><span class="badge bg-info">Línea de Ventas</span> </h6></div>
@@ -61,7 +61,7 @@
          </div>
      </div>
      <br />
-            <div class="container-fluid rounded border border-secondary bg-light" id="consola" style="v">
+            <div class="container-fluid rounded border border-secondary bg-light" id="consola">
         <div class="row">
             <div class="col-md-12">
                  <h6><span class="badge bg-primary">Actualiza Stock Producto</span></h6>
@@ -123,7 +123,10 @@
                                          <asp:Label ID="lbl_stock" runat="server" Text='<%# Bind("stock") %>'></asp:Label>
                                      </ItemTemplate>
                                  </asp:TemplateField>
+                                 <asp:BoundField DataField="Stock_critico" HeaderText="Stock Crítico" />
                                  <asp:BoundField DataField="vendidos" HeaderText="Vendidos" />
+                                 <asp:BoundField DataField="precio_lista" HeaderText="Precio Lista" />
+                                 <asp:BoundField DataField="precio" HeaderText="Precio Web" />
                              </Columns>
                         <EditRowStyle BackColor="#2461BF" />
                         <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

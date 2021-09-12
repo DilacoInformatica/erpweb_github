@@ -55,10 +55,10 @@
                  <asp:TextBox ID="txt_razonw" runat="server" CssClass="form-control" Width="266px" BackColor="#FFFFCC"></asp:TextBox></h5>
             </div>
            <div class="col-md-1">
-               <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="89px" CssClass="btn btn-primary btn-responsive btninter" OnClick="Btn_buscar_Click" />
+               <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="170px" CssClass="btn btn-primary btn-responsive btninter" OnClick="Btn_buscar_Click" />
             </div>
             <div class="auto-style1">
-                <asp:Button ID="Btn_Nuevo" runat="server" Text="Nuevo" Width="89px" OnClick="Btn_Nuevo_Click" CssClass="btn btn-success btn-responsive btninter" />
+                <asp:Button ID="Btn_Nuevo" runat="server" Text="Nuevo Precio Especial" Width="172px" OnClick="Btn_Nuevo_Click" CssClass="btn btn-success btn-responsive btninter" />
             </div>
         </div>
     </div>
@@ -92,6 +92,8 @@
                     <asp:BoundField DataField="moneda" HeaderText="Moneda" />
                     <asp:BoundField DataField="precio_lista" HeaderText="Precio Lista" />
                     <asp:BoundField DataField="Precio" HeaderText="Precio" />
+                    <asp:BoundField DataField="fecha_vigencia" HeaderText="Fecha Hasta" />
+                    <asp:BoundField DataField="Vigente" HeaderText="Vigente" />
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
                 <EmptyDataTemplate>

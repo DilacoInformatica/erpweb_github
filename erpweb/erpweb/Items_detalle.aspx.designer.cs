@@ -382,6 +382,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_stock_critico;
         
         /// <summary>
+        /// Control lbl_aviso_informacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_aviso_informacion;
+        
+        /// <summary>
         /// Control txt_proveedor.
         /// </summary>
         /// <remarks>
