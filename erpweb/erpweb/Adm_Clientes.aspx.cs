@@ -55,7 +55,7 @@ namespace erpweb
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
-
+                lbl_transportista.Text = utiles.obtengo_valor_regla("TRANS", Sserver);
 
             }
             catch
@@ -876,6 +876,14 @@ namespace erpweb
         protected void lista_clientes_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string envio_correo = "";
+            if (e.CommandName == "detalle")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = lista_clientes.Rows[index];
+
+                Response.Redirect("Adm_Clientes_Det.aspx?rut_cliente=" + (Convert.ToInt32(row.Cells[1].Text)) + "&id_cliente="+ (Convert.ToInt32(row.Cells[0].Text)));
+            }
+
             if (e.CommandName == "apruebo")
             {
                 int index = Convert.ToInt32(e.CommandArgument);

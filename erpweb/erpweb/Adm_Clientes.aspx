@@ -59,7 +59,7 @@
             <div class="col-md-1"><h6><span class="badge bg-info">ID</span></h6>
                 <asp:TextBox ID="txt_idw" runat="server" BackColor="#FFFFCC" Width="89px" CssClass="form-control"></asp:TextBox>
            </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <h6><span class="badge bg-info">Rut</span></h6>
                 <h6><asp:TextBox ID="txt_rutw" runat="server" BackColor="#FFFFCC"  Width="145px" CssClass="form-control"></asp:TextBox></h6>
             </div>
@@ -73,6 +73,17 @@
         </div>
     </div>
     <br />
+        <div class="container-fluid rounded border border-secondary alert alert-warning">
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="text-primary">
+                        <strong>Atención:</strong> Todos los clientes ingresarán al ERP con el Transportista: <strong><asp:Label ID="lbl_transportista" runat="server" Text=""></asp:Label></strong>
+&nbsp;<strong><span class="text-danger">(Por Pagar)</span></strong>. Antes de aprobar, verifique disponibilidad del transportista en dirección indicada. En caso contrario, seleccione un transportista acorde en el detalle del cliente
+                    </label>
+                </div>
+            </div>
+        </div>
+     <br />
     <div class="container-fluid rounded border border-secondary bg-light">
         <div class="row">
             <div class="col-md-12">
@@ -98,11 +109,7 @@
                                 <asp:Label ID="lbl_cli_precio_esp" runat="server"></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:ButtonField Text="Aprobar" ControlStyle-CssClass="btn btn-success" CommandName="apruebo" >
-<ControlStyle CssClass="btn btn-success" ForeColor="White"></ControlStyle>
-                        </asp:ButtonField>
-                        <asp:ButtonField Text="Eliminar"  ControlStyle-CssClass="btn btn-danger" CommandName="eliminar" >
-<ControlStyle CssClass="btn btn-danger" ForeColor="White"></ControlStyle>
+                        <asp:ButtonField Text="Detalle"  ControlStyle-CssClass="btn btn-success" CommandName="detalle" ><ControlStyle CssClass="btn btn-success" ForeColor="White"></ControlStyle>
                         </asp:ButtonField>
                     </Columns>
                     <EditRowStyle BackColor="#2461BF" />

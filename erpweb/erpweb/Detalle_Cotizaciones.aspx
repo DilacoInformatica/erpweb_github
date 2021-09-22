@@ -179,7 +179,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-2">
-                            <h6><span class="badge bg-info">Vendedor/Emisor</span></h6>
+                            <h4><span class="badge bg-info">Asistente de Ventas</span></h4>
                         </div>
                         <div class="col-md-3">
                                 <h5><asp:DropDownList ID="Lista_Vendedores" CssClass="form-select"  runat="server" AppendDataBoundItems="True">

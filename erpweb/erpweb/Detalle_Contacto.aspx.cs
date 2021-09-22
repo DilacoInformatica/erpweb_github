@@ -158,7 +158,7 @@ namespace erpweb
                             cuerpo_correo = cuerpo_correo + "</tr>";
                             cuerpo_correo = cuerpo_correo + "</table>";
 
-                            utiles.enviar_correo("Contacto Cliente", cuerpo_correo, "sebastian.aranda.o@gmail.com");
+                            utiles.enviar_correo("Contacto Cliente", cuerpo_correo, "info@dilaco.com");
 
                         }
                         catch (Exception ex)

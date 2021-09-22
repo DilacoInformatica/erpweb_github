@@ -251,7 +251,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-2">
-                            <h5><span class="badge bg-info">Vendedor/Emisor</span></h5>
+                            <h5><span class="badge bg-info">Representante de Ventas</span></h5>
                         </div>
                         <div class="col-md-3">
                                 <h5>

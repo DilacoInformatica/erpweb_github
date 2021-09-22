@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdmStock.aspx" />
+    <Content Include="Adm_Clientes_Det.aspx" />
     <Content Include="Adm_division_ventas.aspx" />
     <Content Include="Adm_Publicacion_Lineas_Prod.aspx" />
     <Content Include="Clientes.aspx" />
@@ -348,6 +349,13 @@
     </Compile>
     <Compile Include="AdmStock.aspx.designer.cs">
       <DependentUpon>AdmStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adm_Clientes_Det.aspx.cs">
+      <DependentUpon>Adm_Clientes_Det.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm_Clientes_Det.aspx.designer.cs">
+      <DependentUpon>Adm_Clientes_Det.aspx</DependentUpon>
     </Compile>
     <Compile Include="Adm_division_ventas.aspx.cs">
       <DependentUpon>Adm_division_ventas.aspx</DependentUpon>
