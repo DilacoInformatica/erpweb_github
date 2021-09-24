@@ -169,7 +169,7 @@ namespace erpweb
             sql = sql + "dbo.tbl_Cargo ON ";
             sql = sql + "dbo.tbl_Areas_Empresa.ID_Area = dbo.tbl_Cargo.Id_Area RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Usuarios ON ";
-            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo ";
+            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo and dbo.tbl_Usuarios.Id_Perfil = 6 ";
             sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1)  order by dbo.tbl_Usuarios.Apellido_Usu";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
@@ -544,7 +544,7 @@ namespace erpweb
                             {
                                 if (!rdr.IsDBNull(0))
                                 {
-                                    //lbl_error.Text = rdr.GetInt32(0).ToString();
+                                  //  lbl_error.Text = rdr.GetString(0);
                                     v_id_cotizacion = Convert.ToInt32(rdr.GetInt32(0));
                                 }
                             }
@@ -591,7 +591,7 @@ namespace erpweb
                                     cmd.Parameters.AddWithValue("@v_item", v_id_item);
                                     cmd.Parameters["@v_item"].Direction = ParameterDirection.Input;
 
-                                    cmd.Parameters.AddWithValue("@v_codigo", v_codigo);
+                                    cmd.Parameters.AddWithValue("@v_codigo", v_codigo.Trim());
                                     cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
 
                                     cmd.Parameters.AddWithValue("@v_descripcion", v_descrip);

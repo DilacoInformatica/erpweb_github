@@ -134,6 +134,8 @@ namespace erpweb
                     if (!dr.HasRows)
                     {
                         lbl_mensaje.Text = "Sin Resultados";
+                        Lista_cotizacion.DataSource = null;
+                        Lista_cotizacion.DataBind();
                     }
                     else
                     {
@@ -178,7 +180,7 @@ namespace erpweb
                 ubicacion = "E";
 
             }
-            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[2].Text + "&ubicacion=" + ubicacion + "&tipo=" + row.Cells[14].Text);
+            Response.Redirect("Detalle_Cotizaciones.aspx?cot=" + row.Cells[7].Text + "&ubicacion=" + ubicacion + "&tipo=" + row.Cells[13].Text);
         }
 
         protected void LinkButton2_Click(object sender, EventArgs e)
@@ -195,33 +197,33 @@ namespace erpweb
 
                 System.Web.UI.WebControls.Image img_estado = e.Row.FindControl("img_estado") as System.Web.UI.WebControls.Image;
 
-                string valor = e.Row.Cells[13].Text.Substring(0,8);
+                string valor = e.Row.Cells[12].Text.Substring(0,8);
 
                 if (valor == "Ingresad")
                 {
                     img_estado.ImageUrl = "~/img/nuevo.png";
-                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[12].Text);
                 }
 
                 if (valor == "Asignada")
                 {
                     img_estado.ImageUrl = "~/img/asignado.png";
-                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[12].Text);
                 }
 
                 if  (valor == "Aceptada")
                 {
                     img_estado.ImageUrl = "~/img/Apruebo.png";
-                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[12].Text);
                 }
 
                 if (valor == "Rechaza ")
                 {
                     img_estado.ImageUrl = "~/img/Rechazo.png";
-                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[13].Text);
+                    img_estado.ToolTip = HttpUtility.HtmlDecode(e.Row.Cells[12].Text);
                 }
 
-                lbl_num_cot_erp.Text = busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[2].Text), "CO");
+                lbl_num_cot_erp.Text = busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[7].Text), "CO");
 
 
                 e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Left;

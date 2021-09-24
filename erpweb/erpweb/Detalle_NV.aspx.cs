@@ -149,7 +149,7 @@ namespace erpweb
             sql = sql + "dbo.tbl_Cargo ON ";
             sql = sql + "dbo.tbl_Areas_Empresa.ID_Area = dbo.tbl_Cargo.Id_Area RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Usuarios ON ";
-            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo ";
+            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo and dbo.tbl_Usuarios.Id_Perfil = 17  ";
             sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1)  ORDER BY CONCAT(dbo.tbl_Usuarios.Apellido_Usu, ' ', dbo.tbl_Usuarios.Nombre_Usu)  ";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
