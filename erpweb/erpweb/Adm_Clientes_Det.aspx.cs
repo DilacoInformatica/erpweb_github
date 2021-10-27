@@ -41,13 +41,9 @@ namespace erpweb
                 }
 
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
@@ -60,6 +56,8 @@ namespace erpweb
                     lbl_status.Text = "Cliente ya fue aprobado en el ERP, no es posible reaprobar o eliminar";
                     Btn_Aprobar.Enabled = false;
                     Btn_Rechazar.Enabled = false;
+                    LnkBtn_Aprobar.Enabled = false;
+                    LnkBtn_Rechazar.Enabled = false;
                 }
             }
             catch
@@ -69,6 +67,9 @@ namespace erpweb
 
             Btn_Aprobar.Attributes["Onclick"] = "return confirm('¿Desea aprobar cliente? Recuede que los cambios pueden ser factor de error en futuras compras')";
             Btn_Rechazar.Attributes["Onclick"] = "return confirm('¿Confirmar rechazo cliente?')";
+
+            LnkBtn_Aprobar.Attributes["Onclick"] = "return confirm('¿Desea aprobar cliente? Recuede que los cambios pueden ser factor de error en futuras compras')";
+            LnkBtn_Rechazar.Attributes["Onclick"] = "return confirm('¿Confirmar rechazo cliente?')";
 
 
             if (!this.IsPostBack)
@@ -670,6 +671,53 @@ namespace erpweb
                     conn.Dispose();
                 }
             }
+        }
+
+        protected void LnkBtn_Rechazar_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                elimina_cliente(lbl_rut_master.Text, Context.Server.HtmlDecode(lbl_nombre.Text));
+            }
+        }
+
+        protected void LnkBtn_Aprobar_Click(object sender, EventArgs e)
+        {
+            string envio_correo = "";
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                inserta_cliente_en_ERP(Convert.ToInt32(lbl_id.Text),  // id
+                                          Convert.ToInt32(lbl_rut.Text),  // rut
+                                          Context.Server.HtmlDecode(lbl_dv.Text),  // dv
+                                          Context.Server.HtmlDecode(lbl_nombre.Text), // razon
+                                          Context.Server.HtmlDecode(txt_fono1.Text), //
+                                          Context.Server.HtmlDecode(txt_fono2.Text),
+                                          Context.Server.HtmlDecode(txt_direccion.Text),
+                                          Context.Server.HtmlDecode(txt_ciudad.Text),
+                                          Context.Server.HtmlDecode(txt_comuna.Text),
+                                          Convert.ToInt32(txt_region.Text),
+                                          Context.Server.HtmlDecode(txt_pais.Text),
+                                          Context.Server.HtmlDecode(txt_email.Text),
+                                          Context.Server.HtmlDecode(txt_giro.Text),
+                                          Convert.ToInt32(Lst_Trasnportistas.SelectedValue)
+                                          );
+                // Si la inserción de hizo correctamente... generaremos el correo de aviso de cliente con Precio Especial
+                if (valida_cliente_precio_especial(Convert.ToInt32(lbl_rut.Text)) == "S")
+                {
+                    envio_correo = utiles.obtengo_valor_regla("CORCP", Sserver);
+                    if (envio_correo != "" && envio_correo.Contains("@"))
+                    {
+                        utiles.enviar_correo("Cliente ERP con Precios Especiales", "Cliente " + Context.Server.HtmlDecode(lbl_nombre.Text) + " , Rut " + lbl_rut.Text + " ya existe en el ERP como cliente Precio Especial, asigne los valores si es necesario", envio_correo);
+                    }
+                }
+            }
+        }
+
+        protected void LnkBtn_Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Adm_clientes.aspx");
         }
     }
 }

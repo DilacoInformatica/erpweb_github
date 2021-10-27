@@ -115,6 +115,7 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -160,7 +161,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Chart.css" />
+    <Content Include="Content\Chart.min.css" />
     <Content Include="Cotizaciones.aspx" />
+    <Content Include="css\dashboard.css" />
     <Content Include="css\estilos.css" />
     <Content Include="Detalle_Contacto.aspx" />
     <Content Include="Detalle_Cotizaciones.aspx" />
@@ -175,18 +179,25 @@
     <Content Include="img\despacho.png" />
     <Content Include="img\entrega.png" />
     <Content Include="img\factura.png" />
+    <Content Include="img\favicon.ico" />
     <Content Include="img\grabar.png" />
     <Content Include="img\html.png" />
     <Content Include="img\mas.jpg" />
     <Content Include="img\nuevo.png" />
     <Content Include="img\off.png" />
     <Content Include="img\on.png" />
+    <Content Include="img\prod_img_no_disponible.jpg" />
+    <Content Include="img\prueba.jpg" />
     <Content Include="img\Rechazo - copia.png" />
     <Content Include="img\Rechazo.png" />
     <Content Include="img\vista.png" />
     <Content Include="img\warning.png" />
     <Content Include="Index.aspx" />
+    <Content Include="Inf_Cotizaciones.aspx" />
+    <Content Include="Inf_NV.aspx" />
     <Content Include="Lista_exportacion_items_web.aspx" />
+    <Content Include="Maqueta.aspx" />
+    <Content Include="Ppal.aspx" />
     <Content Include="Maqueta.html" />
     <Content Include="Notas_Venta.aspx" />
     <Content Include="packages.config" />
@@ -199,16 +210,20 @@
     <Content Include="scripts\bootstrap.esm.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\Chart.js" />
+    <Content Include="scripts\Chart.min.js" />
+    <Content Include="scripts\dashboard.js" />
     <Content Include="scripts\esm\popper-utils.js" />
     <Content Include="scripts\esm\popper-utils.min.js" />
     <Content Include="scripts\esm\popper.js" />
     <Content Include="scripts\esm\popper.min.js" />
+    <Content Include="scripts\feather.min.js" />
     <Content Include="scripts\index.js.flow" />
     <Content Include="scripts\esm\popper.min.js.map" />
     <Content Include="scripts\esm\popper.js.map" />
     <Content Include="scripts\esm\popper-utils.min.js.map" />
     <Content Include="scripts\esm\popper-utils.js.map" />
-    <Content Include="Ppal.aspx" />
+    <Content Include="Respaldos_Forms\Ppal.aspx" />
     <Content Include="scripts\bootstrap.min.js.map" />
     <Content Include="scripts\bootstrap.js.map" />
     <Content Include="scripts\bootstrap.esm.min.js.map" />
@@ -436,6 +451,20 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inf_Cotizaciones.aspx.cs">
+      <DependentUpon>Inf_Cotizaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inf_Cotizaciones.aspx.designer.cs">
+      <DependentUpon>Inf_Cotizaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inf_NV.aspx.cs">
+      <DependentUpon>Inf_NV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inf_NV.aspx.designer.cs">
+      <DependentUpon>Inf_NV.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Items_detalle.aspx.cs">
       <DependentUpon>Items_detalle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -456,6 +485,20 @@
     </Compile>
     <Compile Include="Lista_exportacion_items_web.aspx.designer.cs">
       <DependentUpon>Lista_exportacion_items_web.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maqueta.aspx.cs">
+      <DependentUpon>Maqueta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maqueta.aspx.designer.cs">
+      <DependentUpon>Maqueta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ppal.aspx.cs">
+      <DependentUpon>Ppal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ppal.aspx.designer.cs">
+      <DependentUpon>Ppal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Notas_Venta.aspx.cs">
       <DependentUpon>Notas_Venta.aspx</DependentUpon>
@@ -493,11 +536,11 @@
     <Compile Include="Stock.aspx.designer.cs">
       <DependentUpon>Stock.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Ppal.aspx.cs">
+    <Compile Include="Respaldos_Forms\Ppal.aspx.cs">
       <DependentUpon>Ppal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Ppal.aspx.designer.cs">
+    <Compile Include="Respaldos_Forms\Ppal.aspx.designer.cs">
       <DependentUpon>Ppal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Stock_Masivo.aspx.cs">
@@ -545,7 +588,6 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties Content_4bootstrap-reboot_1min_1css_1map__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

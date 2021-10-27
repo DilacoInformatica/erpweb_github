@@ -4,195 +4,246 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-       <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="scripts/bootstrap.min.js"></script>
+    <meta name="theme-color" content="#7952b3" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Productos</title>
-    </head>
+    <script src="scripts/bootstrap.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
+</head>
 <body>
-    
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
-                <asp:ScriptManager ID="ScriptManager1" runat="server">
-                    </asp:ScriptManager>
-    <form id="form1" runat="server">
-    <%-- Maqueta Boostrap --%> 
-    <div class="container-fluid rounded border border-secondary bg-light">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="text-center text-primary"><img alt="" src="img/vineta.gif" style="width:31px;height:33px;" />Productos Web</h1> 
-                        </div>
-                        <div class="col-md-1 float-right">
-                            <asp:LinkButton ID="LinkButton2" runat="server" CssClass="btn btn-outline-success" OnClick="LinkButton2_Click" Width="133px">Volver</asp:LinkButton>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+            <form id="form1" runat="server">
+                <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+                    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+                        <label>
+                            <span data-feather="user-check"></span>
+                            <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
+                            <span data-feather="message-circle"></span>
+                            <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+                        </label>
+                    </a>
+                    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <label class="text-light text-center fs-4 fw-bold">
+                        Productos Web
+                    </label>
+                    <div class="navbar-nav">
+                        <div class="nav-item text-nowrap">
+                            <asp:LinkButton ID="LinkButton2" runat="server" CssClass="nav-link px-3" OnClick="LinkButton2_Click1">Volver</asp:LinkButton>
                         </div>
                     </div>
-                </div>
-            </div>
-    </div>
-    <br />
-    <div class="container-fluid rounded border border-secondary bg-light">
-         <div class="row">
-            <div class="col-md-3">
-                <h6><span><asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
-                    <span><asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span>
-            </div>
-             <div class="col-md-3">
-                <h6><span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
-             </div>
-             <div class="col-md-3">
-                <h6><span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
-            </div>
-       </div>
-    </div>
-    <br />
-    <div class="container-fluid rounded border border-secondary bg-light"">
-            <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
-            <div class="row">
-                <div class="col-md-4">
-                    <h6><span class="badge bg-info">Por palabra clave</span></h6>
-                    <h6><asp:TextBox ID="txt_palabra_clave" runat="server" BackColor="#FFFFCC" Width="405px" CssClass="form-control"></asp:TextBox></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Código</span></h6>
-                    <h6><asp:TextBox ID="txt_codigo" runat="server" BackColor="#FFFFCC" CssClass="form-control" Width="200px"></asp:TextBox></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Código Prov.</span></h6>
-                    <h6><asp:TextBox ID="txt_codprov" runat="server" BackColor="#FFFFCC" Width="200px" CssClass="form-control"></asp:TextBox></h6>
-                </div>
-            </div>
-            <div class="row">
-                 <div class="col-md-2">
-                    <h6><span class="badge bg-info">División</span></h6>
-                    <h6><asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" CssClass="form-select" Width="196px">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                        </asp:DropDownList></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Categoría</span></h6>
-                    <h6><asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" CssClass="form-select" Width="196px">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                        </asp:DropDownList></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Subcategoría</span></h6>
-                    <h6><asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True" CssClass="form-select" Width="196px">
-                       <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
-                       </asp:DropDownList>
-                    </h6>
-                </div>
-                <div class="col-md-2">
-                     <h6><span class="badge bg-info">Línea de Venta</span></h6>
-                    <h6><asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select" Width="196px">
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                         </asp:DropDownList></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Letra</span></h6>
-                    <h6><asp:DropDownList ID="LstLetras" runat="server" AppendDataBoundItems="True"  CssClass="form-select" Width="90px">
-                        <asp:ListItem Selected="True" Value="0">Letra</asp:ListItem>
-                        </asp:DropDownList></h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <h6><span class="badge bg-info">Proveedor</span></h6>
-                    <h4><asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True"  CssClass="form-select" Width="739px" >
-                        <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                        </asp:DropDownList></h4>
-                </div>
-            </div>
-            <div class="row">
+                </header>
+                <div class="container-fluid">
+                    <div class="row">
+                        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                            <div class="position-sticky pt-3">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="Ppal.aspx">
+                                            <span data-feather="home"></span>
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Adm_Clientes.aspx">
+                                            <span data-feather="users"></span>
+                                            Clientes
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Cotizaciones.aspx">
+                                            <span data-feather="file"></span>
+                                            Cotizaciones
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Notas_Venta.aspx">
+                                            <span data-feather="file"></span>
+                                            Notas de Venta
+                                        </a>
+                                    </li>
 
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Sin Categoría</span></h6>
-                    <h6><asp:CheckBox ID="chk_sin_cat" runat="server" CssClass  ="form-check" /></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Publicados</span></h6>
-                    <h6><asp:CheckBox ID="chk_publicados" runat="server" CssClass  ="form-check"/></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Sin Imagénes</span></h6>
-                    <h6><asp:CheckBox ID="chk_sin_imagenes" runat="server" CssClass  ="form-check"/></h6>
-                </div>
-                <div class="col-md-2">
-                     <h6><span class="badge bg-info">Sólo Cotización</span></h6>
-                    <h6><asp:CheckBox ID="chk_cotizac" runat="server" CssClass  ="form-check" /></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">Sólo Ventas</span></h6>
-                    <h6><asp:CheckBox ID="chk_ventas" runat="server" CssClass  ="form-check" /></h6>
-                </div>
-                <div class="col-md-2">
-                    <h6><span class="badge bg-info">NO Publicados</span></h6>
-                    <h6><asp:CheckBox ID="chk_no_publicados" runat="server" CssClass  ="form-check" /></h6>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" Width="140px" CssClass="btn btn-primary btn-responsive btninter" />
-                </div>
-            </div>
-        <p></p>
-        </div>
-        
-    </div>
-<br />
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Items_ppal.aspx">
+                                            <span data-feather="shopping-cart"></span>
+                                            Productos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Ppal.aspx">
+                                            <span data-feather="log-out"></span>
+                                            Volver
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
 
-<div class="container-fluid rounded border border-secondary">
-        <div class="row">
-            <div class="col-md-2">
-                <h6><span class="badge bg-info">Cantidad Productos</span></h6>
-            </div>
-            <div class="col-md-1">
-                <h6><asp:Label ID="lbl_cantidad" runat="server" CssClass="form-control text-info" Width="88px"></asp:Label></h6>
-            </div>
-            <div class="col-md-2">
-                <h6><span class="badge bg-info">Prod. Publicados</span></h6>
-            </div>
-            <div class="col-md-1">
-                <h6><asp:Label ID="lbl_prod_publicados" runat="server" CssClass="form-control text-info" Width="88px"></asp:Label></h6>
-            </div>
-            <div class="col-md-4">
-                    <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" Width="30px"  Height="30px" />
-		    </div>
-        </div>
-</div>
-<br />
+                        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="divider"></p>
+                            <div class="container-fluid rounded border border-secondary bg-light">
+                                <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Por palabra clave</span>
+                                        <asp:TextBox ID="txt_palabra_clave" runat="server" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Código</span>
+                                        <asp:TextBox ID="txt_codigo" runat="server" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Código Prov.</span>
+                                        <asp:TextBox ID="txt_codprov" runat="server" BackColor="#FFFFCC" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Letra</span>
+                                        <asp:DropDownList ID="LstLetras" runat="server" AppendDataBoundItems="True" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Letra</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">División</span>
+                                        <asp:DropDownList ID="LstDivision" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstDivision_SelectedIndexChanged" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Categoría</span>
+                                        <asp:DropDownList ID="LstCategorias" runat="server" AppendDataBoundItems="True" AutoPostBack="True" OnSelectedIndexChanged="LstCategorias_SelectedIndexChanged" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Subcategoría</span>
+                                        <asp:DropDownList ID="LstSubCategorias" runat="server" AppendDataBoundItems="True" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccionar</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Línea de Venta</span>
+                                        <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
 
-<div class="container-fluid rounded border border-secondary bg-light">
-            <div class="row">
-                <div class="col-md-12">
-                    <h6>
-                        <asp:GridView ID="Productos" runat="server" CellPadding="4"  ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="Productos_SelectedIndexChanged" AllowSorting="True" ShowFooter="True" ShowHeaderWhenEmpty="True">
-                        <AlternatingRowStyle BackColor="White" />
-                        <Columns>
-                            <asp:CommandField SelectText="Ver" ShowSelectButton="True" />
-                        </Columns>
-                        <EditRowStyle BackColor="#2461BF" />
-                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#EFF3FB" />
-                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                        <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                        <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                        <SortedDescendingHeaderStyle BackColor="#4870BE" />
-                        </asp:GridView>
-                    </h6>
-          </div>
-    </div>
-</div>
-
-    </form>
-      </ContentTemplate>
-    </asp:UpdatePanel>               
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span class="badge bg-info">Proveedor</span>
+                                        <asp:DropDownList ID="LstProveedores" runat="server" AppendDataBoundItems="True" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Sin Categoría</span>
+                                        <asp:CheckBox ID="chk_sin_cat" runat="server" CssClass="form-check" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Publicados</span>
+                                         <asp:CheckBox ID="chk_publicados" runat="server" CssClass="form-check" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Sin Imagénes</span>
+                                        <asp:CheckBox ID="chk_sin_imagenes" runat="server" CssClass="form-check" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Sólo Cotización</span>
+                                        <asp:CheckBox ID="chk_cotizac" runat="server" CssClass="form-check" />
+                                    </div>
+                                    <div class="col-md-2">
+                                         <span class="badge bg-info">Sólo Ventas</span>
+                                         <asp:CheckBox ID="chk_ventas" runat="server" CssClass="form-check" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">NO Publicados</span>
+                                        <asp:CheckBox ID="chk_no_publicados" runat="server" CssClass="form-check" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <asp:Button ID="Btn_buscar" runat="server" OnClick="Btn_buscar_Click" Text="Buscar" CssClass="btn btn-primary btn-responsive btninter" />
+                                    </div>
+                                </div>
+                                <p class="divider"></p>
+                            </div>
+                            <p class="divider"></p>
+                            <div class="container-fluid rounded border border-secondary">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Cantidad Productos</span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <asp:Label ID="lbl_cantidad" runat="server" CssClass="form-control text-info"></asp:Label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="badge bg-info">Prod. Publicados</span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <asp:Label ID="lbl_prod_publicados" runat="server" CssClass="form-control text-info"></asp:Label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <asp:ImageButton ID="Excel" runat="server" ImageUrl="~/img/xls.gif" OnClick="Excel_Click" Width="30px" Height="30px" />
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="divider"></p>
+                            <asp:GridView ID="Productos" runat="server" CssClass="table table-striped table-hover" AllowSorting="True" ShowFooter="True" ShowHeaderWhenEmpty="True" AutoGenerateColumns="False" OnRowCommand="Productos_RowCommand" OnRowDataBound="Productos_RowDataBound">
+                                <Columns>
+                                    <asp:ButtonField ButtonType="Image" CommandName="ver" ImageUrl="~/img/vista.png" >
+                                        <ControlStyle Height="20px" Width="20px" />
+                                    </asp:ButtonField>
+                                    <asp:BoundField DataField="Id" HeaderText="Id" />
+                                    <asp:BoundField DataField="codigo" HeaderText="Código" />
+                                    <asp:BoundField DataField="descripcion" HeaderText="Descripción" />
+                                    <asp:BoundField DataField="visible" HeaderText="Visible" />
+                                    <asp:BoundField DataField="a_pedido" HeaderText="A Pedido" />
+                                    <asp:BoundField DataField="venta" HeaderText="Vta" />
+                                    <asp:BoundField DataField="cotizacion" HeaderText="Cot" />
+                                    <asp:BoundField DataField="m_tecnico" HeaderText="M. Téc" />
+                                    <asp:BoundField DataField="presentacion" HeaderText="Pres" />
+                                    <asp:BoundField DataField="foto1" HeaderText="Foto1" />
+                                    <asp:BoundField DataField="foto2" HeaderText="Foto2" />
+                                    <asp:BoundField DataField="video" HeaderText="Vid" />
+                                    <asp:BoundField DataField="H_Seg" HeaderText="H. Seg" />
+                                    <asp:BoundField DataField="publicado" HeaderText="Pub" />
+                                    <asp:BoundField DataField="activo" HeaderText="Act" />
+                                </Columns>
+                            </asp:GridView>
+                        </main>
+                    </div>
+                </div>
+       
+            </form>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <script src="scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/feather.min.js"></script>
+    <script src="scripts/Chart.min.js"></script>
+    <script src="scripts/dashboard.js"></script>
 </body>
 </html>
 

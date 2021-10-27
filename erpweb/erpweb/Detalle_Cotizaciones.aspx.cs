@@ -37,13 +37,18 @@ namespace erpweb
             ubicacion = Request.QueryString["ubicacion"].ToString();
             tipo = Request.QueryString["tipo"].ToString();
 
+            LnkBtn_Aprobar.Visible = true;
+            LnkBtn_Rechazar.Visible = true;
+
             lbl_neto.Style.Add("text-align", "right");
             lbl_tax.Style.Add("text-align", "right");
             lbl_total.Style.Add("text-align", "right");
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
             Sserver = utiles.verifica_ambiente("SSERVER");
             SMysql = utiles.verifica_ambiente("MYSQL");
-            
+
+            lbl_numero_erp.Text = "0";
+
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
@@ -61,16 +66,9 @@ namespace erpweb
                 }
 
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-
-  
-
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
             }
             catch
             {
@@ -79,7 +77,9 @@ namespace erpweb
 
 
             Btn_crearCot.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta Cotización Web en el ERP, desea proceder?')";
+            LnkBtn_Aprobar.Attributes["Onclick"] = "return confirm('Ud está a punto de Crear esta Cotización Web en el ERP, desea proceder?')";
             Btn_RechazarCot.Attributes["Onclick"] = "return confirm('Ud está a punto de RECHAZAR esta Cotización Web en el ERP, desea proceder?')";
+            LnkBtn_Rechazar.Attributes["Onclick"] = "return confirm('Ud está a punto de RECHAZAR esta Cotización Web en el ERP, desea proceder?')";
             if (!this.IsPostBack)
             {
                 carga_vendedores();
@@ -87,7 +87,9 @@ namespace erpweb
                 if (VerificaexistenciaCotERP(num_cotizacion) == "SI")
                 {
                     Btn_crearCot.Enabled = false;
+                    LnkBtn_Aprobar.Visible = false;
                     Btn_RechazarCot.Enabled = false;
+                    LnkBtn_Rechazar.Visible = false;
                     lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
                     lbl_error.ForeColor = Color.Red;
                 }
@@ -245,7 +247,7 @@ namespace erpweb
                                 {
                                     lbl_existe.Text = "NO";
                                 }
-
+                                lbl_numero_erp.Text =Convert.ToString(detecta_num_cotizac(dr.GetInt32(1)));
                                 //v_id_nta_vta = Convert.ToInt32(dr.GetString(0));
                                 lbl_numero.Text = dr.GetString(1);
                                 lbl_fecha.Text = dr.GetString(12);
@@ -264,6 +266,7 @@ namespace erpweb
                                 lbl_nombre.Text = dr.GetString(21);
                                 lbl_apellidos.Text = dr.GetString(22);
                                 lbl_region.Visible = false;
+                                lbl_n_oc.Text = "0";
 
                                 foreach (ListItem item in Lst_Region.Items)
                                 {
@@ -336,7 +339,7 @@ namespace erpweb
         {
             string queryString = "";
 
-            queryString = "select dn.item Item, it.codigo 'Codigo', it.descripcion 'Descripcion' , dn.cantidad 'Cantidad', IFNULL(dn.Valor_Unitario,1) 'Precio Unitario' ";
+            queryString = "select dn.item Item, it.codigo 'Codigo', it.descripcion 'Descripcion' , dn.cantidad 'Cantidad', IFNULL(it.Precio,1) 'Precio Unitario' ";
             queryString = queryString + "from tbl_items_cotizacion dn inner ";
             queryString = queryString + "join tbl_items it on it.id_item = dn.id_item ";
             queryString = queryString + "where dn.ID_Cotizacion = " + v_id_cotizacion;
@@ -369,7 +372,9 @@ namespace erpweb
 
                         v_neto = total;
                         v_tax = total * 0.19;
-                        v_total = total + (total * 0.19) ;
+                        v_tax = (int)Math.Round(v_tax);
+                        v_total = total + (total * 0.19);
+                        v_total = (int)Math.Round(v_total);
                     }
 
 
@@ -386,6 +391,46 @@ namespace erpweb
                     lbl_error.Text = ex.Message;
                     conn.Close();
                     conn.Dispose();
+                }
+            }
+        }
+
+        public int detecta_num_cotizac(int v_num_cot_web)
+        {
+            string sql = "select Cotizac_Num from tbl_Cotizaciones where Cotizac_Num_Web = " + v_num_cot_web;
+            int result = 0;
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetInt32(0);
+                              
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return 0;
+                }
+                finally
+                {
+                    connection.Close();
+                    connection.Dispose();
                 }
             }
         }
@@ -544,7 +589,7 @@ namespace erpweb
                             {
                                 if (!rdr.IsDBNull(0))
                                 {
-                                  //  lbl_error.Text = rdr.GetString(0);
+                                   // lbl_error.Text = rdr.GetString(0);
                                     v_id_cotizacion = Convert.ToInt32(rdr.GetInt32(0));
                                 }
                             }
@@ -578,8 +623,9 @@ namespace erpweb
                                     int v_id_item = Convert.ToInt32(fila.Cells[0].Text);
                                     string v_codigo = fila.Cells[1].Text;
                                     string v_descrip = fila.Cells[2].Text;
-                                    double v_cantidad = Convert.ToInt32(fila.Cells[3].Text);
+                                    double v_cantidad = Convert.ToDouble(fila.Cells[3].Text);
                                     double v_precio_unitario = Convert.ToInt32(fila.Cells[4].Text);
+                                    //float v_multiplo = obtiene_multiplo_producto(v_id_item);
                                     connection.Open();
                                     SqlCommand cmd = new SqlCommand("web_carga_cot_det_web", connection);
                                     cmd.CommandType = CommandType.StoredProcedure;
@@ -644,6 +690,58 @@ namespace erpweb
                 // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
         }
 
+        public float obtiene_multiplo_producto (int id_item)
+        {
+            string queryString = "";
+            queryString = "Consulta_multiplo_producto ";
+            float result = 0;
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    DataSet ds = new DataSet();
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        lbl_status.Text = "Sin Resultados";
+                    }
+                    else
+                    {
+                        while (dr.Read())
+                        {
+                            if (!dr.IsDBNull(0))
+                            {
+                                // NV
+                                result = dr.GetFloat(0);
+                            }
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    conn.Close();
+                    conn.Dispose();
+                    return 0;
+                }
+              
+            }
+        }
         void actualiza_Cotizacion(int numero)
         {
             string queryString = "";
@@ -731,7 +829,8 @@ namespace erpweb
         void entrega_num_cot_erp(int v_id_cotizacion)
         {
             string sql = ""; // "select 0 ID_Usuario, 'Seleccione Vendedor' vendedor union all select ID_usuario, CONCAT(Apellido_Usu,' ', Nombre_Usu) vendedor from tbl_Usuarios where Activo = 1 order by Apellido_Usu";
-            sql = " select Cotizac_Num from tbl_Cotizaciones where ID_Cotizacion = " + v_id_cotizacion;
+            sql = " select isnull(Cotizac_Num,0) Cotizac_Num  from tbl_Cotizaciones where ID_Cotizacion = " + v_id_cotizacion;
+            lbl_numero_erp.Text = "0";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -897,7 +996,7 @@ namespace erpweb
                         {
                             if (!rdr.IsDBNull(0))
                             {
-                                //lbl_error.Text = rdr.GetInt32(0).ToString();
+                               // lbl_error.Text = rdr.GetString(0);
                                 v_id_cliente = Convert.ToInt32(rdr.GetInt32(0));
                                 v_id_contacto= Convert.ToInt32(rdr.GetInt32(1));
                                 Actualiza_cliente_web(lbl_rut_exit.Text, v_id_cliente, v_id_contacto);
@@ -952,10 +1051,10 @@ namespace erpweb
                     command.Parameters.AddWithValue("@v_empresa", lbl_empresa.Text);
                     command.Parameters["@v_empresa"].Direction = ParameterDirection.Input;
 
-                    command.Parameters.AddWithValue("@v_nombre", lbl_nombre.Text);
+                    command.Parameters.AddWithValue("@v_nombre", lbl_nombre.Text.ToUpper());
                     command.Parameters["@v_nombre"].Direction = ParameterDirection.Input;
 
-                    command.Parameters.AddWithValue("@v_apellido", lbl_apellidos.Text);
+                    command.Parameters.AddWithValue("@v_apellido", lbl_apellidos.Text.ToUpper());
                     command.Parameters["@v_apellido"].Direction = ParameterDirection.Input;
 
                     command.Parameters.AddWithValue("@v_fono", lbl_fono.Text);
@@ -1210,6 +1309,119 @@ namespace erpweb
                         conn.Dispose();
                     }
                 }
+            }
+        }
+
+        protected void Btn_volver_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("Cotizaciones.aspx");
+        }
+
+        protected void LnkBtn_Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Cotizaciones.aspx");
+        }
+
+        protected void LnkBtn_Rechazar_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+
+            if (Page.IsValid)
+            {
+                string queryString = "";
+                queryString = "Rechaza_Documento ";
+
+
+                using (MySqlConnection conn = new MySqlConnection(SMysql))
+                {
+                    string result = "";
+                    try
+                    {
+                        conn.Open();
+                        MySqlCommand command = new MySqlCommand(queryString, conn);
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@v_doc", lbl_numero.Text);
+                        command.Parameters["@v_doc"].Direction = ParameterDirection.Input;
+
+                        command.Parameters.AddWithValue("@v_tipo", "CO");
+                        command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                        DataSet ds = new DataSet();
+                        MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                        MySqlDataReader dr = command.ExecuteReader();
+
+                        if (!dr.HasRows)
+                        {
+                            lbl_status.Text = "Sin Resultados";
+                        }
+                        else
+                        {
+                            while (dr.Read())
+                            {
+                                if (!dr.IsDBNull(0))
+                                {
+                                    // NV
+                                    result = Convert.ToString(dr.GetString(0));
+                                }
+                            }
+                        }
+
+                        if (result != "")
+                        {
+                            lbl_error.Text = "ERROR AL RECHAZAR COTIZACION ";
+                        }
+                        else
+                        {
+                            lbl_status.Text = "Cotización N° " + lbl_numero.Text + " fue Rechazada exitosamente";
+                            Btn_crearCot.Enabled = false;
+                        }
+
+                        conn.Close();
+                        conn.Dispose();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        lbl_error.Text = ex.Message;
+                        conn.Close();
+                        conn.Dispose();
+                    }
+                }
+            }
+        }
+
+        protected void LnkBtn_Aprobar_Click(object sender, EventArgs e)
+        {
+            string swc = "0";
+            Page.Validate();
+
+            if (Page.IsValid)
+            {
+                if (Lst_Region.SelectedItem.Value.ToString() == "0")
+                {
+                    lbl_status.Text = "Completar Información (Región)";
+                    lbl_status.BackColor = Color.Red;
+                    swc = "1";
+                }
+                if (txt_comuna.Text == "")
+                {
+                    lbl_status.Text = "Completar Información (C0muna)";
+                    lbl_status.BackColor = Color.Red;
+                    swc = "1";
+                }
+                if (Lista_Vendedores.SelectedItem.Value.ToString() == "0")
+                {
+                    lbl_status.Text = "Debe indicar Vendedor o Representante de Ventas";
+                    lbl_status.BackColor = Color.Red;
+                    swc = "1";
+                }
+
+                if (swc == "0")
+                {
+                    crea_cotizacion();
+                }
+
             }
         }
     }

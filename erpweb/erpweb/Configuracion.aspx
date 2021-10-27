@@ -54,21 +54,28 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <span class="badge bg-info">Sigla</span>
-                                    <asp:TextBox ID="txt_sigla" runat="server"></asp:TextBox>
                                 </div>
                                 <div class="col-md-4">
-                                    <span class="badge bg-info">Descripción</span>
-                                    <asp:TextBox ID="txt_descrip" runat="server" Width="256px"></asp:TextBox>
-                                </div>
-                                <div class="col-md-3">
-                                    <span class="badge bg-info">Valor</span>
-                                    <asp:TextBox ID="txt_valor" runat="server" Width="186px"></asp:TextBox>
-                                </div>
-                                <div class="col col-lg-2">
-                                    <asp:Button ID="Btn_grabars" runat="server" Text="Grabar" CssClass="btn btn-primary" OnClick="Btn_grabars_Click" />
+                                    <asp:TextBox ID="txt_sigla" runat="server"></asp:TextBox>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                 <div class="col-md-3">
+                                    <span class="badge bg-info">Descripción</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <asp:TextBox ID="txt_descrip" runat="server" Width="256px"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="badge bg-info">Valor</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:TextBox ID="txt_valor" runat="server" Width="186px"></asp:TextBox>
+                                </div>
+                            </div>
+                            <asp:Button ID="Btn_grabars" runat="server" Text="Grabar" CssClass="btn btn-primary" OnClick="Btn_grabars_Click" />
                         </div>
 
 

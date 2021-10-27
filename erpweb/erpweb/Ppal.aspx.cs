@@ -10,14 +10,20 @@ using System.Web.UI.WebControls;
 
 namespace erpweb
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class Maqueta : System.Web.UI.Page
     {
         int id_usuario = 0;
         string Sserver = "";
         string SMysql = "";
+        int cont = 0;
+
+        int[] barras = new int[7];
+        string[] nombres = new string[7];
+
+        int[] barras2 = new int[5];
+        string[] nombres2 = new string[5];
 
         Cls_Utilitarios utiles = new Cls_Utilitarios();
-
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
@@ -25,37 +31,83 @@ namespace erpweb
             SMysql = utiles.verifica_ambiente("MYSQL");
 
 
-            if ( Convert.ToString(Session["id_usuario"]) != "")
+            if (Convert.ToString(Session["id_usuario"]) != "")
             {
-                consulta_usuario_conectado(Convert.ToInt32(Session["id_usuario"]));
                 id_usuario = Convert.ToInt32(Convert.ToString(Session["id_usuario"]));
+                lbl_conectado.Text =  utiles.obtiene_nombre_usuario(id_usuario, Sserver);
+                lbl_conectado.ToolTip = "Usuario conectado";
             }
             else
             {
-                lbl_ambiente.Text = Convert.ToString(Session["id_usuario"]);
+                //lbl_ambiente.Text = Convert.ToString(Session["id_usuario"]);
                 Response.Redirect("ErrorAcceso.html");
             }
-               
-            Session["Usuario"] =  utiles.obtiene_nombre_usuario(id_usuario, Sserver);
-
 
             if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Desarrollo"; }
+            { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
             else
-            { lbl_ambiente.Text = "Producción"; }
+            { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
+
+            Session["Usuario"] = utiles.obtiene_nombre_usuario(id_usuario, Sserver);
+
+            if (!this.IsPostBack)
+            {
+                llena_movimientos_grafico("C", Grafico1, barras, nombres);
+                cont = 0;
+                llena_movimientos_grafico("P", Grafico2, barras2, nombres2);
+
+                consulta_ingresos_semanales();
+
+            }
+        }
+
+        void consulta_ingresos_semanales()
+        {
+            String queryString = "consulta_ingresos_semanales";
+
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    DataSet ds = new DataSet();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+  
+                    // Parámetros
+                 
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        Lst_Movimientos.DataSource = dr;
+                        Lst_Movimientos.DataBind();
+                    }
+
+
+
+                    conn.Close();
+                    conn.Dispose();
+
+                   
+
+                }
+                catch (Exception ex)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                }
+            }
+        }
+
+        private void llena_movimientos_grafico(string tipo, System.Web.UI.DataVisualization.Charting.Chart grafico, int[] barras, string[] nombres )
+        {
+            String queryString = "consulta_movimentos_semanales";
+
            
-           // Session.Add("Usuario", utiles.obtiene_nombre_usuario(id_usuario, Sserver));
-            GrdProdSinStock.Visible = false;
-            consulta_productos_sin_stock();
-            consulta_productos_fec_vig_vencida();
-        }
-
-
-        void consulta_productos_fec_vig_vencida()
-        {
-            String queryString = "lista_productos_fv_vencida";
-            lbl_error.Text = "";
-
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
@@ -65,132 +117,46 @@ namespace erpweb
                     MySqlCommand command = new MySqlCommand(queryString, conn);
                     command.CommandType = CommandType.StoredProcedure;
 
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                    MySqlDataReader dr = command.ExecuteReader();
-
-                    if (dr.HasRows)
-                    {
-                        GrdProdSinFVPE.Visible = true;
-                        GrdProdSinFVPE.DataSource = dr;
-                        GrdProdSinFVPE.DataBind();
-                    }
-
-
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
-        }
-
-        void consulta_productos_sin_stock()
-        {
-            String queryString = "lista_productos_sin_stock";
-            lbl_error.Text = "";
-
-            using (MySqlConnection conn = new MySqlConnection(SMysql))
-            {
-                try
-                {
-                    conn.Open();
-                    DataSet ds = new DataSet();
-                    MySqlCommand command = new MySqlCommand(queryString, conn);
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
-                    MySqlDataReader dr = command.ExecuteReader();
-
-                    if (dr.HasRows)
-                    {
-                        GrdProdSinStock.Visible = true;
-                        GrdProdSinStock.DataSource = dr;
-                        GrdProdSinStock.DataBind();
-                    }
-
-
-                    conn.Close();
-                    conn.Dispose();
-
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message;
-                    conn.Close();
-                    conn.Dispose();
-                }
-            }
-        }
-
-        void consulta_usuario_conectado (int id_usuario)
-        {
-            using (SqlConnection connection = new SqlConnection(Sserver))
-            {
-                try
-                {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("web_consulta_usuario", connection);
-                    cmd.CommandType = CommandType.StoredProcedure;
                     SqlParameter param = new SqlParameter();
                     // Parámetros
-                    cmd.Parameters.AddWithValue("@v_id_usuario", id_usuario);
-                    cmd.Parameters["@v_id_usuario"].Direction = ParameterDirection.Input;
+                    command.Parameters.AddWithValue("@v_tipo", tipo);
+                    command.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
 
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
 
-                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    if (dr.HasRows)
                     {
-                        while (rdr.Read())
+                        while (dr.Read())
                         {
-                            if (!rdr.IsDBNull(0))
-                            {
-   
-                                lbl_nombre.Text = rdr.GetString(0);
-                            }
+                            barras[cont] = Convert.ToInt32(dr.GetString(0));
+                            nombres[cont] = dr.GetString(1);
+                                //)
+
+                            cont++;
                         }
-                     }
+                    }
 
-                    //   GrdDivERP.DataMember = "tbl_Familias_Productos";
+      
 
+                    conn.Close();
+                    conn.Dispose();
 
-                    connection.Close();
-                    connection.Dispose();
+                    // LLenamos el Grafico
+                    grafico.Series["Series"].Points.DataBindXY(nombres, barras);
+
+                    grafico.ChartAreas["ChartArea"].AxisX.MajorGrid.Enabled = false;
+                    grafico.ChartAreas["ChartArea"].AxisY.MajorGrid.Enabled = false;
+
                 }
                 catch (Exception ex)
                 {
                     lbl_error.Text = ex.Message;
-                }
-                finally
-                {
-                    connection.Close();
+                    conn.Close();
+                    conn.Dispose();
                 }
             }
         }
 
-        protected void GrdProdSinStock_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-               
-                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
-                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
-                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Right;
-            }
-        }
-
-        protected void GrdProdSinFVPE_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-
-                e.Row.Cells[0].HorizontalAlign = HorizontalAlign.Center;
-                e.Row.Cells[1].HorizontalAlign = HorizontalAlign.Left;
-                e.Row.Cells[2].HorizontalAlign = HorizontalAlign.Right;
-            }
-        }
     }
 }

@@ -280,7 +280,7 @@ namespace erpweb
             Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text + "&usuario=" + usuario);
         }
 
-        protected void Btn_Volver_Click(object sender, EventArgs e)
+        protected void Lnk_volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Ppal.aspx");
         }

@@ -31,13 +31,31 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.LinkButton Btn_volver;
         
         /// <summary>
-        /// Control lbl_ambiente.
+        /// Control LnkBtn_Aprobar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
+        protected global::System.Web.UI.WebControls.LinkButton LnkBtn_Aprobar;
+        
+        /// <summary>
+        /// Control LnkBtn_Rechazar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LnkBtn_Rechazar;
+        
+        /// <summary>
+        /// Control LnkBtn_Volver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LnkBtn_Volver;
         
         /// <summary>
         /// Control lbl_conectado.
@@ -49,13 +67,13 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_conectado;
         
         /// <summary>
-        /// Control lbl_status.
+        /// Control lbl_ambiente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_status;
+        protected global::System.Web.UI.WebControls.Label lbl_ambiente;
         
         /// <summary>
         /// Control lbl_error.
@@ -65,6 +83,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_error;
+        
+        /// <summary>
+        /// Control lbl_status.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_status;
         
         /// <summary>
         /// Control lbl_id.
@@ -121,15 +148,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.TextBox txt_giro;
         
         /// <summary>
-        /// Control txt_pais.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_pais;
-        
-        /// <summary>
         /// Control txt_direccion.
         /// </summary>
         /// <remarks>
@@ -137,6 +155,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txt_direccion;
+        
+        /// <summary>
+        /// Control txt_pais.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txt_pais;
         
         /// <summary>
         /// Control txt_region.

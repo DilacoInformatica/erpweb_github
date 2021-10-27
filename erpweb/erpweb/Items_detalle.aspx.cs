@@ -29,6 +29,7 @@ namespace erpweb
         ClsFTP ftp = new ClsFTP();
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         // FTP
+        
         string server = @"ftp://dev.dilaco.com/";
         string user = "dev@dilaco.com";
         string password = "4ydlrvyKUX8}";
@@ -57,18 +58,18 @@ namespace erpweb
                 }
 
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
 
+                server = @utiles.obtengo_valor_regla("FTPS", Sserver);
+                user = utiles.obtengo_valor_regla("FTPU", Sserver);
+                password = utiles.obtengo_valor_regla("FTPC", Sserver);
 
+                
             }
             catch
             {
@@ -90,31 +91,28 @@ namespace erpweb
             //lbl_ambiente.Text = utiles.retorna_ambiente();
 
             if (utiles.retorna_ambiente() == "D")
-            { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+            { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
             else
-            { lbl_ambiente.Text = "Ambiente Producción"; }
+            { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
             ruta_alterna = utiles.retorna_ruta();
 
             if (modo == "W")
             {
-                Btn_volver.Visible = false;
-                ImgBtn_Cerrar.Visible = true;
+                LnkBtn_Volver.Visible = false;
             }
             else
             {
-                Btn_volver.Visible = true;
-                ImgBtn_Cerrar.Visible = false;
+                LnkBtn_Volver.Visible = true;
             }
 
-            ImgBtn_Cerrar.Attributes["Onclick"] = "return salir();";
             ImgBtnLink.Attributes["Onclick"] = "return abrirficha(" + id_item + ");";
             if (!this.IsPostBack)
             {
                 Btn_eliminar.Attributes["Onclick"] = "return confirm('Desea Eliminar Producto desde la Web? Esto afectará futuras ventas asociadas... Producto se desactivará y no podrá modificarlo')";
                 ImgBtnAct_item.Attributes["Onclick"] = "return confirm('Desea Activar nuevamente el Producto?')";
                 ImgBtnDesAct_item.Attributes["Onclick"] = "return confirm('Desea Desactivar el Producto? Este será eliminado del Sitio Web')";
-                Btn_eliminar_todo.Attributes["Onclick"] = "return confirm('Producto se eliminará en la ficha Web del ERP y del Sitio... Desea Continuar?')";
+                LnkBtn_Eliminar.Attributes["Onclick"] = "return confirm('Producto se eliminará en la ficha Web del ERP y del Sitio... Desea Continuar?')";
                 //carga_contrl_lista("select 0 id_moneda, 'Seleccione Moneda' Sigla union all select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas","id_moneda","Sigla");
                 carga_contrl_lista("select id_moneda, Sigla from tbl_monedas", LstMonedas, "tbl_monedas", "id_moneda", "Sigla");
                 // carga_contrl_lista("select 0 ID_SubCategoria, 'Seleccione Subcategoría' Nombre union all select ID_SubCategoria, Nombre from tbl_Subcategorias where Activo = 1", LstSubCategorias, "tbl_categorias", "ID_SubCategoria", "Nombre");
@@ -236,6 +234,7 @@ namespace erpweb
             query = query + ",fp.nombre division "; //50
             query = query + ",fp.ID_Familia "; //51
             query = query + ",isnull(iw.Multiplo,1) Multiplo "; //52
+            query = query + ",isnull(iw.Precio_neto, 0) Precio_neto "; //53
             query = query + "FROM tbl_Items_web iw ";
             query = query + "left outer join tbl_Categorias ct on ct.ID_Categoria = iw.Id_Categoria ";
             query = query + "left outer join tbl_Subcategorias sb on sb.ID_SubCategoria = iw.Id_SubCategoria ";
@@ -448,6 +447,7 @@ namespace erpweb
                         txt_marca.Text = reader[16].ToString();
                         txt_precio.Text = reader[17].ToString();
                         txt_precio_lista.Text = reader[47].ToString();
+                       // txt_precio_neto.Text = reader[53].ToString();
                         //lbl_moneda.Text = reader[11].ToString();
                         txt_unidad.Text = reader[19].ToString();
                         txt_codigoprov.Text = reader[20].ToString();
@@ -458,10 +458,16 @@ namespace erpweb
                         lbl_fotoc.Text = reader[24].ToString();
                         lbl_fotog.Text = reader[25].ToString();
                         lbl_presentacion.Text = reader[23].ToString();
+                        
                         if (lbl_fotog.Text != "")
                         {
                             img_prod.ImageUrl = "~/Catalogo/Productos/Imagenes//" + Path.GetFileName(lbl_fotog.Text);
                         }
+                        else
+                        {
+                            img_prod.ImageUrl = "~/img//prod_img_no_disponible.jpg";
+                        }
+
                         lbl_video.Text = reader[26].ToString();
                         lbl_hoja_seguridad.Text = reader[45].ToString();
                         //  txt_tabla_tecnica.Text = HttpContext.Current.Server.HtmlEncode(reader[44].ToString());
@@ -937,7 +943,7 @@ namespace erpweb
         public string consulta_stock_web(int id_item)
         {
             string query = "";
-            string result = "";
+            string result = "0";
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
@@ -1062,6 +1068,11 @@ namespace erpweb
                 v_swc = false;
             }
 
+            if (chck_venta.Checked && verifica_stock_web(txt_codigo.Text.Trim()) == "N")
+            {
+                lbl_status.Text = "No puede actualizar producto para Ventas si no ha regularizado Stock, consulte con su Administrador";
+                chck_venta.Checked = false;
+            }
 
             if (v_swc)
             {
@@ -1932,6 +1943,11 @@ namespace erpweb
             {
                 lbl_error.Text = "Precio del producto debe no puede estar en blanco";
             }
+            if (chck_venta.Checked && verifica_stock_erp(txt_codigo.Text.Trim()) == "N")
+            {
+                lbl_status.Text = "No puede actualizar producto para Ventas si no ha regularizado Stock, consulte con su Administrador";
+                chck_venta.Checked = false;
+            }
 
             query = "UPDATE dbo.tbl_items_web ";
             query = query + "SET ";
@@ -2109,11 +2125,11 @@ namespace erpweb
                     ImgBtnAddAL2.Visible = false;
                     ImgBtnAddAL3.Visible = false;
 
-                    if (v_precio != Convert.ToDouble(txt_precio.Text))
-                    {
-                        // ejecutamos la función que creará el historial de modificaciones
-                        utiles.actualiza_historial_nv(id_item, usuario, "Precio Item Web cambia de " + Convert.ToString(v_precio) + " a " + Convert.ToString(txt_precio.Text), Sserver, "ITEM");
-                    }
+                    //if (v_precio != Convert.ToDouble(txt_precio_lista.Text))
+                    //{
+                    //    // ejecutamos la función que creará el historial de modificaciones
+                    //    utiles.actualiza_historial_nv(id_item, usuario, "Precio Item Web cambia de " + Convert.ToString(v_precio) + " a " + Convert.ToString(txt_precio.Text), Sserver, "ITEM");
+                    //}
 
                     
                 }
@@ -2143,6 +2159,93 @@ namespace erpweb
                     lbl_error.Text = ex.Message + query;
                     connection.Close();
                     connection.Dispose();
+                }
+            }
+        }
+
+        public string verifica_stock_web(string codigo)
+        {
+            
+            string query = "";
+            string result = "";
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    query = "revisa_stock_prod_vtas";
+                    MySqlCommand command = new MySqlCommand(query, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_codigo", codigo);
+                    command.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        if (!dr.IsDBNull(0))
+                        {
+                            result = dr.GetString(0);
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+                     return result;
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message + query;
+                    conn.Close();
+                    conn.Dispose();
+                    return "N";
+                }
+            }
+        }
+
+        public string verifica_stock_erp(string codigo)
+        {
+            string result = "";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_revisa_stock_prod_vtas", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@v_codigo", codigo);
+                    cmd.Parameters["@v_codigo"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return "N";
+                }
+                finally
+                {
+                    connection.Close();
                 }
             }
         }
@@ -2707,8 +2810,9 @@ namespace erpweb
             txt_caracteristicas.Visible = true;
             ImgGrabaCar.Visible = true;
             ImgVerCar.Visible = true;
-            ImgHTmlCar.Visible = false;
+            ImgHTmlCar.Visible = false;      
         }
+
 
         protected void ImgVerCar_Click(object sender, ImageClickEventArgs e)
         {
@@ -2802,31 +2906,6 @@ namespace erpweb
 
         void elimina_producto_ficha_erp()
         {
-
-
-         /*   string query = "";
-            query = "web_elimina_producto_web";
-
-            using (SqlConnection connection = new SqlConnection(Sserver))
-            {
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.ExecuteNonQuery();
-                    connection.Close();
-                    connection.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    lbl_error.Text = ex.Message + query;
-                    connection.Close();
-                    connection.Dispose();
-                }
-            }*/
-
-
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
                 try
@@ -2893,6 +2972,51 @@ namespace erpweb
                     muestra_info(id_item);
                     // elimna_item();
                     lbl_status.Text = "Código desactivado y deja de estar publicado en el Sitio Web";
+                }
+            }
+        }
+
+        protected void Lnk_volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Items_ppal.aspx");
+        }
+
+        protected void LnkBtn_Volver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Items_ppal.aspx");
+        }
+
+        protected void LnkBtn_Actualizar_Click(object sender, EventArgs e)
+        {
+            if (lbl_activo.Text == "SI")
+            {
+                Grabar();
+            }
+            else
+            {
+                lbl_error.Text = "Producto está desactivado, no se puede actualizar";
+            }
+        }
+
+        protected void LnkBtn_ActWeb_Click(object sender, EventArgs e)
+        {
+            actualiza();
+        }
+
+        protected void LnkBtn_Eliminar_Click(object sender, EventArgs e)
+        {
+            Page.Validate();
+            if (Page.IsValid)
+            {
+                elimna_item();
+                elimina_producto_ficha_erp();
+                if (v_completa == "OK")
+                {
+                    lbl_error.Text = "Producto Eliminado de Categoría Web";
+                }
+                else
+                {
+                    lbl_error.Text = "Producto NO Eliminado de Categoría Web";
                 }
             }
         }

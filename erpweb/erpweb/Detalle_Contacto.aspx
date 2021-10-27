@@ -29,29 +29,13 @@
             width: 117px;
             height: 28px;
         }
-        .auto-style20 {
-            width: 59%;
-        }
-        .auto-style21 {
-            height: 11px;
-        }
-        .auto-style22 {
-            height: 15px;
-        }
-        .auto-style23 {
-            font-family: arial, sans-serif;
-            font-size: 14px;
-            color: #4D5156;
-            letter-spacing: normal;
-            background-color: #FFFFFF;
-        }
         </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
     
-        <h1><img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Contacto WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
+        <h1>d<img alt="" src="img/vineta.gif" /><span class="Estilo_titulo">Detalle Contacto WEB N°<asp:Label ID="lbl_numero" runat="server"></asp:Label>
                     &nbsp;<asp:Button ID="Btn_volver" runat="server" OnClick="Btn_volver_Click" Text="Volver" />
                     </span></h1>
     

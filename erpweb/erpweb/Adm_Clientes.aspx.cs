@@ -45,13 +45,10 @@ namespace erpweb
                 }
 
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
+            
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
