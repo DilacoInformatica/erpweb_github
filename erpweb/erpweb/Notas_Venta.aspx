@@ -6,6 +6,7 @@
 <head runat="server">
     <meta name="theme-color" content="#7952b3" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Administración Notas de Venta generadas en el Sitio Web</title>
     <script src="scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -129,8 +130,11 @@
                     </div>
                     <h6>
                         <asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h6>
-                    <asp:GridView ID="Lista_notas" CssClass="table table-striped table-hover" runat="server" AutoGenerateSelectButton="True" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" AutoGenerateColumns="False">
+                    <asp:GridView ID="Lista_notas" CssClass="table table-striped table-hover" runat="server" OnSelectedIndexChanged="Lista_notas_SelectedIndexChanged" ShowFooter="True" HorizontalAlign="Justify" OnRowDataBound="Lista_notas_RowDataBound" AutoGenerateColumns="False" OnRowCommand="Lista_notas_RowCommand">
                         <Columns>
+                            <asp:ButtonField ButtonType="Image" CommandName="Ver" ImageUrl="~/img/vista.png" Text="Ver">
+                            <ControlStyle Height="20px" Width="20px" />
+                            </asp:ButtonField>
                             <asp:BoundField DataField="Nta_vta_num" HeaderText="Nota Venta" />
                             <asp:BoundField DataField="fecha" HeaderText="Fecha" />
                             <asp:BoundField DataField="Id_cliente" HeaderText="Id Cliente" />
@@ -157,22 +161,12 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-
-                    <div class="container-fluid rounded border border-secondary bg-light">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>
-                                    <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label></h6>
-                            </div>
-                        </div>
-                    </div>
+                    <h6>
+                       <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label>
+                    </h6>
                 </main>
             </div>
         </div>
-
-
-
-
         <script src="scripts/bootstrap.bundle.min.js"></script>
         <script src="scripts/feather.min.js"></script>
         <script src="scripts/Chart.min.js"></script>

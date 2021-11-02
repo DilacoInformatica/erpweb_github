@@ -6,6 +6,7 @@
 <head runat="server">
     <meta name="theme-color" content="#7952b3" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Productos</title>
     <script src="scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />

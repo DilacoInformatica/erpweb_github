@@ -76,6 +76,33 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_status;
         
         /// <summary>
+        /// Control RadBtnTot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadBtnTot;
+        
+        /// <summary>
+        /// Control RadBtnDet.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton RadBtnDet;
+        
+        /// <summary>
+        /// Control BtnMostrar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnMostrar;
+        
+        /// <summary>
         /// Control lbl_cantidad.
         /// </summary>
         /// <remarks>

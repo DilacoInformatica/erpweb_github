@@ -83,6 +83,51 @@ namespace erpweb
             }
         }
 
+        public string busca_numero_doc_erp(int numero, string tipo, string Servidor)
+        {
+            string v_result = "";
+            using (SqlConnection connection = new SqlConnection(Servidor))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_documento_erp", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_numero", numero);
+                    cmd.Parameters["@v_numero"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_tipo", tipo);
+                    cmd.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                v_result = Convert.ToString(rdr.GetInt32(0));
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return v_result;
+                }
+                catch (Exception ex)
+                {
+                    return "0";
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         public string retorna_ruta()
         {
             if (ambiente == 1) // Local

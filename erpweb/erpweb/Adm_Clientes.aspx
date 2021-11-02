@@ -51,12 +51,6 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="Adm_Clientes.aspx">
-                                    <span data-feather="users"></span>
-                                    Clientes
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="Cotizaciones.aspx">
                                     <span data-feather="file"></span>
                                     Cotizaciones
@@ -68,44 +62,10 @@
                                     Notas de Venta
                                 </a>
                             </li>
-
                             <li class="nav-item">
-                                <a class="nav-link" href="Items_ppal.aspx">
-                                    <span data-feather="shopping-cart"></span>
-                                    Productos
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="AdmStock.aspx">
-                                    <span data-feather="layers"></span>
-                                    Stock
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="Precios_Esp_Adm.aspx">
-                                    <span data-feather="dollar-sign"></span>
-                                    Precios Especiales
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="bar-chart-2"></span>
-                                    Reportes
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span data-feather="tool"></span>Administración</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="Adm_Publicacion_Lineas_Prod.aspx"><span data-feather="menu"></span>Categorías y Subcategorías</a></li>
-                                    <li><a class="dropdown-item" href="Configuracion.aspx"><span data-feather="tool"></span>Parámetros</a></li>
-                                    <li><a class="dropdown-item" href="ConfStock.aspx"><span data-feather="layers"></span>Niveles Stock</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" onclick="return salir();">
+                                <a class="nav-link" href="Ppal.aspx">
                                     <span data-feather="log-out"></span>
-                                    Salir
+                                    Volver
                                 </a>
                             </li>
                         </ul>

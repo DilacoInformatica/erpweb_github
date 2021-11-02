@@ -55,7 +55,7 @@ namespace erpweb
             //Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
             if (!this.IsPostBack)
             {
-                muestra_seleccion(1);
+               // muestra_seleccion(1);
             }
         }
 
@@ -131,7 +131,7 @@ namespace erpweb
         {
             string queryString = "";
             lbl_mensaje.Text = "";
-            queryString = "informe_cotizaciones ";
+            queryString = "informe_cotizaciones";
 
 
             using (MySqlConnection conn = new MySqlConnection(SMysql))
@@ -178,6 +178,28 @@ namespace erpweb
             }
         }
 
+        protected void BtnMostrar_Click(object sender, EventArgs e)
+        {
+            if (RadBtnTot.Checked)
+            {
+                muestra_seleccion(1);
+            }
+            if (RadBtnDet.Checked)
+            {
+                muestra_seleccion(2);
+            }
 
+        }
+
+        protected void Lista_cotizacion_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label lbl_num_cot_erp = e.Row.FindControl("lbl_num_cot_erp") as Label;
+
+                lbl_num_cot_erp.Text = utiles.busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[1].Text), "CO", Sserver);
+
+            }
+        }
     }
 }

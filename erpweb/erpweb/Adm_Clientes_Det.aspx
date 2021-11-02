@@ -7,6 +7,7 @@
     <link rel="icon" href="img/favicon.ico" type="image/png" />
     <meta name="theme-color" content="#7952b3" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Detalle nuevo cliente</title>
     <script src="scripts/bootstrap.min.js"></script>
 

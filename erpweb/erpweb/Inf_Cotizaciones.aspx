@@ -6,6 +6,7 @@
 <head runat="server">
     <meta name="theme-color" content="#7952b3" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
     <title>Informe Cotizaciones</title>
     <script src="scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
@@ -74,10 +75,37 @@
                         </div>
                     </div>
                     <p class="divider"></p>
+                    <div class="container-fluid rounded border border-secondary bg-light">
+                        <div class="row">
+                            <h4><span class="badge bg-primary">Seleccione Tipo de Informe</span></h4>
+                            <div class="col-md-12">
+                                 <div class="form-check form-check-inline">
+                                    <asp:RadioButton ID="RadBtnTot" CssClass="form-check-input" runat="server" Text="" GroupName="N1" Checked="True" />
+                                    <label class="form-check-label" for="RadBtnNV"><span class="badge bg-info">Global</span></label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <asp:RadioButton ID="RadBtnDet" CssClass="form-check-input" runat="server" Text="" GroupName="N1" />
+                                    <label class="form-check-label" for="RadNVDesp"><span class="badge bg-info">Detalle</span></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <asp:Button ID="BtnMostrar" CssClass="btn btn-md btn-primary active btn-block" runat="server" Text="Mostrar" OnClick="BtnMostrar_Click" />
+                                </div>
+                            </div>
+                        </div>
+                        <p class="divider"></p>
+                    </div>
+                    <p class="divider"></p>
                       <h6>
                         <asp:Label ID="lbl_cantidad" runat="server"></asp:Label></h6>
 
-                    <asp:GridView ID="Lista_cotizacion" CssClass="table table-striped table-hover" runat="server" ShowFooter="True">
+                    <asp:GridView ID="Lista_cotizacion" CssClass="table table-striped table-hover" runat="server" ShowFooter="True" OnRowDataBound="Lista_cotizacion_RowDataBound">
+                        <Columns>
+                            <asp:TemplateField HeaderText="N° Cot ERP">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_num_cot_erp" runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
                     </asp:GridView>
                     <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label>
                 </main>

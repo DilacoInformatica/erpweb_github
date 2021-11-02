@@ -35,18 +35,12 @@ namespace erpweb
                 }
 
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
-
-
             }
             catch
             {
@@ -154,7 +148,7 @@ namespace erpweb
             {
                 Label lbl_num_nv_erp = e.Row.FindControl("lbl_num_nv_erp") as Label;
 
-                lbl_num_nv_erp.Text = busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[1].Text), "NV");
+                lbl_num_nv_erp.Text = utiles.busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[1].Text), "NV",Sserver);
 
                 System.Web.UI.WebControls.Image img_estado = e.Row.FindControl("img_estado") as System.Web.UI.WebControls.Image;
 
@@ -220,50 +214,7 @@ namespace erpweb
             }
         }
 
-        public string busca_numero_doc_erp(int numero, string tipo)
-        {
-            string v_result = "";
-             using (SqlConnection connection = new SqlConnection(Sserver))
-            {
-                try
-                {
-                    connection.Open();
-                    SqlCommand cmd = new SqlCommand("web_consulta_documento_erp", connection);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter param = new SqlParameter();
-                    // Parámetros
-                    cmd.Parameters.AddWithValue("@v_numero", numero);
-                    cmd.Parameters["@v_numero"].Direction = ParameterDirection.Input;
-
-                    cmd.Parameters.AddWithValue("@v_tipo", tipo);
-                    cmd.Parameters["@v_tipo"].Direction = ParameterDirection.Input;
-
-                    using (SqlDataReader rdr = cmd.ExecuteReader())
-                    {
-                        while (rdr.Read())
-                        {
-                            if (!rdr.IsDBNull(0))
-                            {
-                                v_result = Convert.ToString(rdr.GetInt32(0));
-                            }
-                        }
-                    }
-
-                    connection.Close();
-                    connection.Dispose();
-
-                    return v_result;
-                }
-                catch (Exception ex)
-                {
-                    return "0";
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
-        }
+      
 
         protected void Btn_buscar_Click(object sender, EventArgs e)
         {
@@ -283,6 +234,19 @@ namespace erpweb
         protected void Lnk_volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Ppal.aspx");
+        }
+
+        protected void Lista_notas_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "Ver")
+            {
+
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = Lista_notas.Rows[index];
+
+                Response.Redirect("Detalle_NV.aspx?nv=" + row.Cells[1].Text + "&usuario=" + usuario);
+               
+            }
         }
     }
 }
