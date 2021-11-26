@@ -86,12 +86,12 @@ namespace erpweb
                 carga_contrl_lista("select id_region, concat(Codigo, ' ', nombre_corto) region from tbl_Regiones where activo = 1", Lst_Region, "tbl_Regiones", "id_region", "region");
                 if (VerificaexistenciaCotERP(num_cotizacion) == "SI")
                 {
+                    lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
                     Btn_crearCot.Enabled = false;
                     LnkBtn_Aprobar.Visible = false;
                     Btn_RechazarCot.Enabled = false;
                     LnkBtn_Rechazar.Visible = false;
-                    lbl_error.Text = "Cotización N° " + num_cotizacion + " ya fue creado en el ERP, consulte con su Administrador";
-                    lbl_error.ForeColor = Color.Red;
+                    // lbl_error.ForeColor = Color.Red;
                 }
                 muestra_info_cotizacion(num_cotizacion, ubicacion, tipo);
             }
@@ -265,6 +265,7 @@ namespace erpweb
                                 lbl_movil.Text = dr.GetString(20);
                                 lbl_nombre.Text = dr.GetString(21);
                                 lbl_apellidos.Text = dr.GetString(22);
+                                lbl_observaciones.Text = dr.GetString(23);
                                 lbl_region.Visible = false;
                                 lbl_n_oc.Text = "0";
 
@@ -314,6 +315,9 @@ namespace erpweb
                                     lbl_error.Text = "Cotización corresponde a Extranjeros... No es posible ingresarlo al ERP ";
                                     lbl_email.ForeColor = Color.Red;
                                     Btn_crearCot.Enabled = false;
+                                    LnkBtn_Aprobar.Visible = false;
+                                    Btn_RechazarCot.Visible = true;
+                                   // LnkBtn_Rechazar.Visible = false;
                                 }
 
                             }
@@ -1367,7 +1371,7 @@ namespace erpweb
                             }
                         }
 
-                        if (result != "")
+                        if (result != "OK")
                         {
                             lbl_error.Text = "ERROR AL RECHAZAR COTIZACION ";
                         }

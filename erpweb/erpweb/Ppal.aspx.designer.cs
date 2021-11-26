@@ -31,15 +31,6 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_ambiente;
         
         /// <summary>
-        /// Control lbl_error.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_error;
-        
-        /// <summary>
         /// Control Grafico1.
         /// </summary>
         /// <remarks>
@@ -58,6 +49,24 @@ namespace erpweb {
         protected global::System.Web.UI.DataVisualization.Charting.Chart Grafico2;
         
         /// <summary>
+        /// Control Grafico3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Grafico3;
+        
+        /// <summary>
+        /// Control Grafico4.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Grafico4;
+        
+        /// <summary>
         /// Control form1.
         /// </summary>
         /// <remarks>
@@ -74,5 +83,14 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView Lst_Movimientos;
+        
+        /// <summary>
+        /// Control lbl_error.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_error;
     }
 }

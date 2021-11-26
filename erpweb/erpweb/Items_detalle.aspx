@@ -71,7 +71,7 @@
                                         <asp:LinkButton ID="LnkBtn_Eliminar" CssClass="nav-link" runat="server" OnClick="LnkBtn_Eliminar_Click"><span data-feather="trash-2"></span>Eliminar</asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
-                                        <asp:LinkButton ID="LnkBtn_Volver" CssClass="nav-link" runat="server" OnClick="LnkBtn_Volver_Click"> <span data-feather="log-out"></span>Volver</asp:LinkButton>
+                                        <asp:LinkButton ID="LnkBtn_Volver" CssClass="nav-link" runat="server" OnClick="LnkBtn_Volver_Click"><span data-feather="log-out"></span>Volver</asp:LinkButton>
                                     </li>
                                 </ul>
                             </div>
@@ -82,12 +82,17 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-white-50"></asp:Label>
+                                        <h4><span data-feather="alert-triangle"></span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 ">
-                                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                        <h4><span data-feather="x-cirle"></span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4><span data-feather="info"></span><asp:Label ID="lbl_aviso_informacion" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                                     </div>
                                 </div>
                                 <p class="divider"></p>
@@ -131,9 +136,11 @@
                                                     <asp:TextBox ID="txt_precio_lista" runat="server" CssClass="form-control"></asp:TextBox>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <span class="badge bg-info">Precio c/IVA Web</span>
-                                                <asp:TextBox ID="txt_precio"  runat="server" CssClass="form-control" AutoPostBack="True" OnTextChanged="txt_precio_TextChanged"></asp:TextBox>
+                                           <div class="col-md-3">
+                                                <span class="badge bg-info">Precio</span>
+                                                <div class="text-end">
+                                                    <asp:TextBox ID="txt_precio" runat="server" CssClass="form-control"></asp:TextBox>
+                                                </div>
                                             </div>
                                            <div class="col-md-3">
                                                 <span class="badge bg-info text-left">Multiplo</span>
@@ -141,11 +148,11 @@
                                             </div>
                                        </div>
                                        <div class="row">
-                                           
                                             <div class="col-md-3">
                                                 <span class="badge bg-info">Unidad de Venta</span>
                                                 <asp:Label ID="lbl_unidad" runat="server" CssClass="form-control"></asp:Label>
                                             </div>
+                                            
                                            <div class="col-md-9">
                                                 <span class="badge bg-info text-left">Presentación</span>
                                                 <asp:TextBox ID="txt_unidad" runat="server" CssClass="form-select"></asp:TextBox>
@@ -199,7 +206,6 @@
                                                <div class="col-md-3">
                                                     <span class="badge bg-info">Stock</span><br />
                                                     <asp:Label ID="lbl_stock" runat="server" CssClass="form-label"></asp:Label>
-                                                    <asp:Label ID="lbl_aviso_informacion" runat="server" CssClass="form-label"></asp:Label>
                                               </div>
                                            </div>
                                            <div class="col-md-3">

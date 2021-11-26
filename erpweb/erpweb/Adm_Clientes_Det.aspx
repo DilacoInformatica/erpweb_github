@@ -17,7 +17,14 @@
 <body>
     <form id="form1" runat="server">
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Usuarios</a>
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+                 <label>
+                    <span data-feather="user-check"></span>
+                    <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
+                    <span data-feather="message-circle"></span>
+                    <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+                </label>
+            </a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,6 +55,9 @@
                             <li class="nav-item">
                                 <asp:LinkButton ID="LnkBtn_Rechazar" CssClass="nav-link" runat="server" OnClick="LnkBtn_Rechazar_Click"> <span data-feather="trash"></span>Rechazar</asp:LinkButton>
                             </li>
+                            <li>
+                                <asp:LinkButton ID="LnkBtnCorreo" CssClass="nav-link" runat="server" OnClick="LnkBtnCorreo_Click"><span data-feather="mailt"></span></asp:LinkButton>
+                            </li>
                             <li class="nav-item">
                                 <asp:LinkButton ID="LnkBtn_Volver" CssClass="nav-link" runat="server" OnClick="LnkBtn_Volver_Click"> <span data-feather="log-out"></span>Volver</asp:LinkButton>
                             </li>
@@ -56,27 +66,15 @@
                 </nav>
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <label>
-                                <span data-feather="user-check"></span>
-                                <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
-                                <span data-feather="message-circle"></span>
-                                <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
-                            </label>
-
-                        </div>
-                    </div>
-                    <br />
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label>
+                                <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 ">
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                <h4><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                             </div>
                         </div>
                     </div>
@@ -154,10 +152,40 @@
                             <div class="col-md-3">
                                 <asp:Button ID="Btn_Rechazar" runat="server" CssClass="form-control btn btn-danger" Text="Rechazar" OnClick="Btn_Rechazar_Click" />
                             </div>
+                            <div class="col-md-3">
+                                <asp:Button ID="Btn_Correo" runat="server" CssClass="form-control btn btn-info" Text="Correo" OnClick="LnkBtnCorreo_Click" />
+                            </div>
                         </div>
                         <p class="divider"></p>
                     </div>
-
+                    <p class="divider"></p>
+                    <div class="container-fluid rounded border border-secondary bg-light">
+                        <h4><span class="badge bg-primary">Envío  de Información</span></h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="badge bg-info">De:</span>
+                                <asp:Label ID="lbl_correo_de" runat="server" CssClass="form-control"></asp:Label>
+                             </div>
+                            <div class="col-md-4">
+                                <span class="badge bg-info">A:</span>
+                                <asp:Label ID="lbl_correo_a" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                        </div>
+                        <p class="divider"></p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span class="badge bg-info">Cuerpo</span>
+                                <asp:TextBox ID="txt_cuerpo" runat="server" CssClass="form-control" Columns="4" TextMode="MultiLine"></asp:TextBox>
+                          </div>
+                        </div>
+                        <p class="divider"></p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <asp:Button ID="Btn_Enviar" runat="server" CssClass="form-control btn btn-success" Text="Enviar Correo" Enabled="False" OnClick="Btn_Enviar_Click" />
+                            </div>
+                            <p class="divider"></p>
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

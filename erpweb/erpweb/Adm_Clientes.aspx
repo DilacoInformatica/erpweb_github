@@ -12,6 +12,8 @@
     <title>Administración Clientes</title>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
+    <script src="scripts/jquery-3.6.0.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
 
      <script>
         function valida() {
@@ -26,7 +28,14 @@
 <body>
     <form id="form1" runat="server">
         <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Usuarios</a>
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">
+                <label>
+                    <span data-feather="user-check"></span>
+                    <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
+                    <span data-feather="message-circle"></span>
+                    <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+                </label>
+            </a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,18 +82,7 @@
                 </nav>
 
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <label>
-                                <span data-feather="user-check"></span>
-                                <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
-                                <span data-feather="message-circle"></span>
-                                <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
-                            </label>
-
-                        </div>
-                    </div>
-
+                    <p class="divider"></p>
                     <div class="container-fluid rounded border border-secondary alert alert-warning">
                         <div class="row">
                             <div class="col-md-12">
@@ -96,20 +94,21 @@
                             </div>
                         </div>
                     </div>
-                   <br/>
+                    <p class="divider"></p>
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label>
+                               <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"><span data-feather="alert-triangle"></span></asp:Label></h4>
                              </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                <h4><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"><span data-feather="x-cirle"></span></asp:Label></h4>
                             </div>
                         </div>
+                        <p class="divider"></p>
                     </div>
-                    <br />
+                    <p class="divider"></p>
                     <div class="container-fluid rounded border border-secondary bg-light">
                         <div class="row">
                             <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
@@ -132,7 +131,7 @@
                         </div>
                          <p class="divider"></p>
                     </div>
-                    <br/>
+                    <p class="divider"></p>
                    
                     <asp:GridView ID="lista_clientes" CssClass="table table-striped table-hover" runat="server"  ShowFooter="True" AutoGenerateColumns="False" OnRowCommand="lista_clientes_RowCommand" OnRowDataBound="lista_clientes_RowDataBound">
                         <Columns>
@@ -161,15 +160,42 @@
                     </asp:GridView>
 
                     <asp:Label ID="lbl_cantidad" CssClass="badge bg-success" runat="server"></asp:Label>
+ <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+                    
+
 
                 </main>
             </div>
         </div>
     </form>
+      <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
      <script src="scripts/bootstrap.bundle.min.js"></script>
     <script src="scripts/feather.min.js"></script>
     <script src="scripts/Chart.min.js"></script>
     <script src="scripts/dashboard.js"></script>
+
+
 </body>
 </html>
+
 

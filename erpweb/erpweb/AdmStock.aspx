@@ -4,113 +4,135 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="scripts/bootstrap.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="img/favicon.ico" type="image/png" />
+    <meta name="theme-color" content="#7952b3" />
+
     <title>Administración de Stock</title>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/dashboard.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+          <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="True">
+                    <Scripts>
+                        <asp:ScriptReference Path="scripts/bootstrap.bundle.min.js" />
+                        <asp:ScriptReference Path="scripts/feather.min.js" />
+                        <asp:ScriptReference Path="scripts/Chart.min.js" />
+                        <asp:ScriptReference Path="scripts/dashboard.js" />
+                    </Scripts>
+                </asp:ScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <div class="container-fluid rounded border border-secondary bg-light">
+                <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+                    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><span data-feather="user-check"></span>
+                        <asp:Label ID="lbl_conectado" runat="server"></asp:Label>
+                        <span data-feather="message-circle"></span>
+                        <asp:Label ID="lbl_ambiente" runat="server"></asp:Label>
+                        </label></a>
+                    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <label class="text-light text-center fs-4 fw-bold">
+                        Administración Stock de Productos
+                    </label>
+                    <div class="navbar-nav">
+                        <div class="nav-item text-nowrap">
+                            <asp:LinkButton ID="Lnkvolver" runat="server" CssClass="nav-link px-3" OnClick="Lnkvolver_Click" Width="133px">Volver</asp:LinkButton>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-10">
-                            <h1 class="text-center text-primary">
-                                <img alt="" src="img/vineta.gif" style="width: 31px; height: 33px;" />Administración Stock Productos Web</h1>
-                        </div>
-                        <div class="col-md-1 float-right">
-                            <asp:LinkButton ID="Btn_volver" runat="server" CssClass="btn btn-outline-success" Width="133px" OnClick="Btn_volver_Click">Volver</asp:LinkButton>
-                        </div>
-                        <p></p>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid rounded border border-secondary bg-light">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h6><span>
-                                <asp:Label ID="lbl_ambiente" runat="server" CssClass="badge bg-primary"></asp:Label></span>, Usuario:
-                   
-                        <span>
-                            <asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
-                        </div>
-                        <div class="col-md-4">
-                            <h6><span>
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
-                        </div>
-                        <div class="col-md-4">
-                            <h6><span>
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid rounded border border-secondary bg-light">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
-                        </div>
-                        <div class="col-md-1">
-                            <h6><span class="badge bg-info">Código</span> </h6>
-                        </div>
-                        <div class="col-md-2">
-                            <asp:TextBox ID="txt_codigo" runat="server" Width="163px" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="col-md-1">
-                            <h6><span class="badge bg-info">Línea de Ventas</span> </h6>
-                        </div>
-                        <div class="col-md-3">
-                            <h5>
-                                <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select" Width="362px">
-                                    <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
-                                </asp:DropDownList></h5>
-                        </div>
-                        <div class="col-md-1">
-                            <h6>
-                                <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" Width="91px" CssClass="btn btn-info btn-responsive btninter" OnClick="Btn_buscar_Click" />
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid rounded border border-secondary bg-light">
-                    <div class="col-md-3">
-                       <h6><asp:Button ID="Btn_procesar" runat="server" Text="Aplicar regla de Stock" CssClass="btn btn-primary btn-responsive btninter" OnClick="Btn_procesar_Click" /></h6>
-                    </div>
-                    <div class="col-md-3">
-                       <h6><asp:Button ID="btn_genera_mov_stock" runat="server" Text="Crear Mov. Entre Bodegas" CssClass="btn btn-success btn-responsive btninter" OnClick="btn_genera_mov_stock_Click" Width="169px" /></h6>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid rounded border border-secondary bg-light" id="consola">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>
-                                        <h4>
-                                            <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-info"></asp:Label></h4>
-                                    </label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>
-                                        <h4>
-                                            <asp:Label ID="lbl_regla" runat="server" CssClass="badge bg-info"></asp:Label></h4>
-                                    </label>
-                                </div>
+                        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                            <div class="position-sticky pt-3">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="Ppal.aspx">
+                                            <span data-feather="home"></span>
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Adm_Clientes.aspx">
+                                            <span data-feather="users"></span>
+                                            Clientes
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Cotizaciones.aspx">
+                                            <span data-feather="file"></span>
+                                            Cotizaciones
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Notas_Venta.aspx">
+                                            <span data-feather="file"></span>
+                                            Notas de Venta
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="Items_ppal.aspx">
+                                            <span data-feather="shopping-cart"></span>
+                                            Productos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <asp:LinkButton ID="Btn_volveree" runat="server" CssClass="nav-link px-3" OnClick="Btn_volveree_Click"><span data-feather="log-out"></span>Volver</asp:LinkButton>
+                                    </li>
+                                </ul>
                             </div>
+                        </nav>
 
-                        </div>
-                        <div class="col-md-12">
+                        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h4><span data-feather="x-cirle"></span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <h4><span data-feather="alert-triangle"></span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="divider"></p>
+                            </div>
+                            <p class="divider"></p>
+                            <div class="container-fluid rounded border border-secondary bg-ligh">
+                                <div class="row">
+                                    <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
+                                    <div class="col-md-3">
+                                        <span class="badge bg-info">Código</span>
+                                        <asp:TextBox ID="txt_codigo" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <span class="badge bg-info">Línea de Ventas</span>
+                                        <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select">
+                                            <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br />
+                                        <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="Btn_buscar_Click" />
 
-                            <asp:GridView ID="Grilla" runat="server" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True">
-                                <AlternatingRowStyle BackColor="White" />
+                                    </div>
+                                </div>
+                                <p class="divider"></p>
+                            </div>
+                            <p class="divider"></p>
+
+                            <asp:GridView ID="Grilla" CssClass="table table-striped table-hover" runat="server" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True">
                                 <Columns>
                                     <asp:TemplateField>
                                         <HeaderTemplate>
-                                            <asp:CheckBox ID="Chk_todos" runat="server" AutoPostBack="true" OnCheckedChanged="Chk_todos_CheckedChanged" />
+                                            <asp:CheckBox ID="Chk_todos" runat="server" OnCheckedChanged="Chk_todos_CheckedChanged" />
                                         </HeaderTemplate>
                                         <ItemTemplate>
                                             <asp:CheckBox ID="Chk_marcar" runat="server" OnCheckedChanged="Chk_marcar_CheckedChanged" />
@@ -122,56 +144,24 @@
                                     <asp:BoundField HeaderText="Precio" DataField="precio" />
                                     <asp:BoundField HeaderText="Precio Lista" DataField="precio_lista" />
                                     <asp:BoundField HeaderText="Stock" DataField="stock" />
-                                    <asp:BoundField DataField="stock_critico" HeaderText="Stock Crítico" />
-                                    <asp:TemplateField HeaderText="Stock Bodega salida">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_stock_bod_out_grid" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Nivel a Aplicar">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_nivel_aplicar_grid" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="% Stock a Mover">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_Por_Stock" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="% Stock Critico">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_Por_Stock_Critico" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Cant Stock a Mover">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_stock_a_mover_grid" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:TemplateField HeaderText="Stock Critico">
-                                        <ItemTemplate>
-                                            <asp:Label ID="lbl_stock_critico" runat="server"></asp:Label>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
+                                    <asp:BoundField DataField="Stock_critico" HeaderText="Stock Crítico" />
+                                    <asp:BoundField DataField="Estado" HeaderText="Estado" />
                                 </Columns>
-                                <EditRowStyle BackColor="#2461BF" />
-                                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                                <RowStyle BackColor="#EFF3FB" />
-                                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                                <SortedDescendingHeaderStyle BackColor="#4870BE" />
                             </asp:GridView>
 
-                        </div>
-
+                            <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-info"></asp:Label>
+                            <asp:Button ID="Btn_procesar" runat="server" Visible="false" Text="Aplicar regla de Stock" CssClass="btn btn-primary btn-responsive btninter" OnClick="Btn_procesar_Click" />
+                            <asp:Button ID="btn_genera_mov_stock" runat="server" Visible="false" Text="Crear Mov. Entre Bodegas" CssClass="btn btn-success btn-responsive btninter" OnClick="btn_genera_mov_stock_Click" Width="169px" />
+                        </main>
                     </div>
+                    <p class="divider"></p>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
     </form>
+    <script src="scripts/bootstrap.bundle.min.js"></script>
+    <script src="scripts/feather.min.js"></script>
+    <script src="scripts/Chart.min.js"></script>
+    <script src="scripts/dashboard.js"></script>
 </body>
 </html>

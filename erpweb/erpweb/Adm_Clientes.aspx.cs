@@ -399,6 +399,8 @@ namespace erpweb
                     lbl_error.Text = "";
 
                     lbl_status.Text = "Clientes insertados correctamente";
+
+                    
                 }
                 catch (Exception ex)
                 {

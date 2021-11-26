@@ -193,6 +193,7 @@
     <Content Include="img\vista.png" />
     <Content Include="img\warning.png" />
     <Content Include="Index.aspx" />
+    <Content Include="Inf_Clientes.aspx" />
     <Content Include="Inf_Cotizaciones.aspx" />
     <Content Include="Inf_NV.aspx" />
     <Content Include="Lista_exportacion_items_web.aspx" />
@@ -450,6 +451,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inf_Clientes.aspx.cs">
+      <DependentUpon>Inf_Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inf_Clientes.aspx.designer.cs">
+      <DependentUpon>Inf_Clientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inf_Cotizaciones.aspx.cs">
       <DependentUpon>Inf_Cotizaciones.aspx</DependentUpon>

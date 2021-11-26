@@ -56,8 +56,10 @@ namespace erpweb
                     lbl_status.Text = "Cliente ya fue aprobado en el ERP, no es posible reaprobar o eliminar";
                     Btn_Aprobar.Enabled = false;
                     Btn_Rechazar.Enabled = false;
-                    LnkBtn_Aprobar.Enabled = false;
-                    LnkBtn_Rechazar.Enabled = false;
+                    LnkBtn_Aprobar.Visible = false;
+                    LnkBtn_Rechazar.Visible = false;
+                    Btn_Correo.Enabled = false;
+                    LnkBtnCorreo.Visible = false;
                 }
             }
             catch
@@ -179,7 +181,7 @@ namespace erpweb
             if (Page.IsValid)
             {
                 inserta_cliente_en_ERP(Convert.ToInt32(lbl_id.Text),  // id
-                                          Convert.ToInt32(lbl_rut.Text),  // rut
+                                          Convert.ToInt32(lbl_rut_master.Text),  // rut
                                           Context.Server.HtmlDecode(lbl_dv.Text),  // dv
                                           Context.Server.HtmlDecode(lbl_nombre.Text), // razon
                                           Context.Server.HtmlDecode(txt_fono1.Text), //
@@ -194,7 +196,7 @@ namespace erpweb
                                           Convert.ToInt32(Lst_Trasnportistas.SelectedValue)
                                           );
                 // Si la inserción de hizo correctamente... generaremos el correo de aviso de cliente con Precio Especial
-                if (valida_cliente_precio_especial( Convert.ToInt32(lbl_rut.Text)) == "S")
+                if (valida_cliente_precio_especial( Convert.ToInt32(lbl_rut_master.Text)) == "S")
                 {
                     envio_correo = utiles.obtengo_valor_regla("CORCP", Sserver);
                     if (envio_correo != "" && envio_correo.Contains("@"))
@@ -223,7 +225,7 @@ namespace erpweb
             }
             if (telefono == "" && telefono2 == "" && email == "")
             {
-                lbl_error.Text = "Debe informar algun medio de conmunicación";
+                lbl_error.Text = "Debe informar algun medio de comunicación";
                 swc = false;
             }
             if (pais.ToUpper() != "CHILE")
@@ -382,6 +384,11 @@ namespace erpweb
                     lbl_error.Text = "";
 
                     lbl_status.Text = "Clientes insertados correctamente";
+                            
+                    Btn_Aprobar.Enabled = false;
+                    Btn_Rechazar.Enabled = false;
+                    LnkBtn_Rechazar.Visible = false;
+                    LnkBtn_Aprobar.Visible = false;
                 }
                 catch (Exception ex)
                 {
@@ -689,7 +696,7 @@ namespace erpweb
             if (Page.IsValid)
             {
                 inserta_cliente_en_ERP(Convert.ToInt32(lbl_id.Text),  // id
-                                          Convert.ToInt32(lbl_rut.Text),  // rut
+                                          Convert.ToInt32(lbl_rut_master.Text),  // rut
                                           Context.Server.HtmlDecode(lbl_dv.Text),  // dv
                                           Context.Server.HtmlDecode(lbl_nombre.Text), // razon
                                           Context.Server.HtmlDecode(txt_fono1.Text), //
@@ -704,7 +711,7 @@ namespace erpweb
                                           Convert.ToInt32(Lst_Trasnportistas.SelectedValue)
                                           );
                 // Si la inserción de hizo correctamente... generaremos el correo de aviso de cliente con Precio Especial
-                if (valida_cliente_precio_especial(Convert.ToInt32(lbl_rut.Text)) == "S")
+                if (valida_cliente_precio_especial(Convert.ToInt32(lbl_rut_master.Text)) == "S")
                 {
                     envio_correo = utiles.obtengo_valor_regla("CORCP", Sserver);
                     if (envio_correo != "" && envio_correo.Contains("@"))
@@ -718,6 +725,20 @@ namespace erpweb
         protected void LnkBtn_Volver_Click(object sender, EventArgs e)
         {
             Response.Redirect("Adm_clientes.aspx");
+        }
+
+        protected void LnkBtnCorreo_Click(object sender, EventArgs e)
+        {
+            Btn_Enviar.Enabled = true;
+            lbl_correo_de.Text = "Informatica@dilaco.com";
+            lbl_correo_a.Text = txt_email.Text;
+        }
+
+        
+        protected void Btn_Enviar_Click(object sender, EventArgs e)
+        {
+            Btn_Enviar.Enabled = true;
+            utiles.enviar_correo("Solicitud de Información", txt_cuerpo.Text, "saranda@dilaco.com");
         }
     }
 }

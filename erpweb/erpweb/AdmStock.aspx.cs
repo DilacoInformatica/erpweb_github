@@ -38,15 +38,10 @@ namespace erpweb
                     }
                     lbl_conectado.Text = Session["Usuario"].ToString();
                 }
-
                 if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
+                { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
-                if (utiles.retorna_ambiente() == "D")
-                { lbl_ambiente.Text = "Ambiente Desarrollo"; }
-                else
-                { lbl_ambiente.Text = "Ambiente Producción"; }
+                { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
                 Sserver = utiles.verifica_ambiente("SSERVER");
                 SMysql = utiles.verifica_ambiente("MYSQL");
@@ -63,7 +58,7 @@ namespace erpweb
             bodega_entrada = busca_informacion("select Nombre_Bodega from tbl_bodegas where Activo = 1 and ID_Bodega = " + id_bodega_entrada, Sserver, "String");
             bodega_salida = busca_informacion("select Nombre_Bodega from tbl_bodegas where Activo = 1 and ID_Bodega = " + id_bodega_salida, Sserver, "String");
 
-            lbl_regla.Text = "Regla indica que los productos saldrán desde " + bodega_salida + " hasta " + bodega_entrada;
+            //lbl_regla.Text = "Regla indica que los productos saldrán desde " + bodega_salida + " hasta " + bodega_entrada;
 
 
             btn_genera_mov_stock.Attributes["Onclick"] = "return confirm('Generar Actualización de Stock?')";
@@ -603,5 +598,14 @@ End If*/
             }
         }
 
+        protected void Lnkvolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
+        }
+
+        protected void Btn_volveree_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Ppal.aspx");
+        }
     }
 }

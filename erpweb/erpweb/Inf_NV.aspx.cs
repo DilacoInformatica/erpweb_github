@@ -75,7 +75,7 @@ namespace erpweb
             {
                 Response.Clear();
                 Response.Buffer = true;
-                Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.xls");
+                Response.AddHeader("content-disposition", "attachment;filename=InformeNV.xls");
                 Response.Charset = "";
                 Response.ContentType = "application/vnd.ms-excel";
                 using (StringWriter sw = new StringWriter())

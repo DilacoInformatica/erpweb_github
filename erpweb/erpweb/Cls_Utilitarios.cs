@@ -170,7 +170,6 @@ namespace erpweb
 
 
 
-
         public string enviar_correo(string cabecera, string cuerpo, string receptor)
         {
 
@@ -204,7 +203,7 @@ namespace erpweb
             EmailMsgObj.IsBodyHtml = true;
             EmailMsgObj.To.Add(receptor);
            // EmailMsgObj.To.Add("saranda@dilaco.com");
-            EmailMsgObj.To.Add(receptor);
+          //  EmailMsgObj.To.Add(receptor);
             EmailMsgObj.From = new System.Net.Mail.MailAddress(correo_envia);
 
            // EmailMsgObj.ReplyToList.Add("saranda@dilaco.com");

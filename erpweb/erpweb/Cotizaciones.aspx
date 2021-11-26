@@ -85,24 +85,24 @@
                      <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label>
+                                <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 ">
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                <h4><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                             </div>
                         </div>
                     </div>
                     <p class="divider"></p>
                       <div class="container-fluid rounded border border-secondary bg-ligh">
                         <div class="row">
-                            <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
-                            <div class="col-md-2">
+                            <h4><span class="badge bg-primary"><span data-feather="search"></span>Búsqueda de Información</span></h4>
+                            <div class="col-md-3">
                                 <span class="badge bg-info">Cotización</span>
                                 <asp:TextBox ID="txt_cotizacion" runat="server" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <span class="badge bg-info">Rut Cliente</span>
                                 <asp:TextBox ID="txt_rut" runat="server" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox>
                             </div>

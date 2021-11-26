@@ -10,7 +10,7 @@
 namespace erpweb {
     
     
-    public partial class AdmStock {
+    public partial class Inf_Clientes {
         
         /// <summary>
         /// Control form1.
@@ -20,24 +20,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
-        /// Control ScriptManager1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
-        /// <summary>
-        /// Control UpdatePanel1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// Control lbl_conectado.
@@ -58,31 +40,22 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_ambiente;
         
         /// <summary>
-        /// Control Lnkvolver.
+        /// Control Btn_volver.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Lnkvolver;
+        protected global::System.Web.UI.WebControls.LinkButton Btn_volver;
         
         /// <summary>
-        /// Control Btn_volveree.
+        /// Control LnkBtn_Descargar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Btn_volveree;
-        
-        /// <summary>
-        /// Control lbl_status.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_status;
+        protected global::System.Web.UI.WebControls.LinkButton LnkBtn_Descargar;
         
         /// <summary>
         /// Control lbl_error.
@@ -94,40 +67,31 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.Label lbl_error;
         
         /// <summary>
-        /// Control txt_codigo.
+        /// Control lbl_status.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txt_codigo;
+        protected global::System.Web.UI.WebControls.Label lbl_status;
         
         /// <summary>
-        /// Control LstLineaVtas.
+        /// Control lbl_cantidad.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList LstLineaVtas;
+        protected global::System.Web.UI.WebControls.Label lbl_cantidad;
         
         /// <summary>
-        /// Control Btn_buscar.
+        /// Control Lista_clientes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_buscar;
-        
-        /// <summary>
-        /// Control Grilla.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Grilla;
+        protected global::System.Web.UI.WebControls.GridView Lista_clientes;
         
         /// <summary>
         /// Control lbl_mensaje.
@@ -137,23 +101,5 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_mensaje;
-        
-        /// <summary>
-        /// Control Btn_procesar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btn_procesar;
-        
-        /// <summary>
-        /// Control btn_genera_mov_stock.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_genera_mov_stock;
     }
 }

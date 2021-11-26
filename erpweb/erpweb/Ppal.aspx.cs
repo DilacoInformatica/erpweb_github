@@ -23,6 +23,12 @@ namespace erpweb
         int[] barras2 = new int[5];
         string[] nombres2 = new string[5];
 
+        int[] barras3 = new int[5];
+        string[] nombres3 = new string[5];
+
+        int[] barras4 = new int[5];
+        string[] nombres4 = new string[5];
+
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,7 +61,11 @@ namespace erpweb
                 llena_movimientos_grafico("C", Grafico1, barras, nombres);
                 cont = 0;
                 llena_movimientos_grafico("P", Grafico2, barras2, nombres2);
-
+                cont = 0;
+                llena_movimientos_grafico("V", Grafico3, barras3, nombres3);
+                cont = 0;
+                llena_movimientos_grafico("X", Grafico4, barras4, nombres3);
+                cont = 0;
                 consulta_ingresos_semanales();
 
             }
@@ -75,7 +85,6 @@ namespace erpweb
                     MySqlCommand command = new MySqlCommand(queryString, conn);
                     command.CommandType = CommandType.StoredProcedure;
 
-  
                     // Parámetros
                  
                     MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
@@ -86,17 +95,12 @@ namespace erpweb
                         Lst_Movimientos.DataSource = dr;
                         Lst_Movimientos.DataBind();
                     }
-
-
-
                     conn.Close();
                     conn.Dispose();
-
-                   
-
                 }
                 catch (Exception ex)
                 {
+                    lbl_error.Text = ex.Message;
                     conn.Close();
                     conn.Dispose();
                 }
@@ -136,8 +140,6 @@ namespace erpweb
                             cont++;
                         }
                     }
-
-      
 
                     conn.Close();
                     conn.Dispose();

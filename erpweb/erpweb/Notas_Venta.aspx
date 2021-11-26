@@ -94,12 +94,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-white-50"></asp:Label>
+                                <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 ">
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                <h4><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                             </div>
                         </div>
                         <p class="divider"></p>
@@ -108,7 +108,7 @@
                     <div class="container-fluid rounded border border-secondary bg-light">
 
                         <div class="row">
-                            <h4><span class="badge bg-primary">Búsqueda de Información</span></h4>
+                            <h4><span class="badge bg-primary"><span data-feather="search"></span>Búsqueda de Información</span></h4>
                             <div class="col-3">
                                 <span class="badge bg-info">Nota de Venta</span>
                                 <asp:TextBox ID="txt_nv" runat="server" CssClass="form-control" BackColor="#FFFFCC"></asp:TextBox>

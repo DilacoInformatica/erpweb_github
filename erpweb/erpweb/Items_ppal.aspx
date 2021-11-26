@@ -89,12 +89,12 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label>
+                                        <h4><span data-feather="alert-triangle"></span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                        <h4><span data-feather="x-cirle"></span><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                                     </div>
                                 </div>
                             </div>

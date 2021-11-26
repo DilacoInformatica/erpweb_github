@@ -53,12 +53,12 @@
                         <asp:Label ID="lbl_conectado" runat="server" CssClass="badge bg-primary"></asp:Label></span></h6>
                 </div>
                 <div class="col-md-3">
-                    <h6><span>
-                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h6>
+                    <h4><span>
+                        <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></span></h4>
                 </div>
                 <div class="col-md-3">
-                    <h6><span>
-                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h6>
+                    <h4><span>
+                        <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></span></h4>
                 </div>
             </div>
         </div>

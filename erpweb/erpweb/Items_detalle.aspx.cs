@@ -180,6 +180,8 @@ namespace erpweb
 
             string v_correo_operaciones = "";
 
+            lbl_web.Text = "SI"; 
+
             lbl_status.Text = "";
             query = "SELECT iw.Id_Item "; // 0
             query = query + ",iw.Codigo "; // 1
@@ -560,12 +562,12 @@ namespace erpweb
                          //   actualiza_stock_web(id_item, Convert.ToDouble(lbl_stock.Text));
                             lbl_stock_critico.Text = consulta_stock_critico_web(id_item);
 
-                            if (Convert.ToInt32(lbl_stock.Text) > Convert.ToInt32(lbl_stock_critico.Text))
+                            if (Convert.ToInt32(lbl_stock.Text) < Convert.ToInt32(lbl_stock_critico.Text) && chck_venta.Checked)
                             {
                                 lbl_stock.CssClass = "label label-primary";
                                 lbl_stock_critico.CssClass = "label label-primary";
 
-                                lbl_aviso_informacion.Text = "Stock de producto es menor a su stock crítico, se envía aviso a Operaciones para coorección";
+                                lbl_aviso_informacion.Text = "Stock de producto es menor a su stock crítico en Bodega Web, se envía aviso a Operaciones para correción";
 
                                 v_correo_operaciones = utiles.obtengo_valor_regla("COROP", Sserver);
 
@@ -575,27 +577,30 @@ namespace erpweb
 
                             }
 
-
-                            if (Convert.ToInt32(lbl_stock.Text) == Convert.ToInt32(lbl_stock_critico.Text))
+                            if (Convert.ToInt32(lbl_stock.Text) <= Convert.ToInt32(lbl_stock_critico.Text) && chck_venta.Checked)
                             {
                                 lbl_stock.CssClass = "label label-primary";
                                 lbl_stock_critico.CssClass = "label label-warning";
                                 lbl_status.Text = "Stock de Producto llegando a Niveles Críticos";
                             }
 
-
-                            if (Convert.ToInt32(lbl_stock.Text) < Convert.ToInt32(lbl_stock_critico.Text))
+                           /* if (Convert.ToInt32(lbl_stock.Text) < Convert.ToInt32(lbl_stock_critico.Text))
                             {
                                 lbl_stock.CssClass = "label label-primary";
                                 lbl_stock.CssClass = "label label-danger";
                                 lbl_status.Text = "Stock de Producto sobrepasó nivel mínimo";
-                            }
+                            }*/
                         }
                         else
                         {
                             lbl_stock_critico.Text = "0";
                             lbl_stock.CssClass = "label label-info";
                             lbl_stock_critico.CssClass = "label label-info";
+                        }
+
+                        if (chck_venta.Checked && Convert.ToInt32(lbl_stock.Text) == 0)
+                        {
+                            lbl_status.Text = "Producto está marcado para ventas pero no tiene stock definido, favor solicitar carga de stock a bodega Web";
                         }
 
                         if (lbl_fotog.Text.Trim() != "")
@@ -898,7 +903,7 @@ namespace erpweb
         public string consulta_stock_critico_web (int id_item)
         {
             string query = "";
-            string result = "";
+            string result = "0";
             using (MySqlConnection conn = new MySqlConnection(SMysql))
             {
                 try
@@ -922,6 +927,7 @@ namespace erpweb
                         {
                             result = Convert.ToString(dr.GetDouble(0));
                         }
+                       
                     }
 
                     conn.Close();
@@ -1939,10 +1945,6 @@ namespace erpweb
             {
                 lbl_error.Text = "Precio del producto debe ser mayor a Cero";
             }
-            if (txt_precio.Text == "")
-            {
-                lbl_error.Text = "Precio del producto debe no puede estar en blanco";
-            }
             if (chck_venta.Checked && verifica_stock_erp(txt_codigo.Text.Trim()) == "N")
             {
                 lbl_status.Text = "No puede actualizar producto para Ventas si no ha regularizado Stock, consulte con su Administrador";
@@ -2618,7 +2620,7 @@ namespace erpweb
             lbl_hoja_seguridad.Text = "";
         }
 
-        protected void txt_precio_TextChanged(object sender, EventArgs e)
+       /* protected void txt_precio_TextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -2641,7 +2643,7 @@ namespace erpweb
                 txt_precio.ForeColor = Color.Red;
                 txt_precio.Text = "";
             }
-        }
+        }*/
 
         protected void LstDivision_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -64,12 +64,12 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger text-white-50"></asp:Label>
+                                <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 ">
-                                <asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label>
+                                <h4><asp:Label ID="lbl_status" runat="server" CssClass="badge bg-warning"></asp:Label></h4>
                             </div>
                         </div>
                     </div>
@@ -101,8 +101,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-12">
+                                <span class="badge bg-info">Observaciones</span>
+                                <asp:Label ID="lbl_observaciones" runat="server" CssClass="form-control"></asp:Label>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
-                                <span class="badge bg-info">Usar Info ERP?</span><br />
+                                <span class="badge bg-info">¿Usar Info ERP?</span><br />
                                 <asp:CheckBox ID="Chk_data_existente" runat="server" AutoPostBack="True" Enabled="False" OnCheckedChanged="Chk_data_existente_CheckedChanged" />
                             </div>
                             <div class="col-md-3">
