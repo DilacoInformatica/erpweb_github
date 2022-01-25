@@ -163,7 +163,7 @@ namespace erpweb
                 }
                 catch (Exception ex)
                 {
-                    return "ERROR";
+                    return "ERROR " + ex.Message;
                 }
             }
         }

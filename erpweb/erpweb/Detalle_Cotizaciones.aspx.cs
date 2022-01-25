@@ -690,6 +690,10 @@ namespace erpweb
                     utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", v_email);
                    // utiles.enviar_correo("Cotización Web asignada", "N° Cotización " + lbl_numero.Text + " fue creada en el ERP con el numero " + lbl_numero_erp.Text + ", esta fue asignada a Ud, revisela en el Home", "saranda@dilaco.com");
                     Btn_crearCot.Enabled = false;
+                    LnkBtn_Aprobar.Visible = false;
+                    LnkBtn_Rechazar.Visible = false;
+                    Btn_RechazarCot.Enabled = false;
+
                 }
                 // una vez insertada la NV en el ERP... actualizó la NV para que no aparezca más en el listado de pendientes
         }

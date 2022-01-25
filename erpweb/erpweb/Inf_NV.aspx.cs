@@ -31,7 +31,7 @@ namespace erpweb
                 }
                 else
                 {
-                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_03", Sserver) == "NO")
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_08", Sserver) == "NO")
                     {
                         Response.Redirect("ErrorAcceso.html");
                     }
@@ -43,8 +43,8 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+              //  Sserver = utiles.verifica_ambiente("SSERVER");
+             //   SMysql = utiles.verifica_ambiente("MYSQL");
 
 
             }

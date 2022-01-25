@@ -22,6 +22,9 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
+
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
                 {
                     Response.Redirect("Ppal.aspx");
@@ -44,8 +47,7 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "Ambiente Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+              
 
 
             }

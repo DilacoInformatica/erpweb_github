@@ -38,7 +38,7 @@ namespace erpweb
                 }
                 else
                 {
-                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_008_05", Sserver) == "NO")
+                    if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_10", Sserver) == "NO")
                     {
                         Response.Redirect("ErrorAcceso.html");
                     }

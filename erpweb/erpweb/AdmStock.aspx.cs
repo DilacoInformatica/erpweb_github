@@ -26,6 +26,8 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
+                Sserver = utiles.verifica_ambiente("SSERVER");
+                SMysql = utiles.verifica_ambiente("MYSQL");
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
                 {
                     Response.Redirect("Ppal.aspx");
@@ -42,10 +44,6 @@ namespace erpweb
                 { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
-
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
 
             }
             catch
@@ -227,9 +225,9 @@ namespace erpweb
                 e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
-                e.Row.Cells[10].HorizontalAlign = HorizontalAlign.Right;
+               // e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
+               // e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
+               //  e.Row.Cells[10].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 

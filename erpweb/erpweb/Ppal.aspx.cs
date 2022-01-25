@@ -40,7 +40,7 @@ namespace erpweb
             if (Convert.ToString(Session["id_usuario"]) != "")
             {
                 id_usuario = Convert.ToInt32(Convert.ToString(Session["id_usuario"]));
-                lbl_conectado.Text =  utiles.obtiene_nombre_usuario(id_usuario, Sserver);
+                lbl_conectado.Text = utiles.obtiene_nombre_usuario(id_usuario, Sserver);
                 lbl_conectado.ToolTip = "Usuario conectado";
             }
             else
@@ -56,6 +56,15 @@ namespace erpweb
 
             Session["Usuario"] = utiles.obtiene_nombre_usuario(id_usuario, Sserver);
 
+            // Función que regulariza precios con diferencias
+           // if (utiles.obtiene_acceso_pagina(utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_14", Sserver) == "SI")
+
+
+             if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_14", Sserver) == "SI")
+            {
+                RevRegPrecios();
+            }
+
             if (!this.IsPostBack)
             {
                 llena_movimientos_grafico("C", Grafico1, barras, nombres);
@@ -68,6 +77,159 @@ namespace erpweb
                 cont = 0;
                 consulta_ingresos_semanales();
 
+            }
+        }
+
+        void RevRegPrecios()
+        {
+            int v_id_item = 0;
+            double v_precio_erp = 0;
+            string v_codigo = "";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_retorna_precios_descuadrados", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                 
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                v_id_item = rdr.GetInt32(0);
+                                
+                                v_codigo = rdr.GetString(1);
+                                v_precio_erp = rdr.GetDouble(3);
+                                // si tengo información... voy a la función que corrige montos en el sitio web
+                                if (actualiza_precios_erp(v_id_item, v_precio_erp) == "OK")
+                                {
+                                   if (actualiza_precios_web(v_id_item, v_precio_erp) != "OK")
+                                    {
+                                        lbl_error.Text = "Error al actualizar precio " + v_codigo + " Valores con diferencias entre plataformas, consulte con su administrador ";
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public string actualiza_precios_erp(int id_item, double precio_erp)
+        {
+           
+            string result = "";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_actualiza_precios_descuadrados", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    cmd.Parameters.AddWithValue("@v_id_item", id_item);
+                    cmd.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@v_precio", precio_erp);
+                    cmd.Parameters["@v_precio"].Direction = ParameterDirection.Input;
+
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = ex.Message;
+                    return ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public string actualiza_precios_web (int id_item, double precio_erp)
+        {
+            String queryString = "Actualiza_precio_item";
+            string result = "";
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    DataSet ds = new DataSet();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Parámetros
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_nuevo_precio", precio_erp);
+                    command.Parameters["@v_nuevo_precio"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            result = dr.GetString(0).ToString();
+                        }
+                    }
+
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return result;
+                
+                }
+                catch (Exception ex)
+                {
+                    conn.Close();
+                    conn.Dispose();
+                    return ex.Message;
+                }
             }
         }
 

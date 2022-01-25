@@ -66,7 +66,7 @@
                      <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <h4><span data-feather="alert-triangle"></span><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
+                                <h4><asp:Label ID="lbl_error" runat="server" CssClass="badge bg-danger"></asp:Label></h4>
                             </div>
                         </div>
                         <div class="row">

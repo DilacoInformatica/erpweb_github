@@ -346,6 +346,15 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.CheckBox Chk_crea_data;
         
         /// <summary>
+        /// Control lbl_web.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_web;
+        
+        /// <summary>
         /// Control ImgBtnAct_item.
         /// </summary>
         /// <remarks>
@@ -398,15 +407,6 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chck_cot;
-        
-        /// <summary>
-        /// Control lbl_web.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_web;
         
         /// <summary>
         /// Control txt_texto_destacado.
