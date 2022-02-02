@@ -26,7 +26,7 @@ namespace erpweb
             }
             else
             {
-                id_usuario = 98;
+                id_usuario = 141;
             }
 
             if (utiles.obtiene_acceso_pagina(utiles.obtiene_nombre_usuario(id_usuario,Sserver), "OPC_009_11", Sserver) == "NO")

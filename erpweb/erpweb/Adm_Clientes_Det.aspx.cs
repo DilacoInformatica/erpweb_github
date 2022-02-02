@@ -51,6 +51,16 @@ namespace erpweb
                 rut_cliente = Convert.ToInt32(Request.QueryString["rut_cliente"].ToString());
                 id_cliente = Convert.ToInt32(Request.QueryString["id_cliente"].ToString());
 
+                if (valida_info_cliente(rut_cliente) == "Existe")
+                {
+                    lbl_error.Text = "Rut Cliente ya está ingresado y validado cómo cliente, ni puede ingresarlo nuevamente";
+                    LnkBtn_Aprobar.Visible = false;
+                    LnkBtn_Rechazar.Visible = false;
+                    Btn_Aprobar.Enabled = false;
+                    Btn_Rechazar.Enabled = false;
+                    Btn_Correo.Enabled = false; 
+                }
+
                 if (id_cliente > 0)
                 {
                     lbl_status.Text = "Cliente ya fue aprobado en el ERP, no es posible reaprobar o eliminar";
@@ -81,6 +91,51 @@ namespace erpweb
                 id_transportista = Convert.ToInt32(utiles.obtengo_valor_regla("IDTRAN", Sserver));
                 Lst_Trasnportistas.SelectedValue = id_transportista.ToString();
                 muestra_info_cliente();
+            }
+        }
+
+
+        public string valida_info_cliente(int rut_cliente)
+        {
+            String queryString = "valida_cliente_web";
+            string status = "";
+
+            using (MySqlConnection conn = new MySqlConnection(SMysql))
+            {
+                try
+                {
+                    conn.Open();
+                    DataSet ds = new DataSet();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    command.Parameters.AddWithValue("@v_rut", rut_cliente);
+                    command.Parameters["@v_rut"].Direction = ParameterDirection.Input;
+
+                    MySqlDataAdapter mysqlDAdp = new MySqlDataAdapter(command);
+                    MySqlDataReader dr = command.ExecuteReader();
+
+
+                    while (dr.Read())
+                    {
+                        status = dr[0].ToString();
+                    }
+                    dr.Dispose();
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return status;
+
+                }
+                catch (Exception ex)
+                {
+                    conn.Close();
+                    conn.Dispose();
+
+                    return ex.Message;
+                }
             }
         }
 

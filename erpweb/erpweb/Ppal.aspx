@@ -130,7 +130,7 @@
                                         <div class="col-md-6">
                                             <asp:Chart ID="Grafico1" runat="server">
                                                 <Series>
-                                                    <asp:Series Name="Series" ChartType="Line" Legend="Legend1"></asp:Series>
+                                                    <asp:Series Name="Series" Legend="Legend1"></asp:Series>
                                                 </Series>
                                                 <ChartAreas>
                                                     <asp:ChartArea Name="ChartArea"></asp:ChartArea>
@@ -144,7 +144,7 @@
                                         <div class="col-md-6">
                                             <asp:Chart ID="Grafico2" runat="server">
                                                 <Series>
-                                                    <asp:Series Name="Series" Legend="Legend1"></asp:Series>
+                                                    <asp:Series Name="Series" Legend="Legend1" ChartType="Pie"></asp:Series>
                                                 </Series>
                                                 <ChartAreas>
                                                     <asp:ChartArea Name="ChartArea"></asp:ChartArea>
