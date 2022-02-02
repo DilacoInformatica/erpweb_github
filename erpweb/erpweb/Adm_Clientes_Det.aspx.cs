@@ -53,7 +53,7 @@ namespace erpweb
 
                 if (valida_info_cliente(rut_cliente) == "Existe")
                 {
-                    lbl_error.Text = "Rut Cliente ya está ingresado y validado cómo cliente, ni puede ingresarlo nuevamente";
+                    lbl_status.Text = "Rut Cliente ya está ingresado y validado cómo cliente, no puede ingresarlo nuevamente";
                     LnkBtn_Aprobar.Visible = false;
                     LnkBtn_Rechazar.Visible = false;
                     Btn_Aprobar.Enabled = false;

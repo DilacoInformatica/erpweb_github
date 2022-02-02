@@ -160,11 +160,6 @@
                     </asp:GridView>
 
                     <asp:Label ID="lbl_cantidad" CssClass="badge bg-success" runat="server"></asp:Label>
- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-                    
-
-
                 </main>
             </div>
         </div>
