@@ -55,34 +55,11 @@
                                             Dashboard
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="Adm_Clientes.aspx">
-                                            <span data-feather="users"></span>
-                                            Clientes
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="Cotizaciones.aspx">
-                                            <span data-feather="file"></span>
-                                            Cotizaciones
-                                        </a>
+                                     <li class="nav-item">
+                                         <asp:LinkButton ID="LnkBtn_Aprobar" CssClass="nav-link" runat="server" OnClick="LnkBtn_Aprobar_Click"><span data-feather="check"></span>Crear Solicitud</asp:LinkButton>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="Notas_Venta.aspx">
-                                            <span data-feather="file"></span>
-                                            Notas de Venta
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="Items_ppal.aspx">
-                                            <span data-feather="shopping-cart"></span>
-                                            Productos
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <asp:LinkButton ID="Btn_volveree" runat="server" CssClass="nav-link px-3" OnClick="Btn_volveree_Click"><span data-feather="log-out"></span>Volver</asp:LinkButton>
+                                        <asp:LinkButton ID="Btn_volver" runat="server" CssClass="nav-link px-3" OnClick="Btn_volveree_Click"><span data-feather="log-out"></span>Volver</asp:LinkButton>
                                     </li>
                                 </ul>
                             </div>
@@ -112,13 +89,13 @@
                                         <span class="badge bg-info">Código</span>
                                         <asp:TextBox ID="txt_codigo" runat="server" CssClass="form-control"></asp:TextBox>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <span class="badge bg-info">Línea de Ventas</span>
                                         <asp:DropDownList ID="LstLineaVtas" runat="server" AppendDataBoundItems="True" CssClass="form-select">
                                             <asp:ListItem Selected="True" Value="0">Seleccione</asp:ListItem>
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <br />
                                         <asp:Button ID="Btn_buscar" runat="server" Text="Buscar" CssClass="btn btn-primary" OnClick="Btn_buscar_Click" />
 
@@ -127,7 +104,18 @@
                                 <p class="divider"></p>
                             </div>
                             <p class="divider"></p>
-
+                           
+                            <div class="container-fluid rounded border border-secondary bg-ligh">
+                                 <div class="row">
+                                     <div class="col-md-6">
+                                         <h3><span class="badge bg-primary">Generar Solicitud Stock</span></h3>
+                                         <asp:Button ID="Btn_crearSolStock" runat="server" CssClass="btn btn-success btn-responsive btninter" OnClick="Btn_crearSolStock_Click" Text="Crear Solicitud" />
+                                     </div>
+                                 </div>
+                                 <p class="divider">
+                                 </p>
+                            </div>
+                            <p class="divider"></p>
                             <asp:GridView ID="Grilla" CssClass="table table-striped table-hover" runat="server" AutoGenerateColumns="False" OnRowDataBound="Grilla_RowDataBound" ShowFooter="True">
                                 <Columns>
                                     <asp:TemplateField>
@@ -143,7 +131,12 @@
                                     <asp:BoundField HeaderText="Descripción" DataField="descripcion" />
                                     <asp:BoundField HeaderText="Precio" DataField="precio" />
                                     <asp:BoundField HeaderText="Precio Lista" DataField="precio_lista" />
-                                    <asp:BoundField HeaderText="Stock" DataField="stock" />
+                                    <asp:TemplateField HeaderText="Stock ERP">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lbl_stock_erp" runat="server"></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="Stock Web" DataField="stock" />
                                     <asp:BoundField DataField="Stock_critico" HeaderText="Stock Crítico" />
                                     <asp:BoundField DataField="Estado" HeaderText="Estado" />
                                 </Columns>

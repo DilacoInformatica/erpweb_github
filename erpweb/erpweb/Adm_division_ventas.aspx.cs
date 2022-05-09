@@ -23,8 +23,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             if (Session["Usuario"].ToString() == "" || Session["Usuario"] == null)
             {
                 Response.Redirect("Ppal.aspx");

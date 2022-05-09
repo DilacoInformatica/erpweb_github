@@ -23,9 +23,9 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
-            SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
+            SMysql2 = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL2")); // enlace a BBDD Ecommerce
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
 
             Btn_grabar.Attributes["Onclick"] = "return confirm('Grabar nivel ingresado')";

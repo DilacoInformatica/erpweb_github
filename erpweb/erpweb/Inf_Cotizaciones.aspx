@@ -105,6 +105,11 @@
                                     <asp:Label ID="lbl_num_cot_erp" runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="N° NV ERP">
+                                <ItemTemplate>
+                                    <asp:Label ID="lbl_num_nv_erp" runat="server"></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                     <asp:Label ID="lbl_mensaje" runat="server" CssClass="badge bg-warning"></asp:Label>

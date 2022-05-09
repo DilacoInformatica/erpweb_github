@@ -34,8 +34,8 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+                Sserver = Cls_Seguridad.Encriptar(utiles.verifica_ambiente("SSERVER"));
+                SMysql = Cls_Seguridad.Encriptar(utiles.verifica_ambiente("MYSQL"));
                 lbl_ambiente.Text = Convert.ToString(Session["Usuario"]);
                 if (Convert.ToString(Session["id_usuario"]) == "" || Session["Usuario"].ToString() == string.Empty)
                 {

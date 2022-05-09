@@ -19,6 +19,7 @@ namespace erpweb
         string bodega_salida = "";
         int id_bodega_entrada = 0;
         string bodega_entrada = "";
+        string resultado = "";
         ClsFTP ftp = new ClsFTP();
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
@@ -26,8 +27,8 @@ namespace erpweb
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             try
             {
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+                Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+                SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
                 {
                     Response.Redirect("Ppal.aspx");
@@ -60,17 +61,22 @@ namespace erpweb
 
 
             btn_genera_mov_stock.Attributes["Onclick"] = "return confirm('Generar Actualización de Stock?')";
+            Btn_crearSolStock.Attributes["Onclick"] = "return confirm('Generar solicitud de Stock?')";
 
             if (!this.IsPostBack)
             {
                 carga_contrl_lista("select ID_Linea_Venta, CONCAT(Cod_Linea_Venta ,' ', nombre) Nombre from tbl_Lineas_Venta where Activo = 1 order by replace(Cod_Linea_Venta, 'GRUPO ', '')", LstLineaVtas, "tbl_Lineas_Venta", "ID_Linea_Venta", "Nombre");
                 // btn_actualizar.Attributes["Onclick"] = "return confirm('Está a punto de actualizar el Stock para estos productos, Desea Continuar?')";
-               
-               
+
+                resultado = utiles.rectfica_stock(Sserver, SMysql);
                 muestra_productos();
             }
         }
 
+      
+
+
+     
         public string busca_informacion (string sentencia, string conector, string salida)
         {
             string valor = "";
@@ -208,12 +214,17 @@ namespace erpweb
 
         protected void Grilla_RowDataBound(object sender, GridViewRowEventArgs e)
         {
+  
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
 
+                Label lbl_stock_erp = e.Row.FindControl("lbl_stock_erp") as Label;
                 // Stock en cero
 
-                if (Convert.ToDouble(e.Row.Cells[6].Text.Replace(".",",")) <= 0)
+                lbl_stock_erp.Text = Convert.ToString(consulta_stock_erp(Convert.ToInt32(e.Row.Cells[1].Text)));
+
+
+                if (Convert.ToDouble(e.Row.Cells[7].Text.Replace(".",",")) <= 0)
                 {
                   //  e.Row.Cells[6].ForeColor = Color.Red;
                     e.Row.ForeColor = Color.Red;
@@ -225,9 +236,6 @@ namespace erpweb
                 e.Row.Cells[5].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
                 e.Row.Cells[7].HorizontalAlign = HorizontalAlign.Right;
-               // e.Row.Cells[8].HorizontalAlign = HorizontalAlign.Right;
-               // e.Row.Cells[9].HorizontalAlign = HorizontalAlign.Right;
-               //  e.Row.Cells[10].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 
@@ -545,6 +553,54 @@ End If*/
             }
         }
 
+
+        public int consulta_stock_erp( int id_producto)
+        {
+            int result = 0;
+
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_erp", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@id_producto", id_producto);
+                    cmd.Parameters["@id_producto"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                result = rdr.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+                    return Convert.ToInt32(result);
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_status.Text = ex.Message;
+                    return 0;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
         void actualiza_stock_web(int id_item, double stock, double Stock_critico, string mov)
         {
             string result = "";
@@ -604,6 +660,51 @@ End If*/
         protected void Btn_volveree_Click(object sender, EventArgs e)
         {
             Response.Redirect("Ppal.aspx");
+        }
+
+        protected void Btn_crearSolStock_Click(object sender, EventArgs e)
+        {
+            crea_solicitud();
+        }
+
+        protected void LnkBtn_Aprobar_Click(object sender, EventArgs e)
+        {
+            crea_solicitud();
+        }
+
+        void crea_solicitud()
+        {
+            int cont = 0;
+            int id_solicitud = 0;
+            int id_detalle_sol = 0;
+            try
+            {
+                foreach (GridViewRow row in Grilla.Rows)
+                {
+                    CheckBox Chk_marcar = row.FindControl("Chk_marcar") as CheckBox;
+                    if (Chk_marcar.Checked)
+                    {
+                        cont++;
+
+                        if (cont == 1)
+                        {
+                            id_solicitud = utiles.crea_solicitud(Sserver);
+                        }
+                        if (id_solicitud > 0)
+                        {
+                            id_detalle_sol = utiles.crea_solicitud_detalle(Sserver, id_solicitud, Convert.ToInt32(row.Cells[1].Text));
+                        }
+                    }
+                }
+                if (cont == 0)
+                {
+                    lbl_error.Text = "No seleccionó ningún ítem para la solicitud";
+                }
+            }
+            catch (Exception ex)
+            {
+                lbl_error.Text = "Error En generar solicitud de Stock " + ex.Message;
+            }
         }
     }
 }

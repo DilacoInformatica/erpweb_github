@@ -44,8 +44,8 @@ namespace erpweb
             lbl_tax.Style.Add("text-align", "right");
             lbl_total.Style.Add("text-align", "right");
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
 
             lbl_numero_erp.Text = "0";
 

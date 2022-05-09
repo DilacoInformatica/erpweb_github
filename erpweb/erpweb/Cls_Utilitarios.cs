@@ -42,29 +42,25 @@ namespace erpweb
             string salida = "";
             if (servidor == "SSERVER" && ambiente == 1)
             {
-                //salida = @"Data Source=LAPTOP-NM5HA1B3;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                //salida = @"Data Source=LAPTOP-K0J0KFD2;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Local
-                salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                salida = @"RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0AUABDAF8AUwBBAFIAQQBOAEQAQQA7AEkAbgBpAHQAaQBhAGwAIABDAGEAdABhAGwAbwBnAD0AZABpAGwAYQBjAG8AOwB1AGkAZAA9AHMAYQA7ACAAcAB3AGQAPQAgAGQAfABsAEAAYwAwADsASQBuAHQAZQBnAHIAYQB0AGUAZAAgAFMAZQBjAHUAcgBpAHQAeQA9AGYAYQBsAHMAZQA=";
             }
             if (servidor == "MYSQL" && ambiente == 1)
             {
-                salida = @"Server=localhost;database=dilacocl_dilacoweb;uid=root;pwd=d|l@c0;CHARSET=utf8;"; // Conexion  Local
-                //salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+                salida = @"UwBlAHIAdgBlAHIAPQBsAG8AYwBhAGwAaABvAHMAdAA7AGQAYQB0AGEAYgBhAHMAZQA9AGQAaQBsAGEAYwBvAGMAbABfAGQAaQBsAGEAYwBvAHcAZQBiADsAdQBpAGQAPQByAG8AbwB0ADsAcAB3AGQAPQBkAHwAbABAAGMAMAA7AEMASABBAFIAUwBFAFQAPQB1AHQAZgA4ADsA";
             }
             if (servidor == "SSERVER" && ambiente == 2)
             {
-                salida =   @"Data Source=172.16.10.13\DILACO;Initial Catalog=dilaco;uid=sa; pwd= d|l@c02016;Integrated Security=false"; // Conexion Servidor
-                //salida = @"Data Source=PC_SARANDA;Initial Catalog=dilaco;uid=sa; pwd= d|l@c0;Integrated Security=false"; // Conexion Local
+                salida = @"RABhAHQAYQAgAFMAbwB1AHIAYwBlAD0AMQA3ADIALgAxADYALgAxADAALgAxADMAXABEAEkATABBAEMATwA7AEkAbgBpAHQAaQBhAGwAIABDAGEAdABhAGwAbwBnAD0AZABpAGwAYQBjAG8AOwB1AGkAZAA9AHMAYQA7ACAAcAB3AGQAPQAgAGQAfABsAEAAYwAwADIAMAAxADYAOwBJAG4AdABlAGcAcgBhAHQAZQBkACAAUwBlAGMAdQByAGkAdAB5AD0AZgBhAGwAcwBlAA==";
             }
            
             if (servidor == "MYSQL" && ambiente == 2)
             {
-                salida = @"server=dev.dilaco.com;database=dilacocl_dilacoweb;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+                salida = @"cwBlAHIAdgBlAHIAPQBkAGUAdgAuAGQAaQBsAGEAYwBvAC4AYwBvAG0AOwBkAGEAdABhAGIAYQBzAGUAPQBkAGkAbABhAGMAbwBjAGwAXwBkAGkAbABhAGMAbwB3AGUAYgA7AHUAaQBkAD0AZABpAGwAYQBjAG8AYwBsAF8AZABpAGwAYQBjAG8AOwBwAHcAZAA9AGQAfABsAEAAYwAwADIAMAAxADkAOwA=";
             }
 
             if (servidor == "MYSQL2" && ambiente == 2)
             {
-                salida = @"server=dev.dilaco.com;database=dilacocl_ecommerce;uid=dilacocl_dilaco;pwd=d|l@c02019;"; // Conexion Server
+                salida = @"cwBlAHIAdgBlAHIAPQBkAGUAdgAuAGQAaQBsAGEAYwBvAC4AYwBvAG0AOwBkAGEAdABhAGIAYQBzAGUAPQBkAGkAbABhAGMAbwBjAGwAXwBlAGMAbwBtAG0AZQByAGMAZQA7AHUAaQBkAD0AZABpAGwAYQBjAG8AYwBsAF8AZABpAGwAYQBjAG8AOwBwAHcAZAA9AGQAfABsAEAAYwAwADIAMAAxADkAOwA="; // Conexion Server
             }
 
             return salida;
@@ -356,6 +352,251 @@ namespace erpweb
 
             }
         }
+
+        public string rectfica_stock(string conexion, string conexionMysql)
+        {
+            // Esta función revisará el correcto manejo del Stock de los productos
+            int id_item = 0;
+            double stock = 0;
+            string salida = "";
+            double stock_critico = 0;
+
+            using (SqlConnection connection = new SqlConnection(conexion))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_erp_lista", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@id_producto", DBNull.Value);
+                    cmd.Parameters["@id_producto"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                id_item = rdr.GetInt32(0);
+                                stock = rdr.GetDouble(1);
+                                // Con la información Obtenida... actualizamos el producto en la web
+                                stock_critico = valida_stock_critico(id_item, conexion);
+                                salida = actualiza_stock_web(id_item, stock, stock_critico, conexionMysql);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return "Proceso Finalizado";
+
+                }
+                catch (Exception ex)
+                {
+                    return "Error Procedimiento rectifica_stcok: " + ex.Message;
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+
+        public int crea_solicitud(string conexion)
+        {
+            // Esta función revisará el correcto manejo del Stock de los productos
+            int id_solicitud = 0;
+           
+
+            using (SqlConnection connection = new SqlConnection(conexion))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_erp_lista", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                id_solicitud= rdr.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return id_solicitud;
+
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public int crea_solicitud_detalle(string conexion, int id_solicitud, int id_item)
+        {
+            // Esta función revisará el correcto manejo del Stock de los productos
+            int id_detalle_solicitud = 0;
+
+
+            using (SqlConnection connection = new SqlConnection(conexion))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_erp_lista", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                //rescatamos los valores segun lo que utilizaremos
+                                id_detalle_solicitud = rdr.GetInt32(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return id_detalle_solicitud;
+
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public double valida_stock_critico(int id_item, string conexion)
+        {
+            double resultado = 0;
+
+            using (SqlConnection connection = new SqlConnection(conexion))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_consulta_stock_critico", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+
+                    cmd.Parameters.AddWithValue("@id_producto", id_item);
+                    cmd.Parameters["@id_producto"].Direction = ParameterDirection.Input;
+
+                    cmd.Parameters.AddWithValue("@salida", "SC");
+                    cmd.Parameters["@salida"].Direction = ParameterDirection.Input;
+
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                resultado = rdr.GetDouble(0);
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+                    return resultado;
+
+                }
+                catch (Exception ex)
+                {
+                   // lbl_error.Text = "Error procedimiento web_consulta_stock_critico " + ex.Message;
+                    return 0;
+                }
+                finally
+                {
+                    connection.Close();
+
+                }
+            }
+        }
+
+        public string actualiza_stock_web(int id_item, double stock, double stock_critico, string conexion)
+        {
+            string result = "";
+            String queryString = "crud_stock";
+            //lbl_status.Text = "";
+            using (MySqlConnection conn = new MySqlConnection(conexion))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlCommand command = new MySqlCommand(queryString, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.AddWithValue("@v_id_item", id_item);
+                    command.Parameters["@v_id_item"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_stock", stock);
+                    command.Parameters["@v_stock"].Direction = ParameterDirection.Input;
+
+                    command.Parameters.AddWithValue("@v_stock_critico", stock_critico);
+                    command.Parameters["@v_stock_critico"].Direction = ParameterDirection.Input;
+
+                    //var result = command.ExecuteNonQuery();
+                    using (MySqlDataReader rdr = command.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                result = rdr.GetString(0);
+                            }
+                        }
+                    }
+
+                    conn.Close();
+                    conn.Dispose();
+
+                    return result;
+
+                }
+                catch (Exception ex)
+                {
+
+                    conn.Close();
+                    conn.Dispose();
+                    return ex.Message;
+                }
+            }
+        }
+
 
 
         public string obtengo_valor_regla(string valor, string conexion)

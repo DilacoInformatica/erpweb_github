@@ -21,7 +21,7 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            Sserver = utiles.verifica_ambiente("SSERVER");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
             SMysql = utiles.verifica_ambiente("MYSQL");
 
 

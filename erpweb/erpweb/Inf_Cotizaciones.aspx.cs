@@ -21,8 +21,8 @@ namespace erpweb
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -42,10 +42,6 @@ namespace erpweb
                 { lbl_ambiente.Text = "D"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Desarrollo"; }
                 else
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
-
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
 
             }
             catch
@@ -197,7 +193,11 @@ namespace erpweb
             {
                 Label lbl_num_cot_erp = e.Row.FindControl("lbl_num_cot_erp") as Label;
 
-                lbl_num_cot_erp.Text = utiles.busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[1].Text), "CO", Sserver);
+                Label lbl_num_nv_erp = e.Row.FindControl("lbl_num_nv_erp") as Label;
+
+                lbl_num_cot_erp.Text = utiles.busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[2].Text), "CO", Sserver);
+
+                lbl_num_nv_erp.Text = utiles.busca_numero_doc_erp(Convert.ToInt32(e.Row.Cells[2].Text), "NX", Sserver);
 
             }
         }

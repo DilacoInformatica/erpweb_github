@@ -11,6 +11,12 @@
     <script src="scripts/bootstrap.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            left: -1px;
+            top: -353px;
+        }
+    </style>
 </head>
 <body>
 
@@ -102,7 +108,7 @@
                                 <h4><span class="badge bg-primary">Información Producto</span></h4>
                                 <div class="row">
                                    <div class="col-md-3">
-                                       <div class="card mb-3">
+                                       <div class="auto-style1">
                                            <asp:Image ID="img_prod" runat="server" ToolTip="Imagen Producto" CssClass="img-thumbnail" Height="200px" Width="200px" />
                                           <div class="card-body">
                                             <p class="card-text">Imagen del Producto en la Web.</p>

@@ -20,6 +20,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -50,8 +52,7 @@ namespace erpweb
                 Response.Redirect("Ppal.aspx");
             }
 
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            
             Btn_cargar.Attributes["Onclick"] = "return confirm('Crear o Actualizar cliente con precios especiales?')";
             if (utiles.retorna_ambiente() == "D")
             { lbl_ambiente.Text = "Ambiente Desarrollo"; }

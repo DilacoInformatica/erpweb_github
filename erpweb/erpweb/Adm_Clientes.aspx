@@ -153,6 +153,7 @@
                                     <asp:Label ID="lbl_cli_precio_esp" runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:BoundField DataField="fecha_aprobacion" DataFormatString="{0:d}" HeaderText="F. Aprobación" />
                             <asp:ButtonField Text="Detalle" ControlStyle-CssClass="btn btn-success" CommandName="detalle">
                                 <ControlStyle CssClass="btn btn-success" ForeColor="White"></ControlStyle>
                             </asp:ButtonField>

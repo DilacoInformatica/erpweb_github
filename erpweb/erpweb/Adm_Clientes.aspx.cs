@@ -24,9 +24,9 @@ namespace erpweb
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
-            SMysql2 = utiles.verifica_ambiente("MYSQL2"); // enlace a BBDD Ecommerce
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
+            SMysql2 = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL2")); // enlace a BBDD Ecommerce
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
 
             try
@@ -50,8 +50,8 @@ namespace erpweb
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
             
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+               // Sserver = utiles.verifica_ambiente("SSERVER");
+               // SMysql = utiles.verifica_ambiente("MYSQL");
                 lbl_transportista.Text = utiles.obtengo_valor_regla("TRANS", Sserver);
 
             }

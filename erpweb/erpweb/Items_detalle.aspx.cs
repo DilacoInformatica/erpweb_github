@@ -42,6 +42,10 @@ namespace erpweb
             id_item = Convert.ToInt32(Request.QueryString["id_item"].ToString());
             usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
 
+
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
+
             try
             {
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
@@ -62,9 +66,6 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
                 server = @utiles.obtengo_valor_regla("FTPS", Sserver);
                 user = utiles.obtengo_valor_regla("FTPU", Sserver);
                 password = utiles.obtengo_valor_regla("FTPC", Sserver);
@@ -84,8 +85,6 @@ namespace erpweb
             {
                 modo = "E";
             }
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
             txt_precio_lista.Enabled = false;
 
             //lbl_ambiente.Text = utiles.retorna_ambiente();

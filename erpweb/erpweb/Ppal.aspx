@@ -121,16 +121,17 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <asp:Chart ID="Grafico1" runat="server">
+	                <div class="row">
+		                <div class="col-md-12">
+			                <div class="row">
+				                <div class="col-md-8">
+					                <div class="row">
+						                <div class="col-md-6">
+                                              <asp:Chart ID="Grafico1" runat="server">
                                                 <Series>
-                                                    <asp:Series Name="Series" Legend="Legend1"></asp:Series>
+                                                    <asp:Series Name="Series" Legend="Legend1" ChartType="Line"></asp:Series>
                                                 </Series>
                                                 <ChartAreas>
                                                     <asp:ChartArea Name="ChartArea"></asp:ChartArea>
@@ -140,11 +141,11 @@
                                                     </asp:Title>
                                                 </Titles>
                                             </asp:Chart>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <asp:Chart ID="Grafico2" runat="server">
+						                </div>
+						                <div class="col-md-6">
+                                              <asp:Chart ID="Grafico2" runat="server">
                                                 <Series>
-                                                    <asp:Series Name="Series" Legend="Legend1" ChartType="Pie"></asp:Series>
+                                                    <asp:Series Name="Series" Legend="Legend1"></asp:Series>
                                                 </Series>
                                                 <ChartAreas>
                                                     <asp:ChartArea Name="ChartArea"></asp:ChartArea>
@@ -154,15 +155,13 @@
                                                     </asp:Title>
                                                 </Titles>
                                             </asp:Chart>
-                                        </div>
-                                    </div>
+						                </div>
+					                </div>
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <asp:Chart ID="Grafico3" runat="server">
+						                <div class="col-md-6">
+                                                   <asp:Chart ID="Grafico3" runat="server">
                                                         <Series>
-                                                            <asp:Series Name="Series" ChartType="Line" Legend="Legend1"></asp:Series>
+                                                            <asp:Series Name="Series" Legend="Legend1" ChartType="Line"></asp:Series>
                                                         </Series>
                                                         <ChartAreas>
                                                             <asp:ChartArea Name="ChartArea"></asp:ChartArea>
@@ -172,11 +171,11 @@
                                                             </asp:Title>
                                                         </Titles>
                                                     </asp:Chart>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <asp:Chart ID="Grafico4" runat="server">
+						                </div>
+						                <div class="col-md-6">
+                                            <asp:Chart ID="Grafico4" runat="server">
                                                         <Series>
-                                                            <asp:Series Name="Series" Legend="Legend1" ChartType="Pie"></asp:Series>
+                                                            <asp:Series Name="Series" Legend="Legend1"></asp:Series>
                                                         </Series>
                                                         <ChartAreas>
                                                             <asp:ChartArea Name="ChartArea"></asp:ChartArea>
@@ -186,18 +185,60 @@
                                                             </asp:Title>
                                                         </Titles>
                                                     </asp:Chart>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <h3>Últimos Ingresos<span data-feather="activity"></span></h3>
+						                </div>
+					                </div>
+				                </div>
+				                <div class="col-md-4">
+                                     <h3>Últimos Ingresos<span data-feather="activity"></span></h3>
                                     <form id="form1" runat="server">
                                         <asp:GridView ID="Lst_Movimientos" runat="server" CssClass="table table-striped table-hover"></asp:GridView>
                                     </form>
-                                </div>
-                            </div>
+				                </div>
+			                </div>
+                            <p class="divider"></p>
+			                <div class="row">
+				                <div class="col-md-12">
+                                    <h3><span class="label label-success">Información ingresada al ERP</span></h3>
+                                       <div class="table-responsive">
+                                         <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                              <th class="text-center" scope="col">#</th>
+                                              <th class="text-center" scope="col">Total documentos</th>
+                                              <th class="text-center" scope="col">NV desde Cotizaciones</th>
+                                              <th class="text-center" scope="col">Facturas</th>
+                                              <th class="text-center" scope="col">Total Facturado</th>
+                                            </tr>
+                                         </thead>
+                                          <tbody>
+                                            <tr>
+                                              <th scope="row">Cotizaciones</th>
+                                              <td class="text-center"><asp:Label ID="lbl_cotizaciones" runat="server"></asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_nv" runat="server"></asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_facturas_cot" runat="server"></asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_total_cot" runat="server"></asp:Label></td>
+                                            </tr>
+                                              <tr>
+                                              <th scope="row">Notas de Venta</th>
+                                              <td class="text-center"><asp:Label ID="lbl_notas_venta" runat="server"></asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_notas" runat="server">0</asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_facturas_nv" runat="server"></asp:Label></td>
+                                              <td class="text-center"><asp:Label ID="lbl_total_nv" runat="server"></asp:Label></td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </div>
+				                </div>
+			                </div>
+		                </div>
+	                </div>
+                </div>
+                <p class="divider"></p>
+                <p class="divider"></p>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                        
                         </div>
                     </div>
                 </div>

@@ -31,8 +31,8 @@ namespace erpweb
         {
             try
             {
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+                Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+                SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
                 if (Session["Usuario"].ToString() == "" || Session["Usuario"].ToString() == string.Empty)
                 {
                     Response.Redirect("Ppal.aspx");

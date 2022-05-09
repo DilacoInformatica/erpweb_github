@@ -67,13 +67,22 @@ namespace erpweb {
         protected global::System.Web.UI.WebControls.LinkButton Lnkvolver;
         
         /// <summary>
-        /// Control Btn_volveree.
+        /// Control LnkBtn_Aprobar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Btn_volveree;
+        protected global::System.Web.UI.WebControls.LinkButton LnkBtn_Aprobar;
+        
+        /// <summary>
+        /// Control Btn_volver.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton Btn_volver;
         
         /// <summary>
         /// Control lbl_status.
@@ -119,6 +128,15 @@ namespace erpweb {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Btn_buscar;
+        
+        /// <summary>
+        /// Control Btn_crearSolStock.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btn_crearSolStock;
         
         /// <summary>
         /// Control Grilla.

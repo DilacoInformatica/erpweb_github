@@ -45,17 +45,13 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "Ambiente Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
-
-
+                Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+                SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             }
             catch
             {
                 Response.Redirect("Ppal.aspx");
             }
-
- 
 
             if (!this.IsPostBack)
             {

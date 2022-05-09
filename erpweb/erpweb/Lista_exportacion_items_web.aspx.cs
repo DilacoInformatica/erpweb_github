@@ -20,8 +20,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 usuario = "2"; // mi usuarios por default mientras no nos conectemos al servidor

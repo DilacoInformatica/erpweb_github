@@ -19,7 +19,7 @@ namespace erpweb
         {
             // Session.Abandon();
 
-            Sserver = utiles.verifica_ambiente("SSERVER");
+            Sserver =  Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
             if (!String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
                 id_usuario = Convert.ToInt32(Request.QueryString["usuario"]);

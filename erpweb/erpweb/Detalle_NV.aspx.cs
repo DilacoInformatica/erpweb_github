@@ -32,8 +32,8 @@ namespace erpweb
 
             id_nv = Convert.ToInt32(Request.QueryString["nv"].ToString());
             // usuario = Convert.ToInt32(Request.QueryString["usuario"].ToString());
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
 
             lbl_neto.Style.Add("text-align", "right");
             lbl_tax.Style.Add("text-align", "right");
@@ -60,8 +60,8 @@ namespace erpweb
                 else
                 { lbl_ambiente.Text = "P"; lbl_ambiente.ToolTip = "Estás conetado al Ambiente de Producción"; }
 
-                Sserver = utiles.verifica_ambiente("SSERVER");
-                SMysql = utiles.verifica_ambiente("MYSQL");
+               // Sserver = utiles.verifica_ambiente("SSERVER");
+              //  SMysql = utiles.verifica_ambiente("MYSQL");
             }
             catch
             {
@@ -85,7 +85,7 @@ namespace erpweb
                 {
                     Btn_crearNV.Enabled = false;
                     lbl_error.Text = "NV N°" + id_nv + " ya fue creado en el ERP, consulte con su Administrador";
-                    lbl_error.ForeColor = Color.Red;
+                    //lbl_error.ForeColor = Color.Red;
                 }
                 muestra_info_nv(id_nv);
             }
@@ -145,8 +145,8 @@ namespace erpweb
             sql = sql + "dbo.tbl_Cargo ON ";
             sql = sql + "dbo.tbl_Areas_Empresa.ID_Area = dbo.tbl_Cargo.Id_Area RIGHT OUTER JOIN ";
             sql = sql + "dbo.tbl_Usuarios ON ";
-            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo and dbo.tbl_Usuarios.Id_Perfil = 17  ";
-            sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1)  ORDER BY CONCAT(dbo.tbl_Usuarios.Apellido_Usu, ' ', dbo.tbl_Usuarios.Nombre_Usu)  ";
+            sql = sql + "dbo.tbl_Cargo.ID_Cargo = dbo.tbl_Usuarios.Id_Cargo and dbo.tbl_Cargo.ID_Cargo in (20 ,22)  ";
+            sql = sql + "WHERE(dbo.tbl_Areas_Empresa.Puede_Vender = 1)  and dbo.tbl_Usuarios.activo = 1 ORDER BY CONCAT(dbo.tbl_Usuarios.Apellido_Usu, ' ', dbo.tbl_Usuarios.Nombre_Usu)  ";
 
             using (SqlConnection connection = new SqlConnection(Sserver))
             {
@@ -570,7 +570,7 @@ namespace erpweb
             }
             if (busco == "I")
             {
-                sql = "select max(id_cliente from tbl_clientes where rut = " + rut;
+                sql = "select max(id_cliente) from tbl_clientes where rut = " + rut;
             }
 
             int result = 0;

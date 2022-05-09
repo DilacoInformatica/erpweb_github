@@ -33,8 +33,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
 
 
             if (Convert.ToString(Session["id_usuario"]) != "")
@@ -63,6 +63,11 @@ namespace erpweb
              if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_14", Sserver) == "SI")
             {
                 RevRegPrecios();
+            }
+
+            if (utiles.obtiene_acceso_pagina(Session["Usuario"].ToString(), "OPC_009_15", Sserver) == "SI")
+            {
+                CargaEstadisticasVenta();
             }
 
             if (!this.IsPostBack)
@@ -125,6 +130,53 @@ namespace erpweb
                 catch (Exception ex)
                 {
                     lbl_error.Text = ex.Message;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        void CargaEstadisticasVenta()
+        {
+            string result = "";
+            using (SqlConnection connection = new SqlConnection(Sserver))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("web_estadisticas_web", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter param = new SqlParameter();
+                    // Parámetros
+                    using (SqlDataReader rdr = cmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            if (!rdr.IsDBNull(0))
+                            {
+                                lbl_cotizaciones.Text = rdr.GetInt32(0).ToString();
+                                lbl_nv.Text = rdr.GetInt32(1).ToString();
+                                lbl_facturas_cot.Text = rdr.GetInt32(2).ToString();
+                                lbl_total_cot.Text = rdr.GetDouble(3).ToString();
+
+                                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                                int valueBefore = Int32.Parse(lbl_total_cot.Text, System.Globalization.NumberStyles.AllowThousands);
+                                lbl_total_cot.Text = String.Format(culture, "{0:N0}", valueBefore);
+                                lbl_total_cot.Text = "$" + lbl_total_cot.Text.Replace(",", ".");
+                            }
+                        }
+                    }
+
+                    connection.Close();
+                    connection.Dispose();
+
+
+                }
+                catch (Exception ex)
+                {
+                    lbl_error.Text = "Error en CargaEstadisticasVenta: " + ex.Message;
                 }
                 finally
                 {

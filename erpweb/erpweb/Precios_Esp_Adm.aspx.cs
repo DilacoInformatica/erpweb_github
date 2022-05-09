@@ -18,8 +18,8 @@ namespace erpweb
         Cls_Utilitarios utiles = new Cls_Utilitarios();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             Response.AddHeader("Refresh", Convert.ToString((Session.Timeout * 60) + 5));
             // ocultamos el botón de agregar nuevos codigos para que sea el ERP el encargado de subir ítems
             Btn_Nuevo.Visible = false;

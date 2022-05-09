@@ -23,8 +23,8 @@ namespace erpweb
         protected void Page_Load(object sender, EventArgs e)
         {
             id_contacto = Convert.ToInt32(Request.QueryString["nv"].ToString());
-            Sserver = utiles.verifica_ambiente("SSERVER");
-            SMysql = utiles.verifica_ambiente("MYSQL");
+            Sserver = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("SSERVER"));
+            SMysql = Cls_Seguridad.DesEncriptar(utiles.verifica_ambiente("MYSQL"));
             Btn_Respuesta.Attributes["Onclick"] = "return confirm('Confirma respuesta a Contacto desde el Sitio Web? Respuesta será enviada vía correo electrónico')";
             if (String.IsNullOrEmpty(Request.QueryString["usuario"]))
             {
